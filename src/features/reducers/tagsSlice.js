@@ -34,7 +34,7 @@ const tagsSlice = createSlice({
     },
     [getById.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.tag = payload.categoria
+      state.tag = payload.tag
     },
     [getById.rejected]: (state) => {
       state.cargando = true
@@ -67,7 +67,7 @@ const tagsSlice = createSlice({
       state.cargando = true
     },
     [deleteById.fulfilled]: (state, { payload }) => {
-      state.tags = [...state.tags.filter((tag) => tag.id !== payload.id)]
+      state.tags = [...state.tags.filter((tag) => tag.id !== payload.tag.id)]
       state.cargando = false
     },
     [deleteById.rejected]: (state) => {
