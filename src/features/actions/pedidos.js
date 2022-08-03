@@ -3,9 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 // <----------------- acciones que interactuan con la DB ----------------->
-export const getAll = createAsyncThunk('categorias/@GET/ALL', async () => {
+export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {
   try {
-    const { data } = await axios.get('http://localhost:8000/categoria')
+    const { data } = await axios.get('http://localhost:8000/pedido')
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -13,9 +13,9 @@ export const getAll = createAsyncThunk('categorias/@GET/ALL', async () => {
   }
 })
 
-export const getById = createAsyncThunk('categorias/@GETBYID', async (id) => {
+export const getById = createAsyncThunk('pedido/@GETBYID', async (id) => {
   try {
-    const { data } = await axios.get(`http://localhost:8000/categoria/${id}`)
+    const { data } = await axios.get(`http://localhost:8000/pedido/${id}`)
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -23,12 +23,9 @@ export const getById = createAsyncThunk('categorias/@GETBYID', async (id) => {
   }
 })
 
-export const create = createAsyncThunk('create/@CREATE', async (categoria) => {
+export const create = createAsyncThunk('create/@CREATE', async (pedido) => {
   try {
-    const { data } = await axios.post(
-      'http://localhost:8000/categoria',
-      categoria
-    )
+    const { data } = await axios.post('http://localhost:8000/pedido', pedido)
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -38,11 +35,11 @@ export const create = createAsyncThunk('create/@CREATE', async (categoria) => {
 
 export const update = createAsyncThunk(
   'update/@PUT/ID',
-  async ({ id, categoria }) => {
+  async ({ id, pedido }) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:8000/categoria/${id}`,
-        categoria
+        `http://localhost:8000/pedido/${id}`,
+        pedido
       )
       return data
     } catch (error) {
@@ -54,7 +51,7 @@ export const update = createAsyncThunk(
 
 export const deleteById = createAsyncThunk('delete/@DELETE/ID', async (id) => {
   try {
-    const { data } = await axios.delete(`http://localhost:8000/categoria/${id}`)
+    const { data } = await axios.delete(`http://localhost:8000/pedido/${id}`)
     return data
   } catch (error) {
     const msg = error.response.data.msg
