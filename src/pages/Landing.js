@@ -10,17 +10,18 @@ export default function Landing() {
       <h2 className="text-1xl font-bold font-poiret-one">
         donde encuentras tus historias
       </h2>
+      <img></img>
       <div>
-      <Link to= '/login'>
-        <button className='p-2'>
-          Login
-        </button>
-      </Link>
-      <Link to= '/register'>
-        <button className='p-2'>
-          Login
-        </button>
-      </Link>
+        <Link to='/login' className='p-1'>
+          <button className='p-1 border-2 rounded-xl'>
+            Ingresar
+          </button>
+        </Link>
+        <Link to='/register' className='p-1'>
+          <button className='p-1 border-2 rounded-xl'>
+            Registrarse
+          </button>
+        </Link>
       </div>
       <br></br>
       <h2 className="text-2xl font-semibold font-poiret-one">

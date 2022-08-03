@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Landing from './pages/Landing';
+import Login from './pages/Login';
+import Register from './pages/Register';
 /*import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Error from './pages/Error'
@@ -21,6 +23,8 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </BrowserRouter>
@@ -31,6 +35,5 @@ function App() {
           <Route path="/books/:id" element={<Details />} />
           <Route path="/user" element={<Profile />} />
           <Route path="*" element={<Error />} />
-
 */
 export default App
