@@ -5,14 +5,10 @@ import axios from 'axios'
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('categorias/@GETALL', async () => {
   try {
-    const { data } = await axios.get('http://localhost:8000/categorias')
-
-    if (data.categorias) {
-      return data.categorias
-    } else {
-      return data.msg
-    }
+    const { data } = await axios.get('http://localhost:8000/categoria')
+    return data.categorias
   } catch (error) {
-    console.log(error)
+    const msg = error.response.data.msg
+    return msg
   }
 })

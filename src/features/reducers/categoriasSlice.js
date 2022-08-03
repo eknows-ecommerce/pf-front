@@ -21,7 +21,6 @@ const categoriasSlice = createSlice({
     },
     [getAll.fulfilled]: (state, action) => {
       state.cargandoCategorias = false
-      console.log(action.payload)
       state.categorias = action.payload
     },
     [getAll.rejected]: (state) => {
