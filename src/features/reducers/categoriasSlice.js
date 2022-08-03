@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { extraReducers } from '../actions/categorias'
+import { getAll } from '../actions/categorias'
 
 const initialState = {
   categorias: [],
@@ -15,7 +15,19 @@ const categoriasSlice = createSlice({
       state.cargandoCategorias = !state.cargandoCategorias
     },
   },
-  extraReducers: extraReducers,
+  extraReducers: {
+    [getAll.pending]: (state) => {
+      state.cargandoCategorias = true
+    },
+    [getAll.fulfilled]: (state, action) => {
+      state.cargandoCategorias = false
+      console.log(action.payload)
+      state.categorias = action.payload
+    },
+    [getAll.rejected]: (state) => {
+      state.cargandoCategorias = true
+    },
+  },
 })
 
 export const { cambiarCargando } = categoriasSlice.actions
