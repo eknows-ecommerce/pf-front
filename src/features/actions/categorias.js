@@ -44,7 +44,6 @@ export const update = createAsyncThunk(
         `http://localhost:8000/categoria/${id}`,
         categoria
       )
-      console.log(data)
       return data
     } catch (error) {
       const msg = error.response.data.msg
