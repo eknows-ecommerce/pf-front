@@ -10,6 +10,18 @@ export default function Landing() {
       <h2 className="text-1xl font-bold font-poiret-one">
         donde encuentras tus historias
       </h2>
+      <div>
+      <Link to= '/login'>
+        <button className='p-2'>
+          Login
+        </button>
+      </Link>
+      <Link to= '/register'>
+        <button className='p-2'>
+          Login
+        </button>
+      </Link>
+      </div>
       <br></br>
       <h2 className="text-2xl font-semibold font-poiret-one">
         Viaja a otro universo con solo un click
