@@ -1,0 +1,81 @@
+.bgfooter{
+    background-color: #d5ecd6;
+    /* background-image:  url('../images/625 2.jpg'); */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 100%;
+    height: auto;
+}
+
+.divAlign{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.textTitleFooter{
+    font-family: 'Courier New', Courier, monospace;
+    color: #515151;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.textTitleFooter2{
+    font-family: 'Courier New', Courier, monospace;
+    color: #515151;
+    font-size: medium;
+    text-decoration: none;
+}
+
+.textTitleFooter2:hover{
+    text-decoration:underline;
+  }
+
+  a.textTitleFooter2.active {
+    background-color: transparent;
+}
+
+.textTitleFooterinfoSize{
+    font-family: 'Courier New', Courier, monospace;
+    color: #515151;
+    font-size: small;
+}
+
+.texttitle2{
+    font-family: 'Courier New', Courier, monospace;
+    color: #515151;
+    font-size: medium;
+    text-decoration: none;
+}
+
+.iconsSize{
+    margin-top: 5px;
+    font-size: medium;
+    color: #7a7979;
+}
+
+
+.inputBox{
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid #949393;
+    outline: none;
+    font-family:'Courier New', Courier, monospace;
+    color:#7a7979;
+}
+.inputbtn{
+    border: none;
+    background-color: transparent;
+    color:#7a7979;
+} 
+
+.textTitleFooter2:hover{
+    text-decoration:underline;
+  }
+
+a.textTitleFooter2.active {
+    background-color: transparent;
+}
