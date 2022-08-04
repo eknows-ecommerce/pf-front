@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom'
 //import { logUser } from "../actions";
 
 const validateForm = (form) => {
@@ -9,20 +9,20 @@ const validateForm = (form) => {
   let regexName = /^[0-9A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
 
   if (!form.user.trim()) {
-    errors.user = "This field is required";
+    errors.user = "Este campo es obligatorio";
   }
   if (!form.pswd.trim()) {
-    errors.pswd = "This field is required";
+    errors.pswd = "Este campo es obligatorio";
   }
 
   if (typeof form.user.trim() !== "undefined") {
     if (!regexName.test(form.user.trim())) {
-      errors.title = "This field only accept letters and numbers";
+      errors.title = "Este campo solo acepta letras y números";
     }
   }
   if (typeof form.pswd.trim() !== "undefined") {
     if (!regexName.test(form.pswd.trim())) {
-      errors.title = "This field only accept letters and numbers";
+      errors.title = "Este campo solo acepta letras y números";
     }
   }
 
@@ -53,10 +53,9 @@ export default function Login() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    //si hay errores no enviar
     if (Object.keys(errorsForm).length !== 0) {
       alert("Error log in");
+      e.preventDefault();
     } else {
       e.preventDefault();
       //dispatch(logUser(form));
@@ -66,36 +65,36 @@ export default function Login() {
 
   return (
     <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <h1 className="font-bold font-poiret-one p-2">
-          Usuario:
-        </h1>
-        <input className="font-bold font-poiret-one p-1 border-2"
-          type='text'
-          name='user'
-          value={form.user}
-          onChange={(e) => handleChange(e)}
-        />
-        {errorsForm.title ? (
-          <h1 className="font-bold text-red-500">{errorsForm.title}</h1>
-        ) : (
-          false
-        )}
-        <h1 className="font-bold font-poiret-one p-2">
-          Contraseña:
-        </h1>
-        <input className="font-bold font-poiret-one p-1 border-2"
-          type='password'
-          name='pswd'
-          value={form.pswd}
-          onChange={(e) => handleChange(e)}
-        />
-        {errorsForm.pswd ? (
-          <h1 className="font-bold text-red-500">{errorsForm.pswd}</h1>
-        ) : (
-          false
-        )}
-        <div className='p-2'>
+      <form className='' onSubmit={(e) => handleSubmit(e)}>
+          <h1 className="font-bold font-poiret-one p-2">
+            Usuario:
+          </h1>
+          <input className="font-bold font-poiret-one p-1 border-2"
+            type='text'
+            name='user'
+            value={form.user}
+            onChange={(e) => handleChange(e)}
+          />
+          {errorsForm.user ? (
+            <h1 className="font-bold text-xs text-red-500">{errorsForm.user}</h1>
+          ) : (
+            false
+          )}
+          <h1 className="font-bold font-poiret-one p-2">
+            Contraseña:
+          </h1>
+          <input className="font-bold font-poiret-one p-1 border-2"
+            type='password'
+            name='pswd'
+            value={form.pswd}
+            onChange={(e) => handleChange(e)}
+          />
+          <h1 className="text-blue-600 text-xs pl-12">Cambiar contraseña</h1>
+          {errorsForm.pswd ? (
+            <h1 className="font-bold text-xs text-red-500">{errorsForm.pswd}</h1>
+          ) : (
+            <br></br>
+          )}
           <button
             className='p-1 pt-0 border-2 rounded-xl'
             type="submit"
@@ -103,7 +102,6 @@ export default function Login() {
           //disabled={Object.keys(errorsForm).length === 0 ? false : true}
           >Ingresar
           </button>
-        </div>
         <h1 className="p-2">
           o conecta con:
         </h1>
