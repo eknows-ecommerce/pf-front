@@ -15,19 +15,22 @@ export default function Navbar() {
   return (
     <div className={Style.main}>
       <div className={Style.header}>
-        <Link to="">
+        <Link to="#Landing">
           <img src={logo2} alt="" />
         </Link>
         {/*<Link to="/create" ><button className={Style.btnH}> New Product </button></Link>*/}
         {/* <SearchBar /> */}
 
-        <Link style={{ textDecoration: 'none', color: 'black' }} to="">
+        <Link style={{ textDecoration: 'none', color: 'black' }} to="#Home">
           <p className={Style.of}>Tienda</p>
         </Link>
-        <Link style={{ textDecoration: 'none', color: 'black' }} to="">
+        <Link
+          style={{ textDecoration: 'none', color: 'black' }}
+          to="#MasVendidos"
+        >
           <p className={Style.of}>Mas vendidos</p>
         </Link>
-        <Link style={{ textDecoration: 'none', color: 'black' }} to="">
+        <Link style={{ textDecoration: 'none', color: 'black' }} to="#ofertas">
           <p className={Style.of}>Ofertas</p>
         </Link>
 
