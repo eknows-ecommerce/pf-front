@@ -5,9 +5,11 @@ export default function Landing() {
   return (
     <div>
       <img src='https://media.istockphoto.com/vectors/book-or-notebook-with-404-torn-out-page-vector-id1179991026'></img>
-      <button>
-        Go Back
-      </button>
+      <Link to='/' className='p-1'>
+        <button className='p-1 border-2 rounded-xl'>
+          Volver
+        </button>
+      </Link>
     </div>
   )
 }
