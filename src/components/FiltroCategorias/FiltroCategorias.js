@@ -6,7 +6,6 @@ function FiltroCategorias({ lista }) {
 
   return (
     <div>
-      {/* Por ahora usamos un <select> para ver la funcionalidad, pero cuando empezemos con CSS podemos cambiar la estructura */}
       <select name="categorias" id="categoria-select" onChange={handleSelected}>
         <option value="">Todos</option>
         {lista.map((item) => (
