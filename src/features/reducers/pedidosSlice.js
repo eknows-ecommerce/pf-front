@@ -1,22 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import {
-  getAll,
-  create,
-  getById,
-  update,
-  deleteById,
-} from '../actions/categorias'
+import { getAll, create, getById, update, deleteById } from '../actions/pedidos'
 
 const initialState = {
-  categorias: [],
-  categoria: {},
+  pedidos: [],
+  pedido: {},
   cargando: null,
   msg: null,
 }
 
-const categoriasSlice = createSlice({
-  name: 'categorias',
+const pedidosSlice = createSlice({
+  name: 'pedidos',
   initialState,
   reducers: {
     cambiarCargando: (state) => {
@@ -24,53 +18,53 @@ const categoriasSlice = createSlice({
     },
   },
   extraReducers: {
-    // OBTENER TODAS LAS CATEGORIAS
+    // OBTENER TODOS LOS PEDIDOS
     [getAll.pending]: (state) => {
       state.cargando = true
     },
     [getAll.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.categorias = payload.categorias
+      state.pedidos = payload.pedidos
     },
     [getAll.rejected]: (state, { payload }) => {
       state.cargando = true
       state.msg = payload.msg
     },
-    // OBTENER CATEGORIA POR ID
+    // OBTENER PEDIDO POR ID
     [getById.pending]: (state) => {
       state.cargando = true
     },
     [getById.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.categoria = payload.categoria
+      state.pedido = payload.pedido
     },
     [getById.rejected]: (state, { payload }) => {
       state.cargando = true
       state.msg = payload.msg
     },
-    // CREAR UNA CATEGORIA NUEVA
+    // CREAR UN PEDIDO NUEVO
     [create.pending]: (state) => {
       state.cargando = true
     },
     [create.fulfilled]: (state, { payload }) => {
       state.cargando = false
       state.msg = payload.msg
-      state.categorias = [...state.categorias, payload.categoria]
+      state.pedidos = [...state.pedidos, payload.pedido]
     },
     [create.rejected]: (state, { payload }) => {
       state.cargando = true
       state.msg = payload.msg
     },
-    // ACTUALIZAR UNA CATEGORIA
+    // ACTUALIZAR UN PEDIDO
     [update.pending]: (state) => {
       state.cargando = true
     },
     [update.fulfilled]: (state, { payload }) => {
-      const index = state.categorias.findIndex(
-        (categoria) => categoria.id === payload.categoria.id
+      const index = state.pedidos.findIndex(
+        (pedido) => pedido.id === payload.pedido.id
       )
 
-      state.categorias[index] = payload.categoria
+      state.pedidos[index] = payload.pedido
 
       state.cargando = false
       state.msg = payload.msg
@@ -79,13 +73,13 @@ const categoriasSlice = createSlice({
       state.cargando = true
       state.msg = payload.msg
     },
-    // ELIMINAR UNA CATEGORIA
+    // ELIMINAR UN PEDIDO
     [deleteById.pending]: (state) => {
       state.cargando = true
     },
     [deleteById.fulfilled]: (state, { payload }) => {
-      state.categorias = state.categorias.filter(
-        (categoria) => categoria.id !== payload.categoria.id
+      state.pedidos = state.pedidos.filter(
+        (pedido) => pedido.id !== payload.pedido.id
       )
       state.msg = payload.msg
     },
@@ -96,6 +90,6 @@ const categoriasSlice = createSlice({
   },
 })
 
-export const { cambiarCargando } = categoriasSlice.actions
+export const { cambiarCargando } = pedidosSlice.actions
 
-export default categoriasSlice.reducer
+export default pedidosSlice.reducer
