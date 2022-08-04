@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 // import { useAuth0 } from "@auth0/auth0-react";
 import { FaShoppingCart } from 'react-icons/fa'
-import logo2 from '../../assets/logo2.png'
+import logo2 from '../../assets/imagenes/logo2.png'
 import Style from './navbar.module.css'
 // import { Login } from '../Users/LogIn';
 
