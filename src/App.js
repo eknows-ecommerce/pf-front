@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Error from './pages/Error';
 /*import Home from './pages/Home';
 import Profile from './pages/Profile';
-import Error from './pages/Error'
 import Details from './pages/Details';*/
 import { getAll } from './features/actions/categorias'
 import { useDispatch } from 'react-redux'
@@ -25,6 +25,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </div>
     </BrowserRouter>
@@ -34,6 +35,5 @@ function App() {
           <Route path="/books" element={<Home />} />
           <Route path="/books/:id" element={<Details />} />
           <Route path="/user" element={<Profile />} />
-          <Route path="*" element={<Error />} />
 */
 export default App

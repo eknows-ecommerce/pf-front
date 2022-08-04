@@ -26,17 +26,13 @@ export default function Landing() {
       <h1 className="p-2">
         o usa la cuenta de:
       </h1>
-      <div className='p-2'>
-        <Link to='/login' className='p-1'>
-          <button className='p-1 pt-0 border-2 rounded-xl'>
-            Google img
-          </button>
-        </Link>
-        <Link to='/login' className='p-1'>
-          <button className='p-1 pt-0 border-2 rounded-xl'>
-            Github img
-          </button>
-        </Link>
+      <div className='p-1'>
+        <button className='p-1 rounded-full'>
+          <img src='https://cdn-icons-png.flaticon.com/512/2965/2965278.png' width={64}></img>
+        </button>
+        <button className='p-1 rounded-full'>
+          <img src='https://cdn-icons-png.flaticon.com/512/25/25231.png' width={64}></img>
+        </button>
       </div>
     </div>
   )

@@ -10,7 +10,6 @@ export default function Landing() {
       <h2 className="text-1xl font-bold font-poiret-one">
         donde encuentras tus historias
       </h2>
-      <img></img>
       <div>
         <Link to='/login' className='p-1'>
           <button className='p-1 border-2 rounded-xl'>
@@ -28,19 +27,25 @@ export default function Landing() {
         Viaja a otro universo con solo un click
       </h2>
       <br></br>
-      <h2 className="text-3xl font-semibold font-poiret-one">
-        K-views
-      </h2>
-      <h2 className="text-2xl font-poiret-one">
-        Las historias mas atrapantes, a donde quieras
-      </h2>
+      <img about='K-views'></img>
+      <Link to='/kviews' className='p-1'>
+        <h2 className="text-3xl font-semibold font-poiret-one">
+          K-views
+        </h2>
+        <h2 className="text-2xl font-poiret-one">
+          Las historias mas atrapantes, a donde quieras
+        </h2>
+      </Link>
       <br></br>
-      <h2 className="text-3xl font-semibold font-poiret-one">
-        K-stories
-      </h2>
-      <h2 className="text-2xl font-poiret-one">
-        Para tí, en todas las formas
-      </h2>
+      <img about='K-stories'></img>
+      <Link to='/kstories' className='p-1'>
+        <h2 className="text-3xl font-semibold font-poiret-one">
+          K-stories
+        </h2>
+        <h2 className="text-2xl font-poiret-one">
+          Para tí, en todas las formas
+        </h2>
+      </Link>
     </div>
   )
 }
