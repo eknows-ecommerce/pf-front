@@ -1,6 +1,5 @@
 import { Carousel } from 'react-carousel-minimal'
 import { images } from '../../assets/img'
-import style from './Carrusel.module.css'
 
 export default function Carrusel() {
   const data = [
@@ -18,7 +17,7 @@ export default function Carrusel() {
     },
   ]
   return (
-    <div className={style.containerCarousel}>
+    <div className='m-5'>
       <Carousel
         data={data}
         time={6000}

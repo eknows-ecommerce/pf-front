@@ -4,7 +4,7 @@ import logo from './../../assets/img/logo3.png'
 
 export default function SectionSesion() {
   return (
-    <div>
+    <div className='m-20'>
       <div className='display: flex'>
         <img src={logo}></img>
         <div>

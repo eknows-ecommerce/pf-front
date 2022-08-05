@@ -4,7 +4,7 @@ import logo from './../../assets/img/logo3.png'
 
 export default function SectionSesion() {
   return (
-    <>
+    <div className='m-10'>
       <h2 className="text-3xl font-semibold font-poiret-one">K-views</h2>
       <h2 className="text-2xl font-poiret-one">
         Las historias mas atrapantes, a donde quieras
@@ -14,7 +14,7 @@ export default function SectionSesion() {
       <h2 className="text-2xl font-poiret-one">
         Para tí, en todas las formas
       </h2>
-    </>
+    </div>
   )
 }
 
