@@ -37,9 +37,9 @@ export default function Carrusel() {
           margin: '3rem auto',
         }}
       />
-      <h2 className="text-2xl font-semibold font-poiret-one">
+      <h1 className="text-2xl font-semibold font-poiret-one text-center">
         Viaja a otro universo con solo un click
-      </h2>
+      </h1>
     </div>
   )
 }
