@@ -1,6 +1,6 @@
 import React from 'react'
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom'
 //import { registUser } from "../actions";
 
@@ -28,16 +28,16 @@ const validateForm = (form) => {
   }*/
   if (typeof form.user.trim() !== "undefined") {
     if (!regexName.test(form.user.trim())) {
-      errors.user = "Este campo solo acepta letras y números";
+      errors.title = "Este campo solo acepta letras y números";
     }
   }
   if (typeof form.pswd.trim() !== "undefined") {
     if (!regexName.test(form.pswd.trim())) {
-      errors.pswd = "Este campo solo acepta letras y números";
+      errors.title = "Este campo solo acepta letras y números";
     }
   }
   if (form.pswd.trim() !== form.pswd2.trim()) {
-    errors.pswd2 = "Las contraseñas son diferentes";
+    errors.title = "Las contraseñas son diferentes";
   }
 
   return errors;
