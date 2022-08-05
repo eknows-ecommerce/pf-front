@@ -1,27 +1,43 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import logo from './../../assets/img/logo3.png'
 
 export default function SectionSesion() {
   return (
-    <div className='m-20 flex items-center justify-center'>
-        <img src={logo}></img>
-        <div >
-          <h1 className="text-6xl font-bold font-poiret-one p-3 pb-0">
-            Hola!, bienvenidos a e-Knews
-          </h1>
-          <h2 className="text-2xl font-bold font-poiret-one pl-5 pr-5">
-            donde encuentras tus historias
-          </h2>
-          <div className='p-1 pl-10 align-center'>
-            <Link to="/login" className="p-1">
-              <button className="p-1 border-2 rounded-xl">Ingresar</button>
-            </Link>
-            <Link to="/register" className="p-1">
-              <button className="p-1 border-2 rounded-xl">Registrarse</button>
-            </Link>
-          </div>
-        </div>
+    <div>
+      <h1 className="text-6xl font-bold font-poiret-one p-10">
+        Hola!, bienvenidos a e-Knews
+      </h1>
+      <h2 className="text-1xl font-bold font-poiret-one">
+        donde encuentras tus historias
+      </h2>
+      <div>
+        <Link to="/login" className="p-1">
+          <button className="p-1 border-2 rounded-xl">Ingresar</button>
+        </Link>
+        <Link to="/register" className="p-1">
+          <button className="p-1 border-2 rounded-xl">Registrarse</button>
+        </Link>
+      </div>
+      <br></br>
+      <h2 className="text-2xl font-semibold font-poiret-one">
+        Viaja a otro universo con solo un click
+      </h2>
+      <br></br>
+      <img about="K-views"></img>
+      <Link to="/kviews" className="p-1">
+        <h2 className="text-3xl font-semibold font-poiret-one">K-views</h2>
+        <h2 className="text-2xl font-poiret-one">
+          Las historias mas atrapantes, a donde quieras
+        </h2>
+      </Link>
+      <br></br>
+      <img about="K-stories"></img>
+      <Link to="/kstories" className="p-1">
+        <h2 className="text-3xl font-semibold font-poiret-one">K-stories</h2>
+        <h2 className="text-2xl font-poiret-one">
+          Para tí, en todas las formas
+        </h2>
+      </Link>
     </div>
   )
 }
