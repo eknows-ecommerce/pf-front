@@ -4,9 +4,9 @@ import logo from './../../assets/img/logo3.png'
 
 export default function SectionSesion() {
   return (
-    <div className='m-20 display: flex'>
+    <div className='m-20 flex items-center justify-center'>
         <img src={logo}></img>
-        <div>
+        <div >
           <h1 className="text-6xl font-bold font-poiret-one p-3 pb-0">
             Hola!, bienvenidos a e-Knews
           </h1>
