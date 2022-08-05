@@ -1,24 +1,20 @@
 import { Carousel } from 'react-carousel-minimal'
-import img1 from '../../../assets/imagenes/imagenes libros/percy.jpg'
-import img2 from '../../../assets/imagenes/imagenes libros/harrypotter1.webp'
-import img3 from '../../../assets/imagenes/imagenes libros/game-of-thrones.webp'
-import img4 from '../../../assets/imagenes/imagenes libros/losjuegos.jpeg'
-
+import { images } from '../../assets/img'
 import style from './Carrusel.module.css'
 
 export default function Carrusel() {
   const data = [
     {
-      image: img1,
+      image: images['percy'],
     },
     {
-      image: img2,
+      image: images['game_of_thrones'],
     },
     {
-      image: img3,
+      image: images['harrypotter'],
     },
     {
-      image: img4,
+      image: images['losjuegos'],
     },
   ]
   return (

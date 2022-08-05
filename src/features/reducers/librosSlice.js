@@ -5,6 +5,7 @@ import { getAll, getById, create, update, deleteById } from '../actions/libros'
 const initialState = {
   libros: [],
   libro: {},
+  count: 0,
   cargando: null,
 }
 
@@ -24,6 +25,7 @@ const librosSlice = createSlice({
     [getAll.fulfilled]: (state, { payload }) => {
       state.cargando = false
       state.libros = payload.libros
+      state.count = payload.count
     },
     [getAll.rejected]: (state) => {
       state.cargando = true
@@ -46,6 +48,7 @@ const librosSlice = createSlice({
     [create.fulfilled]: (state, { payload }) => {
       state.cargando = false
       state.libros = [...state.libros, payload.libro]
+      state.total = state.total + 1
     },
     [create.rejected]: (state) => {
       state.cargando = true
@@ -72,6 +75,7 @@ const librosSlice = createSlice({
       state.libros = [
         ...state.libros.filter((libro) => libro.id !== payload.libro.id),
       ]
+      state.total = state.total - 1
       state.cargando = false
     },
     [deleteById.rejected]: (state) => {

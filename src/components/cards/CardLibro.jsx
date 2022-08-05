@@ -1,8 +1,8 @@
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import useFavorite from '../../hooks/useToggle'
 
-function CardLibro({ portada, titulo, descuento = 15, precio }) {
+function CardLibro({ id, portada, titulo, descuento = 15, precio }) {
   const { toggle, handleToggle } = useFavorite(false)
 
   return (
@@ -21,8 +21,8 @@ function CardLibro({ portada, titulo, descuento = 15, precio }) {
         </DetailsContainer>
       </BodyContainer>
       <FooterContainer>
-        {/* <Link to={'detalle'}>Ver detalle</Link> */}
-        {/* <Link to={'Car'}>Add Car</Link> */}
+        <Link to={`/detalle/${id}`}>Ver detalle</Link>
+        <Link to={'#Car'}>Add Car</Link>
       </FooterContainer>
     </CardContainer>
   )

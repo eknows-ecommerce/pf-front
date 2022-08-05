@@ -8,8 +8,11 @@
     border-bottom-width: .12em;
     border-bottom-color: rgb(255, 255, 255);
     background-color: #fbf70071
-    
-    
+}
+
+.header img{
+    width: 50px;
+    height: 50px;
 }
 .title {
     font-size: 3.22em;    

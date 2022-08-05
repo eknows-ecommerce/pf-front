@@ -1,11 +1,17 @@
 import { useState } from 'react'
 
-function usePaginacion(length) {
-    
+function usePaginacion() {
   const [paginas, setPaginas] = useState({
-    currentPage: 1,
-    totalPages: length,
+    currentPage: 0,
+    totalPages: 0,
   })
+
+  const handleTotal = (total) => {
+    setPaginas({
+      ...paginas,
+      totalPages: Math.ceil(total / 6),
+    })
+  }
 
   const paginaAnterior = () => {
     setPaginas({
@@ -37,6 +43,7 @@ function usePaginacion(length) {
     paginaAnterior,
     paginaSeleccionada,
     paginaSiguiente,
+    handleTotal,
   }
 }
 

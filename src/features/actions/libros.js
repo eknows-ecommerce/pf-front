@@ -3,9 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 // <----------------- acciones que conectan a la base de datos ----------------->
-export const getAll = createAsyncThunk('libros/@GETALL', async () => {
+export const getAll = createAsyncThunk('libros/@GETALL', async (offset) => {
   try {
-    const { data } = await axios.get('http://localhost:8000/libro')
+    const { data } = await axios.get('http://localhost:8000/libros?' + offset)
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -15,7 +15,7 @@ export const getAll = createAsyncThunk('libros/@GETALL', async () => {
 
 export const getById = createAsyncThunk('libros/@GETBYID', async (id) => {
   try {
-    const { data } = await axios.get(`http://localhost:8000/libro/${id}`)
+    const { data } = await axios.get(`http://localhost:8000/libros/${id}`)
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -25,7 +25,7 @@ export const getById = createAsyncThunk('libros/@GETBYID', async (id) => {
 
 export const create = createAsyncThunk('libros/@CREATE', async (libro) => {
   try {
-    const { data } = await axios.post('http://localhost:8000/libro', libro)
+    const { data } = await axios.post('http://localhost:8000/libros', libro)
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -36,7 +36,7 @@ export const create = createAsyncThunk('libros/@CREATE', async (libro) => {
 export const update = createAsyncThunk('libros/@UPDATE', async (libro) => {
   try {
     const { data } = await axios.put(
-      `http://localhost:8000/libro/${libro.id}`,
+      `http://localhost:8000/libros/${libro.id}`,
       libro
     )
     return data
@@ -48,7 +48,7 @@ export const update = createAsyncThunk('libros/@UPDATE', async (libro) => {
 
 export const deleteById = createAsyncThunk('libros/@DELETEBYID', async (id) => {
   try {
-    const { data } = await axios.delete(`http://localhost:8000/libro/${id}`)
+    const { data } = await axios.delete(`http://localhost:8000/libros/${id}`)
     return data
   } catch (error) {
     const msg = error.response.data.msg
