@@ -1,4 +1,3 @@
-// import { createSlice } from '@reduxjs/toolkit'
 import style from './footer.module.css'
 import {
   FaInstagram,
@@ -6,11 +5,9 @@ import {
   FaTiktok,
   FaFacebookF,
 } from 'react-icons/fa'
-// import React, { useState } from 'react'
 import swal from 'sweetalert'
 import { NavLink } from 'react-router-dom'
-// import { useDispatch } from 'react-redux'
-// import { footerSubscription } from '../redux/actions'
+
 export default function Footer() {
   return (
     <div className={style.bgfooter}>
