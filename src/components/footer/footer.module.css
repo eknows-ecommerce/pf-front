@@ -53,6 +53,7 @@
 
 .iconsSize{
     margin-top: 5px;
+    display: flex;
     font-size: medium;
     color: #7a7979;
 }
