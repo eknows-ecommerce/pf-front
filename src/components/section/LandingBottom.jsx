@@ -27,3 +27,12 @@ export default function SectionSesion() {
     </div>
   )
 }
+
+/*
+      <img about="K-views"></img>
+      <Link to="/views" className="p-1">
+      </Link>
+      <img about="K-stories"></img>
+      <Link to="/stories" className="p-1">
+      </Link>
+*/

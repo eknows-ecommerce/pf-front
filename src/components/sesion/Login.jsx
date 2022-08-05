@@ -1,8 +1,7 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-//import { logUser } from "../actions";
 
 const validateForm = (form) => {
   let errors = {}
@@ -17,12 +16,12 @@ const validateForm = (form) => {
 
   if (typeof form.user.trim() !== 'undefined') {
     if (!regexName.test(form.user.trim())) {
-      errors.title = 'Este campo solo acepta letras y números'
+      errors.user = 'Este campo solo acepta letras y números'
     }
   }
   if (typeof form.pswd.trim() !== 'undefined') {
     if (!regexName.test(form.pswd.trim())) {
-      errors.title = 'Este campo solo acepta letras y números'
+      errors.pswd = 'Este campo solo acepta letras y números'
     }
   }
 
