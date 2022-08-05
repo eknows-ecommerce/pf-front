@@ -7,6 +7,7 @@ import Register from '../components/sesion/Register'
 import Navbar from '../components/NavBar/Navbar'
 import Detalle from '../components/Detalle/Detalle'
 
+//Aqui iran todas las rutas
 function RoutesApp() {
   return (
     <Routes>
