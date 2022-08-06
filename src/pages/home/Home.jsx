@@ -24,7 +24,7 @@ function Home() {
   useEffect(() => {
     handleTotal(count)
     dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
-  }, [paginas.currentPage, count])
+  }, [count, paginas.currentPage])
 
   return (
     <>
