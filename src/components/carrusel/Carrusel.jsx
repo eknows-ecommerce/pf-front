@@ -38,7 +38,6 @@ export default function Carrusel() {
           margin: '3rem auto',
         }}
       />
-      <p>Viaja a otro universo con solo un click</p>
     </div>
   )
 }
