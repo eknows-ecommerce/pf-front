@@ -1,13 +1,16 @@
 function Button({ children, primary, secondary }) {
   const css = primary
-    ? `
-   bg-violet-500 inline-block  px-8 py-3 text-sm font-medium text-white transition rounded hover:scale-110 hover:shadow-xl active:bg-indigo-500 focus:outline-none focus:ring
-  `
-    : `
-  inline-block px-8 py-3 text-sm font-medium text-indigo-600 transition border border-current rounded hover:scale-110 hover:shadow-xl active:text-indigo-500 focus:outline-none focus:rin
-  `
-
-  return <button className={`${css}`}>{children}</button>
+    ? `text-white bg-rose-600 active:text-rose-700 hover:text-white rounded`
+    : secondary
+    ? `text-rose-600 bg-white active:text-rose-700 border border-current hover:text-rose-600 rounded-full`
+    : `text-white bg-rose-600 active:text-rose-700 hover:text-white`
+  return (
+    <button
+      className={`${css} w-full px-12 py-3 text-sm font-medium shadow text-w-600 sm:w-auto hover:scale-110 hover:shadow-xl  focus:outline-none focus:ring mr-2`}
+    >
+      {children}
+    </button>
+  )
 }
 
 export default Button
