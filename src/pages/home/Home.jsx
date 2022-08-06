@@ -19,12 +19,12 @@ function Home() {
 
   useEffect(() => {
     dispatch(getAll(`offset=0`))
-    handleTotal(count)
   }, [])
 
   useEffect(() => {
+    handleTotal(count)
     dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
-  }, [paginas.currentPage])
+  }, [paginas.currentPage, count])
 
   return (
     <>

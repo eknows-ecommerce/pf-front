@@ -2,8 +2,8 @@ import { useState } from 'react'
 
 function usePaginacion() {
   const [paginas, setPaginas] = useState({
-    currentPage: 0,
-    totalPages: 0,
+    currentPage: 1,
+    totalPages: 1,
   })
 
   const handleTotal = (total) => {
