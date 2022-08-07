@@ -8,9 +8,7 @@ export default function Landing() {
   return (
     <div>
       <Bienvenida />
-
       <Carrusel />
-
       <Views />
       <Stories />
       <Footer />

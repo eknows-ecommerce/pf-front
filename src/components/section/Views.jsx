@@ -3,16 +3,6 @@ import Button from '../templates/Button'
 
 function Views() {
   return (
-    //   <div>
-    //     <img src="K-views" alt="k-views"></img>
-    //     <Link to="/kviews" className="p-1">
-    //       <h2 className="text-3xl font-semibold font-poiret-one">K-views</h2>
-    //       <h2 className="text-2xl font-poiret-one">
-    //         Las historias mas atrapantes, a donde quieras
-    //       </h2>
-    //     </Link>
-    //   </div>
-    // )
     <aside className="overflow-hidden bg-gray-50 sm:grid sm:grid-cols-2">
       <div className="p-8 md:p-12 lg:px-16 lg:py-24">
         <div className="max-w-xl mx-auto text-center sm:text-left">
