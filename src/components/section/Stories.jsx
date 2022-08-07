@@ -3,15 +3,6 @@ import Button from '../templates/Button'
 
 function Stories() {
   return (
-    // <div>
-    //   <img src="K-stories" alt="k-stories"></img>
-    //   <Link to="/kstories" className="p-1">
-    //     <h2 className="text-3xl font-semibold font-poiret-one">K-stories</h2>
-    //     <h2 className="text-2xl font-poiret-one">
-    //       Para tí, en todas las formas
-    //     </h2>
-    //   </Link>
-    // </div>
     <section>
       <div className="px-4 py-16 mx-auto max-w-screen-2xl sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:h-screen">
