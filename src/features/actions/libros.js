@@ -6,7 +6,6 @@ import axios from 'axios'
 export const getAll = createAsyncThunk('libros/@GETALL', async (offset) => {
   try {
     const { data } = await axios.get(`http://localhost:8000/libros?${offset}`)
-    console.log(data)
     return data
   } catch (error) {
     const msg = error.response.data.msg

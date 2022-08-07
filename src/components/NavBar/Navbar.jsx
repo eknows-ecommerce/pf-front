@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom'
 import { FaShoppingCart } from 'react-icons/fa'
-import { images } from '../../assets/img'
+import images from '../../assets/img/logo.png'
 import Style from './navbar.module.css'
 
 export default function Navbar() {
@@ -9,7 +9,7 @@ export default function Navbar() {
       <div className={Style.main}>
         <div className={Style.header}>
           <Link to="/">
-            <img src={images.logo} alt="" />
+            <img src={images} alt="" />
           </Link>
           {/*<Link to="/create" ><button className={Style.btnH}> New Product </button></Link>*/}
           {/* <SearchBar /> */}

@@ -1,12 +1,16 @@
 import Carrusel from '../../components/carrusel/Carrusel'
 import Footer from '../../components/footer/Footer'
-import SectionSesion from '../../components/section/SectionSesion'
+import Bienvenida from '../../components/section/Bienvenida'
+import Stories from '../../components/section/Stories'
+import Views from '../../components/section/Views'
 
 export default function Landing() {
   return (
     <div>
-      <SectionSesion />
+      <Bienvenida />
       <Carrusel />
+      <Views />
+      <Stories />
       <Footer />
     </div>
   )
