@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import imagen from '../../assets/img/logo.png'
 import Button from '../templates/Button'
 
 export default function Bienvenida() {
