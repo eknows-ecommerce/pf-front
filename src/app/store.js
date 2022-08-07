@@ -4,6 +4,7 @@ import pedidosReducer from '../features/reducers/pedidosSlice'
 import librosReducer from '../features/reducers/librosSlice'
 import mediasReducer from '../features/reducers/mediasSlice'
 import tagsReducer from '../features/reducers/tagsSlice'
+import usuariosReducer from '../features/reducers/usuariosSlice'
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     librosStore: librosReducer,
     multimediaStore: mediasReducer,
     tagsStore: tagsReducer,
+    usuariosStore: usuariosReducer,
   },
 })
