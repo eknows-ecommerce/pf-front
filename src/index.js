@@ -5,6 +5,8 @@ import { store } from './app/store'
 import App from './App'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
+import Navbar from './components/NavBar/Navbar'
+import Footer from './components/footer/Footer'
 const container = document.getElementById('root')
 const root = createRoot(container)
 
@@ -13,6 +15,7 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <App />
+        <Footer />
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

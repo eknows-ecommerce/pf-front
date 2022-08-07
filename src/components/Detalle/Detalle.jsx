@@ -29,8 +29,15 @@ export default function Detalle() {
 
   return (
     <>
-      <Link to="/home">home</Link>
       <div className="relative max-w-screen-xl px-4 py-8 mx-auto">
+        <Link to="/home">
+          <button
+            className="text-pink-500 border border-pink-500 hover:bg-pink-500 hover:text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+          >
+            Volver
+          </button>
+        </Link>
         <div>
           <h1 className="text-2xl font-bold lg:text-3xl font-poiret-one">
             {libro.titulo}
