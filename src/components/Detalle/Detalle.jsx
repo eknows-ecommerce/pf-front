@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getById } from '../../features/actions/libros'
+import Button from '../templates/Button'
 
 export default function Detalle() {
   const history = useNavigate()
@@ -28,14 +29,13 @@ export default function Detalle() {
 
   return (
     <>
+      <Link to="/home">home</Link>
       <div className="relative max-w-screen-xl px-4 py-8 mx-auto">
         <div>
-          <h1 className="text-2xl font-bold lg:text-3xl">
+          <h1 className="text-2xl font-bold lg:text-3xl font-poiret-one">
             {libro.titulo}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
-            {libro.autor}
-          </p>
+          <p className="mt-1 text-sm text-gray-500 ">{libro.autor}</p>
         </div>
         <div className="grid gap-8 lg:items-start lg:grid-cols-4">
           <div className="lg:col-span-3">
@@ -51,7 +51,7 @@ export default function Detalle() {
           </div>
           <div className="lg:top-0 lg:sticky">
             <form className="space-y-4 lg:pt-8">
-              <fieldset>
+              {/* <fieldset>
                 <legend className="text-lg font-bold">Color</legend>
                 <div className="flex mt-2 space-x-1">
                   <label htmlFor="color_green" className="cursor-pointer">
@@ -101,7 +101,7 @@ export default function Detalle() {
                     <span className="block w-6 h-6 bg-indigo-700 border border-gray-200 rounded-full ring-1 ring-offset-1 ring-transparent peer-checked:ring-gray-300" />
                   </label>
                 </div>
-              </fieldset>
+              </fieldset> */}
               <fieldset>
                 <legend className="text-lg font-bold">Tipo</legend>
                 <div className="flex mt-2 space-x-1">
@@ -134,57 +134,39 @@ export default function Detalle() {
               <div className="p-4 bg-gray-100 border rounded">
                 <p className="text-sm">
                   <span className="block">Texto para posibles descuentos?</span>
-                  <a href="" className="inline-block mt-1 underline">
+                  <a href="?" className="inline-block mt-1 underline">
                     Find out more
                   </a>
                 </p>
               </div>
               <div>
-                <p className="text-xl font-bold">${libro.precio}</p>
+                <p className="text-xl  font-bold">${libro.precio}</p>
               </div>
-              <button
-                type="submit"
-                className="w-full px-6 py-3 text-sm font-bold tracking-wide text-white uppercase bg-red-700 rounded"
-              >
-                Comprar
-              </button>
-              <button
-                type="button"
-                className="w-full px-6 py-3 text-sm font-bold tracking-wide uppercase bg-gray-100 border border-gray-300 rounded"
-              >
-                Agregar a favoritos
-              </button>
+              <Button>Comprar</Button>
+              <Button secondary>Agregar a favoritos</Button>
             </form>
           </div>
           <div className="lg:col-span-3">
-            <div className="prose max-w-none">
-              <h2>Resumen:</h2>
-              <p>
-                {libro.resumen}
-              </p>
-              <h3>Categorias</h3>
+            <div className="prose max-w-none ">
+              <h2 className="font-poiret-one font-bold ">Resumen:</h2>
+              <p>{libro.resumen}</p>
+              <h3 className="font-poiret-one font-bold ">Categorias</h3>
               <ul>
-                <li>Smooth neck design</li>
-                <li>Breathable fabric</li>
-                <li>Odour prevention</li>
-                <li>Made from recycled materials</li>
+                <li>categorias asignadas</li>
               </ul>
               <div className="px-4 py-16 mx-auto max-w-screen-2xl sm:px-6 lg:px-8">
                 <div className="items-end justify-between sm:flex">
                   <div className="max-w-xl">
-                    <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
-                      Read trusted reviews from our customers
+                    <h2 className="text-4xl font-bold font-poiret-one tracking-tight sm:text-5xl">
+                      Reseñas
                     </h2>
                     <p className="max-w-lg mt-8 text-gray-500">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
-                      praesentium natus sapiente commodi. Aliquid sunt tempore iste
-                      repellendus explicabo dignissimos placeat, autem harum dolore
-                      reprehenderit quis! Quo totam dignissimos earum.
+                      Ve lo que otros lectores tiene que decir
                     </p>
                   </div>
                   <a
                     className="inline-flex items-center flex-shrink-0 px-5 py-3 mt-8 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
-                    href=""
+                    href="?"
                   >
                     Read all reviews
                     <svg
@@ -253,9 +235,9 @@ export default function Detalle() {
                           Lorem ipsum dolor sit amet.
                         </h5>
                         <p className="mt-4 text-gray-600">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-                          cumque recusandae dolorum porro, quasi sunt necessitatibus dolorem
-                          ab laudantium vel.
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Ipsam cumque recusandae dolorum porro, quasi
+                          sunt necessitatibus dolorem ab laudantium vel.
                         </p>
                       </div>
                     </div>
@@ -310,9 +292,9 @@ export default function Detalle() {
                           Lorem ipsum dolor sit amet.
                         </h5>
                         <p className="mt-4 text-gray-600">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-                          cumque recusandae dolorum porro, quasi sunt necessitatibus dolorem
-                          ab laudantium vel.
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Ipsam cumque recusandae dolorum porro, quasi
+                          sunt necessitatibus dolorem ab laudantium vel.
                         </p>
                       </div>
                     </div>
@@ -367,9 +349,9 @@ export default function Detalle() {
                           Lorem ipsum dolor sit amet.
                         </h5>
                         <p className="mt-4 text-gray-600">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-                          cumque recusandae dolorum porro, quasi sunt necessitatibus dolorem
-                          ab laudantium vel.
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Ipsam cumque recusandae dolorum porro, quasi
+                          sunt necessitatibus dolorem ab laudantium vel.
                         </p>
                       </div>
                     </div>
@@ -424,9 +406,9 @@ export default function Detalle() {
                           Lorem ipsum dolor sit amet.
                         </h5>
                         <p className="mt-4 text-gray-600">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-                          cumque recusandae dolorum porro, quasi sunt necessitatibus dolorem
-                          ab laudantium vel.
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Ipsam cumque recusandae dolorum porro, quasi
+                          sunt necessitatibus dolorem ab laudantium vel.
                         </p>
                       </div>
                     </div>
@@ -481,9 +463,9 @@ export default function Detalle() {
                           Lorem ipsum dolor sit amet.
                         </h5>
                         <p className="mt-4 text-gray-600">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-                          cumque recusandae dolorum porro, quasi sunt necessitatibus dolorem
-                          ab laudantium vel.
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Ipsam cumque recusandae dolorum porro, quasi
+                          sunt necessitatibus dolorem ab laudantium vel.
                         </p>
                       </div>
                     </div>
@@ -538,9 +520,9 @@ export default function Detalle() {
                           Lorem ipsum dolor sit amet.
                         </h5>
                         <p className="mt-4 text-gray-600">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-                          cumque recusandae dolorum porro, quasi sunt necessitatibus dolorem
-                          ab laudantium vel.
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Ipsam cumque recusandae dolorum porro, quasi
+                          sunt necessitatibus dolorem ab laudantium vel.
                         </p>
                       </div>
                     </div>

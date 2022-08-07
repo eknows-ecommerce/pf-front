@@ -28,7 +28,7 @@ export default function Bienvenida() {
               <Button>Ingresar</Button>
             </Link>
             <Link to="/register">
-              <Button>Registrate</Button>
+              <Button secondary>Registrate</Button>
             </Link>
           </div>
         </div>
