@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 const Paginacion = ({
   paginaAnterior,
   paginaSiguiente,
@@ -5,15 +6,15 @@ const Paginacion = ({
   paginas,
 }) => {
   return (
-    <div className="inline-flex items-center justify-center w-full space-x-4  bg-gray-200 border border-gray-200">
+    <div className="inline-flex items-center justify-center w-full space-x-4  bg-transparent">
       <a
         href={'#'}
         onClick={paginaAnterior}
-        className="inline-flex items-center justify-center w-8 h-8 border border-gray-100 rounded"
+        className="inline-flex items-center justify-center w-8 h-8 shadow-md shadow-current rounded hover:text-rosadito-500  hover:border-rosadito-500"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-3 h-3"
+          className="w-4/5 h-4/5 hover:scale-110"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -26,18 +27,18 @@ const Paginacion = ({
       </a>
       <p className="text-xs">
         {paginas?.currentPage}
-        <span className="mx-0.25">/</span>
+        <span className="mx-0.5">/</span>
         {paginas?.totalPages}
       </p>
 
       <a
         href={'#'}
         onClick={paginaSiguiente}
-        className="inline-flex items-center justify-center w-8 h-8 border border-gray-100 rounded"
+        className="inline-flex items-center justify-center w-8 h-8 shadow-md shadow-current rounded hover:text-rosadito-500  hover:border-rosadito-500"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-3 h-3"
+          className="w-4/5 h-4/5 hover:scale-110"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -49,48 +50,6 @@ const Paginacion = ({
         </svg>
       </a>
     </div>
-
-    // <div>
-    /* <ul
-        style={{
-          display: 'flex',
-          listStyle: 'none',
-          width: '100vw',
-          justifyContent: 'space-evenly',
-        }}
-      >
-        <li>
-          <a href={'#'} onClick={paginaAnterior}>
-            Anterior
-          </a>
-        </li>
-        {paginas?.totalPages &&
-          new Array(paginas.totalPages).fill(0).map((pagina, index) => {
-            return (
-              <li key={`Page_${index + 1}`}>
-                <a
-                  href={'#'}
-                  onClick={() => {
-                    paginaSeleccionada(index + 1)
-                  }}
-                  style={{
-                    fontSize: paginas.currentPage === index + 1 ? '18px' : '',
-                    color:
-                      paginas.currentPage === index + 1 ? 'deeppink' : 'black',
-                  }}
-                >
-                  {index + 1}
-                </a>
-              </li>
-            )
-          })}
-        <li>
-          <a href={'#'} onClick={paginaSiguiente}>
-            Siguiente
-          </a>
-        </li>
-      </ul>
-    </div> */
   )
 }
 
