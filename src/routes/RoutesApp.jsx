@@ -16,8 +16,8 @@ function RoutesApp() {
         <Route path="home" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="detalle/:id" element={<Detalle />} />
       </Route>
-      <Route path="detalle/:id" element={<Detalle />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getById } from '../../features/actions/libros'
 import Button from '../templates/Button'
-import NavBar from '../NavBar/Navbar'
 
 function ReviewCard({ title, text, author, score }) {
   function Stars() {
@@ -73,7 +72,6 @@ export default function Detalle() {
 
   return (
     <>
-      <NavBar />
       <div className="relative max-w-screen-2xl px-4 py-8 mx-auto">
         {/*<Link to="/home">
           <button
