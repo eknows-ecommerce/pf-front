@@ -1,12 +1,21 @@
-function Button({ children, primary, secondary }) {
+function Button({
+  children,
+  primary,
+  secondary,
+  round,
+  background,
+  textColor,
+}) {
   const css = primary
-    ? `text-white bg-rose-600 active:text-rose-700 hover:text-white rounded`
+    ? `bg-rosadito-500 text-white`
     : secondary
-    ? `text-rose-600 bg-white active:text-rose-700 border border-current hover:text-rose-600 rounded-full`
-    : `text-white bg-rose-600 active:text-rose-700 hover:text-white`
+    ? `bg-transparent text-rosadito-500 border border-rose-600`
+    : `bg-rosadito-500 text-white`
+
+  const radius = round ? `rounded-full` : ``
   return (
     <button
-      className={`${css} w-full px-12 py-3 text-sm font-medium shadow text-w-600 sm:w-auto hover:scale-110 hover:shadow-xl  focus:outline-none focus:ring mr-2`}
+      className={`${css} ${radius} w-full px-12 py-3 text-sm font-medium shadow text-w-600 sm:w-auto hover:scale-110 hover:shadow-md hover:shadow-current focus:outline-none focus:ring mr-2`}
     >
       {children}
     </button>
