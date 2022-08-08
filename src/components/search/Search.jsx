@@ -1,14 +1,11 @@
-import { useDispatch } from 'react-redux'
 import useSearch from '../../hooks/useSearch'
-import { getAll } from '../../features/actions/libros'
-
+import { useNavigate } from 'react-router-dom'
 function Search() {
   const { search, handleSearch } = useSearch()
-
-  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleClick = () => {
-    dispatch(getAll(`titulo=${search}`))
+    navigate('/home?title=' + search)
   }
 
   return (

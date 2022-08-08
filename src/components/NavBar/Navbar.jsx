@@ -4,6 +4,8 @@ import { FaShoppingCart } from 'react-icons/fa'
 import images from '../../assets/img/logo.png'
 import Search from '../search/Search'
 import { useRef } from 'react'
+import usePaginacion from '../../hooks/usePaginacion'
+import { useSelector } from 'react-redux'
 
 export default function Navbar() {
   const show = useRef(null)
@@ -11,6 +13,8 @@ export default function Navbar() {
   const handleClick = () => {
     show.current.classList.toggle('hidden')
   }
+  const { count } = useSelector(({ librosStore }) => librosStore)
+  const { handleTotal } = usePaginacion()
 
   return (
     <>
@@ -73,7 +77,13 @@ export default function Navbar() {
             </button>
           </div>
           <nav className="items-center justify-center hidden space-x-8 text-sm font-medium lg:flex lg:flex-1 lg:w-0">
-            <Link className="text-gray-900" to="home">
+            <Link
+              className="text-gray-900"
+              to="home"
+              onClick={() => {
+                handleTotal(count, 'reset')
+              }}
+            >
               Tienda
             </Link>
             <a className="text-gray-900" href="#Mas-Vendidos">

@@ -5,6 +5,7 @@ import CardLibro from '../../components/cards/CardLibro'
 import { getAll } from '../../features/actions/libros'
 import Paginacion from '../../components/Paginacion/Paginacion'
 import usePaginacion from '../../hooks/usePaginacion'
+import { useLocation } from 'react-router-dom'
 
 function Home() {
   const dispatch = useDispatch()
@@ -16,16 +17,27 @@ function Home() {
     handleTotal,
   } = usePaginacion()
   const { libros, count } = useSelector(({ librosStore }) => librosStore)
+  let url = useLocation()
 
   useEffect(() => {
     dispatch(getAll(`offset=0`))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
   useEffect(() => {
-    handleTotal(count)
-    dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
-  }, [count, paginas.currentPage])
+    if (new RegExp('\\?').test(url.search)) {
+      handleTotal(
+        count,
+        paginas.currentPage <= 1 || count === undefined ? 'reset' : null
+      )
+      let search = url.search.split('?title=')[1]
+      dispatch(
+        getAll(`titulo=${search}&offset=${(paginas.currentPage - 1) * 6}`)
+      )
+    } else {
+      dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
+      handleTotal(count)
+    }
+  }, [count, paginas.currentPage, url])
 
   return (
     <section>
