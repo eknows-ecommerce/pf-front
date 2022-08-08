@@ -11,7 +11,6 @@ export default function Landing() {
       <Carrusel />
       <Views />
       <Stories />
-      <Footer />
     </div>
   )
 }

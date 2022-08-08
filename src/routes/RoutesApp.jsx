@@ -6,6 +6,7 @@ import Login from '../components/sesion/Login'
 import Register from '../components/sesion/Register'
 import Navbar from '../components/NavBar/Navbar'
 import Detalle from '../components/Detalle/Detalle'
+import Footer from '../components/footer/Footer'
 
 //Aqui iran todas las rutas
 function RoutesApp() {

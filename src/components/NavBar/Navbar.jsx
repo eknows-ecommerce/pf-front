@@ -5,6 +5,7 @@ import images from '../../assets/img/logo.png'
 import Search from '../search/Search'
 import { useRef } from 'react'
 import useSearch from '../../hooks/useSearch'
+import Footer from '../footer/Footer'
 
 export default function Navbar() {
   const show = useRef(null)
@@ -121,6 +122,7 @@ export default function Navbar() {
       </header>
 
       <Outlet />
+      <Footer />
     </>
   )
 }
