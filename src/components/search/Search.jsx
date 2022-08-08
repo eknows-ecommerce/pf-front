@@ -1,18 +1,14 @@
-import useSearch from '../../hooks/useSearch'
 import { useNavigate } from 'react-router-dom'
-import usePaginacion from '../../hooks/usePaginacion'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { setBusqueda } from '../../features/reducers/librosSlice'
 
-function Search() {
-  const { search, handleSearch } = useSearch()
+function Search({ search, handleSearch }) {
   const navigate = useNavigate()
-  const { handleTotal } = usePaginacion()
-  const { count } = useSelector(({ librosStore }) => librosStore)
+  const dispatch = useDispatch()
 
   const handleClick = () => {
     navigate('/home?title=' + search)
-    handleTotal(count, 'reset')
-    console.log(search)
+    dispatch(setBusqueda(search))
   }
 
   return (

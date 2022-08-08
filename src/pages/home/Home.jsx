@@ -18,7 +18,7 @@ function Home() {
     handleTotal,
   } = usePaginacion()
   const { libros, count } = useSelector(({ librosStore }) => librosStore)
-  const { search, handleSearch } = useSearch()
+  const { busqueda } = useSelector(({ librosStore }) => librosStore)
 
   let url = useLocation()
 
@@ -28,17 +28,23 @@ function Home() {
   // }, [paginas.currentPage])
 
   useEffect(() => {
+    // if (new RegExp('\\?').test(url.search)) {
+    //   handleTotal(count)
+    //   let search = url.search.split('?title=')[1]
+    //   dispatch(
+    //     getAll(`titulo=${search}&offset=${(paginas.currentPage - 1) * 6}`)
+    //   )
+    // }
     if (new RegExp('\\?').test(url.search)) {
       handleTotal(count)
-      let search = url.search.split('?title=')[1]
       dispatch(
-        getAll(`titulo=${search}&offset=${(paginas.currentPage - 1) * 6}`)
+        getAll(`titulo=${busqueda}&offset=${(paginas.currentPage - 1) * 6}`)
       )
     } else {
       dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
       handleTotal(count)
     }
-  }, [paginas.currentPage, count])
+  }, [paginas.currentPage, count, busqueda])
 
   useEffect(() => {
     dispatch(getAll(`offset=0`))

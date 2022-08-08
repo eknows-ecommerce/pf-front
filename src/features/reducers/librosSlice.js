@@ -7,6 +7,7 @@ const initialState = {
   libro: {},
   count: 0,
   cargando: null,
+  busqueda: '',
 }
 
 const librosSlice = createSlice({
@@ -15,6 +16,9 @@ const librosSlice = createSlice({
   reducers: {
     cambiarCargando: (state) => {
       state.cargando = !state.cargando
+    },
+    setBusqueda: (state, action) => {
+      state.busqueda = action.payload
     },
   },
   extraReducers: {
@@ -84,6 +88,6 @@ const librosSlice = createSlice({
   },
 })
 
-export const { cambiarCargando } = librosSlice.actions
+export const { cambiarCargando, setBusqueda } = librosSlice.actions
 
 export default librosSlice.reducer
