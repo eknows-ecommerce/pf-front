@@ -5,7 +5,7 @@ import axios from 'axios'
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('tags/@GETALL', async () => {
   try {
-    const { data } = await axios.get('http://localhost:8000/tag')
+    const { data } = await axios.get('http://localhost:8000/tags')
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -15,7 +15,7 @@ export const getAll = createAsyncThunk('tags/@GETALL', async () => {
 
 export const getById = createAsyncThunk('tags/@GETBYID', async (id) => {
   try {
-    const { data } = await axios.get(`http://localhost:8000/tag/${id}`)
+    const { data } = await axios.get(`http://localhost:8000/tags/${id}`)
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -25,7 +25,7 @@ export const getById = createAsyncThunk('tags/@GETBYID', async (id) => {
 
 export const create = createAsyncThunk('tags/@CREATE', async (tag) => {
   try {
-    const { data } = await axios.post('http://localhost:8000/tag', tag)
+    const { data } = await axios.post('http://localhost:8000/tags', tag)
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -35,7 +35,10 @@ export const create = createAsyncThunk('tags/@CREATE', async (tag) => {
 
 export const update = createAsyncThunk('tags/@UPDATE', async (tag) => {
   try {
-    const { data } = await axios.put(`http://localhost:8000/tag/${tag.id}`, tag)
+    const { data } = await axios.put(
+      `http://localhost:8000/tags/${tag.id}`,
+      tag
+    )
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -45,7 +48,7 @@ export const update = createAsyncThunk('tags/@UPDATE', async (tag) => {
 
 export const deleteById = createAsyncThunk('tags/@DELETEBYID', async (id) => {
   try {
-    const { data } = await axios.delete(`http://localhost:8000/tag/${id}`)
+    const { data } = await axios.delete(`http://localhost:8000/tags/${id}`)
     return data
   } catch (error) {
     const msg = error.response.data.msg
