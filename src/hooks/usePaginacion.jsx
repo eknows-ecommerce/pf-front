@@ -6,10 +6,9 @@ function usePaginacion() {
     totalPages: 1,
   })
 
-  const handleTotal = (total, reset) => {
-    console.log('Resetting')
+  const handleTotal = (total) => {
     setPaginas({
-      currentPage: reset ? 1 : paginas.currentPage,
+      currentPage: paginas.currentPage,
       totalPages: Math.ceil(total / 6),
     })
   }

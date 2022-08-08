@@ -1,11 +1,18 @@
 import useSearch from '../../hooks/useSearch'
 import { useNavigate } from 'react-router-dom'
+import usePaginacion from '../../hooks/usePaginacion'
+import { useSelector } from 'react-redux'
+
 function Search() {
   const { search, handleSearch } = useSearch()
   const navigate = useNavigate()
+  const { handleTotal } = usePaginacion()
+  const { count } = useSelector(({ librosStore }) => librosStore)
 
   const handleClick = () => {
     navigate('/home?title=' + search)
+    handleTotal(count, 'reset')
+    console.log(search)
   }
 
   return (

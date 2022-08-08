@@ -6,6 +6,7 @@ import { getAll } from '../../features/actions/libros'
 import Paginacion from '../../components/Paginacion/Paginacion'
 import usePaginacion from '../../hooks/usePaginacion'
 import { useLocation } from 'react-router-dom'
+import useSearch from '../../hooks/useSearch'
 
 function Home() {
   const dispatch = useDispatch()
@@ -17,18 +18,18 @@ function Home() {
     handleTotal,
   } = usePaginacion()
   const { libros, count } = useSelector(({ librosStore }) => librosStore)
+  const { search, handleSearch } = useSearch()
+
   let url = useLocation()
 
-  useEffect(() => {
-    dispatch(getAll(`offset=0`))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
+  //   handleTotal(count)
+  // }, [paginas.currentPage])
+
   useEffect(() => {
     if (new RegExp('\\?').test(url.search)) {
-      handleTotal(
-        count,
-        paginas.currentPage <= 1 || count === undefined ? 'reset' : null
-      )
+      handleTotal(count)
       let search = url.search.split('?title=')[1]
       dispatch(
         getAll(`titulo=${search}&offset=${(paginas.currentPage - 1) * 6}`)
@@ -37,7 +38,29 @@ function Home() {
       dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
       handleTotal(count)
     }
-  }, [count, paginas.currentPage, url])
+  }, [paginas.currentPage, count])
+
+  useEffect(() => {
+    dispatch(getAll(`offset=0`))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // useEffect(() => {
+  //   if (new RegExp('\\?').test(url.search)) {
+  //     handleTotal(
+  //       count,
+  //       1
+  //       // paginas.currentPage <= 1 || count === undefined ? 'reset' : null
+  //     )
+  //     let search = url.search.split('?title=')[1]
+  //     dispatch(
+  //       getAll(`titulo=${search}&offset=${(paginas.currentPage - 1) * 6}`)
+  //     )
+  //   } else {
+  //     dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
+  //     handleTotal(count)
+  //   }
+  // }, [count, url])
 
   return (
     <section>
