@@ -6,7 +6,9 @@ import { getAll } from '../../features/actions/libros'
 import Paginacion from '../../components/Paginacion/Paginacion'
 import usePaginacion from '../../hooks/usePaginacion'
 import { useLocation } from 'react-router-dom'
-import useSearch from '../../hooks/useSearch'
+
+import Categorias from '../../components/FiltroCategorias/Categorias'
+import Tags from '../../components/Tags/Tags'
 
 function Home() {
   const dispatch = useDispatch()
@@ -22,19 +24,7 @@ function Home() {
 
   let url = useLocation()
 
-  // useEffect(() => {
-  //   dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
-  //   handleTotal(count)
-  // }, [paginas.currentPage])
-
   useEffect(() => {
-    // if (new RegExp('\\?').test(url.search)) {
-    //   handleTotal(count)
-    //   let search = url.search.split('?title=')[1]
-    //   dispatch(
-    //     getAll(`titulo=${search}&offset=${(paginas.currentPage - 1) * 6}`)
-    //   )
-    // }
     if (new RegExp('\\?').test(url.search)) {
       handleTotal(count)
       dispatch(
@@ -48,25 +38,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(getAll(`offset=0`))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  // useEffect(() => {
-  //   if (new RegExp('\\?').test(url.search)) {
-  //     handleTotal(
-  //       count,
-  //       1
-  //       // paginas.currentPage <= 1 || count === undefined ? 'reset' : null
-  //     )
-  //     let search = url.search.split('?title=')[1]
-  //     dispatch(
-  //       getAll(`titulo=${search}&offset=${(paginas.currentPage - 1) * 6}`)
-  //     )
-  //   } else {
-  //     dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
-  //     handleTotal(count)
-  //   }
-  // }, [count, url])
 
   return (
     <section>
@@ -97,129 +69,16 @@ function Home() {
               >
                 <fieldset>
                   <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
-                    Type
+                    Categorias
                   </legend>
-                  <div className="px-5 py-6 space-y-2">
-                    <div className="flex items-center">
-                      <input
-                        id="toy"
-                        type="checkbox"
-                        name="type[toy]"
-                        className="w-5 h-5 border-gray-300 rounded"
-                      />
-                      <label htmlFor="toy" className="ml-3 text-sm font-medium">
-                        Toy
-                      </label>
-                    </div>
-                    <div className="flex items-center">
-                      <input
-                        id="game"
-                        type="checkbox"
-                        name="type[game]"
-                        className="w-5 h-5 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor="game"
-                        className="ml-3 text-sm font-medium"
-                      >
-                        Game
-                      </label>
-                    </div>
-                    <div className="flex items-center">
-                      <input
-                        id="outdoor"
-                        type="checkbox"
-                        name="type[outdoor]"
-                        className="w-5 h-5 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor="outdoor"
-                        className="ml-3 text-sm font-medium"
-                      >
-                        Outdoor
-                      </label>
-                    </div>
-                    <div className="pt-2">
-                      <button
-                        type="button"
-                        className="text-xs text-gray-500 underline"
-                      >
-                        Reset Type
-                      </button>
-                    </div>
-                  </div>
+                  <Categorias />
                 </fieldset>
                 <div>
                   <fieldset>
                     <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
-                      Age
+                      Tags
                     </legend>
-                    <div className="px-5 py-6 space-y-2">
-                      <div className="flex items-center">
-                        <input
-                          id="3+"
-                          type="checkbox"
-                          name="age[3+]"
-                          className="w-5 h-5 border-gray-300 rounded"
-                        />
-                        <label
-                          htmlFor="3+"
-                          className="ml-3 text-sm font-medium"
-                        >
-                          3+
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input
-                          id="8+"
-                          type="checkbox"
-                          name="age[8+]"
-                          className="w-5 h-5 border-gray-300 rounded"
-                        />
-                        <label
-                          htmlFor="8+"
-                          className="ml-3 text-sm font-medium"
-                        >
-                          8+
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input
-                          id="12+"
-                          type="checkbox"
-                          name="age[12+]"
-                          className="w-5 h-5 border-gray-300 rounded"
-                        />
-                        <label
-                          htmlFor="12+"
-                          className="ml-3 text-sm font-medium"
-                        >
-                          12+
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input
-                          id="16+"
-                          type="checkbox"
-                          name="age[16+]"
-                          className="w-5 h-5 border-gray-300 rounded"
-                        />
-                        <label
-                          htmlFor="16+"
-                          className="ml-3 text-sm font-medium"
-                        >
-                          16+
-                        </label>
-                      </div>
-                      <div className="pt-2">
-                        <button
-                          type="button"
-                          className="text-xs text-gray-500 underline"
-                        >
-                          Reset Age
-                        </button>
-                      </div>
-                    </div>
+                    <Tags />
                   </fieldset>
                 </div>
                 <div className="flex justify-between px-5 py-3 border-t border-gray-200">
