@@ -6,9 +6,8 @@ import { getAll } from '../../features/actions/libros'
 import Paginacion from '../../components/Paginacion/Paginacion'
 import usePaginacion from '../../hooks/usePaginacion'
 import { useLocation } from 'react-router-dom'
-
-import Categorias from '../../components/FiltroCategorias/Categorias'
-import Tags from '../../components/Tags/Tags'
+import useSearch from '../../hooks/useSearch'
+import Filtros from '../../components/FiltroCategorias/Filtros'
 
 function Home() {
   const dispatch = useDispatch()
@@ -44,65 +43,10 @@ function Home() {
     <section>
       <div className="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
-          <div className="sticky top-0 z-20 shadow-xl cursor-pointer">
-            <details open className="overflow-hidden rounded">
-              <summary className="flex items-center justify-between px-5 py-3 bg-gray-100 ">
-                <span className="text-sm font-medium">Toggle Filters</span>
-                <svg
-                  className="w-5 h-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </summary>
-              <form
-                action=""
-                className="border-t border-gray-200 lg:border-t-0"
-              >
-                <fieldset>
-                  <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
-                    Categorias
-                  </legend>
-                  <Categorias />
-                </fieldset>
-                <div>
-                  <fieldset>
-                    <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
-                      Tags
-                    </legend>
-                    <Tags />
-                  </fieldset>
-                </div>
-                <div className="flex justify-between px-5 py-3 border-t border-gray-200">
-                  <button
-                    name="reset"
-                    type="button"
-                    className="text-xs font-medium text-gray-600 underline rounded"
-                  >
-                    Reset All
-                  </button>
-                  <button
-                    name="commit"
-                    type="button"
-                    className="px-5 py-3 text-xs font-medium text-white bg-green-600 rounded"
-                  >
-                    Apply Filters
-                  </button>
-                </div>
-              </form>
-            </details>
-          </div>
+          <Filtros />
           <div className="lg:col-span-3 ">
-            <div className="flex items-center justify-between bg-gray-100 px-2 z-20 rounded shadow-xl">
-              <p className="text-sm font-medium  px-2 py-3 ">
+            <div className="flex items-center justify-between bg-gray-100 px-2 z-20 rounded shadow-xl sticky top-0">
+              <p className="text-sm font-medium  px-2 py-3">
                 <span className="sm:inline">Vistos </span>
                 {paginas.totalPages === paginas.currentPage ? (
                   <>
