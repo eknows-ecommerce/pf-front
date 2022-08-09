@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom'
-import Landing from '../pages/Landing/Landing'
+import Landing from '../pages/landing/Landing'
 import Home from '../pages/home/Home'
 import NotFound from '../pages/NotFound/NotFound'
 import Login from '../components/sesion/Login'
 import Register from '../components/sesion/Register'
 import Navbar from '../components/NavBar/Navbar'
-import Detalle from '../components/Detalle/Detalle'
+import Detalle from '../pages/detalle/Detalle'
 import Footer from '../components/footer/Footer'
 
 //Aqui iran todas las rutas
@@ -17,8 +17,8 @@ function RoutesApp() {
         <Route path="home" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="detalle/:id" element={<Detalle />} />
       </Route>
-      <Route path="detalle/:id" element={<Detalle />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )
