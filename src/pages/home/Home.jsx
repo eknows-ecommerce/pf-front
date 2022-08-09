@@ -6,7 +6,6 @@ import { getAll } from '../../features/actions/libros'
 import Paginacion from '../../components/Paginacion/Paginacion'
 import usePaginacion from '../../hooks/usePaginacion'
 import { useLocation } from 'react-router-dom'
-import useSearch from '../../hooks/useSearch'
 import Filtros from '../../components/FiltroCategorias/Filtros'
 
 function Home() {
