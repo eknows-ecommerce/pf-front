@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import useSelect from '../../hooks/useSelect'
 
 function FiltroCategorias({ lista }) {

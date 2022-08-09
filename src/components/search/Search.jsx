@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setBusqueda } from '../../features/reducers/librosSlice'
+import { useEffect } from 'react'
 
 function Search({ search, handleSearch }) {
   const navigate = useNavigate()
@@ -11,11 +12,15 @@ function Search({ search, handleSearch }) {
     dispatch(setBusqueda(search))
   }
 
+  useEffect(() => {
+    dispatch(setBusqueda(search))
+  }, [search, dispatch])
+
   return (
     <div className="relative">
       <input
         className="h-10 pr-10 pl-2 text-sm placeholder-gray-300 border border-gray-200 rounded-lg focus:z-10"
-        placeholder="Search..."
+        placeholder="Busqueda..."
         type="text"
         onChange={handleSearch}
       />
