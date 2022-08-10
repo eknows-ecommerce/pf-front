@@ -1,16 +1,22 @@
 import { useState } from 'react'
 
-function useSelect(initialState = 'todos') {
-  const [selected, setSelected] = useState(initialState)
+function useSelect() {
+  const [selected, setSelected] = useState([])
 
   const handleSelected = (e) => {
-    const value = e.target.value
-    setSelected(value)
+    const id = e.target.id
+    setSelected([...selected, id])
+  }
+
+  const handleDeselected = (e) => {
+    const id = e.target.id
+    setSelected(selected.filter((item) => item !== id))
   }
 
   return {
     selected,
     handleSelected,
+    handleDeselected,
   }
 }
 
