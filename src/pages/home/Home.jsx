@@ -19,6 +19,9 @@ function Home() {
   } = usePaginacion()
   const { libros, count } = useSelector(({ librosStore }) => librosStore)
   const { busqueda } = useSelector(({ librosStore }) => librosStore)
+  const librosCategorias = useSelector(
+    ({ librosStore }) => librosStore.categorias
+  )
 
   let url = useLocation()
 
@@ -29,10 +32,16 @@ function Home() {
         getAll(`titulo=${busqueda}&offset=${(paginas.currentPage - 1) * 6}`)
       )
     } else {
-      dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
+      if (librosCategorias) {
+        dispatch(
+          getAll(`${librosCategorias}&offset=${(paginas.currentPage - 1) * 6}`)
+        )
+      } else {
+        dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
+      }
       handleTotal(count)
     }
-  }, [paginas.currentPage, count, busqueda])
+  }, [paginas.currentPage, count, busqueda, librosCategorias])
 
   useEffect(() => {
     dispatch(getAll(`offset=0`))
