@@ -19,7 +19,7 @@ function RoutesApp() {
 
         {/* <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} /> */}
-        <Route path="perfil" element={<Perfil />} />
+        <Route path="menu/perfil" element={<Perfil />} />
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="menu" element={<Menu />} />
 

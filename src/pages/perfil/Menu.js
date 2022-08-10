@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Button from '../../components/templates/Button'
 import { getById } from '../../features/actions/usuarios'
 
@@ -29,9 +30,15 @@ export default function Menu() {
               />
 
               <h2 className=" text-3xl font-bold sm:text-6xl">
-                Bienvenido!{usuario.name}
+                Bienvenido
+                <br />
+                {usuario.name}!
               </h2>
               <p className="mt-4 text-gray-600">Este es tu perfil</p>
+
+              <p className="mt-4 text-gray-600">Correo: {usuario.email}</p>
+              <p className="mt-4 text-gray-600"> Membresia:{usuario.rol}</p>
+
               <a
                 className="inline-flex items-center px-10 py-3 mt-10 text-white bg-indigo-600 border border-indigo-600 rounded hover:bg-transparent hover:text-indigo-600 active:text-indigo-500 focus:outline-none focus:ring"
                 href="/get-started"
@@ -54,9 +61,9 @@ export default function Menu() {
               </a>
             </div>
             <div className="grid  gap-4 sm:grid-cols-3">
-              <a
+              <Link
                 className="block p-6 border border-gray-100 shadow-sm rounded-xl focus:outline-none focus:ring hover:border-violetapaleta-200 hover:ring-1 hover:ring-violetapaleta-200"
-                href="/perfil"
+                to="perfil"
               >
                 <span className="inline-block p-4 rounded-lg bg-gray-50">
                   <svg
@@ -74,7 +81,7 @@ export default function Menu() {
                   </svg>
                 </span>
                 <h6 className="mt-2 text-2xl font-normal">Mi Perfil</h6>
-              </a>
+              </Link>
               <a
                 className="block p-6 border border-gray-100 shadow-sm rounded-xl focus:outline-none focus:ring hover:border-violetapaleta-200 hover:ring-1 hover:ring-violetapaleta-200"
                 href="/accountant"
