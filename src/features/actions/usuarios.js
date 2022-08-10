@@ -12,6 +12,20 @@ export const getAll = createAsyncThunk('getAll/@GETALL', async () => {
     return msg
   }
 })
+export const getAllByName = createAsyncThunk(
+  'getAll/@GETALL',
+  async ({ payload }) => {
+    try {
+      const { data } = await axios.get('http://localhost:8000/usuarios', {
+        payload,
+      })
+      return data
+    } catch (error) {
+      const msg = error.message.data.msg
+      return msg
+    }
+  }
+)
 
 export const getById = createAsyncThunk('getById/@GETBYID', async (id) => {
   try {
