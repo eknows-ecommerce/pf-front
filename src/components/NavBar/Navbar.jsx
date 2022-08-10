@@ -17,7 +17,7 @@ export default function Navbar() {
       <header className="shadow-sm">
         <div className="flex items-center justify-between h-16  px-4 mx-auto">
           <div className="">
-            <Link to="perfil">
+            <Link to="menu">
               <button
                 className="p-2 text-rosadito-600 bg-gray-100 rounded-full"
                 type="button"

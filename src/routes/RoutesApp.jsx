@@ -7,6 +7,7 @@ import Detalle from '../components/Detalle/Detalle'
 import Perfil from '../pages/perfil/Perfil'
 import Pedidos from '../pages/pedidos/Pedidos'
 import MenuPerfil from '../pages/perfil/Menu'
+import Menu from '../pages/perfil/Menu'
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -18,9 +19,9 @@ function RoutesApp() {
 
         {/* <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} /> */}
-        <Route path="configuraciones" element={<MenuPerfil />} />
-        <Route path="pedidos" element={<Pedidos />} />
         <Route path="perfil" element={<Perfil />} />
+        <Route path="pedidos" element={<Pedidos />} />
+        <Route path="menu" element={<Menu />} />
 
         <Route path="detalle/:id" element={<Detalle />} />
         <Route path="*" element={<NotFound />} />
