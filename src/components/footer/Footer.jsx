@@ -1,5 +1,9 @@
+// <<<<<<< HEAD
 // import logo from '../../assets/img/logos.png'
-import logo from '../../assets/img/e-Knews-footer.png'
+// import logo from '../../assets/img/e-Knews-footer.png'
+// =======
+import logo from '../../assets/img/logos.png'
+// >>>>>>> 0915c5fba1b5e09586554b455bc4076bf23e24b2
 export default function Footer() {
   return (
     <footer className="bg-violetapaleta-800">

@@ -5,8 +5,17 @@ import axios from 'axios'
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
   try {
+    // <<<<<<< HEAD
     console.log('query', query)
     const { data } = await axios.get(`http://localhost:8000/libros?${query}`)
+    // =======
+    //     let url = 'http://localhost:8000/libros'
+    //     if (query) {
+    //       url = url + '?' + query
+    //     }
+    //     console.log(url, 'url')
+    //     const { data } = await axios.get(url)
+    // >>>>>>> 0915c5fba1b5e09586554b455bc4076bf23e24b2
     return data
   } catch (error) {
     const msg = error.response.data.msg

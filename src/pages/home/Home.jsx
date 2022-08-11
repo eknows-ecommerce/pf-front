@@ -3,10 +3,17 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardLibro from '../../components/cards/CardLibro'
 import { getAll } from '../../features/actions/libros'
+// import { getAll as getallCat, getById } from '../../features/actions/categorias'
+// import { getAll as getallTag } from '../../features/actions/tags'
+
 import Paginacion from '../../components/Paginacion/Paginacion'
 import usePaginacion from '../../hooks/usePaginacion'
+
 import { useLocation } from 'react-router-dom'
 import Filtros from '../../components/FiltroCategorias/Filtros'
+
+// import Categorias from '../../components/FiltroCategorias/Categorias'
+// import Tags from '../../filtrosTags/Tags'
 
 function Home() {
   const dispatch = useDispatch()
@@ -17,8 +24,10 @@ function Home() {
     paginaSiguiente,
     handleTotal,
   } = usePaginacion()
-  const { libros, count } = useSelector(({ librosStore }) => librosStore)
-  const { busqueda } = useSelector(({ librosStore }) => librosStore)
+  const { libros, count, busqueda } = useSelector(
+    ({ librosStore }) => librosStore
+  )
+  // const { busqueda } = useSelector(({ librosStore }) => librosStore)
   const librosCategorias = useSelector(
     ({ librosStore }) => librosStore.categorias
   )
