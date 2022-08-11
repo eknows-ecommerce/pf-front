@@ -1,27 +1,9 @@
-import { getAllLibros, getAllUsuarios } from 'features/actions/admin'
+import { Link } from 'react-router-dom'
+
 import Barra from 'pages/admin/Barra'
 import Info from 'pages/perfil/Info'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { useAuth0 } from '@auth0/auth0-react'
 
 export default function Admin() {
-  const { getAccessTokenSilently } = useAuth0()
-  const dispatch = useDispatch()
-  useEffect(() => {
-    const autAdmin = async () => {
-      try {
-        const token = await getAccessTokenSilently()
-        dispatch(getAllUsuarios(token))
-        dispatch(getAllLibros(token))
-        console.log(token)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    autAdmin()
-  }, [])
   return (
     <div className="flex flex-col  max-h-full min-h-screen">
       <div>

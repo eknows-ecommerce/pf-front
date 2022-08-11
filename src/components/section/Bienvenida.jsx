@@ -9,14 +9,9 @@ import Logout from '../sesion/Logout'
 export default function Bienvenida() {
   const { user, isAuthenticated } = useAuth0()
   const dispatch = useDispatch()
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     dispatch(create(user))
-  //   }
-  // }, [dispatch, isAuthenticated, user])
+
   useEffect(() => {
     if (isAuthenticated) {
-      console.log(user)
       dispatch(create(user))
     }
   }, [isAuthenticated])
