@@ -10,14 +10,15 @@ import { BrowserRouter } from 'react-router-dom'
 const container = document.getElementById('root')
 const root = createRoot(container)
 
+
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={store}>   
       <Auth0Provider
-        domain="dev-clppguzk.us.auth0.com"
-        clientId="cElA5SOknPC5yPApoXzvdzCKlcbTVEjH"
+        domain={process.env.REACT_APP_AUTH_DOMAIN}
+        clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
+        audience={process.env.REACT_APP_AUTH_AUDIENCE}
         redirectUri={window.location.origin}
-        audience="ecommerceIdentifier"
         scope="openid profile email"
       >
         <BrowserRouter>
