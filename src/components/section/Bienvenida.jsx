@@ -42,7 +42,7 @@ export default function Bienvenida() {
           <h1 className="text-6xl font-extrabold  font-poiret-one sm:text-7xl">
             Bievenidos a
             <strong className="font-extrabold text-rose-700 sm:block">
-              e-Knews
+              e-Knows
             </strong>
           </h1>
           <p className="max-w-lg mt-4 sm:leading-relaxed sm:text-xl">
