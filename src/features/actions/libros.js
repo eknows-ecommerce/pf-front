@@ -3,9 +3,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 // <----------------- acciones que conectan a la base de datos ----------------->
-export const getAll = createAsyncThunk('libros/@GETALL', async (offset) => {
+export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
   try {
-    const { data } = await axios.get(`http://localhost:8000/libros?${offset}`)
+    console.log('query', query)
+    const { data } = await axios.get(`http://localhost:8000/libros?${query}`)
     return data
   } catch (error) {
     const msg = error.response.data.msg

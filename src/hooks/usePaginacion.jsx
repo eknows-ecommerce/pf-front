@@ -8,7 +8,7 @@ function usePaginacion() {
 
   const handleTotal = (total) => {
     setPaginas({
-      ...paginas,
+      currentPage: paginas.currentPage,
       totalPages: Math.ceil(total / 6),
     })
   }

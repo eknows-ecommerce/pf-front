@@ -4,9 +4,12 @@ import { FaShoppingCart } from 'react-icons/fa'
 import images from '../../assets/img/logo.png'
 import Search from '../search/Search'
 import { useRef } from 'react'
+import useSearch from '../../hooks/useSearch'
+import Footer from '../footer/Footer'
 
 export default function Navbar() {
   const show = useRef(null)
+  const { search, handleSearch } = useSearch()
 
   const handleClick = () => {
     show.current.classList.toggle('hidden')
@@ -46,12 +49,12 @@ export default function Navbar() {
               />
             </Link>
             <form className="hidden mb-0 lg:flex">
-              <Search />
+              <Search search={search} handleSearch={handleSearch} />
             </form>
           </div>
           <div className="flex justify-end flex-1 w-0 lg:hidden">
             <div ref={show} className="hidden">
-              <Search />
+              <Search search={search} handleSearch={handleSearch} />
             </div>
             <button
               className="p-2 text-gray-500 bg-gray-100 rounded-full"
@@ -119,6 +122,7 @@ export default function Navbar() {
       </header>
 
       <Outlet />
+      <Footer />
     </>
   )
 }

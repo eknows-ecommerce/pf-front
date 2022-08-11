@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getById } from '../../features/actions/libros'
-import Button from '../templates/Button'
+import Button from '../../components/templates/Button'
 
 export default function Detalle() {
   const history = useNavigate()
