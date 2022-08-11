@@ -98,6 +98,17 @@ export default function Navbar() {
             <a className="text-gray-900" href="#Contactanos">
               Contactanos
             </a>
+            {isAuthenticated ? (
+              <Link
+                to="admin/datos"
+                className="text-gray-900"
+                href="#Mas-Vendidos"
+              >
+                Admin
+              </Link>
+            ) : (
+              isLoading
+            )}
           </nav>
           <div className="items-center hidden space-x-4 lg:flex">
             <Link

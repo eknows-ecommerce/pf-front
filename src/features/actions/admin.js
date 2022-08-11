@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-
 import axios from 'axios'
 
 //action que trae todos los usuarios

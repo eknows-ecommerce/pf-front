@@ -1,7 +1,8 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Cuentas() {
   //   const { usuarios } = useSelector(({ usuariosSlice }) => usuariosSlice)
+  //   const dispatch = useDispatch()
 
   return (
     <div className="overflow-x-auto">

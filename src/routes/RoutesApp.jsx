@@ -12,6 +12,7 @@ import Usuarios from 'pages/admin/Usuarios'
 import Baneados from 'pages/admin/Baneados'
 import Datos from 'pages/admin/Datos'
 import Cuentas from 'pages/admin/Cuentas'
+import Ventas from 'pages/admin/Ventas'
 // import Login from '../components/sesion/Login'
 
 //Aqui iran todas las rutas
@@ -23,6 +24,7 @@ function RoutesApp() {
         <Route path="baneados" element={<Baneados />} />
         <Route path="datos" element={<Datos />} />
         <Route path="cuentas" element={<Cuentas />} />
+        <Route path="ventas" element={<Ventas />} />
       </Route>
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />
