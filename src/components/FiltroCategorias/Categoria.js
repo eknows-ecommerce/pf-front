@@ -3,7 +3,7 @@ export default function Categoria({ id, nombre, handleClick }) {
   return (
     <div className="flex items-center">
       <input
-        id={id}
+        // id={id}
         type="checkbox"
         name={nombre}
         onClick={() => handleClick(nombre)}

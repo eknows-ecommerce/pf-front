@@ -6,17 +6,17 @@ import Button from '../../components/templates/Button'
 import { getById } from '../../features/actions/usuarios'
 
 export default function Menu() {
-  // const dispatch = useDispatch()
-  // const { usuarios, usuario } = useSelector(
-  //   ({ usuariosStore }) => usuariosStore
-  // )
-  // const idProf = usuarios[0][0].id
+  const dispatch = useDispatch()
+  const { usuarios, usuario } = useSelector(
+    ({ usuariosStore }) => usuariosStore
+  )
+  const idProf = usuarios[0][0].id
 
-  // useEffect(() => {
-  //   dispatch(getById(idProf))
-  // }, [idProf, dispatch])
-  // console.log('USUARIOS', usuarios)
-  // console.log('USUARIO', usuario)
+  useEffect(() => {
+    dispatch(getById(idProf))
+  }, [idProf, dispatch])
+  console.log('USUARIOS', usuarios)
+  console.log('USUARIO', usuario)
 
   return (
     <div>
@@ -26,25 +26,25 @@ export default function Menu() {
             <div className="max-w-lg mx-auto text-center lg:text-left lg:mx-0">
               <img
                 class="flex mt-10 rounded-full object-left w-40 h-40"
-                // src={usuario.picture}
+                src={usuario?.picture}
                 alt="Man using a computer"
               />
 
               <h2 className=" text-3xl font-bold sm:text-6xl">
                 Bienvenido
                 <br />
-                {/* {usuario.name}! */}
+                {usuario?.name}!
               </h2>
               <p className="mt-4 font-poiret-one text-gray-600">
                 Este es tu perfil
               </p>
 
               <p className="mt-4 font-poiret-one text-gray-600">
-                {/* Correo: {usuario.email} */}
+                Correo: {usuario?.email}
               </p>
               <p className="mt-4 font-poiret-one text-gray-600">
                 {' '}
-                {/* Membresia:{usuario.rol} */}
+                Membresia:{usuario?.rol}
               </p>
 
               <Logout />

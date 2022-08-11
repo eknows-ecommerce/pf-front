@@ -17,17 +17,17 @@ export default function Categorias() {
   function handleButton() {
     dispatch(getAll(`categoria=${catSelect[0]}`))
   }
-  useEffect(() => {
-    dispatch(getallcat())
-  })
+  // useEffect(() => {
+  //   dispatch(getallcat())
+  // })
   return (
     <div className="px-5 py-6 space-y-2">
       {categorias.length > 0 &&
         categorias?.map((item) => (
           <Categoria
             key={crypto.randomUUID()}
-            id={item.id}
-            nombre={item.nombre}
+            id={item?.id}
+            nombre={item?.nombre}
             handleClick={handleClick}
           />
         ))}
