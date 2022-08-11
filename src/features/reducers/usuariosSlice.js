@@ -6,7 +6,7 @@ import {
   create,
   update,
   deleteById,
-} from '../actions/usuarios'
+} from 'features/actions/usuarios'
 
 const initialState = {
   usuarios: [],
@@ -53,6 +53,7 @@ const usuariosSlice = createSlice({
     [create.fulfilled]: (state, { payload }) => {
       state.cargando = false
       state.usuarios = [...state.usuarios, payload.usuario]
+      state.usuario = payload.usuario
       state.total = state.total + 1
     },
     [create.rejected]: (state) => {
@@ -90,5 +91,5 @@ const usuariosSlice = createSlice({
     },
   },
 })
-
+export const { cambiarCargando } = usuariosSlice.actions
 export default usuariosSlice.reducer

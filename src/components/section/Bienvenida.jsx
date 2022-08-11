@@ -1,8 +1,26 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Button from '../templates/Button'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useDispatch } from 'react-redux'
+import { create } from 'features/actions/usuarios'
+import Login from '../sesion/Login'
+import Logout from '../sesion/Logout'
 
 export default function Bienvenida() {
+  const { user, isAuthenticated } = useAuth0()
+  const dispatch = useDispatch()
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     dispatch(create(user))
+  //   }
+  // }, [dispatch, isAuthenticated, user])
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log(user)
+      dispatch(create(user))
+    }
+  }, [isAuthenticated])
+
   return (
     <section className="relative bg-white">
       <img
@@ -16,19 +34,21 @@ export default function Bienvenida() {
           <h1 className="text-6xl font-extrabold  font-poiret-one sm:text-7xl">
             Bievenidos a
             <strong className="font-extrabold text-rose-700 sm:block">
-              e-Knews
+              e-Knows
             </strong>
           </h1>
           <p className="max-w-lg mt-4 sm:leading-relaxed sm:text-xl">
             ... donde las historias te encuentran
           </p>
+          <div className="flex flex-wrap gap-4 mt-8 text-center"></div>
           <div className="flex flex-wrap gap-4 mt-8 text-center">
-            <Link to="/login">
-              <Button>Ingresar</Button>
-            </Link>
-            <Link to="/register">
-              <Button secondary>Registrate</Button>
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Logout />
+              </>
+            ) : (
+              <Login />
+            )}
           </div>
         </div>
       </div>

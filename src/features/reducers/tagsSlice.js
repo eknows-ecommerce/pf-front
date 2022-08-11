@@ -23,7 +23,7 @@ const tagsSlice = createSlice({
     },
     [getAll.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.tags = payload.tags
+      state.tags = payload.tags ?? []
     },
     [getAll.rejected]: (state) => {
       state.cargando = true

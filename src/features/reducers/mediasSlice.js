@@ -21,60 +21,62 @@ const mediasSlice = createSlice({
     [getAll.pending]: (state) => {
       state.cargandoMedias = true
     },
-    [getAll.fulfilled]: (state, {payload}) => {
+    [getAll.fulfilled]: (state, { payload }) => {
       state.cargandoMedias = false
-      state.medias = payload.medias
+      state.medias = payload.medias ?? []
     },
     [getAll.rejected]: (state) => {
       state.cargandoMedias = true
     },
     //getById
     [getById.pending]: (state) => {
-        state.cargandoMedias = true
-      },
-      [getById.fulfilled]: (state, {payload}) => {
-        state.cargandoMedias = false
-        state.media = payload.media
-      },
-      [getById.rejected]: (state) => {
-        state.cargandoMedias = true
-      },
+      state.cargandoMedias = true
+    },
+    [getById.fulfilled]: (state, { payload }) => {
+      state.cargandoMedias = false
+      state.media = payload.media
+    },
+    [getById.rejected]: (state) => {
+      state.cargandoMedias = true
+    },
     //create
     [create.pending]: (state) => {
-        state.cargandoMedias = true
-      },
-      [create.fulfilled]: (state, {payload}) => {
-        state.cargandoMedias = false
-        state.medias = [...state.medias, payload.media]
-      },
-      [create.rejected]: (state) => {
-        state.cargandoMedias = true
-      },
+      state.cargandoMedias = true
+    },
+    [create.fulfilled]: (state, { payload }) => {
+      state.cargandoMedias = false
+      state.medias = [...state.medias, payload.media]
+    },
+    [create.rejected]: (state) => {
+      state.cargandoMedias = true
+    },
     //update
     [update.pending]: (state) => {
-        state.cargandoMedias = true
-      },
-      [update.fulfilled]: (state, {payload}) => {
-        const index = state.medias.findIndex((media)=> media.id === payload.media.id)
-        state.medias[index] = payload.tag
-        state.cargandoMedias = false
-      },
-      [update.rejected]: (state) => {
-        state.cargandoMedias = true
-      },
+      state.cargandoMedias = true
+    },
+    [update.fulfilled]: (state, { payload }) => {
+      const index = state.medias.findIndex(
+        (media) => media.id === payload.media.id
+      )
+      state.medias[index] = payload.tag
+      state.cargandoMedias = false
+    },
+    [update.rejected]: (state) => {
+      state.cargandoMedias = true
+    },
     //deleteById
     [deleteById.pending]: (state) => {
-        state.cargandoMedias = true
-      },
-      [deleteById.fulfilled]: (state, {payload}) => {
-        state.medias = [...state.medias.filter((media)=>media.id !== payload.id)]
-        state.cargandoMedias = false
-      },
-      [deleteById.rejected]: (state) => {
-        state.cargandoMedias = true
-      },
-
-
+      state.cargandoMedias = true
+    },
+    [deleteById.fulfilled]: (state, { payload }) => {
+      state.medias = [
+        ...state.medias.filter((media) => media.id !== payload.id),
+      ]
+      state.cargandoMedias = false
+    },
+    [deleteById.rejected]: (state) => {
+      state.cargandoMedias = true
+    },
   },
 })
 

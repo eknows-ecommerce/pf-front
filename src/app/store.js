@@ -8,11 +8,11 @@ import usuariosReducer from '../features/reducers/usuariosSlice'
 
 export const store = configureStore({
   reducer: {
+    usuariosStore: usuariosReducer,
     categoriasStore: categoriasReducer,
     pedidosStore: pedidosReducer,
     librosStore: librosReducer,
     multimediaStore: mediasReducer,
     tagsStore: tagsReducer,
-    usuariosStore: usuariosReducer,
   },
 })

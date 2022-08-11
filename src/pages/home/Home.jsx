@@ -3,10 +3,14 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardLibro from '../../components/cards/CardLibro'
 import { getAll } from '../../features/actions/libros'
-import Paginacion from '../../components/Paginacion/Paginacion'
-import usePaginacion from '../../hooks/usePaginacion'
+import Paginacion from 'components/paginacion/Paginacion'
+import usePaginacion from 'hooks/usePaginacion'
+
 import { useLocation } from 'react-router-dom'
-import Filtros from '../../components/FiltroCategorias/Filtros'
+import Filtros from 'components/filtroCategorias/Filtros'
+
+// import Categorias from '../../components/FiltroCategorias/Categorias'
+// import Tags from '../../filtrosTags/Tags'
 
 function Home() {
   const dispatch = useDispatch()
@@ -17,8 +21,10 @@ function Home() {
     paginaSiguiente,
     handleTotal,
   } = usePaginacion()
-  const { libros, count } = useSelector(({ librosStore }) => librosStore)
-  const { busqueda } = useSelector(({ librosStore }) => librosStore)
+  const { libros, count, busqueda } = useSelector(
+    ({ librosStore }) => librosStore
+  )
+  // const { busqueda } = useSelector(({ librosStore }) => librosStore)
   const librosCategorias = useSelector(
     ({ librosStore }) => librosStore.categorias
   )
@@ -26,21 +32,44 @@ function Home() {
   let url = useLocation()
 
   useEffect(() => {
-    if (new RegExp('\\?').test(url.search)) {
+    if (!busqueda && !librosCategorias) {
+      dispatch(getAll(`offset=${paginas.currentPage - 1}`))
       handleTotal(count)
+    }
+    if (busqueda && librosCategorias) {
       dispatch(
-        getAll(`titulo=${busqueda}&offset=${(paginas.currentPage - 1) * 6}`)
+        getAll(
+          `${librosCategorias}&titulo=${busqueda}&offset=${
+            paginas.currentPage - 1
+          }`
+        )
       )
+      handleTotal(count)
     } else {
       if (librosCategorias) {
         dispatch(
-          getAll(`${librosCategorias}&offset=${(paginas.currentPage - 1) * 6}`)
+          getAll(`${librosCategorias}&offset=${paginas.currentPage - 1}`)
         )
-      } else {
-        dispatch(getAll(`offset=${(paginas.currentPage - 1) * 6}`))
+        handleTotal(count)
       }
-      handleTotal(count)
+      if (busqueda) {
+        dispatch(getAll(`titulo=${busqueda}&offset=${paginas.currentPage - 1}`))
+        handleTotal(count)
+      }
     }
+    // if (busqueda) {
+    //   handleTotal(count)
+    //   dispatch(getAll(`titulo=${busqueda}&offset=${paginas.currentPage - 1}`))
+    // } else {
+    //   if (librosCategorias) {
+    //     dispatch(
+    //       getAll(`${librosCategorias}&offset=${paginas.currentPage - 1}`)
+    //     )
+    //   } else {
+    //     dispatch(getAll(`offset=${paginas.currentPage - 1}`))
+    //   }
+    //   handleTotal(count)
+    // }
   }, [paginas.currentPage, count, busqueda, librosCategorias])
 
   useEffect(() => {
@@ -60,7 +89,19 @@ function Home() {
                   <>
                     <span className="text-sm font-bold text-rosadito-500">
                       {' '}
-                      {(paginas.currentPage - 1) * 6 + (count % 6)}
+                      {(paginas.currentPage - 1) * 6 +
+                        (count === 6 ? count : count % 6)}
+                    </span>{' '}
+                    de{' '}
+                    <span className="text-sm font-bold text-rosadito-500">
+                      {count}
+                    </span>{' '}
+                    Libros
+                  </>
+                ) : count ? (
+                  <>
+                    <span className="text-sm font-bold text-rosadito-500">
+                      {paginas.currentPage * 6}
                     </span>{' '}
                     de{' '}
                     <span className="text-sm font-bold text-rosadito-500">
@@ -70,11 +111,13 @@ function Home() {
                   </>
                 ) : (
                   <>
-                    <span className="text-sm text-rosadito-500">
-                      {paginas.currentPage * 6}
+                    <span className="text-sm font-bold text-rosadito-500">
+                      0
                     </span>{' '}
                     de{' '}
-                    <span className="text-sm text-rosadito-500">{count}</span>{' '}
+                    <span className="text-sm font-bold text-rosadito-500">
+                      0
+                    </span>{' '}
                     Libros
                   </>
                 )}
