@@ -13,17 +13,17 @@ const root = createRoot(container)
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <Auth0Provider
-          domain="dev-qj94nmqd.us.auth0.com"
-          clientId="jdoEYPUXaCRWjyZOC3ULnNNUotxDGjkZ"
-          redirectUri={window.location.origin}
-        >
+    <Provider store={store}>
+      <Auth0Provider
+        domain="dev-qj94nmqd.us.auth0.com"
+        clientId="jdoEYPUXaCRWjyZOC3ULnNNUotxDGjkZ"
+        redirectUri={window.location.origin}
+      >
+        <BrowserRouter>
           <App />
-        </Auth0Provider>
-      </Provider>
-    </BrowserRouter>
+        </BrowserRouter>
+      </Auth0Provider>
+    </Provider>
   </React.StrictMode>
 )
 // If you want to start measuring performance in your app, pass a function

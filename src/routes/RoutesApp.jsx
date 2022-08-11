@@ -5,7 +5,7 @@ import NotFound from '../pages/NotFound/NotFound'
 import Navbar from '../components/NavBar/Navbar'
 import Detalle from '../components/Detalle/Detalle'
 import Perfil from '../pages/perfil/Perfil'
-import Pedidos from '../pages/pedidos/Pedidos'
+import Pedidos from '../pages/perfil/Pedidos'
 import MenuPerfil from '../pages/perfil/Menu'
 import Menu from '../pages/perfil/Menu'
 import Editar from '../pages/perfil/Editar'
@@ -14,18 +14,13 @@ import Editar from '../pages/perfil/Editar'
 function RoutesApp() {
   return (
     <Routes>
+      <Route path="menu" element={<Menu />}>
+        <Route path="pedidos" element={<Pedidos />} />
+        <Route path="editar" element={<Editar />} />
+      </Route>
       <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />
         <Route path="home" element={<Home />} />
-
-        {/* <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} /> */}
-        <Route path="menu/perfil" element={<Perfil />} />
-        <Route path="menu/perfil/editar" element={<Editar />} />
-
-        <Route path="pedidos" element={<Pedidos />} />
-        <Route path="menu" element={<Menu />} />
-
         <Route path="detalle/:id" element={<Detalle />} />
         <Route path="*" element={<NotFound />} />
       </Route>

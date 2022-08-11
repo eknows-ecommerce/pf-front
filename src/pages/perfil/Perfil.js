@@ -5,30 +5,30 @@ import Button from '../../components/templates/Button'
 import { getById } from '../../features/actions/usuarios'
 
 export default function Perfil() {
-  const dispatch = useDispatch()
-  const { usuarios, usuario } = useSelector(
-    ({ usuariosStore }) => usuariosStore
-  )
-  const idProf = usuarios[0][0].id
+  // const dispatch = useDispatch()
+  // const { usuarios, usuario } = useSelector(
+  //   ({ usuariosStore }) => usuariosStore
+  // )
+  // const idProf = usuarios[0][0].id
 
-  useEffect(() => {
-    dispatch(getById(idProf))
-  }, [idProf, dispatch])
-  console.log('USUARIOS', usuarios)
-  console.log('USUARIO', usuario)
+  // useEffect(() => {
+  //   dispatch(getById(idProf))
+  // }, [idProf, dispatch])
+  // console.log('USUARIOS', usuarios)
+  // console.log('USUARIO', usuario)
 
   return (
     <div>
       <article className="p-4 bg-gray-00 border border-gray-200 rounded-xl">
         <div className="flex items-center">
           <img
-            src={usuario.picture}
-            alt={usuario.name}
+            // src={usuario.picture}
+            // alt={usuario.name}
             className="w-20 h-20 rounded-full"
           />
           <div className="ml-3">
             <h5 className="text-lg font-medium text-violetapaleta">
-              {usuario.name}
+              {/* {usuario.name} */}
             </h5>
             <div className="flow-root">
               <ul className="flex flex-wrap -m-1"></ul>
@@ -46,7 +46,7 @@ export default function Perfil() {
                 Pais
               </h5>
               <p className="mt-1 text-xs font-medium text-black-300">
-                {usuario.ciudad}
+                {/* {usuario.ciudad} */}
               </p>
             </a>
           </li>
@@ -58,7 +58,7 @@ export default function Perfil() {
             >
               <h5 className="font-medium text-violetapaleta">e-mail</h5>
               <p className="mt-1 text-xs font-medium text-black">
-                {usuario.email}
+                {/* {usuario.email} */}
               </p>
             </a>
           </li>

@@ -1,5 +1,9 @@
 import React from 'react'
+import { update } from '../../features/actions/usuarios'
 export default function Editar() {
+  // const { usuarios, usuario } = useSelector(
+  //   ({ usuariosStore }) => usuariosStore
+  // )
   return (
     <>
       <div>

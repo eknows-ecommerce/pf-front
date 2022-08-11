@@ -8,7 +8,6 @@ import { getAll as getallTag } from '../../features/actions/tags'
 
 import Paginacion from '../../components/Paginacion/Paginacion'
 import usePaginacion from '../../hooks/usePaginacion'
-import Categoria from '../../components/FiltroCategorias/Categoria'
 import Categorias from '../../components/FiltroCategorias/Categorias'
 import Tags from '../../filtrosTags/Tags'
 
@@ -70,7 +69,7 @@ function Home() {
                   <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
                     Categorias
                   </legend>
-                  <Categorias categorias={categorias} />
+                  <Categorias />
                 </fieldset>
                 <div>
                   <fieldset>
