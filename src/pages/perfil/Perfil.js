@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Button from '../../components/templates/Button'
 import { getById } from '../../features/actions/usuarios'
 
@@ -62,7 +63,9 @@ export default function Perfil() {
             </a>
           </li>
         </ul>
-        <Button>Editar</Button>
+        <Link to="editar">
+          <Button>Editar</Button>{' '}
+        </Link>
       </article>
     </div>
   )

@@ -8,6 +8,7 @@ import Perfil from '../pages/perfil/Perfil'
 import Pedidos from '../pages/pedidos/Pedidos'
 import MenuPerfil from '../pages/perfil/Menu'
 import Menu from '../pages/perfil/Menu'
+import Editar from '../pages/perfil/Editar'
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -20,6 +21,8 @@ function RoutesApp() {
         {/* <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} /> */}
         <Route path="menu/perfil" element={<Perfil />} />
+        <Route path="menu/perfil/editar" element={<Editar />} />
+
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="menu" element={<Menu />} />
 

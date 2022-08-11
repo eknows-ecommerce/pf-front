@@ -14,7 +14,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="shadow-sm">
+      <header className="shadow-sm ">
         <div className="flex items-center justify-between h-16  px-4 mx-auto">
           <div className="">
             <Link to="menu">
@@ -39,7 +39,7 @@ export default function Navbar() {
               </button>
             </Link>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 ">
             <Link to="/" className="w-16 h-14 bg-transparent">
               <img
                 src={images}
@@ -74,7 +74,7 @@ export default function Navbar() {
               </svg>
             </button>
           </div>
-          <nav className="items-center justify-center hidden space-x-8 text-sm font-medium lg:flex lg:flex-1 lg:w-0">
+          <nav className="items-center justify-center hidden space-x-8 font-extrabold  font-poiret-one text-black lg:flex lg:flex-1 lg:w-0">
             <Link className="text-gray-900" to="home">
               Tienda
             </Link>
