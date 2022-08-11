@@ -24,7 +24,7 @@ const pedidosSlice = createSlice({
     },
     [getAll.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.pedidos = payload.pedidos
+      state.pedidos = payload.pedidos ?? []
     },
     [getAll.rejected]: (state, { payload }) => {
       state.cargando = true

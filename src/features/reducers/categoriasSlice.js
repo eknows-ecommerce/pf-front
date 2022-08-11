@@ -6,7 +6,7 @@ import {
   getById,
   update,
   deleteById,
-} from '../actions/categorias'
+} from 'features/actions/categorias'
 
 const initialState = {
   categorias: [],
@@ -30,7 +30,7 @@ const categoriasSlice = createSlice({
     },
     [getAll.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.categorias = payload.categorias
+      state.categorias = payload.categorias ?? []
     },
     [getAll.rejected]: (state, { payload }) => {
       state.cargando = true

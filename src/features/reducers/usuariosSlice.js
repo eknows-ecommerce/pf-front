@@ -51,7 +51,6 @@ const usuariosSlice = createSlice({
       state.cargando = true
     },
     [create.fulfilled]: (state, { payload }) => {
-      console.log(payload, 'payload')
       state.cargando = false
       state.usuarios = [...state.usuarios, payload.usuario]
       state.usuario = payload.usuario
@@ -92,5 +91,5 @@ const usuariosSlice = createSlice({
     },
   },
 })
-
+export const { cambiarCargando } = usuariosSlice.actions
 export default usuariosSlice.reducer

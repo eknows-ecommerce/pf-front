@@ -32,7 +32,7 @@ const librosSlice = createSlice({
     },
     [getAll.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.libros = payload.libros
+      state.libros = payload.libros ?? []
       state.count = payload.count
     },
     [getAll.rejected]: (state) => {

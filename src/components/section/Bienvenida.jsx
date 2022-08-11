@@ -17,7 +17,7 @@ export default function Bienvenida() {
   useEffect(() => {
     if (isAuthenticated) {
       console.log(user)
-      dispatch(create({ user }))
+      dispatch(create(user))
     }
   }, [isAuthenticated])
 

@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 // <----------------- acciones que conectan a la base de datos ----------------->
-export const getAll = createAsyncThunk('getAll/@GETALL', async () => {
+export const getAll = createAsyncThunk('usuarios/@GETALL', async () => {
   try {
     const { data } = await axios.get('http://localhost:8000/usuarios')
     return data
@@ -27,7 +27,7 @@ export const getAllByName = createAsyncThunk(
   }
 )
 
-export const getById = createAsyncThunk('getById/@GETBYID', async (id) => {
+export const getById = createAsyncThunk('usuarios/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(`http://localhost:8000/usuarios/${id}`)
     return data
@@ -37,7 +37,7 @@ export const getById = createAsyncThunk('getById/@GETBYID', async (id) => {
   }
 })
 
-export const create = createAsyncThunk('create/@CREATE', async (usuario) => {
+export const create = createAsyncThunk('usuarios/@CREATE', async (usuario) => {
   try {
     const { data } = await axios.post('http://localhost:8000/usuarios', usuario)
     return data
@@ -48,7 +48,7 @@ export const create = createAsyncThunk('create/@CREATE', async (usuario) => {
 })
 
 export const update = createAsyncThunk(
-  'update/@PUT/ID',
+  'usuarios/@UPDATE',
   async ({ id, usuario }) => {
     try {
       const { data } = await axios.put(
@@ -63,12 +63,17 @@ export const update = createAsyncThunk(
   }
 )
 
-export const deleteById = createAsyncThunk('delete/@DELETE/ID', async (id) => {
-  try {
-    const { data } = await axios.delete(`http://localhost:8000/usuarios/${id}`)
-    return data
-  } catch (error) {
-    const msg = error.response.data.msg
-    return msg
+export const deleteById = createAsyncThunk(
+  'usuarios/@DELETEBYID',
+  async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:8000/usuarios/${id}`
+      )
+      return data
+    } catch (error) {
+      const msg = error.response.data.msg
+      return msg
+    }
   }
-})
+)
