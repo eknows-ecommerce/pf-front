@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Button from '../../components/templates/Button'
-import { getById } from '../../features/actions/usuarios'
+// import { getById } from '../../features/actions/usuarios'
 
 export default function Perfil() {
   // const dispatch = useDispatch()
@@ -25,6 +24,7 @@ export default function Perfil() {
             // src={usuario.picture}
             // alt={usuario.name}
             className="w-20 h-20 rounded-full"
+            alt="perfil"
           />
           <div className="ml-3">
             <h5 className="text-lg font-medium text-violetapaleta">
@@ -38,13 +38,12 @@ export default function Perfil() {
         <ul className="mt-4 space-y-2">
           <li>
             <a
+              rel="noreferrer"
               href="https://github.com/andrewmcodes/hyperui"
               target="_blank"
               className="block h-full p-4 border border-white rounded-lg hover:border-gray-500"
             >
-              <h5 className="font-medium text-white  text-violetapaleta">
-                Pais
-              </h5>
+              <h5 className="font-medium  text-violetapaleta">Pais</h5>
               <p className="mt-1 text-xs font-medium text-black-300">
                 {/* {usuario.ciudad} */}
               </p>
@@ -52,6 +51,7 @@ export default function Perfil() {
           </li>
           <li>
             <a
+              rel="noreferrer"
               href="https://github.com/markmead/hyperjs"
               target="_blank"
               className="block h-full p-4 border border-white rounded-lg hover:border-gray-500"

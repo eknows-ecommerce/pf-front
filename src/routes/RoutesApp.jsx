@@ -7,6 +7,7 @@ import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
 import Menu from '../pages/perfil/Menu'
 import Editar from '../pages/perfil/Editar'
+// import Login from '../components/sesion/Login'
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -19,8 +20,7 @@ function RoutesApp() {
       <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />
         <Route path="home" element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        {/* <Route path="login" element={<Login />} /> */}
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>
       <Route path="*" element={<NotFound />} />

@@ -6,11 +6,11 @@ import { getAll } from '../../features/actions/libros'
 // import { getAll as getallCat, getById } from '../../features/actions/categorias'
 // import { getAll as getallTag } from '../../features/actions/tags'
 
-import Paginacion from '../../components/Paginacion/Paginacion'
-import usePaginacion from '../../hooks/usePaginacion'
+import Paginacion from 'components/paginacion/Paginacion'
+import usePaginacion from 'hooks/usePaginacion'
 
 import { useLocation } from 'react-router-dom'
-import Filtros from '../../components/FiltroCategorias/Filtros'
+import Filtros from 'components/filtroCategorias/Filtros'
 
 // import Categorias from '../../components/FiltroCategorias/Categorias'
 // import Tags from '../../filtrosTags/Tags'

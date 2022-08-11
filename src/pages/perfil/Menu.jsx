@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet } from 'react-router-dom'
 import Logout from '../../components/sesion/Logout'
-import Button from '../../components/templates/Button'
+// import Button from '../../components/templates/Button'
 import { getById } from '../../features/actions/usuarios'
 
 export default function Menu() {
@@ -10,7 +10,7 @@ export default function Menu() {
   const { usuarios, usuario } = useSelector(
     ({ usuariosStore }) => usuariosStore
   )
-  const idProf = usuarios[0][0].id
+  const idProf = usuarios[0].id
 
   useEffect(() => {
     dispatch(getById(idProf))

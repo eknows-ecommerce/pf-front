@@ -6,7 +6,7 @@ import {
   create,
   update,
   deleteById,
-} from '../actions/usuarios'
+} from 'features/actions/usuarios'
 
 const initialState = {
   usuarios: [],
@@ -51,8 +51,10 @@ const usuariosSlice = createSlice({
       state.cargando = true
     },
     [create.fulfilled]: (state, { payload }) => {
+      console.log(payload, 'payload')
       state.cargando = false
       state.usuarios = [...state.usuarios, payload.usuario]
+      state.usuario = payload.usuario
       state.total = state.total + 1
     },
     [create.rejected]: (state) => {

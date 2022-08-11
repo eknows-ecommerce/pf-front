@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAll } from '../../features/actions/libros'
+// import { getAll } from '../../features/actions/libros'
 import { getAll as getAllCat } from '../../features/actions/categorias'
 import Categoria from './Categoria'
 import { setCategorias } from '../../features/reducers/librosSlice'

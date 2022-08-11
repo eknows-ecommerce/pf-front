@@ -1,18 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useDispatch } from 'react-redux'
-import { create } from '../../features/actions/usuarios'
+import { create } from 'features/actions/usuarios'
 import Login from '../sesion/Login'
 import Logout from '../sesion/Logout'
 
 export default function Bienvenida() {
   const { user, isAuthenticated } = useAuth0()
   const dispatch = useDispatch()
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     dispatch(create(user))
+  //   }
+  // }, [dispatch, isAuthenticated, user])
   useEffect(() => {
     if (isAuthenticated) {
-      dispatch(create(user))
+      console.log(user)
+      dispatch(create({ user }))
     }
-  }, [dispatch, isAuthenticated, user])
+  }, [isAuthenticated])
 
   return (
     <section className="relative bg-white">

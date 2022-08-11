@@ -1,6 +1,5 @@
-import React from 'react'
 import Categorias from './Categorias'
-import Tags from '../Tags/Tags'
+import Tags from 'components/tags/Tags'
 
 function Filtros() {
   return (
