@@ -3,11 +3,15 @@ import { Link, Outlet } from 'react-router-dom'
 import { FaShoppingCart } from 'react-icons/fa'
 import images from '../../assets/img/logo.png'
 import Search from '../search/Search'
+import { useAuth0 } from '@auth0/auth0-react'
+
 import { useRef } from 'react'
 import useSearch from '../../hooks/useSearch'
 import Footer from '../footer/Footer'
 
 export default function Navbar() {
+  const { isAuthenticated, isLoading } = useAuth0()
+
   const show = useRef(null)
   const { search, handleSearch } = useSearch()
 
@@ -20,27 +24,31 @@ export default function Navbar() {
       <header className="shadow-sm ">
         <div className="flex items-center justify-between h-16  px-4 mx-auto">
           <div className="">
-            <Link to="menu">
-              <button
-                className="p-2 text-rosadito-600 bg-gray-100 rounded-full"
-                type="button"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+            {isAuthenticated ? (
+              <Link to="menu">
+                <button
+                  className="p-2 text-rosadito-600 bg-gray-100 rounded-full"
+                  type="button"
                 >
-                  <path
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                  />
-                </svg>
-              </button>
-            </Link>
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                    />
+                  </svg>
+                </button>
+              </Link>
+            ) : (
+              isLoading
+            )}
           </div>
           <div className="flex items-center space-x-4 ">
             <Link to="/" className="w-16 h-14 bg-transparent">
