@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-const Production = process.env.PRODUCTION
-
 import axios from 'axios'
+
+const Production = process.env.PRODUCTION
 
 // <----------------- acciones que interactuan con la DB ----------------->
 export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {

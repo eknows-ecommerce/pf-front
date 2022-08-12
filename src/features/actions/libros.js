@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-const Production = process.env.PRODUCTION
-
 import axios from 'axios'
+
+const Production = process.env.PRODUCTION
 
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
