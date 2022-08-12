@@ -11,7 +11,7 @@ import { getAll as getAllLibros } from 'features/actions/libros'
 export default function Landing() {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getAllLibros())
+    dispatch(getAllLibros(`offset=0`))
     dispatch(getallCat())
     dispatch(getallTag())
   }, [dispatch])

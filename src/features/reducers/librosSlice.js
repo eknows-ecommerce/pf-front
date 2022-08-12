@@ -1,6 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getAll, getById, create, update, deleteById } from '../actions/libros'
+import {
+  getAll,
+  getById,
+  create,
+  update,
+  deleteById,
+  getListCar,
+} from 'features/actions/libros'
 
 const initialState = {
   libros: [],
@@ -9,6 +16,7 @@ const initialState = {
   cargando: null,
   busqueda: '',
   categorias: '',
+  carrito: [],
 }
 
 const librosSlice = createSlice({
@@ -24,8 +32,22 @@ const librosSlice = createSlice({
     setCategorias: (state, action) => {
       state.categorias = action.payload
     },
+    setCarrito: (state, action) => {
+      state.carrito = action.payload
+    },
   },
   extraReducers: {
+    //getListCar
+    [getListCar.pending]: (state) => {
+      state.cargando = true
+    },
+    [getListCar.fulfilled]: (state, { payload }) => {
+      state.cargando = false
+      state.carrito = payload.librosToCar
+    },
+    [getListCar.rejected]: (state) => {
+      state.cargando = true
+    },
     //getAll
     [getAll.pending]: (state) => {
       state.cargando = true
@@ -92,7 +114,7 @@ const librosSlice = createSlice({
   },
 })
 
-export const { cambiarCargando, setBusqueda, setCategorias } =
+export const { cambiarCargando, setBusqueda, setCategorias, setCarrito } =
   librosSlice.actions
 
 export default librosSlice.reducer

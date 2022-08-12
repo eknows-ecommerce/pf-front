@@ -1,18 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardLibro from '../../components/cards/CardLibro'
 import { getAll } from '../../features/actions/libros'
 import Paginacion from 'components/paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 
-import { useLocation } from 'react-router-dom'
 import Filtros from 'components/filtroCategorias/Filtros'
 
 // import Categorias from '../../components/FiltroCategorias/Categorias'
 // import Tags from '../../filtrosTags/Tags'
 
 function Home() {
+  const [listaCarrito, setListaCarrito] = useState([])
+
   const dispatch = useDispatch()
   const {
     paginas,
@@ -28,8 +29,6 @@ function Home() {
   const librosCategorias = useSelector(
     ({ librosStore }) => librosStore.categorias
   )
-
-  let url = useLocation()
 
   useEffect(() => {
     if (!busqueda && !librosCategorias) {
@@ -57,24 +56,20 @@ function Home() {
         handleTotal(count)
       }
     }
-    // if (busqueda) {
-    //   handleTotal(count)
-    //   dispatch(getAll(`titulo=${busqueda}&offset=${paginas.currentPage - 1}`))
-    // } else {
-    //   if (librosCategorias) {
-    //     dispatch(
-    //       getAll(`${librosCategorias}&offset=${paginas.currentPage - 1}`)
-    //     )
-    //   } else {
-    //     dispatch(getAll(`offset=${paginas.currentPage - 1}`))
-    //   }
-    //   handleTotal(count)
-    // }
   }, [paginas.currentPage, count, busqueda, librosCategorias])
 
   useEffect(() => {
     dispatch(getAll(`offset=0`))
   }, [])
+
+  const handleCarrito = (id, precio) => {
+    const existe = listaCarrito.find((item) => item.id === id)
+    if (!existe) {
+      const elemento = [...listaCarrito, { id, cantidad: 1, total: 1 * precio }]
+      setListaCarrito(elemento)
+      localStorage.setItem('carrito', JSON.stringify(elemento))
+    }
+  }
 
   return (
     <section>
@@ -149,6 +144,7 @@ function Home() {
                     titulo={libro.titulo}
                     descuento={libro.descuento}
                     precio={libro.precio}
+                    handleCarrito={() => handleCarrito(libro.id, libro.precio)}
                   />
                 ))}
             </div>

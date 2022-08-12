@@ -5,6 +5,8 @@ function Button({
   round,
   background,
   textColor,
+  onClick,
+  id,
 }) {
   const css = primary
     ? `bg-rosadito-500 text-white`
@@ -16,6 +18,8 @@ function Button({
   return (
     <button
       className={`${css} ${radius} flex items-center justify-center content-center w-full px-12 py-3 text-sm font-medium shadow text-w-600 sm:w-auto hover:scale-110 hover:shadow-md hover:shadow-current focus:outline-none focus:ring mr-2`}
+      onClick={onClick}
+      id={id}
     >
       {children}
     </button>

@@ -1,4 +1,4 @@
-import React from 'react'
+
 export default function Tag({ id, nombre, handleClick }) {
   return (
     <div className="flex items-center">

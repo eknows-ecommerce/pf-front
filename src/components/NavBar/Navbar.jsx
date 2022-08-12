@@ -96,9 +96,7 @@ export default function Navbar() {
               to="/home/carrito"
               className="flex items-center content-center justify-center w-10 h-10 border border-gray-700 rounded-full"
             >
-              <button>
-                <FaShoppingCart />
-              </button>
+              <FaShoppingCart />
             </Link>
           </div>
         </div>
