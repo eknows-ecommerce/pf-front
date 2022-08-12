@@ -7,7 +7,7 @@ console.log(Production)
 export const getAll = createAsyncThunk('usuarios/@GETALL', async () => {
   try {
     const { data } = await axios.get(
-      (Production !== 'development') !== 'development'
+      Production !== 'development'
         ? `https://ebooks-back.herokuapp.com/usuarios`
         : 'http://localhost:8000/usuarios'
     )
