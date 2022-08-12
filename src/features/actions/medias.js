@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const Production = process.env.PORT
+const Production = process.env.NODE_ENV
 
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('medias/@GETALL', async () => {
