@@ -1,13 +1,41 @@
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import useFavorite from '../../hooks/useToggle'
 import Button from '../templates/Button'
+
+
 
 function CardLibro({ id, portada, titulo, descuento = 15, precio }) {
   const { toggle, handleToggle } = useFavorite(false)
 
+  const addItem = () => {
+    
+    let carrito = localStorage.getItem('carrito')    
+  
+    carrito = JSON.parse(carrito) 
+    
+    const libro = carrito.items.filter(el => el.id === id)
+ 
+    
+   
+    if (carrito && libro.length > 0) {
+      carrito.items = carrito.items.map(elemento => elemento.id === id ? { ...elemento, id: id, cant: elemento.cant + 1 } : elemento)
+      
+    } else if (carrito) {
+      carrito.items.push({ id: id, cant: 1 })
+    }
+    else {
+      carrito = { items: [{ id: id, cant: 1 }] }
+    }        
+    localStorage.setItem('carrito', JSON.stringify(carrito))    
+    
+ 
+    
+  }
+
   return (
     <div className="relative flex flex-col justify-between items-center content-center m-2 shadow-lg shadow-current p-3">
       {toggle ? (
+        
         <button
           className="absolute p-2 text-rosadito bg-black rounded-full right-2 top-4 z-10"
           type="button"
@@ -28,6 +56,7 @@ function CardLibro({ id, portada, titulo, descuento = 15, precio }) {
             ></path>
           </svg>
         </button>
+    
       ) : (
         <button
           className="absolute p-2 text-white bg-black rounded-full right-2 top-4 z-10"
@@ -64,18 +93,22 @@ function CardLibro({ id, portada, titulo, descuento = 15, precio }) {
           New
         </strong>
         <h5 className=" mt-4 text-lg font-bold font-poiret-one">{titulo}</h5>
+        
       </div>
-      <Link to="#carrito" className="flex flex-col items-center">
+      <Link to="/home" onClick={addItem} className="flex flex-col items-center">
         <h5 className="mt-2 text-lg font-bold text-gray-900 pb-2">${precio}</h5>
-        <Button primary>
+        <Button primary  >
           <>
+         
             <span className="text-sm font-medium">Add to Cart</span>
             <svg
               className="w-5 h-5 ml-1.5"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
+              
               stroke="currentColor"
+
             >
               <path
                 strokeLinecap="round"

@@ -7,6 +7,7 @@ import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
 import Menu from '../pages/perfil/Menu'
 import Editar from '../pages/perfil/Editar'
+import Carrito from 'components/carrito/Carrito'
 // import Login from '../components/sesion/Login'
 
 //Aqui iran todas las rutas
@@ -23,6 +24,7 @@ function RoutesApp() {
         {/* <Route path="login" element={<Login />} /> */}
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>
+      <Route path="home/carrito" element={<Carrito />} />  
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

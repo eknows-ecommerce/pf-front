@@ -93,7 +93,7 @@ export default function Navbar() {
           </nav>
           <div className="items-center hidden space-x-4 lg:flex">
             <Link
-              to="#carrito"
+              to="/home/carrito"
               className="flex items-center content-center justify-center w-10 h-10 border border-gray-700 rounded-full"
             >
               <button>
