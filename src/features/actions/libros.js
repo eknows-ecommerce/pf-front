@@ -9,7 +9,7 @@ export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
     // console.log('query', query)
     const { data } = await axios.get(
       Production
-        ? 'https://ebooks-back.herokuapp.com/libros?${query}'
+        ? `https://ebooks-back.herokuapp.com/libros?${query}`
         : `http://localhost:8000/libros?${query}`
     )
     // console.log(data)
