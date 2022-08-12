@@ -3,15 +3,14 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardLibro from '../../components/cards/CardLibro'
 import { getAll } from '../../features/actions/libros'
-import Paginacion from 'components/Paginacion/Paginacion'
+import Paginacion from 'components/paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 
-import Filtros from 'components/FiltroCategorias/Filtros'
-
-// import Categorias from '../../components/FiltroCategorias/Categorias'
-// import Tags from '../../filtrosTags/Tags'
+import Filtros from 'components/filtroCategorias/Filtros'
 
 function Home() {
+  const [listaCarrito, setListaCarrito] = useState([])
+
   const dispatch = useDispatch()
   const {
     paginas,
@@ -59,19 +58,6 @@ function Home() {
       )
       handleTotal(count)
     }
-    // if (busqueda) {
-    //   handleTotal(count)
-    //   dispatch(getAll(`titulo=${busqueda}&offset=${paginas.currentPage - 1}`))
-    // } else {
-    //   if (librosCategorias) {
-    //     dispatch(
-    //       getAll(`${librosCategorias}&offset=${paginas.currentPage - 1}`)
-    //     )
-    //   } else {
-    //     dispatch(getAll(`offset=${paginas.currentPage - 1}`))
-    //   }
-    //   handleTotal(count)
-    // }
   }, [
     paginas.currentPage,
     count,
@@ -84,6 +70,16 @@ function Home() {
   useEffect(() => {
     dispatch(getAll(`offset=0`))
   }, [])
+
+  const handleCarrito = (id, precio) => {
+    alert('se agrego un carrito')
+    const existe = listaCarrito.find((item) => item.id === id)
+    if (!existe) {
+      const elemento = [...listaCarrito, { id, cantidad: 1, total: 1 * precio }]
+      setListaCarrito(elemento)
+      localStorage.setItem('carrito', JSON.stringify(elemento))
+    }
+  }
 
   return (
     <section>
@@ -161,6 +157,7 @@ function Home() {
                     titulo={libro.titulo}
                     descuento={libro.descuento}
                     precio={libro.precio}
+                    handleCarrito={() => handleCarrito(libro.id, libro.precio)}
                   />
                 ))}
             </div>
