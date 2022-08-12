@@ -10,7 +10,7 @@ export default function Menu() {
   const { usuarios, usuario } = useSelector(
     ({ usuariosStore }) => usuariosStore
   )
-  const idProf = usuarios[0].id
+  const idProf = usuario.id
 
   useEffect(() => {
     dispatch(getById(idProf))

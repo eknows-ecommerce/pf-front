@@ -49,11 +49,12 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (usuario) => {
 
 export const update = createAsyncThunk(
   'usuarios/@UPDATE',
-  async ({ id, usuario }) => {
+  async (body) => {
     try {
+     
       const { data } = await axios.put(
-        `http://localhost:8000/usuarios/${id}`,
-        usuario
+        `http://localhost:8000/usuarios/${body.id}`,
+        body.datos
       )
       return data
     } catch (error) {

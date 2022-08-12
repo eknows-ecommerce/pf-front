@@ -1,25 +1,49 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { update } from '../../features/actions/usuarios'
 export default function Editar() {
-  // const { usuarios, usuario } = useSelector(
-  //   ({ usuariosStore }) => usuariosStore
-  // )
+   const { usuario } = useSelector(
+     ({ usuariosStore }) => usuariosStore
+  )
+ 
+  const dispatch = useDispatch()
+  const[input, setInput] = useState({
+    name: "",
+    pais: "",
+    ciudad: "",
+    telefono: "",
+    email: ""
+  })
+  const  handleSubmit = (e) =>{
+    e.preventDefault();
+    dispatch(update({id: usuario.id, datos: input }))
+    alert("Cambios guardados con éxito!");
+    setInput({});
+    setInput({
+      name: "",
+      pais: "",
+      ciudad: "",
+      telefono: "",
+      email: ""
+     })
+    
+  }
+  const handleChange = (e) =>{
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value
+      })
+    
+    
+  }
   return (
     <>
       <div>
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
-            <div className="px-4 sm:px-0">
-              <h3 className="text-3xl font-extrabold font-poiret-one leading-6 text-gray-900">
-                Edita tu perfil
-              </h3>
-              <p className="mt-1 text-2xl font-poiret-one  text-black">
-                Aqui podras editar tu información
-              </p>
-            </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form onSubmit={handleSubmit} >
               <div className="shadow sm:rounded-md sm:overflow-hidden">
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                   <div>
@@ -56,10 +80,12 @@ export default function Editar() {
                     </label>
                     <input
                       type="text"
-                      name="first-name"
+                      name="name"
+                      value={input.name}
                       id="first-name"
                       autoComplete="given-name"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      onChange={(e)=>handleChange(e)}
                     />
                   </div>
 
@@ -72,9 +98,11 @@ export default function Editar() {
                     </label>
                     <input
                       type="text"
-                      name="email-address"
+                      name="email"
+                      value={input.email}
                       id="email-address"
                       autoComplete="email"
+                      onChange={(e)=>handleChange(e)}
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </div>
@@ -87,7 +115,10 @@ export default function Editar() {
                     </label>
                     <input
                       type="text"
-                      name="email-address"
+                      name="pais"
+                      value={input.pais }
+                      onChange={(e)=>handleChange(e)}
+
                       id="email-address"
                       autoComplete="email"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -103,7 +134,9 @@ export default function Editar() {
                     </label>
                     <input
                       type="text"
-                      name="street-address"
+                      name="ciudad"
+                      value={input.ciudad }
+                      onChange={(e)=>handleChange(e)}
                       id="street-address"
                       autoComplete="street-address"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -115,12 +148,14 @@ export default function Editar() {
                       htmlFor="postal-code"
                       className="block text-lg   font-poiret-one font-extrabold text-black "
                     >
-                      ZIP / Codigo Postal
+                      Telefono
                     </label>
                     <input
                       type="text"
-                      name="postal-code"
-                      id="postal-code"
+                      name="telefono"
+                      value={input.telefono }
+                      onChange={(e)=>handleChange(e)}
+                      id="telefono"
                       autoComplete="postal-code"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
@@ -128,7 +163,7 @@ export default function Editar() {
                 </div>
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <button
-                    type="submit"
+                    onClick={handleSubmit}
                     className="inline-flex justify-center  font-poiret-one font-extrabold py-2 px-4 border border-transparent shadow-sm  rounded-md text-white bg-rosadito-600 hover:bg-violetapaleta-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
                   >
                     Save
