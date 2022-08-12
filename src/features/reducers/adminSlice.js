@@ -29,9 +29,8 @@ const adminSlice = createSlice({
     },
     [getAllLibros.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      console.log(payload.libros)
-       state.libros = payload.libros
-       state.count = payload.count
+      state.libros = payload.libros
+      state.count = payload.count
     },
     [getAllLibros.rejected]: (state) => {
       state.cargando = true
@@ -42,9 +41,8 @@ const adminSlice = createSlice({
     },
     [getAllUsuarios.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      console.log(payload.usuarios)
-       state.usuarios = payload.usuarios
-       state.count = payload.count
+      state.usuarios = payload.usuarios
+      state.count = payload.count
     },
     [getAllUsuarios.rejected]: (state) => {
       state.cargando = true

@@ -24,7 +24,6 @@ export const getAllLibros = createAsyncThunk(
       const { data } = await axios.get('http://localhost:8000/admin/libros', {
         headers: { authorization: `Bearer ${token}` },
       })
-      console.log(data)
       return data
     } catch (error) {
       const msg = error.message.data.msg

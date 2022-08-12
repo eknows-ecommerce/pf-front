@@ -9,10 +9,10 @@ import Menu from '../pages/perfil/Menu'
 import Editar from '../pages/perfil/Editar'
 import Admin from 'pages/admin/Admin'
 import Usuarios from 'pages/admin/Usuarios'
-import Baneados from 'pages/admin/Baneados'
 import Datos from 'pages/admin/Datos'
 import Cuentas from 'pages/admin/Cuentas'
 import Ventas from 'pages/admin/Ventas'
+import Productos from 'pages/admin/Productos'
 // import Login from '../components/sesion/Login'
 
 //Aqui iran todas las rutas
@@ -21,10 +21,10 @@ function RoutesApp() {
     <Routes>
       <Route path="admin" element={<Admin />}>
         <Route path="usuarios" element={<Usuarios />} />
-        <Route path="baneados" element={<Baneados />} />
         <Route path="datos" element={<Datos />} />
         <Route path="cuentas" element={<Cuentas />} />
         <Route path="ventas" element={<Ventas />} />
+        <Route path="productos" element={<Productos />} />
       </Route>
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />
