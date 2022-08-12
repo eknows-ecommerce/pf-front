@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-const Production = process.env.PRODUCTION
+const Production = process.env.PORT
 
 // <----------------- acciones que interactuan con la DB ----------------->
 export const getAll = createAsyncThunk('categorias/@GET/ALL', async () => {
@@ -31,7 +31,7 @@ export const getById = createAsyncThunk('categorias/@GETBYID', async (id) => {
   }
 })
 
-export const create = createAsyncThunk('create/@CREATE', async (categoria) => {
+export const create = createAsyncThunk('categorias/@CREATE', async (categoria) => {
   try {
     const { data } = await axios.post(
       Production
@@ -47,7 +47,7 @@ export const create = createAsyncThunk('create/@CREATE', async (categoria) => {
 })
 
 export const update = createAsyncThunk(
-  'update/@PUT/ID',
+  'categorias/@PUT/ID',
   async ({ id, categoria }) => {
     try {
       const { data } = await axios.put(
@@ -64,7 +64,7 @@ export const update = createAsyncThunk(
   }
 )
 
-export const deleteById = createAsyncThunk('delete/@DELETE/ID', async (id) => {
+export const deleteById = createAsyncThunk('categorias/@DELETE/ID', async (id) => {
   try {
     const { data } = await axios.delete(
       Production
