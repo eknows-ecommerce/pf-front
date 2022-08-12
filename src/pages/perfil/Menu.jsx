@@ -1,3 +1,4 @@
+import Button from 'components/templates/Button'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet } from 'react-router-dom'
@@ -22,6 +23,9 @@ export default function Menu() {
     <div>
       <section>
         <div className="max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+          <Link to="/home">
+            <Button>Volver</Button>
+          </Link>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 lg:gap-x-16 lg:items-center">
             <div className="max-w-lg mx-auto text-center lg:text-left lg:mx-0">
               <img

@@ -10,13 +10,14 @@ import {
 } from 'features/actions/libros'
 
 const initialState = {
+  count: 0,
   libros: [],
   libro: {},
-  count: 0,
+  carrito: [],
   cargando: null,
   busqueda: '',
   categorias: '',
-  carrito: [],
+  tags: '',
 }
 
 const librosSlice = createSlice({
@@ -32,89 +33,98 @@ const librosSlice = createSlice({
     setCategorias: (state, action) => {
       state.categorias = action.payload
     },
+
     setCarrito: (state, action) => {
       state.carrito = action.payload
     },
-  },
-  extraReducers: {
-    //getListCar
-    [getListCar.pending]: (state) => {
-      state.cargando = true
+    setTags: (state, action) => {
+      state.tags = action.payload
     },
-    [getListCar.fulfilled]: (state, { payload }) => {
-      state.cargando = false
-      state.carrito = payload.librosToCar
-    },
-    [getListCar.rejected]: (state) => {
-      state.cargando = true
-    },
-    //getAll
-    [getAll.pending]: (state) => {
-      state.cargando = true
-    },
-    [getAll.fulfilled]: (state, { payload }) => {
-      state.cargando = false
-      state.libros = payload.libros ?? []
-      state.count = payload.count
-    },
-    [getAll.rejected]: (state) => {
-      state.cargando = true
-    },
-    //getById
-    [getById.pending]: (state) => {
-      state.cargando = true
-    },
-    [getById.fulfilled]: (state, { payload }) => {
-      state.cargando = false
-      state.libro = payload.libro
-    },
-    [getById.rejected]: (state) => {
-      state.cargando = true
-    },
-    //create
-    [create.pending]: (state) => {
-      state.cargando = true
-    },
-    [create.fulfilled]: (state, { payload }) => {
-      state.cargando = false
-      state.libros = [...state.libros, payload.libro]
-      state.total = state.total + 1
-    },
-    [create.rejected]: (state) => {
-      state.cargando = true
-    },
-    //update
-    [update.pending]: (state) => {
-      state.cargando = true
-    },
-    [update.fulfilled]: (state, { payload }) => {
-      const index = state.libros.findIndex(
-        (libro) => libro.id === payload.libro.id
-      )
-      state.libros[index] = payload.libro
-      state.cargando = false
-    },
-    [update.rejected]: (state) => {
-      state.cargando = true
-    },
-    //deleteById
-    [deleteById.pending]: (state) => {
-      state.cargando = true
-    },
-    [deleteById.fulfilled]: (state, { payload }) => {
-      state.libros = [
-        ...state.libros.filter((libro) => libro.id !== payload.libro.id),
-      ]
-      state.total = state.total - 1
-      state.cargando = false
-    },
-    [deleteById.rejected]: (state) => {
-      state.cargando = true
+    extraReducers: {
+      //getListCar
+      [getListCar.pending]: (state) => {
+        state.cargando = true
+      },
+      [getListCar.fulfilled]: (state, { payload }) => {
+        state.cargando = false
+        state.carrito = payload.librosToCar
+      },
+      [getListCar.rejected]: (state) => {
+        state.cargando = true
+      },
+      //getAll
+      [getAll.pending]: (state) => {
+        state.cargando = true
+      },
+      [getAll.fulfilled]: (state, { payload }) => {
+        state.cargando = false
+        state.libros = payload.libros ?? []
+        state.count = payload.count
+      },
+      [getAll.rejected]: (state) => {
+        state.cargando = true
+      },
+      //getById
+      [getById.pending]: (state) => {
+        state.cargando = true
+      },
+      [getById.fulfilled]: (state, { payload }) => {
+        state.cargando = false
+        state.libro = payload.libro
+      },
+      [getById.rejected]: (state) => {
+        state.cargando = true
+      },
+      //create
+      [create.pending]: (state) => {
+        state.cargando = true
+      },
+      [create.fulfilled]: (state, { payload }) => {
+        state.cargando = false
+        state.libros = [...state.libros, payload.libro]
+        state.total = state.total + 1
+      },
+      [create.rejected]: (state) => {
+        state.cargando = true
+      },
+      //update
+      [update.pending]: (state) => {
+        state.cargando = true
+      },
+      [update.fulfilled]: (state, { payload }) => {
+        const index = state.libros.findIndex(
+          (libro) => libro.id === payload.libro.id
+        )
+        state.libros[index] = payload.libro
+        state.cargando = false
+      },
+      [update.rejected]: (state) => {
+        state.cargando = true
+      },
+      //deleteById
+      [deleteById.pending]: (state) => {
+        state.cargando = true
+      },
+      [deleteById.fulfilled]: (state, { payload }) => {
+        state.libros = [
+          ...state.libros.filter((libro) => libro.id !== payload.libro.id),
+        ]
+        state.total = state.total - 1
+        state.cargando = false
+      },
+      [deleteById.rejected]: (state) => {
+        state.cargando = true
+      },
     },
   },
 })
 
-export const { cambiarCargando, setBusqueda, setCategorias, setCarrito } =
-  librosSlice.actions
+export const {
+  cambiarCargando,
+  setBusqueda,
+  setCategorias,
+  setTags,
+  setCarrito,
+} = librosSlice.actions
 
 export default librosSlice.reducer

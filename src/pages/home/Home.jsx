@@ -8,9 +8,6 @@ import usePaginacion from 'hooks/usePaginacion'
 
 import Filtros from 'components/filtroCategorias/Filtros'
 
-// import Categorias from '../../components/FiltroCategorias/Categorias'
-// import Tags from '../../filtrosTags/Tags'
-
 function Home() {
   const [listaCarrito, setListaCarrito] = useState([])
 
@@ -29,34 +26,49 @@ function Home() {
   const librosCategorias = useSelector(
     ({ librosStore }) => librosStore.categorias
   )
+  const [sorter, setSort] = useState(['Sort', 'asc'])
+
+
+  const librosTags = useSelector(({ librosStore }) => librosStore.tags)
+
 
   useEffect(() => {
-    if (!busqueda && !librosCategorias) {
-      dispatch(getAll(`offset=${paginas.currentPage - 1}`))
-      handleTotal(count)
-    }
-    if (busqueda && librosCategorias) {
+    const [sort, dir] = sorter
+    let sortQuery = sort !== 'Sort' ? `&orden=${sort}&direcion=${dir}` : ''
+    let queryCategoryTags =
+      librosCategorias && librosCategorias !== 'categorias'
+        ? `&${librosCategorias}`
+        : ''
+    queryCategoryTags +=
+      librosTags && librosTags !== 'tags' ? `&${librosTags}` : ''
+
+    if (!busqueda) {
       dispatch(
         getAll(
-          `${librosCategorias}&titulo=${busqueda}&offset=${
-            paginas.currentPage - 1
-          }`
+          `offset=${paginas.currentPage - 1}` + sortQuery + queryCategoryTags
         )
       )
       handleTotal(count)
-    } else {
-      if (librosCategorias) {
-        dispatch(
-          getAll(`${librosCategorias}&offset=${paginas.currentPage - 1}`)
-        )
-        handleTotal(count)
-      }
-      if (busqueda) {
-        dispatch(getAll(`titulo=${busqueda}&offset=${paginas.currentPage - 1}`))
-        handleTotal(count)
-      }
     }
-  }, [paginas.currentPage, count, busqueda, librosCategorias])
+    if (busqueda) {
+      dispatch(
+        getAll(
+          `titulo=${busqueda}&offset=${paginas.currentPage - 1}` +
+            sortQuery +
+            queryCategoryTags
+        )
+      )
+      handleTotal(count)
+    }
+  }, [
+    paginas.currentPage,
+    count,
+    busqueda,
+    librosCategorias,
+    librosTags,
+    sorter,
+  ])
+
 
   useEffect(() => {
     dispatch(getAll(`offset=0`))
@@ -125,12 +137,15 @@ function Home() {
                   id="SortBy"
                   name="sort_by"
                   className="text-sm bg-gray-200 border-gray-200 font-medium rounded"
+                  onChange={(v) => {
+                    setSort(v.target.value.split('-'))
+                  }}
                 >
                   <option readOnly="">Sort</option>
-                  <option value="title-asc">Title, A-Z</option>
-                  <option value="title-desc">Title, Z-A</option>
-                  <option value="price-asc">Price, Low-High</option>
-                  <option value="price-desc">Price, High-Low</option>
+                  <option value="titulo-asc">Title, A-Z</option>
+                  <option value="titulo-desc">Title, Z-A</option>
+                  <option value="precio-asc">Price, Low-High</option>
+                  <option value="precio-desc">Price, High-Low</option>
                 </select>
               </div>
             </div>

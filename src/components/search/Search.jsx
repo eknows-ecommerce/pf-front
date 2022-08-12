@@ -21,7 +21,7 @@ function Search({ search, handleSearch }) {
       <input
         className="h-10 pr-10 pl-2 text-sm placeholder-gray-300 border border-gray-200 rounded-lg focus:z-10"
         placeholder="Busqueda..."
-        type="text"
+        type="search"
         onChange={handleSearch}
       />
       <button

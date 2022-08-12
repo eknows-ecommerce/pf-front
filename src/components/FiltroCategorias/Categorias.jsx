@@ -6,7 +6,7 @@ import { getAll as getAllCat } from '../../features/actions/categorias'
 import Categoria from './Categoria'
 import { setCategorias } from '../../features/reducers/librosSlice'
 
-export default function Categorias() {
+export default function Categorias({ reset, setReset }) {
   const [selected, setSelected] = useState({})
   // const [catSelect, setCatSelect] = useState([])
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
@@ -16,7 +16,13 @@ export default function Categorias() {
   useEffect(() => {
     dispatch(getAllCat())
   }, [])
-
+  useEffect(() => {
+    if (reset) {
+      setCategorias('categorias')
+      setSelected({})
+      setReset(false)
+    }
+  }, [reset])
   function handleClick(e) {
     setSelected({
       ...selected,
