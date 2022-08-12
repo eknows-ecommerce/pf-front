@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Categorias from 'components/filtroCategorias/Categorias'
+import Categorias from 'components/FiltroCategorias/Categorias'
 import Tags from 'components/filtrosTags/Tags'
 
 function Filtros() {

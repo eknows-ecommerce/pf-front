@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom'
-import Landing from '../pages/landing/Landing'
+import Landing from '../pages/Landing/Landing'
 import Home from '../pages/home/Home'
-import NotFound from '../pages/notFound/NotFound'
-import Navbar from '../components/navBar/Navbar'
+import NotFound from '../pages/NotFound/NotFound'
+import Navbar from '../components/NavBar/Navbar'
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
 import Menu from '../pages/perfil/Menu'
 import Editar from '../pages/perfil/Editar'
-import Carrito from 'components/carrito/Carrito'
+import Carrito from 'components/Carrito/Carrito'
 // import Login from '../components/sesion/Login'
 
 //Aqui iran todas las rutas

@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardLibro from '../../components/cards/CardLibro'
 import { getAll } from '../../features/actions/libros'
-import Paginacion from 'components/paginacion/Paginacion'
+import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 
-import Filtros from 'components/filtroCategorias/Filtros'
+import Filtros from 'components/FiltroCategorias/Filtros'
 
 function Home() {
   const [listaCarrito, setListaCarrito] = useState([])
