@@ -1,6 +1,6 @@
-import Categorias from './Categorias'
-import Tags from 'components/Tags/Tags'
 import { useState } from 'react'
+import Categorias from 'components/filtroCategorias/Categorias'
+import Tags from 'components/filtrosTags/Tags'
 
 function Filtros() {
   const [reset, setReset] = useState()

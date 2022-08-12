@@ -28,9 +28,7 @@ function Home() {
   )
   const [sorter, setSort] = useState(['Sort', 'asc'])
 
-
   const librosTags = useSelector(({ librosStore }) => librosStore.tags)
-
 
   useEffect(() => {
     const [sort, dir] = sorter
@@ -69,12 +67,12 @@ function Home() {
     sorter,
   ])
 
-
   useEffect(() => {
     dispatch(getAll(`offset=0`))
   }, [])
 
   const handleCarrito = (id, precio) => {
+    alert('se agrego un carrito')
     const existe = listaCarrito.find((item) => item.id === id)
     if (!existe) {
       const elemento = [...listaCarrito, { id, cantidad: 1, total: 1 * precio }]

@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
-import Landing from '../pages/Landing/Landing'
+import Landing from '../pages/landing/Landing'
 import Home from '../pages/home/Home'
-import NotFound from '../pages/NotFound/NotFound'
-import Navbar from '../components/NavBar/Navbar'
+import NotFound from '../pages/notFound/NotFound'
+import Navbar from '../components/navBar/Navbar'
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
 import Menu from '../pages/perfil/Menu'
@@ -24,7 +24,7 @@ function RoutesApp() {
         {/* <Route path="login" element={<Login />} /> */}
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>
-      <Route path="home/carrito" element={<Carrito />} />  
+      <Route path="home/carrito" element={<Carrito />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )
