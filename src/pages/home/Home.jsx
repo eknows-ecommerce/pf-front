@@ -5,7 +5,7 @@ import CardLibro from '../../components/cards/CardLibro'
 import { getAll } from '../../features/actions/libros'
 import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
-
+import Swal from 'sweetalert2'
 import Filtros from 'components/FiltroCategorias/Filtros'
 
 function Home() {
@@ -72,7 +72,7 @@ function Home() {
   }, [])
 
   const handleCarrito = (id, precio) => {
-    alert('se agrego un carrito')
+    Swal.fire('Agregar al carrito', 'Se ha agregado exitosamente', 'success')
     const existe = listaCarrito.find((item) => item.id === id)
     if (!existe) {
       const elemento = [...listaCarrito, { id, cantidad: 1, total: 1 * precio }]

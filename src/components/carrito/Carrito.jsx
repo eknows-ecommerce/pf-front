@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getListCar } from 'features/actions/libros'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 function Carrito() {
   const dispatch = useDispatch()
@@ -34,6 +35,7 @@ function Carrito() {
       localStorage.setItem('carrito', JSON.stringify(newCarrito))
       setCarritoLS(newCarrito)
     }
+    Swal.fire('Sacar del carrito', 'Se ha sacado exitosamente', 'success')
   }
 
   const cantidadTotal = () => {
