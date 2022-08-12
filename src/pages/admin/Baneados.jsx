@@ -7,7 +7,6 @@ export default function Baneados() {
   const { getAccessTokenSilently } = useAuth0()
   // const { usuarios } = useSelector(({ usuariosSlice }) => usuariosSlice)
   const { usuarios } = useSelector(({ adminStore }) => adminStore)
-  console.log('USUARIOS', usuarios)
   const dispatch = useDispatch()
   useEffect(() => {
     const getToken = async () => {

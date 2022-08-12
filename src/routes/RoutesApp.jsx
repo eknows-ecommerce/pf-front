@@ -8,7 +8,6 @@ import Pedidos from '../pages/perfil/Pedidos'
 import Menu from '../pages/perfil/Menu'
 import Editar from '../pages/perfil/Editar'
 import Admin from 'pages/admin/Admin'
-import Usuarios from 'pages/admin/Usuarios'
 import Datos from 'pages/admin/Datos'
 import Cuentas from 'pages/admin/Cuentas'
 import Ventas from 'pages/admin/Ventas'
@@ -20,7 +19,6 @@ function RoutesApp() {
   return (
     <Routes>
       <Route path="admin" element={<Admin />}>
-        <Route path="usuarios" element={<Usuarios />} />
         <Route path="datos" element={<Datos />} />
         <Route path="cuentas" element={<Cuentas />} />
         <Route path="ventas" element={<Ventas />} />

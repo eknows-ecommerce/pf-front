@@ -33,7 +33,15 @@ export default function FilaLibro({
           </strong>
         </td>
         <td className="p-4 text-gray-700 whitespace-nowrap">${precio}</td>
-        <td className="p-4 text-gray-700 whitespace-nowrap">{stock}</td>
+        <td className="p-4 text-gray-700 whitespace-nowrap">
+          <span
+            className={`${
+              stock <= 0 ? 'bg-red-300' : 'transparent'
+            } px-3 py-1 rounded-md`}
+          >
+            {stock}
+          </span>
+        </td>
         <td className="p-4 text-gray-700 whitespace-nowrap">{id}</td>
       </tr>
     </>
