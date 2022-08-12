@@ -106,6 +106,7 @@ export default function Ventas() {
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-4 h-4 ml-1.5 text-gray-700"
                       viewBox="0 0 20 20"
+                      fill="currentColor"
                     >
                       <path
                         fillRule="evenodd"

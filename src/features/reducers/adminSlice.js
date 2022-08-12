@@ -6,11 +6,11 @@ import {
   updateLibro,
   updateUsuario,
 } from 'features/actions/admin'
+
 const initialState = {
   usuarios: [],
   libros: [],
   usuario: {},
-  //pedidos:{},
   cargando: null,
 }
 
@@ -23,34 +23,33 @@ const adminSlice = createSlice({
     },
   },
   extraReducers: {
-    //getAll
-    //Libros
+    // LIBROS
     [getAllLibros.pending]: (state) => {
       state.cargando = true
     },
     [getAllLibros.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.libros = payload.libros
-      state.count = payload.count
+      console.log(payload.libros)
+      // state.libros = payload.libros
+      // state.count = payload.count
     },
     [getAllLibros.rejected]: (state) => {
       state.cargando = true
     },
-    //getAll
-    //Usuarios
+    // USUARIOS
     [getAllUsuarios.pending]: (state) => {
       state.cargando = true
     },
     [getAllUsuarios.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.usuarios = payload.usuarios
-      state.count = payload.count
+      console.log(payload.usuarios)
+      // state.usuarios = payload.usuarios
+      // state.count = payload.count
     },
     [getAllUsuarios.rejected]: (state) => {
       state.cargando = true
     },
-    //update
-    //Libros
+    // ACTUALIZAR LIBRO
     [updateLibro.pending]: (state) => {
       state.cargando = true
     },
@@ -64,8 +63,7 @@ const adminSlice = createSlice({
     [updateLibro.rejected]: (state) => {
       state.cargando = true
     },
-    //update
-    //Usuarios
+    // ACTUALIZAR USUARIO
     [updateLibro.pending]: (state) => {
       state.cargando = true
     },
@@ -81,5 +79,7 @@ const adminSlice = createSlice({
     },
   },
 })
+
 export const { cambiarCargando } = adminSlice.actions
+
 export default adminSlice.reducer

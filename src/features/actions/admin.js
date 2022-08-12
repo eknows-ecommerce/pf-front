@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-//action que trae todos los usuarios
+// <----------------- acciones que conectan a la base de datos ----------------->
 export const getAllUsuarios = createAsyncThunk(
-  'usuarios/@GETALL',
+  'admin/usuarios/@GETALL',
   async (token) => {
     try {
       const { data } = await axios.get('http://localhost:8000/admin/usuarios', {
@@ -16,15 +16,15 @@ export const getAllUsuarios = createAsyncThunk(
     }
   }
 )
-//action que trae todos los libros
 
 export const getAllLibros = createAsyncThunk(
-  'usuarios/@GETALL',
+  'admin/libros/@GETALL',
   async (token) => {
     try {
       const { data } = await axios.get('http://localhost:8000/admin/libros', {
         headers: { authorization: `Bearer ${token}` },
       })
+      console.log(data)
       return data
     } catch (error) {
       const msg = error.message.data.msg
@@ -32,15 +32,17 @@ export const getAllLibros = createAsyncThunk(
     }
   }
 )
-//action que edita los usuarios
+
 export const updateUsuario = createAsyncThunk(
   'usuario/@UPDATE',
-  async ({ id, usuario }) => {
+  async (body) => {
     try {
-      const { data } = await axios.put(
-        `http://localhost:8000/admin/usuarios/${id}`,
-        usuario
-      )
+      const { data } = await axios({
+        method: 'put',
+        url: `http://localhost:8000/admin/usuarios/${body.id}`,
+        headers: { authorization: `Bearer ${body.token}` },
+        data: body.datos,
+      })
       return data
     } catch (error) {
       const msg = error.response.data.msg
@@ -48,19 +50,18 @@ export const updateUsuario = createAsyncThunk(
     }
   }
 )
-//action que edita el estado de los libros
-export const updateLibro = createAsyncThunk(
-  'libro/@UPDATE',
-  async ({ id, libro }) => {
-    try {
-      const { data } = await axios.put(
-        `http://localhost:8000/admin/libros/${id}`,
-        libro
-      )
-      return data
-    } catch (error) {
-      const msg = error.response.data.msg
-      return msg
-    }
+
+export const updateLibro = createAsyncThunk('libro/@UPDATE', async (body) => {
+  try {
+    const { data } = await axios({
+      method: 'put',
+      url: `http://localhost:8000/admin/libros/${body.id}`,
+      headers: { authorization: `Bearer ${body.token}` },
+      data: body.datos,
+    })
+    return data
+  } catch (error) {
+    const msg = error.response.data.msg
+    return msg
   }
-)
+})
