@@ -7,11 +7,17 @@ import Login from '../sesion/Login'
 import Logout from '../sesion/Logout'
 
 export default function Bienvenida() {
-  const { user, isAuthenticated } = useAuth0()
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
   const dispatch = useDispatch()
 
   useEffect(() => {
+    const getToken = async () =>{
+      const token = await getAccessTokenSilently();
+      console.log("TOKEN", token);
+      
+    }
     if (isAuthenticated) {
+      getToken();
       dispatch(create(user))
     }
   }, [isAuthenticated])
