@@ -1,7 +1,9 @@
 import Categorias from './Categorias'
 import Tags from 'components/Tags/Tags'
+import { useState } from 'react'
 
 function Filtros() {
+  const [reset, setReset] = useState()
   return (
     <div className="sticky top-0 z-20 shadow-xl cursor-pointer">
       <details open className="overflow-hidden rounded">
@@ -27,30 +29,26 @@ function Filtros() {
             <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
               Categorias
             </legend>
-            <Categorias />
+            <Categorias reset={reset} setReset={setReset} />
           </fieldset>
           <div>
             <fieldset>
               <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
                 Tags
               </legend>
-              <Tags />
+              <Tags reset={reset} setReset={setReset} />
             </fieldset>
           </div>
-          <div className="flex justify-between px-5 py-3 border-t border-gray-200">
+          <div className="flex justify-center px-5 py-3 border-t border-gray-200">
             <button
               name="reset"
               type="button"
-              className="text-xs font-medium text-gray-600 underline rounded"
+              className="px-5 py-3 text-xs font-medium text-white bg-green-600 rounded"
+              onClick={() => {
+                setReset(true)
+              }}
             >
               Reset All
-            </button>
-            <button
-              name="commit"
-              type="button"
-              className="px-5 py-3 text-xs font-medium text-white bg-green-600 rounded"
-            >
-              Apply Filters
             </button>
           </div>
         </form>

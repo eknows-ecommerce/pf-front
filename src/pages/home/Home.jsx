@@ -6,7 +6,6 @@ import { getAll } from '../../features/actions/libros'
 import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 
-import { useLocation } from 'react-router-dom'
 import Filtros from 'components/FiltroCategorias/Filtros'
 
 // import Categorias from '../../components/FiltroCategorias/Categorias'
@@ -29,42 +28,36 @@ function Home() {
     ({ librosStore }) => librosStore.categorias
   )
   const [sorter, setSort] = useState(['Sort', 'asc'])
-  let url = useLocation()
+
+  const librosTags = useSelector(({ librosStore }) => librosStore.tags)
 
   useEffect(() => {
     const [sort, dir] = sorter
     let sortQuery = sort !== 'Sort' ? `&orden=${sort}&direcion=${dir}` : ''
+    let queryCategoryTags =
+      librosCategorias && librosCategorias !== 'categorias'
+        ? `&${librosCategorias}`
+        : ''
+    queryCategoryTags +=
+      librosTags && librosTags !== 'tags' ? `&${librosTags}` : ''
 
-    if (!busqueda && !librosCategorias) {
-      dispatch(getAll(`offset=${paginas.currentPage - 1}` + sortQuery))
-      handleTotal(count)
-    }
-    if (busqueda && librosCategorias) {
+    if (!busqueda) {
       dispatch(
         getAll(
-          `${librosCategorias}&titulo=${busqueda}&offset=${
-            paginas.currentPage - 1
-          }` + sortQuery
+          `offset=${paginas.currentPage - 1}` + sortQuery + queryCategoryTags
         )
       )
       handleTotal(count)
-    } else {
-      if (librosCategorias) {
-        dispatch(
-          getAll(
-            `${librosCategorias}&offset=${paginas.currentPage - 1}` + sortQuery
-          )
+    }
+    if (busqueda) {
+      dispatch(
+        getAll(
+          `titulo=${busqueda}&offset=${paginas.currentPage - 1}` +
+            sortQuery +
+            queryCategoryTags
         )
-        handleTotal(count)
-      }
-      if (busqueda) {
-        dispatch(
-          getAll(
-            `titulo=${busqueda}&offset=${paginas.currentPage - 1}` + sortQuery
-          )
-        )
-        handleTotal(count)
-      }
+      )
+      handleTotal(count)
     }
     // if (busqueda) {
     //   handleTotal(count)
@@ -79,7 +72,14 @@ function Home() {
     //   }
     //   handleTotal(count)
     // }
-  }, [paginas.currentPage, count, busqueda, librosCategorias, sorter])
+  }, [
+    paginas.currentPage,
+    count,
+    busqueda,
+    librosCategorias,
+    librosTags,
+    sorter,
+  ])
 
   useEffect(() => {
     dispatch(getAll(`offset=0`))

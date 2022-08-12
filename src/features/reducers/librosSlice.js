@@ -9,6 +9,7 @@ const initialState = {
   cargando: null,
   busqueda: '',
   categorias: '',
+  tags: '',
 }
 
 const librosSlice = createSlice({
@@ -23,6 +24,9 @@ const librosSlice = createSlice({
     },
     setCategorias: (state, action) => {
       state.categorias = action.payload
+    },
+    setTags: (state, action) => {
+      state.tags = action.payload
     },
   },
   extraReducers: {
@@ -92,7 +96,7 @@ const librosSlice = createSlice({
   },
 })
 
-export const { cambiarCargando, setBusqueda, setCategorias } =
+export const { cambiarCargando, setBusqueda, setCategorias, setTags } =
   librosSlice.actions
 
 export default librosSlice.reducer
