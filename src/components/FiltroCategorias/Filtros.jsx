@@ -1,5 +1,5 @@
 import Categorias from './Categorias'
-import Tags from 'components/tags/Tags'
+import Tags from 'components/Tags/Tags'
 
 function Filtros() {
   return (

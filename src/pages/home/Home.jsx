@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardLibro from '../../components/cards/CardLibro'
 import { getAll } from '../../features/actions/libros'
-import Paginacion from 'components/paginacion/Paginacion'
+import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 
 import { useLocation } from 'react-router-dom'
-import Filtros from 'components/filtroCategorias/Filtros'
+import Filtros from 'components/FiltroCategorias/Filtros'
 
 // import Categorias from '../../components/FiltroCategorias/Categorias'
 // import Tags from '../../filtrosTags/Tags'
@@ -28,12 +28,15 @@ function Home() {
   const librosCategorias = useSelector(
     ({ librosStore }) => librosStore.categorias
   )
-
+  const [sorter, setSort] = useState(['Sort', 'asc'])
   let url = useLocation()
 
   useEffect(() => {
+    const [sort, dir] = sorter
+    let sortQuery = sort !== 'Sort' ? `&orden=${sort}&direcion=${dir}` : ''
+
     if (!busqueda && !librosCategorias) {
-      dispatch(getAll(`offset=${paginas.currentPage - 1}`))
+      dispatch(getAll(`offset=${paginas.currentPage - 1}` + sortQuery))
       handleTotal(count)
     }
     if (busqueda && librosCategorias) {
@@ -41,19 +44,25 @@ function Home() {
         getAll(
           `${librosCategorias}&titulo=${busqueda}&offset=${
             paginas.currentPage - 1
-          }`
+          }` + sortQuery
         )
       )
       handleTotal(count)
     } else {
       if (librosCategorias) {
         dispatch(
-          getAll(`${librosCategorias}&offset=${paginas.currentPage - 1}`)
+          getAll(
+            `${librosCategorias}&offset=${paginas.currentPage - 1}` + sortQuery
+          )
         )
         handleTotal(count)
       }
       if (busqueda) {
-        dispatch(getAll(`titulo=${busqueda}&offset=${paginas.currentPage - 1}`))
+        dispatch(
+          getAll(
+            `titulo=${busqueda}&offset=${paginas.currentPage - 1}` + sortQuery
+          )
+        )
         handleTotal(count)
       }
     }
@@ -70,7 +79,7 @@ function Home() {
     //   }
     //   handleTotal(count)
     // }
-  }, [paginas.currentPage, count, busqueda, librosCategorias])
+  }, [paginas.currentPage, count, busqueda, librosCategorias, sorter])
 
   useEffect(() => {
     dispatch(getAll(`offset=0`))
@@ -130,12 +139,15 @@ function Home() {
                   id="SortBy"
                   name="sort_by"
                   className="text-sm bg-gray-200 border-gray-200 font-medium rounded"
+                  onChange={(v) => {
+                    setSort(v.target.value.split('-'))
+                  }}
                 >
                   <option readOnly="">Sort</option>
-                  <option value="title-asc">Title, A-Z</option>
-                  <option value="title-desc">Title, Z-A</option>
-                  <option value="price-asc">Price, Low-High</option>
-                  <option value="price-desc">Price, High-Low</option>
+                  <option value="titulo-asc">Title, A-Z</option>
+                  <option value="titulo-desc">Title, Z-A</option>
+                  <option value="precio-asc">Price, Low-High</option>
+                  <option value="precio-desc">Price, High-Low</option>
                 </select>
               </div>
             </div>

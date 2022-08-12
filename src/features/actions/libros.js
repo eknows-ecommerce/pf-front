@@ -5,7 +5,7 @@ import axios from 'axios'
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
   try {
-    console.log('query', query)
+    // console.log('query', query)
     const { data } = await axios.get(`http://localhost:8000/libros?${query}`)
     return data
   } catch (error) {
