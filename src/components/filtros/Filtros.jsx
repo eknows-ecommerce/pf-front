@@ -26,19 +26,19 @@ function Filtros() {
           </svg>
         </summary>
         <form action="" className="border-t border-gray-200 lg:border-t-0">
-          <details open className="overflow-hidden">
+          <details close className="overflow-hidden">
             <summary className="px-5 py-3 text-xs font-medium bg-gray-50">
               Categorias
             </summary>
             <Categorias reset={reset} setReset={setReset} />
           </details>
-          <details open className="overflow-hidden">
+          <details close className="overflow-hidden">
             <summary className="px-5 py-3 text-xs font-medium bg-gray-50">
               Tags
             </summary>
             <Tags reset={reset} setReset={setReset} />
           </details>
-          <details open className="overflow-hidden">
+          <details close className="overflow-hidden">
             <summary className="px-5 py-3 text-xs font-medium bg-gray-50">
               Precios
             </summary>
