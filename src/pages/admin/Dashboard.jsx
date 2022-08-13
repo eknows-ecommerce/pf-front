@@ -1,4 +1,4 @@
-export default function Datos() {
+export default function Dashboard() {
   return (
     <>
       <>

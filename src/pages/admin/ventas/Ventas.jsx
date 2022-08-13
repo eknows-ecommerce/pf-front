@@ -1,6 +1,6 @@
 export default function Ventas() {
   return (
-    <div>
+    <div className="xl:px-20 py-2 space-y-3">
       <article className="flex flex-col gap-4 p-6 bg-violetapaleta-50 border border-gray-100 rounded-lg">
         <div className="inline-flex self-end gap-2 p-1 text-red-600 bg-red-100 rounded">
           <svg
@@ -65,7 +65,17 @@ export default function Ventas() {
           <table className="min-w-full text-sm divide-y divide-gray-200">
             <thead>
               <tr>
-                <th className="sticky left-0 p-4 text-left bg-white"></th>
+                <th className="left-0 p-4 text-left bg-white">
+                  <div className="flex items-center">
+                    Nombre
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4 ml-1.5 text-gray-700"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </div>
+                </th>
                 <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
                   <div className="flex items-center">
                     Nombre
@@ -154,15 +164,8 @@ export default function Ventas() {
             </thead>
             <tbody className="divide-y divide-gray-100">
               <tr>
-                <td className="sticky left-0 p-4 bg-white">
-                  <label className="sr-only" htmlFor="row_1">
-                    Row 1
-                  </label>
-                  <input
-                    className="w-5 h-5 border-gray-200 rounded"
-                    type="checkbox"
-                    id="row_1"
-                  />
+                <td className="p-4 font-medium text-gray-900 whitespace-nowrap">
+                  John Doe
                 </td>
                 <td className="p-4 font-medium text-gray-900 whitespace-nowrap">
                   John Doe
@@ -186,30 +189,50 @@ export default function Ventas() {
                 </td>
               </tr>
               <tr>
-                <td className="sticky left-0 p-4 bg-white">
-                  <label className="sr-only" htmlFor="row_2">
-                    Row 2
-                  </label>
-                  <input
-                    className="w-5 h-5 border-gray-200 rounded"
-                    type="checkbox"
-                    id="row_2"
-                  />
+                <td className="p-4 font-medium text-gray-900 whitespace-nowrap">
+                  John Doe
                 </td>
-                <td className="p-4 font-medium whitespace-nowrap">Jane Doe</td>
+                <td className="p-4 font-medium text-gray-900 whitespace-nowrap">
+                  John Doe
+                </td>
                 <td className="p-4 text-gray-700 whitespace-nowrap">
-                  jane.doe@email.com
+                  john.doe@email.com
                 </td>
-                <td className="p-4 whitespace-nowrap">
-                  <strong className="bg-green-100 text-green-700 px-3 py-1.5 rounded text-xs font-medium">
-                    Pagado
+                <td className="p-4 text-gray-700 whitespace-nowrap">
+                  <strong className="bg-red-100 text-red-700 px-3 py-1.5 rounded text-xs font-medium">
+                    Cancelado
                   </strong>
                 </td>
                 <td className="p-4 text-gray-700 whitespace-nowrap">
-                  (+44) 1928 450650
+                  (+44) 2198 450650
                 </td>
                 <td className="p-4 text-gray-700 whitespace-nowrap">
-                  SHOP-4235-1526
+                  SHOP-1268-8910
+                </td>
+                <td className="p-4 text-gray-700 whitespace-nowrap">
+                  Ver pedido
+                </td>
+              </tr>
+              <tr>
+                <td className="p-4 font-medium text-gray-900 whitespace-nowrap">
+                  John Doe
+                </td>
+                <td className="p-4 font-medium text-gray-900 whitespace-nowrap">
+                  John Doe
+                </td>
+                <td className="p-4 text-gray-700 whitespace-nowrap">
+                  john.doe@email.com
+                </td>
+                <td className="p-4 text-gray-700 whitespace-nowrap">
+                  <strong className="bg-red-100 text-red-700 px-3 py-1.5 rounded text-xs font-medium">
+                    Cancelado
+                  </strong>
+                </td>
+                <td className="p-4 text-gray-700 whitespace-nowrap">
+                  (+44) 2198 450650
+                </td>
+                <td className="p-4 text-gray-700 whitespace-nowrap">
+                  SHOP-1268-8910
                 </td>
                 <td className="p-4 text-gray-700 whitespace-nowrap">
                   Ver pedido

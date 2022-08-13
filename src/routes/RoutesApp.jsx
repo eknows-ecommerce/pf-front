@@ -8,11 +8,13 @@ import Pedidos from '../pages/perfil/Pedidos'
 import Menu from '../pages/perfil/Menu'
 import Editar from '../pages/perfil/Editar'
 import Admin from 'pages/admin/Admin'
-import Datos from 'pages/admin/Datos'
-import Cuentas from 'pages/admin/Cuentas'
-import Ventas from 'pages/admin/Ventas'
-import Productos from 'pages/admin/Productos'
+import Dashboard from 'pages/admin/Dashboard'
+import Usuarios from 'pages/admin/usuarios/Usuarios'
+import Ventas from 'pages/admin/ventas/Ventas'
 import { ProtectedRoute } from './ProtectedRoute'
+import Libros from 'pages/admin/libros/Libros'
+import Categorias from 'pages/admin/categorias/Categorias'
+import Tags from 'pages/admin/tags/Tags'
 // import Login from '../components/sesion/Login'
 
 //Aqui iran todas las rutas
@@ -20,12 +22,12 @@ function RoutesApp() {
   return (
     <Routes>
       <Route path="admin" element={<ProtectedRoute component={Admin} />}>
-        <Route path="dashboard" element={<Datos />} />
-        <Route path="usuarios" element={<Cuentas />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="usuarios" element={<Usuarios />} />
         <Route path="ventas" element={<Ventas />} />
-        <Route path="stock" element={<Productos />} />
-        <Route path="categorias" element={<Productos />} />
-        <Route path="tags" element={<Productos />} />
+        <Route path="libros" element={<Libros />} />
+        <Route path="categorias" element={<Categorias />} />
+        <Route path="tags" element={<Tags />} />
       </Route>
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />

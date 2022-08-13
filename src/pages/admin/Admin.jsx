@@ -7,6 +7,8 @@ import {
   getByNickname,
 } from 'features/actions/usuarios'
 import { getAll as getAllLibros } from 'features/actions/libros'
+import { getAll as getAllCategorias } from 'features/actions/categorias'
+import { getAll as getAllTags } from 'features/actions/tags'
 
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,6 +27,8 @@ export default function Admin() {
     if (usuario.rol === 'admin') {
       dispatch(getAllUsuarios())
       dispatch(getAllLibros())
+      dispatch(getAllCategorias())
+      dispatch(getAllTags())
     }
   }, [dispatch, usuario])
 
@@ -37,11 +41,11 @@ export default function Admin() {
   }
 
   return (
-    <>
+    <div className="relative">
       <Navegacion />
-      <div className="border-t-2 pt-20 m-0 xl:pt-0 xl:ml-64">
+      <div className="border-t-2 sm:pt-0 m-0 xl:pt-0 xl:ml-64 h-screen overflow-y-auto z-50">
         <Outlet />
       </div>
-    </>
+    </div>
   )
 }
