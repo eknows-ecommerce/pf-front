@@ -1,9 +1,22 @@
+import Paginacion from 'components/paginacion/Paginacion'
+import usePaginacion from 'hooks/usePaginacion'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import FilaUsuario from './FilaUsuario'
 
 export default function Cuentas() {
   const { usuarios } = useSelector(({ adminStore }) => adminStore)
+  const {
+    paginas,
+    paginaAnterior,
+    paginaSeleccionada,
+    paginaSiguiente,
+    handleTotal,
+  } = usePaginacion()
+  useEffect(() => {
+    handleTotal(usuarios.length)
+  }, [paginas.totalPages])
 
   return (
     <div>
@@ -57,19 +70,28 @@ export default function Cuentas() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {usuarios?.map((usuario) => (
-              <FilaUsuario
-                key={usuario.id}
-                nombre={usuario.name}
-                rol={usuario.rol}
-                email={usuario.email}
-                isBan={usuario.isBan}
-                pais={usuario.pais}
-                id={usuario.id}
-              />
-            ))}
+            {usuarios
+              ?.map((usuario) => (
+                <FilaUsuario
+                  key={usuario.id}
+                  nombre={usuario.name}
+                  rol={usuario.rol}
+                  email={usuario.email}
+                  isBan={usuario.isBan}
+                  pais={usuario.pais}
+                  id={usuario.id}
+                />
+              ))
+              .slice((paginas.currentPage -1)*6, (paginas.currentPage)*6)}
           </tbody>
         </table>
+        {paginas.totalPages && (
+          <Paginacion
+            paginaAnterior={paginaAnterior}
+            paginaSiguiente={paginaSiguiente}
+            paginas={paginas}
+          />
+        )}
       </div>
     </div>
   )
