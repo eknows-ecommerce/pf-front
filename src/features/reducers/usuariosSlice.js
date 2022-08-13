@@ -69,7 +69,7 @@ const usuariosSlice = createSlice({
       ) 
        state.usuarios[index] = payload.usuario 
      console.log("PAYLOAD", payload); */
-     state.usuario = payload.usuario
+      state.usuario = payload.usuario
       state.cargando = false
     },
     [update.rejected]: (state) => {

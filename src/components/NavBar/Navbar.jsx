@@ -4,6 +4,7 @@ import { FaShoppingCart } from 'react-icons/fa'
 import images from '../../assets/img/logo.png'
 import Search from '../search/Search'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useSelector } from 'react-redux'
 
 import { useRef } from 'react'
 import useSearch from '../../hooks/useSearch'
@@ -11,6 +12,7 @@ import Footer from '../footer/Footer'
 
 export default function Navbar() {
   const { isAuthenticated, isLoading } = useAuth0()
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   const show = useRef(null)
   const { search, handleSearch } = useSearch()
@@ -98,7 +100,7 @@ export default function Navbar() {
             <a className="text-gray-900" href="#Contactanos">
               Contactanos
             </a>
-            {isAuthenticated ? (
+            {usuario.rol === 'admin' && (
               <Link
                 to="admin/datos"
                 className="text-gray-900"
@@ -106,8 +108,6 @@ export default function Navbar() {
               >
                 Admin
               </Link>
-            ) : (
-              isLoading
             )}
           </nav>
           <div className="items-center hidden space-x-4 lg:flex">

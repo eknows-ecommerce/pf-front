@@ -13,9 +13,19 @@ export default function Admin() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAllUsuarios())
-    dispatch(getAllLibros())
-  }, [dispatch])
+    if (usuario.rol === 'admin') {
+      dispatch(getAllUsuarios())
+      dispatch(getAllLibros())
+    }
+  }, [dispatch, usuario])
+
+  if (usuario.rol !== 'admin') {
+    return (
+      <div>
+        <h1>No tienes acceso</h1>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col max-h-full min-h-screen">

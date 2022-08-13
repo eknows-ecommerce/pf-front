@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { create } from 'features/actions/usuarios'
 import Login from '../sesion/Login'
 import Logout from '../sesion/Logout'
 
 export default function Bienvenida() {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -23,7 +24,6 @@ export default function Bienvenida() {
         dispatch(create(body))
       }
     }
-
     authenticateUser()
   }, [isAuthenticated])
 

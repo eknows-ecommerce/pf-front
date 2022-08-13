@@ -46,6 +46,7 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (body) => {
       headers: { authorization: `Bearer ${body.token}` },
       data: body.user,
     })
+
     return data
   } catch (error) {
     const msg = error.response.data.msg
