@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 import { useRef } from 'react'
 import useSearch from '../../hooks/useSearch'
-import Footer from '../footer/Footer'
+// import Footer from '../footer/Footer'
 
 export default function Navbar() {
   const { isAuthenticated, isLoading } = useAuth0()
@@ -130,7 +130,7 @@ export default function Navbar() {
       </header>
 
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

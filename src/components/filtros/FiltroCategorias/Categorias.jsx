@@ -2,9 +2,9 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import { getAll } from '../../features/actions/libros'
-import { getAll as getAllCat } from '../../features/actions/categorias'
+import { getAll as getAllCat } from 'features/actions/categorias'
 import Categoria from './Categoria'
-import { setCategorias } from '../../features/reducers/librosSlice'
+import { setCategorias } from 'features/reducers/librosSlice'
 
 export default function Categorias({ reset, setReset }) {
   const [selected, setSelected] = useState({})

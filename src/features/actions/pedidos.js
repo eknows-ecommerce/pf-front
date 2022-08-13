@@ -7,7 +7,7 @@ const Production = process.env.NODE_ENV
 export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {
   try {
     const { data } = await axios.get(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/pedido`
         : 'http://localhost:8000/pedido'
     )
@@ -21,7 +21,7 @@ export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {
 export const getById = createAsyncThunk('pedido/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/pedido/${id}`
         : `http://localhost:8000/pedido/${id}`
     )
@@ -35,7 +35,7 @@ export const getById = createAsyncThunk('pedido/@GETBYID', async (id) => {
 export const create = createAsyncThunk('pedido/@CREATE', async (pedido) => {
   try {
     const { data } = await axios.post(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/pedido`
         : 'http://localhost:8000/pedido',
       pedido
@@ -52,7 +52,7 @@ export const update = createAsyncThunk(
   async ({ id, pedido }) => {
     try {
       const { data } = await axios.put(
-        Production
+        Production === 'production'
           ? `https://ebooks-back.herokuapp.com/pedido/${id}`
           : `http://localhost:8000/pedido/${id}`,
         pedido
@@ -68,7 +68,7 @@ export const update = createAsyncThunk(
 export const deleteById = createAsyncThunk('pedido/@DELETE/ID', async (id) => {
   try {
     const { data } = await axios.delete(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/pedido/${id}`
         : `http://localhost:8000/pedido/${id}`
     )

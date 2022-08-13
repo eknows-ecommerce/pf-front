@@ -18,6 +18,7 @@ const initialState = {
   busqueda: '',
   categorias: '',
   tags: '',
+  rangoPrecios: '',
 }
 
 const librosSlice = createSlice({
@@ -39,6 +40,9 @@ const librosSlice = createSlice({
     },
     setTags: (state, action) => {
       state.tags = action.payload
+    },
+    setRangoPrecios: (state, action) => {
+      state.rangoPrecios = action.payload
     },
   },
   extraReducers: {
@@ -126,6 +130,7 @@ export const {
   setCategorias,
   setTags,
   setCarrito,
+  setRangoPrecios,
 } = librosSlice.actions
 
 export default librosSlice.reducer

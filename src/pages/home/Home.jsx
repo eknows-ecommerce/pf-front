@@ -6,7 +6,7 @@ import { getAll } from '../../features/actions/libros'
 import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 import Swal from 'sweetalert2'
-import Filtros from 'components/FiltroCategorias/Filtros'
+import Filtros from 'components/filtros/Filtros'
 
 function Home() {
   const [listaCarrito, setListaCarrito] = useState([])
@@ -23,29 +23,30 @@ function Home() {
     ({ librosStore }) => librosStore
   )
   // const { busqueda } = useSelector(({ librosStore }) => librosStore)
-  const librosCategorias = useSelector(
+  const queryCategorias = useSelector(
     ({ librosStore }) => librosStore.categorias
   )
-  const [sorter, setSort] = useState(['Sort', 'asc'])
+  const queryTags = useSelector(({ librosStore }) => librosStore.tags)
+  const queryRangoPrecios = useSelector(
+    ({ librosStore }) => librosStore.rangoPrecios
+  )
 
-  const librosTags = useSelector(({ librosStore }) => librosStore.tags)
+  const [sorter, setSort] = useState(['Sort', 'asc'])
 
   useEffect(() => {
     const [sort, dir] = sorter
     let sortQuery = sort !== 'Sort' ? `&orden=${sort}&direcion=${dir}` : ''
-    let queryCategoryTags =
-      librosCategorias && librosCategorias !== 'categorias'
-        ? `&${librosCategorias}`
+    let query =
+      queryCategorias && queryCategorias !== 'categorias'
+        ? `&${queryCategorias}`
         : ''
-    queryCategoryTags +=
-      librosTags && librosTags !== 'tags' ? `&${librosTags}` : ''
 
+    query += queryTags && queryTags !== 'tags' ? `&${queryTags}` : ''
+
+    query += queryRangoPrecios ? `&${queryRangoPrecios}` : ''
+    console.log(query)
     if (!busqueda) {
-      dispatch(
-        getAll(
-          `offset=${paginas.currentPage - 1}` + sortQuery + queryCategoryTags
-        )
-      )
+      dispatch(getAll(`offset=${paginas.currentPage - 1}` + sortQuery + query))
       handleTotal(count)
     }
     if (busqueda) {
@@ -53,7 +54,7 @@ function Home() {
         getAll(
           `titulo=${busqueda}&offset=${paginas.currentPage - 1}` +
             sortQuery +
-            queryCategoryTags
+            query
         )
       )
       handleTotal(count)
@@ -62,8 +63,9 @@ function Home() {
     paginas.currentPage,
     count,
     busqueda,
-    librosCategorias,
-    librosTags,
+    queryCategorias,
+    queryTags,
+    queryRangoPrecios,
     sorter,
   ])
 

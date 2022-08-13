@@ -7,6 +7,7 @@ import Views from 'components/section/Views'
 import { getAll as getallTag } from 'features/actions/tags'
 import { getAll as getallCat } from 'features/actions/categorias'
 import { getAll as getAllLibros } from 'features/actions/libros'
+import Footer from 'components/footer/Footer'
 
 function Landing() {
   const dispatch = useDispatch()
@@ -21,6 +22,7 @@ function Landing() {
       <Carrusel />
       <Views />
       <Stories />
+      <Footer />
     </div>
   )
 }
