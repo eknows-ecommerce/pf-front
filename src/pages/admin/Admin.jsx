@@ -11,6 +11,7 @@ import { getAll as getAllLibros } from 'features/actions/libros'
 
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import EditUser from './EditUser'
 
 export default function Admin() {
   const { user } = useAuth0()
@@ -59,8 +60,9 @@ export default function Admin() {
       </div>
 
       <div className="flex flex-grow h-screen ">
-        <Barra />
-        <Info />
+        <EditUser/>
+        {/* <Barra /> */}
+        {/* <Info /> */}
       </div>
     </div>
   )
