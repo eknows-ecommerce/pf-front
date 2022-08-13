@@ -6,13 +6,13 @@ console.log(Production)
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
   try {
-    // console.log('query', query)
+    console.log('query', query)
     const { data } = await axios.get(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/libros?${query}`
         : `http://localhost:8000/libros?${query}`
     )
-    // console.log(data)
+    console.log('entra', data)
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -26,7 +26,7 @@ export const getListCar = createAsyncThunk(
     try {
       console.log('query', query)
       const { data } = await axios.get(
-        Production
+        Production === 'production'
           ? `https://ebooks-back.herokuapp.com/libros?${query}`
           : `http://localhost:8000/libros?${query}`
       )
@@ -42,7 +42,7 @@ export const getListCar = createAsyncThunk(
 export const getById = createAsyncThunk('libros/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/libros/${id}`
         : `http://localhost:8000/libros/${id}`
     )
@@ -56,7 +56,7 @@ export const getById = createAsyncThunk('libros/@GETBYID', async (id) => {
 export const create = createAsyncThunk('libros/@CREATE', async (libro) => {
   try {
     const { data } = await axios.post(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/libros`
         : 'http://localhost:8000/libros',
       libro
@@ -71,7 +71,7 @@ export const create = createAsyncThunk('libros/@CREATE', async (libro) => {
 export const update = createAsyncThunk('libros/@UPDATE', async (libro) => {
   try {
     const { data } = await axios.put(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/libros/${libro.id}`
         : `http://localhost:8000/libros/${libro.id}`,
       libro
@@ -86,7 +86,7 @@ export const update = createAsyncThunk('libros/@UPDATE', async (libro) => {
 export const deleteById = createAsyncThunk('libros/@DELETEBYID', async (id) => {
   try {
     const { data } = await axios.delete(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/libros/${id}`
         : `http://localhost:8000/libros/${id}`
     )

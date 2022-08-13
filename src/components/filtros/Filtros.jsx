@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import Categorias from 'components/FiltroCategorias/Categorias'
-import Tags from 'components/filtrosTags/Tags'
+import Categorias from 'components/filtros/FiltroCategorias/Categorias'
+import Tags from 'components/filtros/filtrosTags/Tags'
+import RangoPrecios from 'components/filtros/RangoPrecios'
 
 function Filtros() {
   const [reset, setReset] = useState()
@@ -37,6 +38,14 @@ function Filtros() {
                 Tags
               </legend>
               <Tags reset={reset} setReset={setReset} />
+            </fieldset>
+          </div>
+          <div>
+            <fieldset>
+              <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
+                Precios
+              </legend>
+              <RangoPrecios reset={reset} setReset={setReset} />
             </fieldset>
           </div>
           <div className="flex justify-center px-5 py-3 border-t border-gray-200">

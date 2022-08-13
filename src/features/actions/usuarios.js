@@ -7,7 +7,7 @@ console.log(Production)
 export const getAll = createAsyncThunk('usuarios/@GETALL', async () => {
   try {
     const { data } = await axios.get(
-      Production !== 'development'
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/usuarios`
         : 'http://localhost:8000/usuarios'
     )
@@ -22,7 +22,7 @@ export const getAllByName = createAsyncThunk(
   async ({ payload }) => {
     try {
       const { data } = await axios.get(
-        Production !== 'development'
+        Production === 'production'
           ? `https://ebooks-back.herokuapp.com/usuarios`
           : 'http://localhost:8000/usuarios',
         {
@@ -40,7 +40,7 @@ export const getAllByName = createAsyncThunk(
 export const getById = createAsyncThunk('usuarios/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production !== 'development'
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/usuarios/${id}`
         : `http://localhost:8000/usuarios/${id}`
     )
@@ -55,7 +55,7 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (usuario) => {
   try {
     console.log(usuario)
     const { data } = await axios.post(
-      Production !== 'development'
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/usuarios`
         : 'http://localhost:8000/usuarios',
       usuario
@@ -72,7 +72,7 @@ export const update = createAsyncThunk(
   async ({ id, usuario }) => {
     try {
       const { data } = await axios.put(
-        Production !== 'development'
+        Production === 'production'
           ? `https://ebooks-back.herokuapp.com/usuarios/${id}`
           : `http://localhost:8000/usuarios/${id}`,
         usuario
@@ -90,7 +90,7 @@ export const deleteById = createAsyncThunk(
   async (id) => {
     try {
       const { data } = await axios.delete(
-        Production !== 'development'
+        Production === 'production'
           ? `https://ebooks-back.herokuapp.com/usuarios/${id}`
           : `http://localhost:8000/usuarios/${id}`
       )
