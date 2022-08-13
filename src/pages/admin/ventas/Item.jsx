@@ -1,4 +1,4 @@
-import image from './libro.png'
+import image from '../libros/libro.png'
 
 export default function Item({ titulo, autor, isAvail, precio, stock, id }) {
   return (
