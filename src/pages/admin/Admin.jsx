@@ -13,14 +13,13 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function Admin() {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const { user } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const dispatch = useDispatch()
 
-  console.log(user)
-
   useEffect(() => {
     dispatch(getByNickname(user))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getByNickname, user])
 
   useEffect(() => {

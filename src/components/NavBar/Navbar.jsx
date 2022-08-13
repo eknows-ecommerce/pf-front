@@ -92,11 +92,13 @@ export default function Navbar() {
               Contactanos
             </a>
             {usuario.rol === 'admin' && (
-              <Link
-                to="admin/datos"
-                className="text-gray-900"
-                href="#Mas-Vendidos"
-              >
+              // <Link
+              //   to="admin/datos"
+              //   className="text-gray-900"
+              //   href="#Mas-Vendidos"
+              // >
+
+               <Link to="admin/datos" className="text-gray-900">
                 Admin
               </Link>
             )}
