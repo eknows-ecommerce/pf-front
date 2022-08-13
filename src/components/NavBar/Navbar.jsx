@@ -91,15 +91,11 @@ export default function Navbar() {
             <a className="text-gray-900" href="#Contactanos">
               Contactanos
             </a>
-            {/* {usuario.rol === 'admin' && (
-              <Link
-                to="admin/datos"
-                className="text-gray-900"
-                href="#Mas-Vendidos"
-              >
+            {usuario.rol === 'admin' && (
+              <Link to="admin/datos" className="text-gray-900">
                 Admin
               </Link>
-            )} */}
+            )}
           </nav>
           <div className="items-center hidden space-x-4 lg:flex">
             <Link
