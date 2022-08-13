@@ -4,8 +4,7 @@ import FilaTags from './FilaTags'
 
 export default function Cuentas() {
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
-  console.log("TAGS", tags);
-  
+  console.log('TAGS', tags)
 
   return (
     <div>
@@ -32,11 +31,7 @@ export default function Cuentas() {
           </thead>
           <tbody className="divide-y divide-gray-100">
             {tags?.map((tag) => (
-              <FilaTags
-                key={tag.id}
-                nombre={tag.nombre}
-                id={tag.id}
-              />
+              <FilaTags key={tag.id} nombre={tag.nombre} id={tag.id} />
             ))}
           </tbody>
         </table>

@@ -6,7 +6,6 @@ import { getAll } from '../../features/actions/libros'
 import Paginacion from 'components/paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 
-import { useLocation } from 'react-router-dom'
 import Filtros from 'components/filtroCategorias/Filtros'
 
 // import Categorias from '../../components/FiltroCategorias/Categorias'
@@ -28,8 +27,6 @@ function Home() {
   const librosCategorias = useSelector(
     ({ librosStore }) => librosStore.categorias
   )
-
-  let url = useLocation()
 
   useEffect(() => {
     if (!busqueda && !librosCategorias) {
