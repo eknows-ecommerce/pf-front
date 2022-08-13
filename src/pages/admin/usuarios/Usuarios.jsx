@@ -3,90 +3,58 @@ import usePaginacion from 'hooks/usePaginacion'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import FilaUsuario from './FilaUsuario'
+import Item from './Item'
 
-export default function Usuarios() {
+function Usuarios() {
   const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
   const { paginas, paginaAnterior, paginaSiguiente, handleTotal } =
     usePaginacion()
+
   useEffect(() => {
     handleTotal(usuarios.length)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paginas.totalPages])
 
   return (
-    <div className="overflow-x-auto xl:px-20 py-2">
-      <table className="min-w-full text-sm divide-y divide-gray-200">
-        <thead>
-          <tr>
-            <th className="sticky left-0 p-4 text-left bg-white"></th>
-            <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
-              <div className="flex items-center">
-                Nombre
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-4 h-4 ml-1.5 text-gray-700"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                ></svg>
-              </div>
-            </th>
-            <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
-              <div className="flex items-center">
-                Email
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-4 h-4 ml-1.5 text-gray-700"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                ></svg>
-              </div>
-            </th>
-            <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
-              <div className="flex items-center">
-                Estado
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-4 h-4 ml-1.5 text-gray-700"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                ></svg>
-              </div>
-            </th>
-            <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
-              <div className="flex items-center">Rol</div>
-            </th>
-            <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
-              <div className="flex items-center">Pais</div>
-            </th>
-            <th className="p-4 font-medium text-left text-gray-900 whitespace-nowrap">
-              <div className="flex items-center">ID</div>
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-100">
-          {usuarios
-            ?.map((usuario) => (
-              <FilaUsuario
-                key={usuario.id}
-                nombre={usuario.name}
-                rol={usuario.rol}
-                email={usuario.email}
-                isBan={usuario.isBan}
-                pais={usuario.pais}
-                id={usuario.id}
-              />
-            ))
-            .slice((paginas.currentPage - 1) * 6, paginas.currentPage * 6)}
-        </tbody>
-      </table>
-      {paginas.totalPages && (
-        <Paginacion
-          paginaAnterior={paginaAnterior}
-          paginaSiguiente={paginaSiguiente}
-          paginas={paginas}
-        />
-      )}
+    <div class="overflow-x-auto xl:px-20 py-2">
+      <div className="w-full sm:px-6">
+        <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
+          <div className="sm:flex items-center justify-between">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">
+              Usuarios
+            </p>
+          </div>
+        </div>
+        <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
+          <table className="w-full whitespace-nowrap">
+            <thead>
+              <tr className="h-16 w-full text-sm leading-none text-gray-800">
+                <th className="font-normal text-left pl-4">Nombre</th>
+                <th className="font-normal text-left pl-10">Estado</th>
+                <th className="font-normal text-left pl-10">Rol</th>
+                <th className="font-normal text-left pl-10">Plataforma</th>
+                <th className="font-normal text-left pl-10">ID</th>
+              </tr>
+            </thead>
+            <tbody className="w-full">
+              {usuarios?.map((usuario) => (
+                <Item key={usuario.id} {...usuario} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div className="my-5">
+        {paginas.totalPages && (
+          <Paginacion
+            paginaAnterior={paginaAnterior}
+            paginaSiguiente={paginaSiguiente}
+            paginas={paginas}
+          />
+        )}
+      </div>
     </div>
   )
 }
+
+export default Usuarios
