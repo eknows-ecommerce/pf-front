@@ -2,34 +2,20 @@ import { Link } from 'react-router-dom'
 
 import Barra from 'pages/admin/Barra'
 import Info from 'pages/perfil/Info'
-import { getAllUsuarios } from 'features/actions/admin'
-import { getAllLibros } from 'features/actions/admin'
+import { getAll as getAllUsuarios } from 'features/actions/usuarios'
+import { getAll as getAllLibros } from 'features/actions/libros'
 
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useAuth0 } from '@auth0/auth0-react'
 
 export default function Admin() {
-  const { getAccessTokenSilently } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const getToken = async () => {
-      try {
-        const token = await getAccessTokenSilently()
-        dispatch(getAllUsuarios(token))
-        dispatch(getAllLibros(token))
-      } catch (error) {
-        console.log(
-          'Error de token o no se pudieron traer usuarios y libros',
-          error
-        )
-      }
-    }
-
-    getToken()
-  }, [dispatch, getAccessTokenSilently])
+    dispatch(getAllUsuarios())
+    dispatch(getAllLibros())
+  }, [dispatch])
 
   return (
     <div className="flex flex-col max-h-full min-h-screen">

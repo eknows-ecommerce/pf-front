@@ -11,15 +11,21 @@ export default function Bienvenida() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const getToken = async () =>{
-      const token = await getAccessTokenSilently();
-      console.log("TOKEN", token);
-      
+    const authenticateUser = async () => {
+      if (isAuthenticated) {
+        const token = await getAccessTokenSilently()
+        console.log('TOKEN', token)
+
+        const body = {
+          token: token,
+          user,
+        }
+
+        dispatch(create(body))
+      }
     }
-    if (isAuthenticated) {
-      getToken();
-      dispatch(create(user))
-    }
+
+    authenticateUser()
   }, [isAuthenticated])
 
   return (

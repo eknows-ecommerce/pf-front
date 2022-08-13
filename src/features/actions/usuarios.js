@@ -12,6 +12,7 @@ export const getAll = createAsyncThunk('usuarios/@GETALL', async () => {
     return msg
   }
 })
+
 export const getAllByName = createAsyncThunk(
   'getAll/@GETALL',
   async ({ payload }) => {
@@ -37,9 +38,15 @@ export const getById = createAsyncThunk('usuarios/@GETBYID', async (id) => {
   }
 })
 
-export const create = createAsyncThunk('usuarios/@CREATE', async (usuario) => {
+export const create = createAsyncThunk('usuarios/@CREATE', async (body) => {
+  console.log(body)
   try {
-    const { data } = await axios.post('http://localhost:8000/usuarios', usuario)
+    const { data } = await axios({
+      method: 'post',
+      url: 'http://localhost:8000/usuarios',
+      headers: { authorization: `Bearer ${body.token}` },
+      data: body.user,
+    })
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -47,22 +54,18 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (usuario) => {
   }
 })
 
-export const update = createAsyncThunk(
-  'usuarios/@UPDATE',
-  async (body) => {
-    try {
-     
-      const { data } = await axios.put(
-        `http://localhost:8000/usuarios/${body.id}`,
-        body.datos
-      )
-      return data
-    } catch (error) {
-      const msg = error.response.data.msg
-      return msg
-    }
+export const update = createAsyncThunk('usuarios/@UPDATE', async (body) => {
+  try {
+    const { data } = await axios.put(
+      `http://localhost:8000/usuarios/${body.id}`,
+      body.datos
+    )
+    return data
+  } catch (error) {
+    const msg = error.response.data.msg
+    return msg
   }
-)
+})
 
 export const deleteById = createAsyncThunk(
   'usuarios/@DELETEBYID',
