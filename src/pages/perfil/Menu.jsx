@@ -13,6 +13,7 @@ export default function Menu() {
 
   useEffect(() => {
     dispatch(getByNickname(user))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getByNickname, user])
 
   return (

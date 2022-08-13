@@ -15,7 +15,7 @@ import { getByNickname } from 'features/actions/usuarios'
 // import Tags from '../../filtrosTags/Tags'
 
 function Home() {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const { user } = useAuth0()
   const dispatch = useDispatch()
   const {
     paginas,
