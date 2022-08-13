@@ -1,15 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-
-const Production = process.env.NODE_ENV
+import baseUrl from './baseUrl'
 
 // <----------------- acciones que interactuan con la DB ----------------->
 export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {
   try {
     const { data } = await axios.get(
-      Production
-        ? `https://ebooks-back.herokuapp.com/pedido`
-        : 'http://localhost:8000/pedido'
+      baseUrl + '/pedido'
     )
     return data
   } catch (error) {
@@ -21,9 +18,7 @@ export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {
 export const getById = createAsyncThunk('pedido/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production
-        ? `https://ebooks-back.herokuapp.com/pedido/${id}`
-        : `http://localhost:8000/pedido/${id}`
+      baseUrl + '/pedido/' + id
     )
     return data
   } catch (error) {
@@ -35,9 +30,7 @@ export const getById = createAsyncThunk('pedido/@GETBYID', async (id) => {
 export const create = createAsyncThunk('pedido/@CREATE', async (pedido) => {
   try {
     const { data } = await axios.post(
-      Production
-        ? `https://ebooks-back.herokuapp.com/pedido`
-        : 'http://localhost:8000/pedido',
+      baseUrl + '/pedido',
       pedido
     )
     return data
@@ -52,9 +45,7 @@ export const update = createAsyncThunk(
   async ({ id, pedido }) => {
     try {
       const { data } = await axios.put(
-        Production
-          ? `https://ebooks-back.herokuapp.com/pedido/${id}`
-          : `http://localhost:8000/pedido/${id}`,
+        baseUrl + '/pedido/' + id,
         pedido
       )
       return data
@@ -68,9 +59,7 @@ export const update = createAsyncThunk(
 export const deleteById = createAsyncThunk('pedido/@DELETE/ID', async (id) => {
   try {
     const { data } = await axios.delete(
-      Production
-        ? `https://ebooks-back.herokuapp.com/pedido/${id}`
-        : `http://localhost:8000/pedido/${id}`
+      baseUrl + '/pedido/' + id
     )
     return data
   } catch (error) {

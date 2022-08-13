@@ -1,15 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-
-const Production = process.env.NODE_ENV
+import baseUrl from './baseUrl'
 
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('medias/@GETALL', async () => {
   try {
     const { data } = await axios.get(
-      Production
-        ? `https://ebooks-back.herokuapp.com/media`
-        : 'http://localhost:8000/media'
+      baseUrl + '/media'
     )
     return data
   } catch (error) {
@@ -21,9 +18,7 @@ export const getAll = createAsyncThunk('medias/@GETALL', async () => {
 export const getById = createAsyncThunk('medias/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production
-        ? `https://ebooks-back.herokuapp.com/media/${id}`
-        : `http://localhost:8000/media/${id}`
+      baseUrl + '/media/' + id
     )
     return data
   } catch (error) {
@@ -34,9 +29,7 @@ export const getById = createAsyncThunk('medias/@GETBYID', async (id) => {
 export const create = createAsyncThunk('medias/@CREATE', async (media) => {
   try {
     const { data } = await axios.post(
-      Production
-        ? `https://ebooks-back.herokuapp.com/media`
-        : `http://localhost:8000/media`,
+      baseUrl + '/media',
       media
     )
     return data
@@ -48,9 +41,7 @@ export const create = createAsyncThunk('medias/@CREATE', async (media) => {
 export const update = createAsyncThunk('medias/@UPDATE', async (media) => {
   try {
     const { data } = await axios.put(
-      Production
-        ? `https://ebooks-back.herokuapp.com/media/${media.id}`
-        : `http://localhost:8000/media/${media.id}`,
+      baseUrl + '/media/' + media.id,
       media
     )
     return data
@@ -62,9 +53,7 @@ export const update = createAsyncThunk('medias/@UPDATE', async (media) => {
 export const deleteById = createAsyncThunk('medias/@DELETEBYID', async (id) => {
   try {
     const { data } = await axios.delete(
-      Production
-        ? `https://ebooks-back.herokuapp.com/media/${id}`
-        : `http://localhost:8000/media/${id}`
+      baseUrl + '/media/' + id
     )
     return data
   } catch (error) {

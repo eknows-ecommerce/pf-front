@@ -1,15 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-const Production = process.env.NODE_ENV
-console.log(Production)
+import baseUrl from './baseUrl'
 
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('usuarios/@GETALL', async () => {
   try {
     const { data } = await axios.get(
-      Production !== 'development'
-        ? `https://ebooks-back.herokuapp.com/usuarios`
-        : 'http://localhost:8000/usuarios'
+      baseUrl + '/usuarios'
     )
     return data
   } catch (error) {
@@ -22,9 +19,7 @@ export const getAllByName = createAsyncThunk(
   async ({ payload }) => {
     try {
       const { data } = await axios.get(
-        Production !== 'development'
-          ? `https://ebooks-back.herokuapp.com/usuarios`
-          : 'http://localhost:8000/usuarios',
+        baseUrl + '/usuarios',
         {
           payload,
         }
@@ -40,9 +35,7 @@ export const getAllByName = createAsyncThunk(
 export const getById = createAsyncThunk('usuarios/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production !== 'development'
-        ? `https://ebooks-back.herokuapp.com/usuarios/${id}`
-        : `http://localhost:8000/usuarios/${id}`
+      baseUrl + '/usuarios/' + id
     )
     return data
   } catch (error) {
@@ -55,9 +48,7 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (usuario) => {
   try {
     console.log(usuario)
     const { data } = await axios.post(
-      Production !== 'development'
-        ? `https://ebooks-back.herokuapp.com/usuarios`
-        : 'http://localhost:8000/usuarios',
+      baseUrl + '/usuarios',
       usuario
     )
     return data
@@ -72,9 +63,7 @@ export const update = createAsyncThunk(
   async ({ id, usuario }) => {
     try {
       const { data } = await axios.put(
-        Production !== 'development'
-          ? `https://ebooks-back.herokuapp.com/usuarios/${id}`
-          : `http://localhost:8000/usuarios/${id}`,
+        baseUrl + '/usuarios/' + id,
         usuario
       )
       return data
@@ -90,9 +79,7 @@ export const deleteById = createAsyncThunk(
   async (id) => {
     try {
       const { data } = await axios.delete(
-        Production !== 'development'
-          ? `https://ebooks-back.herokuapp.com/usuarios/${id}`
-          : `http://localhost:8000/usuarios/${id}`
+        baseUrl + '/usuarios/' + id
       )
       return data
     } catch (error) {
