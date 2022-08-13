@@ -81,18 +81,18 @@ export default function Cuentas() {
                   pais={usuario.pais}
                   id={usuario.id}
                 />
-              ))
-              .slice((paginas.currentPage - 1) * 6, paginas.currentPage * 6)}
+              )).slice((paginas.currentPage - 1) * 6, paginas.currentPage * 6)}
           </tbody>
         </table>
-        {paginas.totalPages && (
+       
+      </div>
+      {paginas.totalPages && (
           <Paginacion
             paginaAnterior={paginaAnterior}
             paginaSiguiente={paginaSiguiente}
             paginas={paginas}
           />
         )}
-      </div>
     </div>
   )
 }

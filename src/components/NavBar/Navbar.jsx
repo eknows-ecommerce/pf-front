@@ -91,7 +91,7 @@ export default function Navbar() {
             <a className="text-gray-900" href="#Contactanos">
               Contactanos
             </a>
-            {/* {usuario.rol === 'admin' && (
+            {usuario.rol === 'admin' && (
               <Link
                 to="admin/datos"
                 className="text-gray-900"
@@ -99,7 +99,7 @@ export default function Navbar() {
               >
                 Admin
               </Link>
-            )} */}
+            )}
           </nav>
           <div className="items-center hidden space-x-4 lg:flex">
             <Link
