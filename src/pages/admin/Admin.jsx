@@ -1,16 +1,27 @@
 import { Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
 import Barra from 'pages/admin/Barra'
 import Info from 'pages/perfil/Info'
-import { getAll as getAllUsuarios } from 'features/actions/usuarios'
+import {
+  getAll as getAllUsuarios,
+  getByNickname,
+} from 'features/actions/usuarios'
 import { getAll as getAllLibros } from 'features/actions/libros'
 
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function Admin() {
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const dispatch = useDispatch()
+
+  console.log(user)
+
+  useEffect(() => {
+    dispatch(getByNickname(user))
+  }, [getByNickname, user])
 
   useEffect(() => {
     if (usuario.rol === 'admin') {

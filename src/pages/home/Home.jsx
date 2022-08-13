@@ -5,13 +5,17 @@ import CardLibro from '../../components/cards/CardLibro'
 import { getAll } from '../../features/actions/libros'
 import Paginacion from 'components/paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
+import { useAuth0 } from '@auth0/auth0-react'
 
 import Filtros from 'components/filtroCategorias/Filtros'
+
+import { getByNickname } from 'features/actions/usuarios'
 
 // import Categorias from '../../components/FiltroCategorias/Categorias'
 // import Tags from '../../filtrosTags/Tags'
 
 function Home() {
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
   const dispatch = useDispatch()
   const {
     paginas,
@@ -27,6 +31,10 @@ function Home() {
   const librosCategorias = useSelector(
     ({ librosStore }) => librosStore.categorias
   )
+
+  useEffect(() => {
+    dispatch(getByNickname(user))
+  }, [getByNickname, user])
 
   useEffect(() => {
     if (!busqueda && !librosCategorias) {

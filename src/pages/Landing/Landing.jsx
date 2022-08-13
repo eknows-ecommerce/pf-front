@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Carrusel from 'components/carrusel/Carrusel'
 import Bienvenida from 'components/section/Bienvenida'
@@ -12,6 +12,10 @@ import { getAll as getAllLibros } from 'features/actions/libros'
 
 export default function Landing() {
   const dispatch = useDispatch()
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+
+  console.log(usuario)
+
   useEffect(() => {
     dispatch(getAllLibros())
     dispatch(getallCat())

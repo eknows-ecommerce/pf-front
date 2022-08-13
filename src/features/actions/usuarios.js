@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 // <----------------- acciones que conectan a la base de datos ----------------->
+
 export const getAll = createAsyncThunk('usuarios/@GETALL', async () => {
   try {
     const { data } = await axios.get('http://localhost:8000/usuarios')
@@ -12,6 +13,21 @@ export const getAll = createAsyncThunk('usuarios/@GETALL', async () => {
     return msg
   }
 })
+
+export const getByNickname = createAsyncThunk(
+  'getByNickname/@GETBYNICKNAME',
+  async (user) => {
+    try {
+      const { data } = await axios.get(
+        'http://localhost:8000/usuarios?nickname=' + user.nickname
+      )
+      return data
+    } catch (error) {
+      const msg = error.message.data.msg
+      return msg
+    }
+  }
+)
 
 export const getAllByName = createAsyncThunk(
   'getAll/@GETALL',
