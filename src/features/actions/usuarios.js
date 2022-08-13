@@ -39,7 +39,6 @@ export const getById = createAsyncThunk('usuarios/@GETBYID', async (id) => {
 })
 
 export const create = createAsyncThunk('usuarios/@CREATE', async (body) => {
-  console.log(body)
   try {
     const { data } = await axios({
       method: 'post',

@@ -11,7 +11,6 @@ export default function Baneados() {
   useEffect(() => {
     const getToken = async () => {
       const token = await getAccessTokenSilently()
-      console.log('TOKEN', token)
       dispatch(getAllUsuarios(token))
     }
     getToken()

@@ -14,7 +14,6 @@ export default function Bienvenida() {
     const authenticateUser = async () => {
       if (isAuthenticated) {
         const token = await getAccessTokenSilently()
-        console.log('TOKEN', token)
 
         const body = {
           token: token,
