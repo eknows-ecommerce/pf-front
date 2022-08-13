@@ -36,7 +36,7 @@ export default function ReviewCard({ title, text, author, score }) {
           </p>
         </div>
       </div>
-      {author ? author = "Anonimo" : null}
+      {author ? null : author = "Anonimo"}
       <footer className="mt-8 text-gray-700 text-right">- {author}</footer>
     </blockquote>
   )
