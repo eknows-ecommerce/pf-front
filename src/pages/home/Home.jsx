@@ -89,8 +89,8 @@ function Home() {
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
           <Filtros />
           <div className="lg:col-span-3 ">
-            <div className="flex items-center justify-between bg-gray-100 px-2 z-20 rounded shadow-xl sticky top-0">
-              <p className="text-sm font-medium  px-2 py-3">
+            <div className="flex items-center justify-between bg-gray-100 px-2 z-20 rounded shadow-xl sticky lg:top-0 top-14">
+              <p className="text-sm font-medium px-2 py-3">
                 <span className="sm:inline">Vistos </span>
                 {paginas.totalPages === paginas.currentPage ? (
                   <>

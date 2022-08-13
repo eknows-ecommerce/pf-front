@@ -6,9 +6,9 @@ import RangoPrecios from 'components/filtros/RangoPrecios'
 function Filtros() {
   const [reset, setReset] = useState()
   return (
-    <div className="sticky top-0 z-20 shadow-xl cursor-pointer">
+    <div className="sticky top-0 z-50 shadow-xl bg-slate-100 w-full">
       <details open className="overflow-hidden rounded">
-        <summary className="flex items-center justify-between px-5 py-3 bg-gray-100 ">
+        <summary className="flex items-center justify-between px-5 py-3 bg-gray-100 cursor-pointer">
           <span className="text-sm font-medium">Toggle Filters</span>
           <svg
             className="w-5 h-5"
@@ -26,28 +26,24 @@ function Filtros() {
           </svg>
         </summary>
         <form action="" className="border-t border-gray-200 lg:border-t-0">
-          <fieldset>
-            <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
+          <details open className="overflow-hidden">
+            <summary className="px-5 py-3 text-xs font-medium bg-gray-50">
               Categorias
-            </legend>
+            </summary>
             <Categorias reset={reset} setReset={setReset} />
-          </fieldset>
-          <div>
-            <fieldset>
-              <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
-                Tags
-              </legend>
-              <Tags reset={reset} setReset={setReset} />
-            </fieldset>
-          </div>
-          <div>
-            <fieldset>
-              <legend className="block w-full px-5 py-3 text-xs font-medium bg-gray-50">
-                Precios
-              </legend>
-              <RangoPrecios reset={reset} setReset={setReset} />
-            </fieldset>
-          </div>
+          </details>
+          <details open className="overflow-hidden">
+            <summary className="px-5 py-3 text-xs font-medium bg-gray-50">
+              Tags
+            </summary>
+            <Tags reset={reset} setReset={setReset} />
+          </details>
+          <details open className="overflow-hidden">
+            <summary className="px-5 py-3 text-xs font-medium bg-gray-50">
+              Precios
+            </summary>
+            <RangoPrecios reset={reset} setReset={setReset} />
+          </details>
           <div className="flex justify-center px-5 py-3 border-t border-gray-200">
             <button
               name="reset"
