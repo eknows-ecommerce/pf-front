@@ -7,15 +7,11 @@ import FilaUsuario from './FilaUsuario'
 
 export default function Cuentas() {
   const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
-  const {
-    paginas,
-    paginaAnterior,
-    paginaSeleccionada,
-    paginaSiguiente,
-    handleTotal,
-  } = usePaginacion()
+  const { paginas, paginaAnterior, paginaSiguiente, handleTotal } =
+    usePaginacion()
   useEffect(() => {
     handleTotal(usuarios.length)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paginas.totalPages])
 
   return (

@@ -20,10 +20,12 @@ function RoutesApp() {
   return (
     <Routes>
       <Route path="admin" element={<ProtectedRoute component={Admin} />}>
-        <Route path="datos" element={<Datos />} />
-        <Route path="cuentas" element={<Cuentas />} />
+        <Route path="dashboard" element={<Datos />} />
+        <Route path="usuarios" element={<Cuentas />} />
         <Route path="ventas" element={<Ventas />} />
-        <Route path="productos" element={<Productos />} />
+        <Route path="stock" element={<Productos />} />
+        <Route path="categorias" element={<Productos />} />
+        <Route path="tags" element={<Productos />} />
       </Route>
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />
