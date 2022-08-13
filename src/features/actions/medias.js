@@ -7,7 +7,7 @@ const Production = process.env.NODE_ENV
 export const getAll = createAsyncThunk('medias/@GETALL', async () => {
   try {
     const { data } = await axios.get(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/media`
         : 'http://localhost:8000/media'
     )
@@ -21,7 +21,7 @@ export const getAll = createAsyncThunk('medias/@GETALL', async () => {
 export const getById = createAsyncThunk('medias/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/media/${id}`
         : `http://localhost:8000/media/${id}`
     )
@@ -34,7 +34,7 @@ export const getById = createAsyncThunk('medias/@GETBYID', async (id) => {
 export const create = createAsyncThunk('medias/@CREATE', async (media) => {
   try {
     const { data } = await axios.post(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/media`
         : `http://localhost:8000/media`,
       media
@@ -48,7 +48,7 @@ export const create = createAsyncThunk('medias/@CREATE', async (media) => {
 export const update = createAsyncThunk('medias/@UPDATE', async (media) => {
   try {
     const { data } = await axios.put(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/media/${media.id}`
         : `http://localhost:8000/media/${media.id}`,
       media
@@ -62,7 +62,7 @@ export const update = createAsyncThunk('medias/@UPDATE', async (media) => {
 export const deleteById = createAsyncThunk('medias/@DELETEBYID', async (id) => {
   try {
     const { data } = await axios.delete(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/media/${id}`
         : `http://localhost:8000/media/${id}`
     )

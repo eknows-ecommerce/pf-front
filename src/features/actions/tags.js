@@ -7,7 +7,7 @@ const Production = process.env.NODE_ENV
 export const getAll = createAsyncThunk('tags/@GETALL', async () => {
   try {
     const { data } = await axios.get(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/tags`
         : 'http://localhost:8000/tags'
     )
@@ -21,7 +21,7 @@ export const getAll = createAsyncThunk('tags/@GETALL', async () => {
 export const getById = createAsyncThunk('tags/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/tags/${id}`
         : `http://localhost:8000/tags/${id}`
     )
@@ -35,7 +35,7 @@ export const getById = createAsyncThunk('tags/@GETBYID', async (id) => {
 export const create = createAsyncThunk('tags/@CREATE', async (tag) => {
   try {
     const { data } = await axios.post(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/tags`
         : 'http://localhost:8000/tags',
       tag
@@ -50,7 +50,7 @@ export const create = createAsyncThunk('tags/@CREATE', async (tag) => {
 export const update = createAsyncThunk('tags/@UPDATE', async (tag) => {
   try {
     const { data } = await axios.put(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/tags/${tag.id}`
         : `http://localhost:8000/tags/${tag.id}`,
       tag
@@ -65,7 +65,7 @@ export const update = createAsyncThunk('tags/@UPDATE', async (tag) => {
 export const deleteById = createAsyncThunk('tags/@DELETEBYID', async (id) => {
   try {
     const { data } = await axios.delete(
-      Production
+      Production === 'production'
         ? `https://ebooks-back.herokuapp.com/tags/${id}`
         : `http://localhost:8000/tags/${id}`
     )
