@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import useSearch from '../../hooks/useSearch'
 
 export default function Productos() {
-  const { libros } = useSelector(({ adminStore }) => adminStore)
+  const { libros } = useSelector(({ librosStore }) => librosStore)
   const show = useRef(null)
   const { search, handleSearch } = useSearch()
 

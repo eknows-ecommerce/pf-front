@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import FilaUsuario from './FilaUsuario'
 
 export default function Cuentas() {
-  const { usuarios } = useSelector(({ adminStore }) => adminStore)
+  const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
   const {
     paginas,
     paginaAnterior,
