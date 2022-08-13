@@ -133,12 +133,12 @@ export default function Detalle() {
                   </a>
                 </div>
                 <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
-                  <ReviewCard title={'Waiting for more'} author={'Martin McFly'} score={5} />
-                  <ReviewCard title={'Espectacular'} author={'Anonimo'} score={5} />
-                  <ReviewCard title={'Pipí Cucú'} author={'Alberto Olmedo'} score={5} />
-                  <ReviewCard title={'Brígido'} author={'Dylantero'} score={5} />
-                  <ReviewCard title={'Amazing read'} author={'Jhonny Test'} score={4} />
-                  <ReviewCard title={'Great book'} author={'Eddie Murphy'} score={3} />
+                  <ReviewCard title={'Waiting for more'} author={'Martin McFly'} rate={5} />
+                  <ReviewCard title={'Espectacular'} rate={5} />
+                  <ReviewCard title={'Pipí Cucú'} author={'Alberto Olmedo'} rate={5} />
+                  <ReviewCard title={'Brígido'} author={'Dylantero'} rate={5} />
+                  <ReviewCard title={'Amazing read'} author={'Jhonny Test'} rate={4} />
+                  <ReviewCard title={'Great book'} author={'Eddie Murphy'} rate={3} />
                 </div>
               </div>
             </div>

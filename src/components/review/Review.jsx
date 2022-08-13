@@ -1,8 +1,8 @@
-export default function ReviewCard({ title, text, author, score }) {
+export default function ReviewCard({ title, text, author, rate }) {
   function Stars() {
     let out = []; let star;
     for (let i = 0; i < 5; i++) {
-      i < score ? star = "hover:animate-spin text-yellow-500" : star = "text-gray-300"
+      i < rate ? star = "hover:animate-spin text-yellow-500" : star = "text-gray-300"
       out.push(
         <svg
           xmlns="http://www.w3.org/2000/svg"
