@@ -4,6 +4,7 @@ import { FaShoppingCart } from 'react-icons/fa'
 import images from '../../assets/img/logo.png'
 import Search from '../search/Search'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useSelector } from 'react-redux'
 
 import { useRef } from 'react'
 import useSearch from '../../hooks/useSearch'
@@ -11,6 +12,7 @@ import Footer from '../footer/Footer'
 
 export default function Navbar() {
   const { isAuthenticated, isLoading } = useAuth0()
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   const show = useRef(null)
   const { search, handleSearch } = useSearch()
@@ -27,23 +29,14 @@ export default function Navbar() {
             {isAuthenticated ? (
               <Link to="menu">
                 <button
-                  className="p-2 text-rosadito-600 bg-gray-100 rounded-full"
+                  className="mx-5 text-rosadito-600 bg-gray-100 rounded-full"
                   type="button"
                 >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                    />
-                  </svg>
+                  <img
+                    className="flex rounded-full object-left w-10 h-10"
+                    src={usuario?.picture}
+                    alt={usuario?.nickname}
+                  />
                 </button>
               </Link>
             ) : (
@@ -98,7 +91,7 @@ export default function Navbar() {
             <a className="text-gray-900" href="#Contactanos">
               Contactanos
             </a>
-            {isAuthenticated ? (
+            {usuario.rol === 'admin' && (
               <Link
                 to="admin/datos"
                 className="text-gray-900"
@@ -106,8 +99,6 @@ export default function Navbar() {
               >
                 Admin
               </Link>
-            ) : (
-              isLoading
             )}
           </nav>
           <div className="items-center hidden space-x-4 lg:flex">

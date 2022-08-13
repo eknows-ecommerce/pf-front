@@ -6,6 +6,7 @@ import {
   create,
   update,
   deleteById,
+  getByNickname,
 } from 'features/actions/usuarios'
 
 const initialState = {
@@ -33,6 +34,17 @@ const usuariosSlice = createSlice({
       state.count = payload.count
     },
     [getAll.rejected]: (state) => {
+      state.cargando = true
+    },
+    //getById
+    [getByNickname.pending]: (state) => {
+      state.cargando = true
+    },
+    [getByNickname.fulfilled]: (state, { payload }) => {
+      state.cargando = false
+      state.usuario = payload.usuario
+    },
+    [getByNickname.rejected]: (state) => {
       state.cargando = true
     },
     //getById
@@ -69,7 +81,7 @@ const usuariosSlice = createSlice({
       ) 
        state.usuarios[index] = payload.usuario 
      console.log("PAYLOAD", payload); */
-     state.usuario = payload.usuario
+      state.usuario = payload.usuario
       state.cargando = false
     },
     [update.rejected]: (state) => {

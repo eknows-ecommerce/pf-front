@@ -82,7 +82,7 @@ export default function Cuentas() {
                   id={usuario.id}
                 />
               ))
-              .slice((paginas.currentPage -1)*6, (paginas.currentPage)*6)}
+              .slice((paginas.currentPage - 1) * 6, paginas.currentPage * 6)}
           </tbody>
         </table>
         {paginas.totalPages && (

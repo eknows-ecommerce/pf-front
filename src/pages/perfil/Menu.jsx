@@ -3,18 +3,18 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet } from 'react-router-dom'
 import Logout from '../../components/sesion/Logout'
-import { getById } from '../../features/actions/usuarios'
+import { getByNickname } from 'features/actions/usuarios'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function Menu() {
   const dispatch = useDispatch()
-  const { usuarios, usuario } = useSelector(
-    ({ usuariosStore }) => usuariosStore
-  )
-  const idProf = usuario.id
+  const { user } = useAuth0()
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   useEffect(() => {
-    dispatch(getById(idProf))
-  }, [idProf, dispatch])
+    dispatch(getByNickname(user))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getByNickname, user])
 
   return (
     <div>

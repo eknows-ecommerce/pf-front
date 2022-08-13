@@ -23,7 +23,6 @@ export default function Bienvenida() {
         dispatch(create(body))
       }
     }
-
     authenticateUser()
   }, [isAuthenticated])
 
