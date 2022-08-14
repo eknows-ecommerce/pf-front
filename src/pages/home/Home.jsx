@@ -1,15 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import CardLibro from '../../components/cards/CardLibro'
-import { getAll } from '../../features/actions/libros'
-import Paginacion from 'components/Paginacion/Paginacion'
+import CardLibro from 'components/cards/CardLibro'
+import { getAll } from 'features/actions/libros'
+import Paginacion from 'components/paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 import Swal from 'sweetalert2'
 import Filtros from 'components/filtros/Filtros'
 
 function Home() {
-  const [listaCarrito, setListaCarrito] = useState([])
+  const [listaCarrito, setListaCarrito] = useState(
+    JSON.parse(localStorage.getItem('carrito')) || []
+  )
 
   const dispatch = useDispatch()
   const {
@@ -53,8 +55,8 @@ function Home() {
       dispatch(
         getAll(
           `titulo=${busqueda}&offset=${paginas.currentPage - 1}` +
-            sortQuery +
-            query
+          sortQuery +
+          query
         )
       )
       handleTotal(count)

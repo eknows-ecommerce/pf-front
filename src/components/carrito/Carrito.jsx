@@ -4,16 +4,23 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getListCar } from 'features/actions/libros'
 import { Link } from 'react-router-dom'
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
+import useToggle from 'hooks/useToggle'
+import CompraActual from "components/carrito/CompraActual"
 
 function Carrito() {
   const dispatch = useDispatch()
   const [carritoLS, setCarritoLS] = useState(
     JSON.parse(localStorage.getItem('carrito')) || []
-  )
-  const [totalCompra, setTotalCompra] = useState(0)
-  const [continuarCompra, setContinuarCompra] = useState(false)
-  const { carrito } = useSelector(({ librosStore }) => librosStore)
+    )
+    const [totalCompra, setTotalCompra] = useState(0)
+    const [continuarCompra, setContinuarCompra] = useState(false)
+    const { carrito } = useSelector(({ librosStore }) => librosStore)
 
+    const {  toggle, handleToggle,} = useToggle()
+    
+    
   useEffect(() => {
     //transformar el objeto en string
     let query = 'carrito='
@@ -73,11 +80,13 @@ function Carrito() {
       }
       return item
     })
-    setCarritoLS(newCarrito)
+    setCarritoLS(newCarrito)   
     localStorage.setItem('carrito', JSON.stringify(newCarrito))
   }
 
   return (
+
+      
     <div>
       <Link to="/home">Atras</Link>
       {carrito &&
@@ -149,7 +158,7 @@ function Carrito() {
       </div>
       <div className="overflow-hidden p-4 shadow-lg  flex justify-center items-center">
         <button
-          onClick={() => setContinuarCompra(true)}
+          onClick={ handleToggle }
           type="button"
           disabled={continuarCompra}
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm h-10 px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -169,8 +178,12 @@ function Carrito() {
             ></path>
           </svg>
         </button>
+        {toggle && 
+                <CompraActual totalCompra={totalCompra} />
+        }
       </div>
     </div>
+   
   )
 }
 
