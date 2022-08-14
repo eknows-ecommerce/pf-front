@@ -58,7 +58,7 @@ export default function Navbar() {
                 className="w-16 h-14 bg-transparent object-cover rounded-full hover:scale-110 transition duration-700 ease-in-out"
               />
             </Link>
-            <form className="hidden mb-0 lg:flex">
+            <form className="hidden mb-0 lg:flex w-96">
               <Search search={search} handleSearch={handleSearch} />
             </form>
           </div>
