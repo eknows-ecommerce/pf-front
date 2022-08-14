@@ -154,16 +154,13 @@ export default function Detalle() {
                 </>
               </div>
               <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
-                {
-                  //JSON.stringify(reviews)
-                  getReviews()
-                }
-                {/*<ReviewCard title={'Amazing read'} author={'Jhonny Test'} rate={4} />
+                {getReviews()}
+                <ReviewCard title={'Amazing read'} author={'Jhonny Test'} rate={4} />
                 <ReviewCard title={'Great book'} author={'Eddie Murphy'} rate={3} />
                 <ReviewCard title={'Espectacular'} rate={5} />
                 <ReviewCard title={'Waiting for more'} author={'Martin McFly'} rate={5} />
                 <ReviewCard title={'Pipí Cucú'} author={'Alberto Olmedo'} rate={5} />
-              <ReviewCard title={'Brígido'} author={'Dylantero'} rate={5} />*/}
+                <ReviewCard title={'Brígido'} author={'Dylantero'} rate={5} />
               </div>
             </div>
           </div>
