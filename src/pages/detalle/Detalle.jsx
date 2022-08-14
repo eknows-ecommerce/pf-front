@@ -110,7 +110,7 @@ export default function Detalle() {
                       Ve lo que otros lectores tiene que decir
                     </p>
                   </div>
-                  {libroComprado ? <ReviewModal /> : null}
+                  {libroComprado ? <ReviewModal idLibro={libro.id} /> : null}
                   <a
                     className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
                     href="?"

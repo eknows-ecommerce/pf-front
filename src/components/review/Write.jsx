@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-export default function ReviewModal() {
+export default function ReviewModal({ idLibro }) {
   const [showModal, setShowModal] = React.useState(false);
   const dispatch = useDispatch()
 
@@ -12,6 +12,8 @@ export default function ReviewModal() {
     texto: "",
     rating: 1,
     likes: 0,
+    LibroId: idLibro,
+    //UsuarioId: 0,
   });
 
   //verificar errores toDo
@@ -25,13 +27,7 @@ export default function ReviewModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(create(form));
-    alert("Your recipe has been created succesfully");
-    setForm({
-      titulo: "",
-      texto: "",
-      rating: null,
-      likes: 0,
-    });
+    //alert("Your recipe has been created succesfully");
     showModal(false)
   };
 
@@ -84,7 +80,7 @@ export default function ReviewModal() {
               <div className="relative m-5 p-1 flex-auto items-center border-4 rounded-2xl">
                 <textarea className="text-slate-800 text-lg leading-relaxed outline-none w-full"
                   maxLength={1024} spellCheck={true}
-                  type='text' placeholder='Escriba su review' name="texto" 
+                  type='text' placeholder='Escriba su review' name="texto"
                   value={form.texto} onChange={(e) => handleChange(e)}
                 >
                 </textarea >
