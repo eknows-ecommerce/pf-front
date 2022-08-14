@@ -72,6 +72,10 @@ function Home() {
   ])
 
   useEffect(() => {
+    paginaSeleccionada(1)
+  }, [busqueda, queryCategorias, queryTags, queryRangoPrecios])
+
+  useEffect(() => {
     dispatch(getAll(`offset=0`))
   }, [])
 
