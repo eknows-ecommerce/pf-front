@@ -44,6 +44,7 @@ function Filtros() {
             </summary>
             <RangoPrecios reset={reset} setReset={setReset} />
           </details>
+         
           <div className="flex justify-center px-5 py-3 border-t border-gray-200">
             <button
               name="reset"

@@ -9,7 +9,9 @@ import Swal from 'sweetalert2'
 import Filtros from 'components/filtros/Filtros'
 
 function Home() {
-  const [listaCarrito, setListaCarrito] = useState([])
+  const [listaCarrito, setListaCarrito] = useState(
+    JSON.parse(localStorage.getItem('carrito')) || []
+  )
 
   const dispatch = useDispatch()
   const {
