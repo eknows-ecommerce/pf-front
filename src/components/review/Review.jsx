@@ -30,14 +30,13 @@ export default function ReviewCard({ title, text, author, rate }) {
             {title}
           </h5>
           <p className="mt-4 text-gray-800 text-justify">
-            Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Ipsam cumque recusandae dolorum porro, quasi
-            sunt necessitatibus dolorem ab laudantium vel.
+            {text}
           </p>
         </div>
       </div>
-      {author ? null : author = "Anonimo"}
-      <footer className="mt-8 text-gray-700 text-right">- {author}</footer>
+      <footer className="mt-8 text-gray-700 text-right">
+        {author ? '- ' + author : "- Anonimo"}
+      </footer>
     </blockquote>
   )
 }

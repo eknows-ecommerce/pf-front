@@ -10,10 +10,10 @@ export default function ReviewModal({ idLibro }) {
   const [form, setForm] = useState({
     titulo: "",
     texto: "",
-    rating: 1,
+    rating: null,
     likes: 0,
     LibroId: idLibro,
-    //UsuarioId: 0,
+    UsuarioId: 10 //parseInt(Math.random()*10)
   });
 
   //verificar errores toDo
@@ -27,12 +27,20 @@ export default function ReviewModal({ idLibro }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(create(form));
-    //alert("Your recipe has been created succesfully");
-    showModal(false)
+    setShowModal(false)
+    setForm({
+      titulo: "",
+      texto: "",
+      rating: null,
+      likes: 0,
+      LibroId: idLibro,
+      UsuarioId: 10 //parseInt(Math.random()*10)
+    })
+    alert("Your review has been created succesfully");
   };
 
   function Stars() {
-    const [rate, setRate] = useState(1);
+    const [rate, setRate] = useState(0);
     let out = []; let star;
     for (let i = 0; i < 5; i++) {
       i < rate ? star = "text-yellow-500" : star = "text-gray-300"
