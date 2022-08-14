@@ -1,9 +1,12 @@
+import Estadisticas from './Estadisticas'
+
 export default function Dashboard() {
   return (
     <>
       <>
         {/* Container for demo purpose */}
         <div className="container my-24 px-6 ">
+          <Estadisticas />
           {/* Section: Design Block */}
           <section className="mb-32 text-gray-800 text-center lg:text-left">
             {/* Jumbotron */}

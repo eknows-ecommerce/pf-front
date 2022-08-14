@@ -1,12 +1,11 @@
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import Item from './Item'
 import SearchBar from '../SearchBar'
 
 function Libros() {
-  const [show, setShow] = useState(null)
   const { libros } = useSelector(({ librosStore }) => librosStore)
+
   return (
     <div class="overflow-x-auto xl:px-20 py-2">
       <div className="w-full sm:px-6">
@@ -52,7 +51,7 @@ function Libros() {
             </thead>
             <tbody className="w-full">
               {libros?.map((libro) => (
-                <Item key={libro.id} setShow={setShow} show={show} {...libro} />
+                <Item key={libro.id} {...libro} />
               ))}
             </tbody>
           </table>

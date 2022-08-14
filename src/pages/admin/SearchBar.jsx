@@ -16,10 +16,10 @@ function SearchBar() {
           />
         </svg>
         <input
-          className="relative text-sm leading-none text-gray-600 bg-white  rounded  w-full px-10 py-4 outline-none"
+          className=" text-sm leading-none text-gray-600 bg-white  rounded  w-full px-10 py-4 outline-none"
           type="text"
-          name
-          id
+          name=""
+          id=""
           placeholder="Search"
         />
       </div>

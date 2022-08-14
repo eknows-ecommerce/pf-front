@@ -2,12 +2,13 @@ import { useSelector } from 'react-redux'
 
 import Item from './Item'
 import SearchBar from '../SearchBar'
+import Estadisticas from '../Estadisticas'
 
 function Ventas() {
   const { libros } = useSelector(({ librosStore }) => librosStore)
 
   return (
-    <div class="overflow-x-auto xl:px-20 py-2">
+    <div className="overflow-x-auto xl:px-20 py-2">
       <div className="w-full sm:px-6">
         <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg mb-3">
           <div className="sm:flex items-center justify-between">
@@ -78,7 +79,8 @@ function Ventas() {
           </article>
         </div>
 
-        <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
+        <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto space-y-10">
+          <Estadisticas />
           <SearchBar />
           <table className="w-full whitespace-nowrap">
             <thead>
