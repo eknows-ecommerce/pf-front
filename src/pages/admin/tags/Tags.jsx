@@ -87,7 +87,7 @@ function Tags() {
           valorNuevoItem={valorNuevoItem}
           setValorNuevoItem={setValorNuevoItem}
           editarItem={editarItem}
-          tipo="Categoria"
+          tipo="Tag"
         />
       )}
       <div className="overflow-x-auto xl:px-20 py-2">

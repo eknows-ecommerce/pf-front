@@ -17,7 +17,7 @@ export default function Navegacion() {
 
   return (
     <div className="h-full w-full">
-      <div className="bg-slate-800 xl:hidden flex justify-between w-full px-6 py-4 items-center">
+      <div className="bg-slate-800 xl:hidden flex justify-between w-full px-6 py-4 items-center fixed">
         <div className="flex justify-between items-center space-x-3">
           <Link to="/" className="w-10 h-10 bg-transparent">
             <img
@@ -104,9 +104,9 @@ export default function Navegacion() {
         id="Main"
         className={`${
           show ? 'translate-x-0' : '-translate-x-full'
-        } transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-full fixed sm:w-64 bg-slate-800 flex-col`}
+        } transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-full absolute sm:w-64 bg-slate-800 flex-col`}
       >
-        <div className="hidden xl:flex justify-start p-6 py-4 items-center space-x-3">
+        <div className="hidden xl:flex justify-start p-6 py-4 items-center space-x-3 overflow-y-hidden">
           <Link to="/" className="w-10 h-10 bg-transparent">
             <img
               src={images}
@@ -116,8 +116,8 @@ export default function Navegacion() {
           </Link>
           <p className="text-2xl leading-6 text-white">Eknows</p>
         </div>
-        <div className="flex flex-col pb-6 px-6 w-full items-center justify-center">
-          <div className=" flex justify-between items-center pt-5 w-full">
+        <div className="flex flex-col pb-6 px-6 w-full items-center justify-center overflow-y-hidden">
+          <div className=" flex justify-between items-center pt-5 w-full overflow-y-hidden">
             <Link
               to="/menu"
               className="flex justify-center items-center space-x-2"
@@ -140,7 +140,7 @@ export default function Navegacion() {
             </Link>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-center w-full border-gray-600 border-b space-y-2 pb-5 ">
+        <div className="flex flex-col justify-start items-center w-full border-gray-600 border-b space-y-2 pb-5 overflow-y-hidden">
           <Link
             to="dashboard"
             className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded hover:bg-gray-700 px-4 py-2"
@@ -202,7 +202,7 @@ export default function Navegacion() {
             <p className="text-base leading-4 ">Volver</p>
           </Link>
         </div>
-        <div className="flex flex-col justify-start items-center px-6 border-b border-gray-600 w-full">
+        <div className="flex flex-col justify-start items-center px-6 border-b border-gray-600 w-full overflow-y-hidden">
           <button
             onClick={() => setMenuValue(0)}
             className="focus:outline-none focus:text-indigo-400  text-white flex justify-between items-center w-full py-5 space-x-14  "

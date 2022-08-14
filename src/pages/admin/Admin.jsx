@@ -41,9 +41,9 @@ export default function Admin() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative h-full">
       <Navegacion />
-      <div className="border-t-2 sm:pt-0 m-0 xl:pt-0 xl:ml-64 h-screen overflow-y-auto z-50">
+      <div className="border-t-2 pt-20 m-0 xl:pt-0 xl:ml-64 h-screen z-50">
         <Outlet />
       </div>
     </div>

@@ -82,7 +82,7 @@ function Categorias() {
           tipo="Categoria"
         />
       )}
-      <div className="overflow-x-auto xl:px-20 py-2">
+      <div className="xl:px-20 py-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
             <div className="sm:flex items-center justify-between">
@@ -115,7 +115,7 @@ function Categorias() {
               </div>
             </div>
           </div>
-          <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
+          <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5">
             <SearchBar />
             <table className="w-full whitespace-nowrap">
               <thead>
