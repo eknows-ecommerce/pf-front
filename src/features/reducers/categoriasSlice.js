@@ -32,10 +32,10 @@ const categoriasSlice = createSlice({
       state.cargando = false
       state.categorias = payload.categorias ?? []
     },
-    // [getAll.rejected]: (state, { payload }) => {
-    //   state.cargando = true
-    //   state.msg = payload.msg
-    // },
+    [getAll.rejected]: (state, { payload }) => {
+      state.cargando = true
+      state.msg = payload.msg
+    },
     // OBTENER CATEGORIA POR ID
     [getById.pending]: (state) => {
       state.cargando = true
