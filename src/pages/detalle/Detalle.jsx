@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getById } from '../../features/actions/libros'
+import { getAll } from '../../features/actions/review'
 import Button from '../../components/templates/Button'
 import ReviewCard from '../../components/review/Review.jsx'
 import ReviewModal from '../../components/review/Write.jsx'
@@ -10,22 +11,24 @@ export default function Detalle() {
   const history = useNavigate()
   const dispatch = useDispatch()
   const { id } = useParams()
-  const { libro } = useSelector(({ librosStore }) => librosStore)
+  const { libro } = useSelector(
+    ({ librosStore }) => librosStore
+  )
   const libroComprado = true; //checkar de usuario 
 
   useEffect(() => {
     dispatch(getById(id))
   }, [id, dispatch])
 
+  useEffect(() => {
+    dispatch(getAll('LibroId=' + libro.id))
+  }, [])
+
   function handleBuy(e) {
     e.preventDefault()
     console.log(e)
   }
   function handleAdd(e) {
-    e.preventDefault()
-    console.log(e)
-  }
-  function handleAddRv(e) {
     e.preventDefault()
     console.log(e)
   }
@@ -133,12 +136,15 @@ export default function Detalle() {
                   </a>
                 </div>
                 <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
-                  <ReviewCard title={'Waiting for more'} author={'Martin McFly'} rate={5} />
-                  <ReviewCard title={'Espectacular'} rate={5} />
-                  <ReviewCard title={'Pipí Cucú'} author={'Alberto Olmedo'} rate={5} />
-                  <ReviewCard title={'Brígido'} author={'Dylantero'} rate={5} />
+                  {
+
+                  }
                   <ReviewCard title={'Amazing read'} author={'Jhonny Test'} rate={4} />
                   <ReviewCard title={'Great book'} author={'Eddie Murphy'} rate={3} />
+                  <ReviewCard title={'Espectacular'} rate={5} />
+                  <ReviewCard title={'Waiting for more'} author={'Martin McFly'} rate={5} />
+                  <ReviewCard title={'Pipí Cucú'} author={'Alberto Olmedo'} rate={5} />
+                  <ReviewCard title={'Brígido'} author={'Dylantero'} rate={5} />
                 </div>
               </div>
             </div>
