@@ -15,8 +15,7 @@ import { ProtectedRoute } from './ProtectedRoute'
 import Libros from 'pages/admin/libros/Libros'
 import Categorias from 'pages/admin/categorias/Categorias'
 import Tags from 'pages/admin/tags/Tags'
-// import Login from '../components/sesion/Login'
-
+import Prueba from '../components/sesion/Prueba'
 //Aqui iran todas las rutas
 function RoutesApp() {
   return (
@@ -35,7 +34,10 @@ function RoutesApp() {
       </Route>
       <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />
+        
         <Route path="home" element={<Home />} />
+        <Route path="prueba" element={<Prueba />} />
+
         {/* <Route path="login" element={<Login />} /> */}
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>
