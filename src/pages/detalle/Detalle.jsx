@@ -19,6 +19,7 @@ export default function Detalle() {
     ({ reviewsStore }) => reviewsStore
   )
   const libroComprado = true; //checkar de usuario 
+  const test="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
   useEffect(() => {
     dispatch(getAll('?LibroId=' + id))
@@ -155,12 +156,12 @@ export default function Detalle() {
               </div>
               <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
                 {getReviews()}
-                <ReviewCard title={'Amazing read'} author={'Jhonny Test'} rate={4} />
-                <ReviewCard title={'Great book'} author={'Eddie Murphy'} rate={3} />
-                <ReviewCard title={'Espectacular'} rate={5} />
-                <ReviewCard title={'Waiting for more'} author={'Martin McFly'} rate={5} />
-                <ReviewCard title={'Pipí Cucú'} author={'Alberto Olmedo'} rate={5} />
-                <ReviewCard title={'Brígido'} author={'Dylantero'} rate={5} />
+                <ReviewCard text={test} title={'Amazing read'} author={'Jhonny Test'} rate={4} />
+                <ReviewCard text={test} title={'Great book'} author={'Eddie Murphy'} rate={3} />
+                <ReviewCard text={test} title={'Espectacular'} rate={5} />
+                <ReviewCard text={test} title={'Waiting for more'} author={'Martin McFly'} rate={5} />
+                <ReviewCard text={test} title={'Pipí Cucú'} author={'Alberto Olmedo'} rate={5} />
+                <ReviewCard text={test} title={'Brígido'} author={'Dylantero'} rate={5} />
               </div>
             </div>
           </div>
