@@ -29,11 +29,12 @@ function Usuarios() {
           <table className="w-full whitespace-nowrap">
             <thead>
               <tr className="h-16 w-full text-sm leading-none text-gray-800">
-                <th className="font-normal text-left pl-4">Nombre</th>
+                <th className="font-normal text-left pl-20">Nombre</th>
+                <th className="font-normal text-left pl-20">Email</th>
                 <th className="font-normal text-left pl-10">Estado</th>
                 <th className="font-normal text-left pl-10">Rol</th>
-                <th className="font-normal text-left pl-10">Plataforma</th>
                 <th className="font-normal text-left pl-10">ID</th>
+                <th className="font-normal text-left pl-10"></th>
               </tr>
             </thead>
             <tbody className="w-full">

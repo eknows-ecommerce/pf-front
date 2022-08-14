@@ -6,22 +6,15 @@ export default function Dashboard() {
         <div className="container my-24 px-6 ">
           {/* Section: Design Block */}
           <section className="mb-32 text-gray-800 text-center lg:text-left">
-            <style
-              dangerouslySetInnerHTML={{
-                __html:
-                  '\n      @media (min-width: 992px) {\n        .rotate-lg-6 {\n          transform: rotate(6deg);\n        }\n      }\n\n      /* These are the KEY styles - you can add them directly to any object you want in your project */\n      .fancy-border-radius {\n        border-radius: 53% 47% 52% 48% / 36% 41% 59% 64%;\n      }\n    ',
-              }}
-            />
             {/* Jumbotron */}
             <div className="container xl:px-32 text-center lg:text-left">
               <div className="grid lg:grid-cols-2  items-center">
                 <div className="mb-12 lg:mb-0">
                   <div
-                    className="relative block rounded-lg shadow-lg px-6 py-12 md:px-12 lg:-mr-14"
+                    className="rounded-lg shadow-lg px-6 py-12 md:px-12 lg:-mr-14"
                     style={{
                       background: 'hsla(0, 0%, 100%, 0.55)',
                       backdropFilter: 'blur(30px)',
-                      zIndex: 1,
                     }}
                   >
                     <h2 className="text-3xl font-bold mb-4 display-5">
