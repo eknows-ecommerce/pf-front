@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+
 import Item from './Item'
+import SearchBar from '../SearchBar'
 
 function Libros() {
   const [show, setShow] = useState(null)
@@ -37,6 +39,7 @@ function Libros() {
           </div>
         </div>
         <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
+          <SearchBar />
           <table className="w-full whitespace-nowrap">
             <thead>
               <tr className="h-16 w-full text-sm leading-none text-gray-800">
