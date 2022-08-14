@@ -7,7 +7,7 @@ function Libros() {
   const { libros } = useSelector(({ librosStore }) => librosStore)
 
   return (
-    <div class="overflow-x-auto xl:px-20 py-2">
+    <div className="overflow-x-auto xl:px-20 py-2">
       <div className="w-full sm:px-6">
         <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
           <div className="sm:flex items-center justify-between">
