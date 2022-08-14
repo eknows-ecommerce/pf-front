@@ -10,10 +10,10 @@ export default function ReviewModal({ idLibro }) {
   const [form, setForm] = useState({
     titulo: "",
     texto: "",
-    rating: null,
+    rating: 3,
     likes: 0,
     LibroId: idLibro,
-    UsuarioId: 10 //parseInt(Math.random()*10)
+    //UsuarioId: parseInt(Math.random()*10)
   });
 
   //verificar errores toDo
@@ -31,16 +31,16 @@ export default function ReviewModal({ idLibro }) {
     setForm({
       titulo: "",
       texto: "",
-      rating: null,
+      rating: 3,
       likes: 0,
       LibroId: idLibro,
-      UsuarioId: 10 //parseInt(Math.random()*10)
+      //UsuarioId: parseInt(Math.random()*10)
     })
-    alert("Your review has been created succesfully");
+    //alert("Your review has been created succesfully");
   };
 
   function Stars() {
-    const [rate, setRate] = useState(0);
+    const [rate, setRate] = useState(3);
     let out = []; let star;
     for (let i = 0; i < 5; i++) {
       i < rate ? star = "text-yellow-500" : star = "text-gray-300"
