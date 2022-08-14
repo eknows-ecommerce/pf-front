@@ -155,15 +155,9 @@ function Carrito() {
           ) : null
         })}
 
-   
+      {button && 
       
         <div>
-
-           {!toggle && 
-           
-           <div>
-
-            <div>
 
           <div className="  white-50 w-2/4 rounded-md overflow-hidden shadow-lg mx-4 px-4 text-left ">
             total actual: {totalCompra}
@@ -172,7 +166,7 @@ function Carrito() {
             <button
               onClick={handleToggle}
               type="button"
-              visible={button}
+              disabled={continuarCompra}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm h-10 px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Continuar compra
@@ -190,17 +184,12 @@ function Carrito() {
                 ></path>
               </svg>
             </button>
-
-            </div>
-           </div>
-           </div>
-
-           } 
             {toggle && 
-              <CompraActual totalCompra={totalCompra} />              
+              <CompraActual totalCompra={totalCompra} />
             }
+          </div>
         </div>
-    
+      }
 
       
     </div>

@@ -58,6 +58,10 @@ const CheckoutForm = ({ totalCompra }) => {
             }
 
             {resp &&
+
+
+
+
         state ? (
                 <div>
                 <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -75,7 +79,7 @@ const CheckoutForm = ({ totalCompra }) => {
                                     Transacción Exitosa!
                                 </h4>
                                 <p className="mt-2 text-[15px] leading-relaxed text-gray-500">
-                                    Total: {totalCompra}
+                                    Total : {totalCompra*10000}
                                 </p>
                             </div>
                         </div>
