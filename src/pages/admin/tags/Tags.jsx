@@ -1,39 +1,95 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { deleteById } from 'features/actions/tags'
+import { create, deleteById, update } from 'features/actions/tags'
 
 import Item from './Item'
 import SearchBar from '../SearchBar'
-import Modal from './Modal'
+import CrearItemModal from '../CrearItemModal'
+import EliminarItemModal from '../EliminarItemModal'
+import EditarItemModal from '../EditarItemModal'
 
 function Tags() {
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
-  const [showModal, setShowModal] = useState(false)
+
+  const [eliminarItemModal, setEliminarItemModal] = useState(false)
+  const [crearItemModal, setCrearItemModal] = useState(false)
+  const [editarItemModal, setEditarItemModal] = useState(false)
+
   const [tagSeleccionado, setTagSeleccionado] = useState({})
+  const [valorNuevoItem, setValorNuevoItem] = useState('')
+
   const dispatch = useDispatch()
 
   const seleccionarTag = (tag) => {
     setTagSeleccionado(tag)
-    setShowModal(true)
+    setEliminarItemModal(true)
   }
 
-  const eliminarTag = () => {
+  const editarTag = (tag) => {
+    setTagSeleccionado(tag)
+    setValorNuevoItem(tag.nombre)
+    setEditarItemModal(true)
+  }
+
+  const editarItem = () => {
+    dispatch(
+      update({
+        id: tagSeleccionado.id,
+        nombre: valorNuevoItem,
+      })
+    )
+    setTagSeleccionado({})
+    setEditarItemModal(false)
+  }
+
+  const eliminarTag = (tag) => {
+    setTagSeleccionado(tag)
+    setEliminarItemModal(true)
+  }
+
+  const eliminarItem = () => {
     dispatch(deleteById(tagSeleccionado.id))
     setTagSeleccionado({})
-    setShowModal(false)
+    setEliminarItemModal(false)
+  }
+
+  const crearItem = () => {
+    let tag = {
+      nombre: valorNuevoItem,
+    }
+    dispatch(create(tag))
+    setValorNuevoItem('')
+    setCrearItemModal(false)
   }
 
   return (
     <>
-      {showModal && (
-        <Modal
-          setShowModal={setShowModal}
-          eliminarTag={eliminarTag}
+      {eliminarItemModal && (
+        <EliminarItemModal
+          setEliminarItemModal={setEliminarItemModal}
+          eliminarItem={eliminarItem}
           item={tagSeleccionado.nombre}
         />
       )}
-
+      {crearItemModal && (
+        <CrearItemModal
+          setCrearItemModal={setCrearItemModal}
+          valorNuevoItem={valorNuevoItem}
+          setValorNuevoItem={setValorNuevoItem}
+          crearItem={crearItem}
+          tipo="Tag"
+        />
+      )}
+      {editarItemModal && (
+        <EditarItemModal
+          setEditarItemModal={setEditarItemModal}
+          valorNuevoItem={valorNuevoItem}
+          setValorNuevoItem={setValorNuevoItem}
+          editarItem={editarItem}
+          tipo="Categoria"
+        />
+      )}
       <div className="overflow-x-auto xl:px-20 py-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
@@ -42,7 +98,10 @@ function Tags() {
                 Tags
               </p>
               <div>
-                <button className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
+                <button
+                  onClick={() => setCrearItemModal(true)}
+                  className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
+                >
                   <p className="text-sm font-medium leading-none text-white">
                     Nuevo Tag
                   </p>
@@ -75,7 +134,13 @@ function Tags() {
               </thead>
               <tbody className="w-full">
                 {tags?.map((tag) => (
-                  <Item key={tag.id} seleccionarTag={seleccionarTag} {...tag} />
+                  <Item
+                    key={tag.id}
+                    seleccionarTag={seleccionarTag}
+                    eliminarTag={eliminarTag}
+                    editarTag={editarTag}
+                    {...tag}
+                  />
                 ))}
               </tbody>
             </table>

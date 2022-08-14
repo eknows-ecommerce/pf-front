@@ -1,9 +1,13 @@
-export default function Modal({ setShowModal, eliminarCategoria, item }) {
+export default function EliminarItemModal({
+  setEliminarItemModal,
+  eliminarItem,
+  item,
+}) {
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
       <div
-        className="fixed inset-0 w-full h-full bg-black opacity-40"
-        onClick={() => setShowModal(false)}
+        className="fixed inset-0 w-full h-full bg-black opacity-50"
+        onClick={() => setEliminarItemModal(false)}
       ></div>
       <div className="flex items-center min-h-screen px-4 py-8">
         <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg">
@@ -33,13 +37,13 @@ export default function Modal({ setShowModal, eliminarCategoria, item }) {
               <div className="items-center gap-2 mt-3 sm:flex">
                 <button
                   className="w-full mt-2 p-2.5 flex-1 text-white bg-red-600 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
-                  onClick={eliminarCategoria}
+                  onClick={eliminarItem}
                 >
                   Eliminar
                 </button>
                 <button
                   className="w-full mt-2 p-2.5 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => setEliminarItemModal(false)}
                 >
                   Cancelar
                 </button>

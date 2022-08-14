@@ -3,7 +3,7 @@ function SearchBar() {
     <div className="lg:max-w-[548px] w-full mx-auto border rounded-md">
       <div className="relative">
         <svg
-          className="absolute z-20 cursor-pointer top-[18px] left-4"
+          className="absolute cursor-pointer top-[18px] left-4"
           width={16}
           height={16}
           viewBox="0 0 16 16"

@@ -1,36 +1,85 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { deleteById } from 'features/actions/categorias'
+import { create, deleteById, update } from 'features/actions/categorias'
 
 import Item from './Item'
 import SearchBar from '../SearchBar'
-import Modal from './Modal'
+import EliminarItemModal from '../EliminarItemModal'
+import CrearItemModal from '../CrearItemModal'
+import EditarItemModal from '../EditarItemModal'
 
 function Categorias() {
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
-  const [showModal, setShowModal] = useState(false)
+
+  const [eliminarItemModal, setEliminarItemModal] = useState(false)
+  const [crearItemModal, setCrearItemModal] = useState(false)
+  const [editarItemModal, setEditarItemModal] = useState(false)
+
+  const [valorNuevoItem, setValorNuevoItem] = useState('')
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState({})
+
   const dispatch = useDispatch()
 
-  const seleccionarCategoria = (categoria) => {
-    setCategoriaSeleccionada(categoria)
-    setShowModal(true)
+  const crearItem = () => {
+    dispatch(create({ nombre: valorNuevoItem }))
+    setValorNuevoItem('')
+    setCrearItemModal(false)
   }
 
-  const eliminarCategoria = () => {
+  const editarCategoria = (categoria) => {
+    setCategoriaSeleccionada(categoria)
+    setValorNuevoItem(categoria.nombre)
+    setEditarItemModal(true)
+  }
+
+  const editarItem = () => {
+    dispatch(
+      update({
+        id: categoriaSeleccionada.id,
+        categoria: { nombre: valorNuevoItem },
+      })
+    )
+    setCategoriaSeleccionada({})
+    setEditarItemModal(false)
+  }
+
+  const eliminarCategoria = (categoria) => {
+    setCategoriaSeleccionada(categoria)
+    setEliminarItemModal(true)
+  }
+
+  const eliminarItem = () => {
     dispatch(deleteById(categoriaSeleccionada.id))
     setCategoriaSeleccionada({})
-    setShowModal(false)
+    setEliminarItemModal(false)
   }
 
   return (
     <>
-      {showModal && (
-        <Modal
-          setShowModal={setShowModal}
-          eliminarCategoria={eliminarCategoria}
+      {eliminarItemModal && (
+        <EliminarItemModal
+          setEliminarItemModal={setEliminarItemModal}
+          eliminarItem={eliminarItem}
           item={categoriaSeleccionada.nombre}
+        />
+      )}
+      {crearItemModal && (
+        <CrearItemModal
+          setCrearItemModal={setCrearItemModal}
+          valorNuevoItem={valorNuevoItem}
+          setValorNuevoItem={setValorNuevoItem}
+          crearItem={crearItem}
+          tipo="Categoria"
+        />
+      )}
+      {editarItemModal && (
+        <EditarItemModal
+          setEditarItemModal={setEditarItemModal}
+          valorNuevoItem={valorNuevoItem}
+          setValorNuevoItem={setValorNuevoItem}
+          editarItem={editarItem}
+          tipo="Categoria"
         />
       )}
       <div className="overflow-x-auto xl:px-20 py-2">
@@ -41,7 +90,10 @@ function Categorias() {
                 Categorias
               </p>
               <div>
-                <button className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
+                <button
+                  onClick={() => setCrearItemModal(true)}
+                  className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
+                >
                   <p className="text-sm font-medium leading-none text-white">
                     Nueva Categoria
                   </p>
@@ -76,7 +128,8 @@ function Categorias() {
                 {categorias?.map((categoria) => (
                   <Item
                     key={categoria.id}
-                    seleccionarCategoria={seleccionarCategoria}
+                    eliminarCategoria={eliminarCategoria}
+                    editarCategoria={editarCategoria}
                     {...categoria}
                   />
                 ))}
