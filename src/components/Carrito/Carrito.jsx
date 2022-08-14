@@ -13,14 +13,15 @@ function Carrito() {
   const dispatch = useDispatch()
   const [carritoLS, setCarritoLS] = useState(
     JSON.parse(localStorage.getItem('carrito')) || []
-    )
-    const [totalCompra, setTotalCompra] = useState(0)
-    const [continuarCompra, setContinuarCompra] = useState(false)
-    const { carrito } = useSelector(({ librosStore }) => librosStore)
+  )
+  const [totalCompra, setTotalCompra] = useState(0)
+  const [continuarCompra, setContinuarCompra] = useState(false)
+  const { carrito } = useSelector(({ librosStore }) => librosStore)
+  const [button,setButton ] = useState(true)
 
-    const {  toggle, handleToggle,} = useToggle()
-    
-    
+  const { toggle, handleToggle, } = useToggle()
+
+
   useEffect(() => {
     //transformar el objeto en string
     let query = 'carrito='
@@ -80,13 +81,13 @@ function Carrito() {
       }
       return item
     })
-    setCarritoLS(newCarrito)   
+    setCarritoLS(newCarrito)
     localStorage.setItem('carrito', JSON.stringify(newCarrito))
   }
 
   return (
 
-      
+
     <div>
       <Link to="/home">Atras</Link>
       {carrito &&
@@ -153,37 +154,57 @@ function Carrito() {
             </div>
           ) : null
         })}
-      <div className="  white-50 w-2/4 rounded-md overflow-hidden shadow-lg mx-4 px-4 text-left ">
-        total actual: {totalCompra}
-      </div>
-      <div className="overflow-hidden p-4 shadow-lg  flex justify-center items-center">
-        <button
-          onClick={ handleToggle }
-          type="button"
-          disabled={continuarCompra}
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm h-10 px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Continuar compra
-          <svg
-            aria-hidden="true"
-            className="ml-2 -mr-1 w-5 h-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-        </button>
-        {toggle && 
-                <CompraActual totalCompra={totalCompra} />
-        }
-      </div>
-    </div>
+
    
+      
+        <div>
+
+           {!toggle && 
+           
+           <div>
+
+            <div>
+
+          <div className="  white-50 w-2/4 rounded-md overflow-hidden shadow-lg mx-4 px-4 text-left ">
+            total actual: {totalCompra}
+          </div>
+          <div className="overflow-hidden p-4 shadow-lg  flex justify-center items-center">
+            <button
+              onClick={handleToggle}
+              type="button"
+              visible={button}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm h-10 px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Continuar compra
+              <svg
+                aria-hidden="true"
+                className="ml-2 -mr-1 w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </button>
+
+            </div>
+           </div>
+           </div>
+
+           } 
+            {toggle && 
+              <CompraActual totalCompra={totalCompra} />              
+            }
+        </div>
+    
+
+      
+    </div>
+
   )
 }
 
