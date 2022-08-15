@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 import { useRef } from 'react'
 import useSearch from '../../hooks/useSearch'
-import Footer from '../footer/Footer'
+// import Footer from '../footer/Footer'
 
 export default function Navbar() {
   const { isAuthenticated, isLoading } = useAuth0()
@@ -51,7 +51,7 @@ export default function Navbar() {
                 className="w-16 h-14 bg-transparent object-cover rounded-full hover:scale-110 transition duration-700 ease-in-out"
               />
             </Link>
-            <form className="hidden mb-0 lg:flex">
+            <form className="hidden mb-0 lg:flex w-96">
               <Search search={search} handleSearch={handleSearch} />
             </form>
           </div>
@@ -99,12 +99,10 @@ export default function Navbar() {
           </nav>
           <div className="items-center hidden space-x-4 lg:flex">
             <Link
-              to="#carrito"
+              to="/home/carrito"
               className="flex items-center content-center justify-center w-10 h-10 border border-gray-700 rounded-full"
             >
-              <button>
-                <FaShoppingCart />
-              </button>
+              <FaShoppingCart />
             </Link>
           </div>
         </div>
@@ -130,7 +128,7 @@ export default function Navbar() {
       </header>
 
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

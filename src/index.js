@@ -10,9 +10,10 @@ import { BrowserRouter } from 'react-router-dom'
 const container = document.getElementById('root')
 const root = createRoot(container)
 
+
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={store}>   
       <Auth0Provider
         domain={process.env.REACT_APP_AUTH_DOMAIN}
         clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
