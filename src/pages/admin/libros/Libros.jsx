@@ -5,7 +5,7 @@ import { getAll, create, update } from 'features/actions/libros'
 import Item from './Item'
 import SearchBar from '../SearchBar'
 import LibroFormulario from './LibroFormulario'
-import EliminarItemModal from '../EliminarItemModal'
+import DisponibilidadModal from './DisponibilidadModal'
 
 const initialState = {
   titulo: '',
@@ -28,7 +28,7 @@ function Libros() {
   const [formulario, setFormulario] = useState(false)
   const [nuevoLibro, setNuevoLibro] = useState(initialState)
   const [libroSeleccionado, setLibroSeleccionado] = useState({})
-  const [eliminarItemModal, setEliminarItemModal] = useState(false)
+  const [deshabilitarItemModal, setDeshabilitarItemModal] = useState(false)
 
   const { libros, busqueda } = useSelector(({ librosStore }) => librosStore)
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
@@ -40,19 +40,19 @@ function Libros() {
     dispatch(getAll(`titulo=${busqueda}`))
   }, [dispatch, busqueda])
 
-  const eliminarItem = () => {
+  const deshabilitarItem = () => {
     let libroObj = {
       ...libroSeleccionado,
-      isAvail: false,
+      isAvail: !libroSeleccionado.isAvail,
     }
     dispatch(update(libroObj))
     setLibroSeleccionado({})
-    setEliminarItemModal(false)
+    setDeshabilitarItemModal(false)
   }
 
   const deshabilitarLibro = (libro) => {
     setLibroSeleccionado(libro)
-    setEliminarItemModal(true)
+    setDeshabilitarItemModal(true)
   }
 
   const crearNuevoLibro = (e) => {
@@ -64,10 +64,11 @@ function Libros() {
 
   return (
     <>
-      {eliminarItemModal && (
-        <EliminarItemModal
-          setEliminarItemModal={setEliminarItemModal}
-          eliminarItem={eliminarItem}
+      {deshabilitarItemModal && (
+        <DisponibilidadModal
+          libroSeleccionado={libroSeleccionado}
+          setDeshabilitarItemModal={setDeshabilitarItemModal}
+          deshabilitarItem={deshabilitarItem}
           item={libroSeleccionado.titulo}
           tipo="libro"
         />
