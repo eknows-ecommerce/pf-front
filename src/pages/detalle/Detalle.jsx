@@ -18,8 +18,11 @@ export default function Detalle() {
   const { reviews, count } = useSelector(
     ({ reviewsStore }) => reviewsStore
   )
+  const { usuario } = useSelector(
+    ({ usuariosStore }) => usuariosStore
+  )
   const libroComprado = true; //checkar de usuario 
-  const test="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  console.log(usuario.id)
 
   useEffect(() => {
     dispatch(getAll('?LibroId=' + id))
@@ -29,15 +32,19 @@ export default function Detalle() {
     dispatch(getById(id))
   }, [id, dispatch])
 
-  function getReviews() {
+  function getReviews(limit = Infinity) {
     let out = []
+    let i = 0;
     reviews.forEach((r) => {
-      out.push(
-        <ReviewCard
-          title={r.titulo}
-          text={r.texto}
-          rate={r.rating}
-        />)
+      if (i < limit)
+        out.push(
+          <ReviewCard
+            title={r.titulo}
+            text={r.texto}
+            rate={r.rating}
+            likes={r.likes}
+          />)
+      i++;
     })
     return out
   }
@@ -131,7 +138,7 @@ export default function Detalle() {
                       Ve lo que otros lectores tiene que decir
                     </p>
                   </div>
-                  {libroComprado ? <ReviewModal idLibro={libro.id} /> : null}
+                  {libroComprado ? <ReviewModal idLibro={id} /> : null}
                   <button
                     className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
                   //onClick={getReviews}
@@ -155,13 +162,7 @@ export default function Detalle() {
                 </>
               </div>
               <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
-                {getReviews()}
-                <ReviewCard text={test} title={'Amazing read'} author={'Jhonny Test'} rate={4} />
-                <ReviewCard text={test} title={'Great book'} author={'Eddie Murphy'} rate={3} />
-                <ReviewCard text={test} title={'Espectacular'} rate={5} />
-                <ReviewCard text={test} title={'Waiting for more'} author={'Martin McFly'} rate={5} />
-                <ReviewCard text={test} title={'Pipí Cucú'} author={'Alberto Olmedo'} rate={5} />
-                <ReviewCard text={test} title={'Brígido'} author={'Dylantero'} rate={5} />
+                {getReviews(6)}
               </div>
             </div>
           </div>

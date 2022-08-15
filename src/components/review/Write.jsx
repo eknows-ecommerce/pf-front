@@ -26,17 +26,21 @@ export default function ReviewModal({ idLibro }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(create(form));
-    setShowModal(false)
-    setForm({
-      titulo: "",
-      texto: "",
-      rating: 3,
-      likes: 0,
-      LibroId: idLibro,
-      //UsuarioId: parseInt(Math.random()*10)
-    })
-    //alert("Your review has been created succesfully");
+    if (form.titulo && form.texto) {
+      dispatch(create(form));
+      setShowModal(false)
+      setForm({
+        titulo: "",
+        texto: "",
+        rating: 3,
+        likes: 0,
+        LibroId: idLibro,
+        //UsuarioId: parseInt(Math.random()*10)
+      })
+    }else{
+      setShowModal(false)
+      setShowModal(true)
+    }
   };
 
   function Stars() {
@@ -61,7 +65,7 @@ export default function ReviewModal({ idLibro }) {
       )
     }
 
-    return (out)
+    return out
   }
 
   return (
@@ -110,8 +114,7 @@ export default function ReviewModal({ idLibro }) {
               </div>
             </div>
           </form>
-          <div className="fixed inset-0 z-40 bg-black opacity-25"
-          />
+          <div className="fixed inset-0 z-40 bg-black opacity-25"/>
         </>
       ) : null}
     </>
