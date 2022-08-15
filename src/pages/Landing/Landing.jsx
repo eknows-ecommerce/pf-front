@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
 import Carrusel from 'components/carrusel/Carrusel'
 import Bienvenida from 'components/section/Bienvenida'

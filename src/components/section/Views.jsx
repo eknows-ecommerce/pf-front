@@ -6,10 +6,10 @@ function Views() {
     <aside className="overflow-hidden bg-gray-50 sm:grid sm:grid-cols-2">
       <div className="p-8 md:p-12 lg:px-16 lg:py-24">
         <div className="max-w-xl mx-auto text-center sm:text-left">
-          <h2 className="text-3xl font-bold  font-poiret-one text-gray-900 md:text-4xl">
+          <h2 className="text-3xl font-bold  font-comforta-300 text-gray-900 md:text-4xl">
             K-views
           </h2>
-          <p className="hidden text-gray-500 font-bold   font-poiret-one md:mt-3x2 md:block">
+          <p className="hidden text-gray-500 font-bold   font-comforta-300 md:mt-3x2 md:block">
             Lleva las historias que te atrapan, a donde vayas
           </p>
           <div className="mt-4 md:mt-8">

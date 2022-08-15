@@ -18,10 +18,10 @@ function Stories() {
           <div className="relative flex items-center bg-gray-100">
             <span className="hidden lg:inset-y-0 lg:absolute lg:w-16 lg:bg-gray-100 lg:block lg:-left-16" />
             <div className="p-8 sm:p-16 lg:p-24">
-              <h2 className="text-4xl font-bold sm:text-3xl font-poiret-one">
+              <h2 className="text-4xl font-bold sm:text-3xl font-comforta-300">
                 K-stories
               </h2>
-              <p className="mt-3x1 text-gray-600  font-bold font-poiret-one">
+              <p className="mt-3x1 text-gray-600  font-bold font-comforta-300">
                 Para tí, en todas las formas
               </p>
               <br />

@@ -36,7 +36,7 @@ export default function Bienvenida() {
       <div className="hidden sm:block sm:inset-0 sm:absolute sm:bg-gradient-to-r sm:from-white sm:to-transparent" />
       <div className="relative max-w-screen-xl px-4 py-32 mx-auto lg:h-screen lg:items-center lg:flex">
         <div className="max-w-xl text-center sm:text-left">
-          <h1 className="text-6xl font-extrabold  font-poiret-one sm:text-7xl">
+          <h1 className="text-6xl font-extrabold  font-comforta-300 sm:text-7xl">
             Bievenidos a
             <strong className="font-extrabold text-rose-700 sm:block">
               e-Knows

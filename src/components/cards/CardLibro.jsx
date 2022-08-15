@@ -70,7 +70,7 @@ function CardLibro({
         <strong className="inline-block px-3 py-1 text-xs font-medium bg-yellow-400">
           New
         </strong>
-        <h5 className=" mt-4 text-lg font-bold font-poiret-one">{titulo}</h5>
+        <h5 className=" mt-4 text-lg font-bold font-comforta-300">{titulo}</h5>
       </div>
       {/* <Link to="/home" onClick={addItem} className="flex flex-col items-center"> */}
       <h5 className="mt-2 text-lg font-bold text-gray-900 pb-2">${precio}</h5>

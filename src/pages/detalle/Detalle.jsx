@@ -70,12 +70,18 @@ export default function Detalle() {
     <>
       <div className="relative max-w-screen-2xl px-4 py-8 mx-auto">
         <div>
-          <h1 className="text-3xl font-bold lg:text-5xl font-poiret-one">{libro.titulo}</h1>
+          <h1 className="text-3xl font-bold lg:text-5xl font-comforta-300">
+            {libro.titulo}
+          </h1>
           <p className="mt-1 text-sm text-gray-500 ">{libro.autor}</p>
         </div>
         <div className="grid gap-8 lg:items-start lg:grid-cols-4">
           <div className="lg:col-span-3">
-            <img alt="" src={libro.portada} className="relative mt-4 w-full rounded-xl h-72 lg:h-[540px] object-contain" />
+            <img
+              alt=""
+              src={libro.portada}
+              className="relative mt-4 w-full rounded-xl h-72 lg:h-[540px] object-contain"
+            />
             {/*extra imgs?*/}
           </div>
           <div className="lg:top-0 lg:sticky">
@@ -150,7 +156,7 @@ export default function Detalle() {
               <div className="items-end justify-between sm:flex">
                 <>
                   <div className="max-w-xl">
-                    <h2 className="text-3xl font-bold font-poiret-one tracking-tight sm:text-3xl">
+                    <h2 className="text-3xl font-bold font-comforta-300 tracking-tight sm:text-3xl">
                       Reseñas
                     </h2>
                     <p className="max-w-lg">
