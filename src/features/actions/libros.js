@@ -2,11 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const Production = process.env.NODE_ENV
-console.log(Production)
+
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
   try {
-    console.log('query', query)
     const { data } = await axios.get(
       Production === 'production'
         ? `https://ebooks-back.herokuapp.com/libros?${query}`

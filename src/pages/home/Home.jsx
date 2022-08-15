@@ -5,14 +5,17 @@ import CardLibro from 'components/cards/CardLibro'
 import { getAll } from 'features/actions/libros'
 import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
+
+import { useAuth0 } from '@auth0/auth0-react'
+import { getByNickname } from 'features/actions/usuarios'
 import Swal from 'sweetalert2'
 import Filtros from 'components/filtros/Filtros'
 
 function Home() {
+  const { user } = useAuth0()
   const [listaCarrito, setListaCarrito] = useState(
     JSON.parse(localStorage.getItem('carrito')) ?? []
   )
-
   const dispatch = useDispatch()
   const {
     paginas,
@@ -33,7 +36,12 @@ function Home() {
     ({ librosStore }) => librosStore.rangoPrecios
   )
 
+
   const [sorter, setSort] = useState(['Sort', 'asc'])
+  
+    useEffect(() => {
+    dispatch(getByNickname(user))
+  }, [getByNickname, user])
 
   useEffect(() => {
     const [sort, dir] = sorter
