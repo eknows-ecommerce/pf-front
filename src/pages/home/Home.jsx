@@ -1,18 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import CardLibro from '../../components/cards/CardLibro'
-import { getAll } from '../../features/actions/libros'
+import CardLibro from 'components/cards/CardLibro'
+import { getAll } from 'features/actions/libros'
 import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
+
+import { useAuth0 } from '@auth0/auth0-react'
+import { getByNickname } from 'features/actions/usuarios'
 import Swal from 'sweetalert2'
 import Filtros from 'components/filtros/Filtros'
 
 function Home() {
+  const { user } = useAuth0()
   const [listaCarrito, setListaCarrito] = useState(
-    JSON.parse(localStorage.getItem('carrito')) || []
+    JSON.parse(localStorage.getItem('carrito')) ?? []
   )
-
   const dispatch = useDispatch()
   const {
     paginas,
@@ -33,7 +36,12 @@ function Home() {
     ({ librosStore }) => librosStore.rangoPrecios
   )
 
+
   const [sorter, setSort] = useState(['Sort', 'asc'])
+  
+    useEffect(() => {
+    dispatch(getByNickname(user))
+  }, [getByNickname, user])
 
   useEffect(() => {
     const [sort, dir] = sorter
@@ -72,13 +80,16 @@ function Home() {
   ])
 
   useEffect(() => {
-    dispatch(getAll(`offset=0`))
-  }, [])
+    paginaSeleccionada(1)
+    handleTotal(count)
+  }, [busqueda, queryCategorias, queryTags, queryRangoPrecios])
 
   const handleCarrito = (id, precio) => {
     Swal.fire('Agregar al carrito', 'Se ha agregado exitosamente', 'success')
-    const existe = listaCarrito.find((item) => item.id === id)
+    const existe =
+      listaCarrito.length > 0 && listaCarrito.find((item) => item.id === id)
     if (!existe) {
+      console.log(listaCarrito)
       const elemento = [...listaCarrito, { id, cantidad: 1, total: 1 * precio }]
       setListaCarrito(elemento)
       localStorage.setItem('carrito', JSON.stringify(elemento))
@@ -94,20 +105,7 @@ function Home() {
             <div className="flex items-center justify-between bg-gray-100 px-2 z-20 rounded shadow-xl sticky lg:top-0 top-14">
               <p className="text-sm font-medium px-2 py-3">
                 <span className="sm:inline">Vistos </span>
-                {paginas.totalPages === paginas.currentPage ? (
-                  <>
-                    <span className="text-sm font-bold text-rosadito-500">
-                      {' '}
-                      {(paginas.currentPage - 1) * 6 +
-                        (count === 6 ? count : count % 6)}
-                    </span>{' '}
-                    de{' '}
-                    <span className="text-sm font-bold text-rosadito-500">
-                      {count}
-                    </span>{' '}
-                    Libros
-                  </>
-                ) : count ? (
+                {count && paginas.totalPages !== paginas.currentPage ? (
                   <>
                     <span className="text-sm font-bold text-rosadito-500">
                       {paginas.currentPage * 6}
@@ -117,6 +115,21 @@ function Home() {
                       {count}
                     </span>{' '}
                     Libros
+                  </>
+                ) : paginas.totalPages === paginas.currentPage ? (
+                  <>
+                    <>
+                      <span className="text-sm font-bold text-rosadito-500">
+                        {' '}
+                        {(paginas.currentPage - 1) * 6 +
+                          (count === 6 ? count : count % 6)}
+                      </span>{' '}
+                      de{' '}
+                      <span className="text-sm font-bold text-rosadito-500">
+                        {count}
+                      </span>{' '}
+                      Libros
+                    </>
                   </>
                 ) : (
                   <>

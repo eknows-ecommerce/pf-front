@@ -3,21 +3,18 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet } from 'react-router-dom'
 import Logout from '../../components/sesion/Logout'
-// import Button from '../../components/templates/Button'
-import { getById } from '../../features/actions/usuarios'
+import { getByNickname } from 'features/actions/usuarios'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function Menu() {
   const dispatch = useDispatch()
-  const { usuarios, usuario } = useSelector(
-    ({ usuariosStore }) => usuariosStore
-  )
-  const idProf = usuarios[0].id
+  const { user } = useAuth0()
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   useEffect(() => {
-    dispatch(getById(idProf))
-  }, [idProf, dispatch])
-  console.log('USUARIOS', usuarios)
-  console.log('USUARIO', usuario)
+    dispatch(getByNickname(user))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getByNickname, user])
 
   return (
     <div>
@@ -29,7 +26,7 @@ export default function Menu() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 lg:gap-x-16 lg:items-center">
             <div className="max-w-lg mx-auto text-center lg:text-left lg:mx-0">
               <img
-                class="flex mt-10 rounded-full object-left w-40 h-40"
+                className="flex mt-10 rounded-full object-left w-40 h-40"
                 src={usuario?.picture}
                 alt="Man using a computer"
               />
@@ -70,8 +67,8 @@ export default function Menu() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                       />
                     </svg>
@@ -93,8 +90,8 @@ export default function Menu() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                       />
                     </svg>

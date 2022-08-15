@@ -48,7 +48,7 @@ const Paginacion = ({ paginaAnterior, paginaSiguiente, paginas }) => {
           </a>
         </>
       ) : (
-        <h1> NO HAY LIBROS PARA MOSTRAR</h1>
+        <h1> NO HAY INFORMACION PARA MOSTRAR</h1>
       )}
     </div>
   )

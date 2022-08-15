@@ -7,18 +7,23 @@ import Login from '../sesion/Login'
 import Logout from '../sesion/Logout'
 
 export default function Bienvenida() {
-  const { user, isAuthenticated } = useAuth0()
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
   const dispatch = useDispatch()
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     dispatch(create(user))
-  //   }
-  // }, [dispatch, isAuthenticated, user])
+
   useEffect(() => {
-    if (isAuthenticated) {
-      console.log(user)
-      dispatch(create(user))
+    const authenticateUser = async () => {
+      if (isAuthenticated) {
+        const token = await getAccessTokenSilently()
+
+        const body = {
+          token: token,
+          user,
+        }
+
+        dispatch(create(body))
+      }
     }
+    authenticateUser()
   }, [isAuthenticated])
 
   return (
