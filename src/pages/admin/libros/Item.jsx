@@ -5,7 +5,10 @@ export default function Item(props) {
     <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
       <td
         className="pl-4 cursor-pointer"
-        onClick={() => props.setEditarLibroFormulario(true)}
+        onClick={() => {
+          props.setLibroSeleccionado(props)
+          props.setEditarLibroFormulario(true)
+        }}
       >
         <div className="flex items-center">
           <div className="w-10 h-10">
@@ -26,7 +29,7 @@ export default function Item(props) {
           </strong>
         ) : (
           <strong className="bg-red-100 text-red-700 px-3 py-1.5 rounded text-xs font-medium">
-            Agotado
+            No disponible
           </strong>
         )}
       </td>

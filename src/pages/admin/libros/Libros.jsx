@@ -29,6 +29,7 @@ function Libros() {
   const [nuevoLibro, setNuevoLibro] = useState(initialState)
   const [libroSeleccionado, setLibroSeleccionado] = useState({})
   const [deshabilitarItemModal, setDeshabilitarItemModal] = useState(false)
+  const [editarLibroFormulario, setEditarLibroFormulario] = useState(false)
 
   const { libros, busqueda } = useSelector(({ librosStore }) => librosStore)
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
@@ -55,10 +56,19 @@ function Libros() {
     setDeshabilitarItemModal(true)
   }
 
-  const crearNuevoLibro = (e) => {
+  const crearNuevoLibro = (e, libro) => {
     e.preventDefault()
-    dispatch(create(nuevoLibro))
-    setFormulario(false)
+
+    if (editarLibroFormulario) {
+      dispatch(update(libro))
+      setEditarLibroFormulario(false)
+    }
+
+    if (formulario) {
+      dispatch(create(libro))
+      setFormulario(false)
+    }
+
     setNuevoLibro(initialState)
   }
 
@@ -82,33 +92,7 @@ function Libros() {
                 Libros
               </p>
               <div>
-                {formulario ? (
-                  <button
-                    onClick={() => setFormulario(false)}
-                    className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
-                  >
-                    <p className="text-sm font-medium leading-none text-white">
-                      Todos los libros
-                    </p>
-                    <p className="text-sm font-medium leading-none text-white">
-                      Todos los libros
-                    </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
-                      />
-                    </svg>
-                  </button>
-                ) : (
+                {!formulario && !editarLibroFormulario && (
                   <button
                     onClick={() => setFormulario(true)}
                     className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
@@ -132,19 +116,59 @@ function Libros() {
                     </svg>
                   </button>
                 )}
+                {editarLibroFormulario && (
+                  <button
+                    onClick={() => setEditarLibroFormulario(false)}
+                    className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
+                  >
+                    <p className="text-sm font-medium leading-none text-white">
+                      Todos los libros
+                    </p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+                      />
+                    </svg>
+                  </button>
+                )}
+                {formulario && (
+                  <button
+                    onClick={() => setFormulario(false)}
+                    className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
+                  >
+                    <p className="text-sm font-medium leading-none text-white">
+                      Todos los libros
+                    </p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+                      />
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
           </div>
           <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
-            {formulario ? (
-              <LibroFormulario
-                categorias={categorias}
-                tags={tags}
-                setNuevoLibro={setNuevoLibro}
-                nuevoLibro={nuevoLibro}
-                crearNuevoLibro={crearNuevoLibro}
-              />
-            ) : (
+            {!formulario && !editarLibroFormulario && (
               <>
                 <SearchBar />
                 <table className="w-full whitespace-nowrap">
@@ -162,12 +186,34 @@ function Libros() {
                       <Item
                         key={libro.id}
                         {...libro}
+                        setEditarLibroFormulario={setEditarLibroFormulario}
                         deshabilitarLibro={deshabilitarLibro}
+                        setLibroSeleccionado={setLibroSeleccionado}
                       />
                     ))}
                   </tbody>
                 </table>
               </>
+            )}
+            {editarLibroFormulario && (
+              <LibroFormulario
+                categorias={categorias}
+                tags={tags}
+                setNuevoLibro={setNuevoLibro}
+                libro={libroSeleccionado}
+                crearNuevoLibro={crearNuevoLibro}
+                setLibroSeleccionado={setLibroSeleccionado}
+              />
+            )}
+            {formulario && (
+              <LibroFormulario
+                categorias={categorias}
+                tags={tags}
+                setNuevoLibro={setNuevoLibro}
+                libro={nuevoLibro}
+                crearNuevoLibro={crearNuevoLibro}
+                setLibroSeleccionado={setLibroSeleccionado}
+              />
             )}
           </div>
         </div>
