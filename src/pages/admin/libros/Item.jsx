@@ -2,11 +2,11 @@ import image from './libro.png'
 
 export default function Item(props) {
   return (
-    <tr
-      onClick={() => alert(props.titulo)}
-      className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100 cursor-pointer"
-    >
-      <td className="pl-4 cursor-pointer">
+    <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
+      <td
+        className="pl-4 cursor-pointer"
+        onClick={() => props.setEditarLibroFormulario(true)}
+      >
         <div className="flex items-center">
           <div className="w-10 h-10">
             <img className="w-full h-full" src={image} alt="book" />
@@ -40,6 +40,24 @@ export default function Item(props) {
       </td>
       <td className="pl-20">
         <p className="font-medium">{props.id}</p>
+      </td>
+      <td className="pl-20">
+        <button onClick={() => props.deshabilitarLibro(props)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4 text-gray-500 hover:text-red-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+            />
+          </svg>
+        </button>
       </td>
     </tr>
   )

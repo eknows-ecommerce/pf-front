@@ -2,6 +2,7 @@ export default function EliminarItemModal({
   setEliminarItemModal,
   eliminarItem,
   item,
+  tipo,
 }) {
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -28,7 +29,7 @@ export default function EliminarItemModal({
             </div>
             <div className="mt-2 text-center sm:ml-4 sm:text-left">
               <h4 className="text-lg font-medium text-gray-800">
-                Eliminar {item}?
+                {tipo === 'libro' ? 'Deshabilitar' : 'Eliminar'} {item}?
               </h4>
               <p className="mt-2 text-[15px] leading-relaxed text-gray-500">
                 {item} se eliminara para siempre y todos los libros con esta
