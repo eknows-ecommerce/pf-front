@@ -12,7 +12,7 @@ export default function Detalle() {
   //const history = useNavigate()
   const dispatch = useDispatch()
   const { id } = useParams()
-  const { libro } = useSelector(
+  const { libros, libro } = useSelector(
     ({ librosStore }) => librosStore
   )
   const { reviews, count } = useSelector(
@@ -21,8 +21,16 @@ export default function Detalle() {
   const { usuario } = useSelector(
     ({ usuariosStore }) => usuariosStore
   )
-  const libroComprado = true; //checkar de usuario 
-  console.log(usuario.id)
+
+  let cats = []; let tags = [];
+  libros.forEach((l) => {
+    //console.log(l)
+    l.id == id &&
+      l.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
+      && l.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
+  })
+  console.log(cats, tags)
+  const libroComprado = true; //console.log(usuario.id)
 
   useEffect(() => {
     dispatch(getAll('?LibroId=' + id))
@@ -122,10 +130,21 @@ export default function Detalle() {
               <h2 className="text-3xl font-poiret-one font-bold ">Resumen:</h2>
               <p className='text-justify mr-2 ml-2'>{libro.resumen}</p>
               <br />
-              <h3 className="text-2xl font-poiret-one font-bold ">Categorias</h3>
-              <ul>
-                <li className='mr-2 ml-2'> - categorias asignadas { } </li>
-              </ul>
+              <div className='flex justify-evenly'>
+                <div>
+                  <h3 className="text-2xl font-poiret-one font-bold ">Categorias</h3>
+                  <ul>
+                    {cats}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-poiret-one font-bold ">Tags</h3>
+                  <ul>
+                    {tags}
+                  </ul>
+                </div>
+              </div>
+
             </div>
             <div className="m-2 p-8 mx-auto max-w-screen-2xl sm:px-6 lg:px-8 shadow-2xl rounded-2xl bg-orange-50">
               <div className="items-end justify-between sm:flex">
