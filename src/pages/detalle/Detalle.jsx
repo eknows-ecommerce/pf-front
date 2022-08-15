@@ -11,7 +11,7 @@ export default function Detalle() {
   const dispatch = useDispatch()
   const { id } = useParams()
   const { libro } = useSelector(({ librosStore }) => librosStore)
-  const libroComprado = true; //checkar de usuario 
+  const libroComprado = true //checkar de usuario
 
   useEffect(() => {
     dispatch(getById(id))
@@ -34,12 +34,18 @@ export default function Detalle() {
     <>
       <div className="relative max-w-screen-2xl px-4 py-8 mx-auto">
         <div>
-          <h1 className="text-3xl font-bold lg:text-5xl font-poiret-one">{libro.titulo}</h1>
+          <h1 className="text-3xl font-bold lg:text-5xl font-comforta-300">
+            {libro.titulo}
+          </h1>
           <p className="mt-1 text-sm text-gray-500 ">{libro.autor}</p>
         </div>
         <div className="grid gap-8 lg:items-start lg:grid-cols-4">
           <div className="lg:col-span-3">
-            <img alt="" src={libro.portada} className="relative mt-4 w-full rounded-xl h-72 lg:h-[540px] object-contain" />
+            <img
+              alt=""
+              src={libro.portada}
+              className="relative mt-4 w-full rounded-xl h-72 lg:h-[540px] object-contain"
+            />
             {/*extra imgs?*/}
           </div>
           <div className="lg:top-0 lg:sticky">
@@ -92,18 +98,22 @@ export default function Detalle() {
           <div className="lg:col-span-3">
             <div className="prose max-w-none ">
               <div className="m-2 p-8 mx-auto max-w-screen-2xl sm:px-6 lg:px-8 shadow-2xl rounded-2xl bg-orange-50">
-                <h2 className="text-3xl font-poiret-one font-bold ">Resumen:</h2>
-                <p className='text-justify mr-2 ml-2'>{libro.resumen}</p>
+                <h2 className="text-3xl font-comforta-300 font-bold ">
+                  Resumen:
+                </h2>
+                <p className="text-justify mr-2 ml-2">{libro.resumen}</p>
                 <br />
-                <h3 className="text-2xl font-poiret-one font-bold ">Categorias</h3>
+                <h3 className="text-2xl font-comforta-300 font-bold ">
+                  Categorias
+                </h3>
                 <ul>
-                  <li className='mr-2 ml-2'> - categorias asignadas</li>
+                  <li className="mr-2 ml-2"> - categorias asignadas</li>
                 </ul>
               </div>
               <div className="m-2 p-8 mx-auto max-w-screen-2xl sm:px-6 lg:px-8 shadow-2xl rounded-2xl bg-orange-50">
                 <div className="items-end justify-between sm:flex">
                   <div className="max-w-xl">
-                    <h2 className="text-3xl font-bold font-poiret-one tracking-tight sm:text-3xl">
+                    <h2 className="text-3xl font-bold font-comforta-300 tracking-tight sm:text-3xl">
                       Reseñas
                     </h2>
                     <p className="max-w-lg">
@@ -133,12 +143,28 @@ export default function Detalle() {
                   </a>
                 </div>
                 <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
-                  <ReviewCard title={'Waiting for more'} author={'Martin McFly'} rate={5} />
+                  <ReviewCard
+                    title={'Waiting for more'}
+                    author={'Martin McFly'}
+                    rate={5}
+                  />
                   <ReviewCard title={'Espectacular'} rate={5} />
-                  <ReviewCard title={'Pipí Cucú'} author={'Alberto Olmedo'} rate={5} />
+                  <ReviewCard
+                    title={'Pipí Cucú'}
+                    author={'Alberto Olmedo'}
+                    rate={5}
+                  />
                   <ReviewCard title={'Brígido'} author={'Dylantero'} rate={5} />
-                  <ReviewCard title={'Amazing read'} author={'Jhonny Test'} rate={4} />
-                  <ReviewCard title={'Great book'} author={'Eddie Murphy'} rate={3} />
+                  <ReviewCard
+                    title={'Amazing read'}
+                    author={'Jhonny Test'}
+                    rate={4}
+                  />
+                  <ReviewCard
+                    title={'Great book'}
+                    author={'Eddie Murphy'}
+                    rate={3}
+                  />
                 </div>
               </div>
             </div>

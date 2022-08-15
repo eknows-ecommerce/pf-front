@@ -78,7 +78,7 @@ export default function Navbar() {
               </svg>
             </button>
           </div>
-          <nav className="items-center justify-center hidden space-x-8 font-extrabold  font-poiret-one text-black lg:flex lg:flex-1 lg:w-0">
+          <nav className="items-center justify-center hidden space-x-8 font-extrabold  font-comforta text-black lg:flex lg:flex-1 lg:w-0">
             <Link className="text-gray-900" to="home">
               Tienda
             </Link>
