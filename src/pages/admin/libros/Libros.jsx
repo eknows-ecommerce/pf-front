@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { create } from 'features/actions/libros'
 
 import Item from './Item'
 import SearchBar from '../SearchBar'
@@ -29,6 +31,17 @@ function Libros() {
   const { libros } = useSelector(({ librosStore }) => librosStore)
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
+
+  const dispatch = useDispatch()
+
+  const crearNuevoLibro = (e) => {
+    e.preventDefault()
+
+    dispatch(create(nuevoLibro))
+
+    setFormulario(false)
+    setNuevoLibro(initialState)
+  }
 
   return (
     <div className="overflow-x-auto xl:px-20 pt-2">
@@ -96,6 +109,7 @@ function Libros() {
               tags={tags}
               setNuevoLibro={setNuevoLibro}
               nuevoLibro={nuevoLibro}
+              crearNuevoLibro={crearNuevoLibro}
             />
           ) : (
             <>
