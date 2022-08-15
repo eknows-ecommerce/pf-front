@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 export default function Navegacion() {
   let menuArray = [true, false, false]
   const [menu, setMenu] = useState(menuArray)
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   const setMenuValue = (props) => {

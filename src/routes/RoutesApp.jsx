@@ -1,12 +1,20 @@
 import { Route, Routes } from 'react-router-dom'
-import Landing from '../pages/landing/Landing'
+import Landing from '../pages/Landing/Landing'
 import Home from '../pages/home/Home'
+<<<<<<< HEAD
 import NotFound from '../pages/notFound/NotFound'
 import Navbar from '../components/navBar/Navbar'
+=======
+
+import NotFound from '../pages/NotFound/NotFound'
+import Navbar from '../components/NavBar/Navbar'
+
+>>>>>>> 0c6973841a257583650650c1ef8ba698b4e47cc8
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
 import Menu from '../pages/perfil/Menu'
 import Editar from '../pages/perfil/Editar'
+
 import Admin from 'pages/admin/Admin'
 import Dashboard from 'pages/admin/Dashboard'
 import Usuarios from 'pages/admin/usuarios/Usuarios'
@@ -16,9 +24,15 @@ import Libros from 'pages/admin/libros/Libros'
 import Categorias from 'pages/admin/categorias/Categorias'
 import Tags from 'pages/admin/tags/Tags'
 import Prueba from '../components/sesion/Prueba'
+<<<<<<< HEAD
 import MasVendidos from 'components/navBar/MasVendidos'
 import Ofertas from 'components/navBar/Ofertas'
 import Contactanos from 'components/navBar/Contactanos'
+=======
+
+import Carrito from 'components/Carrito/Carrito'
+
+>>>>>>> 0c6973841a257583650650c1ef8ba698b4e47cc8
 //Aqui iran todas las rutas
 function RoutesApp() {
   return (
@@ -46,6 +60,7 @@ function RoutesApp() {
         {/* <Route path="login" element={<Login />} /> */}
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>
+      <Route path="home/carrito" element={<Carrito />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

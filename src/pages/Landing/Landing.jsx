@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -9,12 +10,13 @@ import Views from 'components/section/Views'
 import { getAll as getallTag } from 'features/actions/tags'
 import { getAll as getallCat } from 'features/actions/categorias'
 import { getAll as getAllLibros } from 'features/actions/libros'
+import Footer from 'components/footer/Footer'
 
-export default function Landing() {
+function Landing() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAllLibros())
+    dispatch(getAllLibros(`offset=0`))
     dispatch(getallCat())
     dispatch(getallTag())
   }, [dispatch])
@@ -25,6 +27,9 @@ export default function Landing() {
       <Carrusel />
       <Views />
       <Stories />
+      <Footer />
     </div>
   )
 }
+
+export default Landing
