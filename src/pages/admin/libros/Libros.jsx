@@ -5,8 +5,27 @@ import Item from './Item'
 import SearchBar from '../SearchBar'
 import LibroFormulario from './LibroFormulario'
 
+const initialState = {
+  titulo: '',
+  autor: '',
+  resumen: '',
+  precio: 0,
+  isAvail: true,
+  stock: 0,
+  editorial: '',
+  fechaPublicacion: new Date(),
+  paginas: 0,
+  detalles: '',
+  lenguaje: '',
+  portada: '',
+  categorias: [],
+  tags: [],
+}
+
 function Libros() {
   const [formulario, setFormulario] = useState(false)
+  const [nuevoLibro, setNuevoLibro] = useState(initialState)
+
   const { libros } = useSelector(({ librosStore }) => librosStore)
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
@@ -72,7 +91,12 @@ function Libros() {
         </div>
         <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
           {formulario ? (
-            <LibroFormulario categorias={categorias} tags={tags} />
+            <LibroFormulario
+              categorias={categorias}
+              tags={tags}
+              setNuevoLibro={setNuevoLibro}
+              nuevoLibro={nuevoLibro}
+            />
           ) : (
             <>
               <SearchBar />
