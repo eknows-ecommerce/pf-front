@@ -82,22 +82,22 @@ export default function Navbar() {
             <Link className="text-gray-900" to="home">
               Tienda
             </Link>
-            <a className="text-gray-900" href="#Mas-Vendidos">
+            <Link to="masvendidos" className="text-gray-900">
               Mas Vendidos
-            </a>
-            <a className="text-gray-900" href="#Ofertas">
+            </Link>
+            <Link to="Ofertas" className="text-gray-900">
               Ofertas
-            </a>
-            <a className="text-gray-900" href="#Contactanos">
+            </Link>
+            <Link to="contactanos" className="text-gray-900">
               Contactanos
-            </a>
+            </Link>
             {usuario.rol === 'admin' && (
               <Link to="admin/dashboard" className="text-gray-900">
                 Admin
               </Link>
             )}
           </nav>
-          <div className="items-center hidden space-x-4 lg:flex">
+          <div className="items-center space-x-4 lg:flex">
             <Link
               to="#carrito"
               className="flex items-center content-center justify-center w-10 h-10 border border-gray-700 rounded-full"
@@ -110,21 +110,26 @@ export default function Navbar() {
         </div>
         <div className="border-t border-gray-100 lg:hidden">
           <nav className="flex items-center justify-center p-4 overflow-x-auto text-sm font-medium">
-            <Link className="flex-shrink-0 pl-4 text-gray-900" to="home">
+            <Link className="flex-shrink-0 pl-6 text-gray-900" to="home">
               Tienda
             </Link>
-            <a
-              className="flex-shrink-0 pl-4 text-gray-900"
-              href="#Mas Vendidos"
-            >
+            <Link to="masVendidos" className="flex-shrink-0 pl-4 text-gray-900">
               Mas Vendidos
-            </a>
-            <a className="flex-shrink-0 pl-4 text-gray-900" href="#Ofertas">
+            </Link>
+            <Link to="ofertas" className="flex-shrink-0 pl-4 text-gray-900">
               Ofertas
-            </a>
-            <a className="flex-shrink-0 pl-4 text-gray-900" href="#Contactanos">
+            </Link>
+            <Link to="contactanos" className="flex-shrink-0 pl-4 text-gray-900">
               Contactanos
-            </a>
+            </Link>
+            {usuario.rol === 'admin' && (
+              <Link
+                to="admin/dashboard"
+                className="flex-shrink-0 pl-4 text-gray-900"
+              >
+                Admin
+              </Link>
+            )}
           </nav>
         </div>
       </header>

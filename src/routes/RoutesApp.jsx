@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import Landing from '../pages/landing/Landing'
 import Home from '../pages/home/Home'
-import NotFound from '../pages/notfound/NotFound'
-import Navbar from '../components/navbar/Navbar'
+import NotFound from '../pages/notFound/NotFound'
+import Navbar from '../components/navBar/Navbar'
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
 import Menu from '../pages/perfil/Menu'
@@ -16,6 +16,9 @@ import Libros from 'pages/admin/libros/Libros'
 import Categorias from 'pages/admin/categorias/Categorias'
 import Tags from 'pages/admin/tags/Tags'
 import Prueba from '../components/sesion/Prueba'
+import MasVendidos from 'components/navBar/MasVendidos'
+import Ofertas from 'components/navBar/Ofertas'
+import Contactanos from 'components/navBar/Contactanos'
 //Aqui iran todas las rutas
 function RoutesApp() {
   return (
@@ -34,9 +37,11 @@ function RoutesApp() {
       </Route>
       <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />
-        
+
         <Route path="home" element={<Home />} />
-        <Route path="prueba" element={<Prueba />} />
+        <Route path="ofertas" element={<Ofertas />} />
+        <Route path="masVendidos" element={<MasVendidos />} />
+        <Route path="contactanos" element={<Contactanos />} />
 
         {/* <Route path="login" element={<Login />} /> */}
         <Route path="detalle/:id" element={<Detalle />} />

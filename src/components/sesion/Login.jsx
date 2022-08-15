@@ -6,7 +6,12 @@ export default function Login() {
 
   return (
     <div className="flex flex-wrap gap-4 mt-8 text-center">
-      <button onClick={() => loginWithRedirect()}>Ingresar</button>
+      <button
+        className="bg-transparent p-3 font-semibold text-xl font-poiret-one text-rosadito-500 border border-rose-600 "
+        onClick={() => loginWithRedirect()}
+      >
+        Ingresar
+      </button>
     </div>
   )
 }
