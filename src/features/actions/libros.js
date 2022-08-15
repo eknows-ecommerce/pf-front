@@ -6,13 +6,12 @@ console.log(Production)
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
   try {
-    console.log('query', query)
     const { data } = await axios.get(
       Production === 'production'
         ? `https://ebooks-back.herokuapp.com/libros?${query}`
         : `http://localhost:8000/libros?${query}`
     )
-    console.log('entra', data)
+
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -24,13 +23,11 @@ export const getListCar = createAsyncThunk(
   'libros/@GETLISTCAR',
   async (query) => {
     try {
-      console.log('query', query)
       const { data } = await axios.get(
         Production === 'production'
           ? `https://ebooks-back.herokuapp.com/libros?${query}`
           : `http://localhost:8000/libros?${query}`
       )
-      console.log(data)
       return data
     } catch (error) {
       const msg = error.response.data.msg
