@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const Production = process.env.NODE_ENV
-console.log(Production)
+
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
   try {
@@ -11,7 +11,6 @@ export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
         ? `https://ebooks-back.herokuapp.com/libros?${query}`
         : `http://localhost:8000/libros?${query}`
     )
-
     return data
   } catch (error) {
     const msg = error.response.data.msg

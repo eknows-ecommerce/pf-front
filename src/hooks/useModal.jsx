@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 const useModal = () => {
-  const [modals, setModals] = useState({});
+  const [modals, setModals] = useState({})
 
-  const openClose = ( name ) => {
+  const openClose = (name) => {
     setModals({
       ...modals,
-      [name]: !modals[name]
-      })
+      [name]: !modals[name],
+    })
   }
-  return [modals, openClose]
+  return { modals, openClose }
 }
 
-export default useModal;
-
+export default useModal
