@@ -1,5 +1,6 @@
 import Carrusel from 'components/carrusel/Carrusel'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 export default function Ofertas() {
   return (
@@ -26,16 +27,15 @@ export default function Ofertas() {
                     alt="A girl Posing Img"
                   />
                   <div className=" absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100">
-                    <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
-                      Ver detalles
-                    </button>
+                    <Link to={`/detalle/49`}>
+                      <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
+                        Ver detalles
+                      </button>
+                    </Link>
                   </div>
                 </div>
                 <p className=" font-normal text-xl leading-5 text-gray-800 md:mt-6 mt-4">
-                  Titulo
-                </p>
-                <p className=" font-semibold text-xl leading-5 text-gray-800 mt-4">
-                  Autor
+                  El gato negro
                 </p>
               </div>
               <div className=" relative">
@@ -47,16 +47,15 @@ export default function Ofertas() {
                     alt="A girl wearing white suit and googgles"
                   />
                   <div className=" absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100">
-                    <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
-                      Ver detalles
-                    </button>
+                    <Link to={`/detalle/95`}>
+                      <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
+                        Ver detalles
+                      </button>
+                    </Link>
                   </div>
                 </div>
                 <p className=" font-normal text-xl leading-5 text-gray-800 md:mt-6 mt-4">
-                  Wilfred Alana Dress
-                </p>
-                <p className=" font-semibold text-xl leading-5 text-gray-800 mt-4">
-                  $1800
+                  Edad oscura
                 </p>
               </div>
 
@@ -69,16 +68,15 @@ export default function Ofertas() {
                     alt="A girl wearing dark blue suit and posing"
                   />
                   <div className=" absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100">
-                    <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
-                      Ver detalles
-                    </button>
+                    <Link to={`/detalle/64`}>
+                      <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
+                        Ver detalles
+                      </button>
+                    </Link>
                   </div>
                 </div>
                 <p className=" font-normal text-xl leading-5 text-gray-800 md:mt-6 mt-4">
-                  Wilfred Alana Dress
-                </p>
-                <p className=" font-semibold text-xl leading-5 text-gray-800 mt-4">
-                  $1550
+                  El Instituto
                 </p>
               </div>
               <div>
@@ -90,17 +88,16 @@ export default function Ofertas() {
                     alt="A girl posing and wearing white suit"
                   />
                   <div className=" absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100">
-                    <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
-                      Ver detalles
-                    </button>
+                    <Link to={`/detalle/71`}>
+                      <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
+                        Ver detalles
+                      </button>
+                    </Link>
                   </div>
                 </div>
 
                 <p className=" font-normal text-xl leading-5 text-gray-800 md:mt-6 mt-4">
-                  Flared Cotton Tank Top
-                </p>
-                <p className=" font-semibold text-xl leading-5 text-gray-800 mt-4">
-                  $1800
+                  Diez Negritos
                 </p>
               </div>
               <div>
@@ -112,17 +109,16 @@ export default function Ofertas() {
                     alt="Girl posing for an Img"
                   />
                   <div className=" absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100">
-                    <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
-                      Ver detalles
-                    </button>
+                    <Link to={`/detalle/80`}>
+                      <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
+                        Ver detalles
+                      </button>
+                    </Link>
                   </div>
                 </div>
 
                 <p className=" font-normal text-xl leading-5 text-gray-800 md:mt-6 mt-4">
-                  Flared Cotton Tank Top
-                </p>
-                <p className=" font-semibold text-xl leading-5 text-gray-800 mt-4">
-                  $1800
+                  La vida te ama
                 </p>
               </div>
               <div>
@@ -130,21 +126,20 @@ export default function Ofertas() {
                   <div className=" flex justify-center items-center opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full"></div>
                   <img
                     className=" w-full"
-                    src="https://books.google.com/books/publisher/content/images/frontcover/u8fgDwAAQBAJ?fife=w240-h480"
+                    src="https://books.google.com/books/publisher/content/images/frontcover/-HtUDwAAQBAJ?fife=w240-h480"
                     alt="A blonde girl posing"
                   />
                   <div className=" absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100">
-                    <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
-                      Ver detalles
-                    </button>
+                    <Link to={`/detalle/84`}>
+                      <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
+                        Ver detalles
+                      </button>
+                    </Link>
                   </div>
                 </div>
 
                 <p className=" font-normal text-xl leading-5 text-gray-800 md:mt-6 mt-4">
-                  Wilfred Alana Dress
-                </p>
-                <p className=" font-semibold text-xl leading-5 text-gray-800 mt-4">
-                  $1550
+                  Valle de la Calma
                 </p>
               </div>
               <div>
@@ -152,21 +147,20 @@ export default function Ofertas() {
                   <div className=" flex justify-center items-center opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full"></div>
                   <img
                     className=" w-full"
-                    src="https://books.google.com/books/content/images/frontcover/FGn5cD-lCtQC?fife=w240-h480"
+                    src="https://books.google.com/books/publisher/content/images/frontcover/2oxDDwAAQBAJ?fife=w240-h480"
                     alt="A girl wearing white suit posing in desert"
                   />
                   <div className=" absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100">
-                    <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
-                      Ver detalles
-                    </button>
+                    <Link to={`/detalle/69`}>
+                      <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
+                        Ver detalles
+                      </button>
+                    </Link>
                   </div>
                 </div>
 
                 <p className=" font-normal text-xl leading-5 text-gray-800 md:mt-6 mt-4">
-                  Flared Cotton Tank Top
-                </p>
-                <p className=" font-semibold text-xl leading-5 text-gray-800 mt-4">
-                  $1800
+                  Asesinato en el Orient Express
                 </p>
               </div>
               <div>
@@ -178,17 +172,16 @@ export default function Ofertas() {
                     alt="Girl wearing pink suit posing"
                   />
                   <div className=" absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100">
-                    <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
-                      Ver detalles
-                    </button>
+                    <Link to={`/detalle/34`}>
+                      <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
+                        Ver detalles
+                      </button>
+                    </Link>
                   </div>
                 </div>
 
                 <p className=" font-normal text-xl leading-5 text-gray-800 md:mt-6 mt-4">
-                  Flared Cotton Tank Top
-                </p>
-                <p className=" font-semibold text-xl leading-5 text-gray-800 mt-4">
-                  $1800
+                  El símbolo perdido{' '}
                 </p>
               </div>
             </div>

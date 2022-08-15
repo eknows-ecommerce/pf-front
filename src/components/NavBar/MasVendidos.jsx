@@ -26,7 +26,7 @@ const MasVendidos = () => {
                 <h1 className="w-64 text-2xl font-semibold leading-8 mt-2 text-white">
                   Animales Fantasticos
                 </h1>
-                <Link to="">
+                <Link to={`/detalle/59`}>
                   <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
                     Ver detalles{' '}
                   </p>
@@ -51,9 +51,11 @@ const MasVendidos = () => {
                 <h1 className="w-64 text-2xl font-semibold leading-8 mt-2 text-white">
                   El Slimarillion
                 </h1>
-                <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
-                  Ver detalles
-                </p>
+                <Link to={`/detalle/53`}>
+                  <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
+                    Ver detalles
+                  </p>
+                </Link>
               </div>
             </div>{' '}
             <div className="relative flex flex-col">
@@ -74,9 +76,11 @@ const MasVendidos = () => {
                 <h1 className="w-64 text-2xl font-semibold leading-8 mt-2 text-white">
                   El Regreso
                 </h1>
-                <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
-                  Ver detalles
-                </p>
+                <Link to={`/detalle/9`}>
+                  <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
+                    Ver detalles
+                  </p>
+                </Link>
               </div>
             </div>
           </div>
@@ -106,9 +110,11 @@ const MasVendidos = () => {
                 <h1 className="w-64 text-2xl font-semibold leading-8 mt-2 text-white">
                   Los Juegos del Hambre
                 </h1>
-                <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
-                  Ver detalles
-                </p>
+                <Link to={`/detalle/23`}>
+                  <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
+                    Ver detalles
+                  </p>
+                </Link>
               </div>
             </div>{' '}
             <div className="relative flex flex-col">
@@ -129,9 +135,11 @@ const MasVendidos = () => {
                 <h1 className="w-64 text-2xl font-semibold leading-8 mt-2 text-white">
                   Juego de Tronos
                 </h1>
-                <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
-                  Ver detalles
-                </p>
+                <Link to={`/detalle/25`}>
+                  <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
+                    Ver detalles
+                  </p>
+                </Link>
               </div>
             </div>{' '}
             <div className="relative flex flex-col">
@@ -150,9 +158,11 @@ const MasVendidos = () => {
                 <h1 className="w-64 text-2xl font-semibold leading-8 mt-2 text-white">
                   El resplandor
                 </h1>
-                <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
-                  Ver detalles
-                </p>
+                <Link to={`/detalle/63`}>
+                  <p className="mt-4 text-base font-medium cursor-pointer leading-4 underline text-white">
+                    Ver detalles
+                  </p>
+                </Link>
               </div>
             </div>
           </div>
