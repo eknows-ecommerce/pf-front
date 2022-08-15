@@ -1,15 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 import Landing from '../pages/Landing/Landing'
 import Home from '../pages/home/Home'
-<<<<<<< HEAD
 import NotFound from '../pages/notFound/NotFound'
 import Navbar from '../components/navBar/Navbar'
-=======
 
-import NotFound from '../pages/NotFound/NotFound'
-import Navbar from '../components/NavBar/Navbar'
-
->>>>>>> 0c6973841a257583650650c1ef8ba698b4e47cc8
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
 import Menu from '../pages/perfil/Menu'
@@ -23,16 +17,12 @@ import { ProtectedRoute } from './ProtectedRoute'
 import Libros from 'pages/admin/libros/Libros'
 import Categorias from 'pages/admin/categorias/Categorias'
 import Tags from 'pages/admin/tags/Tags'
-import Prueba from '../components/sesion/Prueba'
-<<<<<<< HEAD
 import MasVendidos from 'components/navBar/MasVendidos'
 import Ofertas from 'components/navBar/Ofertas'
 import Contactanos from 'components/navBar/Contactanos'
-=======
 
 import Carrito from 'components/Carrito/Carrito'
 
->>>>>>> 0c6973841a257583650650c1ef8ba698b4e47cc8
 //Aqui iran todas las rutas
 function RoutesApp() {
   return (
