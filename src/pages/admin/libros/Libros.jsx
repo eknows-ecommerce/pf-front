@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
-
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAll } from 'features/actions/libros'
 import Item from './Item'
 import SearchBar from '../SearchBar'
 import LibroFormulario from './LibroFormulario'
@@ -25,14 +25,16 @@ const initialState = {
 function Libros() {
   const [formulario, setFormulario] = useState(false)
   const [nuevoLibro, setNuevoLibro] = useState(initialState)
-
-  const { libros } = useSelector(({ librosStore }) => librosStore)
+const dispatch = useDispatch()
+  const { libros, busqueda } = useSelector(({ librosStore }) => librosStore)
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
-
+useEffect(()=>{
+    dispatch(getAll(`titulo=${busqueda}`))
+}, [dispatch, busqueda])
   return (
     <div className="overflow-x-auto xl:px-20 pt-2">
-      <div className="w-full sm:px-6">
+            <div className="w-full sm:px-6">
         <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
           <div className="sm:flex items-center justify-between">
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800">
