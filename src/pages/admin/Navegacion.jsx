@@ -104,7 +104,7 @@ export default function Navegacion() {
         id="Main"
         className={`${
           show ? 'translate-x-0' : '-translate-x-full'
-        } transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-full absolute sm:w-64 bg-slate-800 flex-col`}
+        } transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-full fixed sm:w-64 bg-slate-800 flex-col`}
       >
         <div className="hidden xl:flex justify-start p-6 py-4 items-center space-x-3 overflow-y-hidden">
           <Link to="/" className="w-10 h-10 bg-transparent">
