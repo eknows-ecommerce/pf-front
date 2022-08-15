@@ -1,26 +1,21 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { Confirmar, Eliminar } from 'assets/img/svg/Svg'
+import ModalComponent from 'components/modals/Modalcomponent'
 import { getListCar } from 'features/actions/libros'
+import useModal from 'hooks/useModal'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-
-import useToggle from 'hooks/useToggle'
-import CompraActual from "components/carrito/CompraActual"
+import Checkout from './Checkout'
 
 function Carrito() {
+  const [detalleCompra, setDetalleCompra] = useState({})
+  const { modals, openClose } = useModal()
   const dispatch = useDispatch()
   const [carritoLS, setCarritoLS] = useState(
     JSON.parse(localStorage.getItem('carrito')) || []
   )
   const [totalCompra, setTotalCompra] = useState(0)
-  const [continuarCompra, setContinuarCompra] = useState(false)
   const { carrito } = useSelector(({ librosStore }) => librosStore)
-  const [button,setButton ] = useState(true)
-
-  const { toggle, handleToggle, } = useToggle()
-
 
   useEffect(() => {
     //transformar el objeto en string
@@ -33,7 +28,7 @@ function Carrito() {
     cantidadTotal()
   }, [carritoLS])
 
-  const removeItem = (id) => {
+  const handleEliminar = (id) => {
     const newCarrito = carritoLS.filter((item) => item.id !== id)
     if (newCarrito.length === 0) {
       localStorage.setItem('carrito', JSON.stringify([]))
@@ -63,7 +58,6 @@ function Carrito() {
       }
       return item
     })
-    console.log('carrito', newCarrito)
     localStorage.setItem('carrito', JSON.stringify(newCarrito))
     setCarritoLS(newCarrito)
   }
@@ -85,126 +79,269 @@ function Carrito() {
     localStorage.setItem('carrito', JSON.stringify(newCarrito))
   }
 
+  const handleComprar = () => {
+    let amount = 0
+    carritoLS.forEach((item) => {
+      amount = amount + item.total
+    })
+    setDetalleCompra({
+      ...detalleCompra,
+      currency: 'USD',
+      type: 'card',
+      amount: Number(amount.toFixed(2)),
+      email: 'user@test.com',
+      // description: `Titulo: ${item.titulo} Cantidad: ${
+      //   item.cantidad
+      // } Precio:${item.precio} Total: ${item.cantidad * item.precio}`,
+    })
+    openClose('compra')
+  }
+
   return (
-
-
-    <div>
-      <Link to="/home">Atras</Link>
-      {carrito &&
-        carrito.map((l, i) => {
-          let item = carrito.filter((el) => el.id === l.id)
-          return item ? (
-            <div className="p-10 flex items-center" key={'libro_' + i}>
-              <div className=" bg-orange-50 w-48 h-70 rounded-md overflow-hidden shadow-lg grid justify-items-center 	 ">
-                <img className="h-40 w-28 5 " src={l.portada} alt="Mountain" />
-                <div className="px-6 py-4 h-20">
-                  <hr />
-                  <div>
-                    <p className="text-gray-700 text-sm ">
-                      <button
-                        className="rounded bg-indigo-300 text-xs hover:bg-blue-700 py-0 px-2 my-1.5 text-white"
-                        onClick={() => decrement(l.id, l.precio)}
-                      >
-                        {' '}
-                        -{' '}
-                      </button>{' '}
-                      cant:
-                      {
-                        carritoLS.find((libro) => libro.id === l.id)?.cantidad
-                      }{' '}
-                      <button
-                        className="rounded bg-indigo-300 text-xs hover:bg-blue-700 py-0 px-1.5 text-white"
-                        onClick={() => increment(l.id, l.precio)}
-                      >
-                        {' '}
-                        +{' '}
-                      </button>
-                    </p>
-                    <button className="rounded bg-indigo-300 text-xs hover:bg-blue-700 py-0 px-2 text-white mx-1">
-                      {' '}
-                      details{' '}
-                    </button>
-                    <button
-                      className="rounded bg-indigo-300 text-xs hover:bg-blue-700 py-0 px-2 text-white mx-1"
-                      onClick={() => removeItem(l.id)}
-                    >
-                      {' '}
-                      remove{' '}
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="  white-50 w-1/2 h-60 rounded-md overflow-hidden shadow-lg mx-4 px-4 text-left ">
-                <div className="font-bold text-base "> {l.titulo} </div>
-                <div> {l.autor} </div>
-                <br />
-                <div className="text-sm ">
-                  <div> Valor Unidad: $ {l.precio} </div>
-                  {carritoLS.find((item) => item.id === l.id)?.total.toFixed(2)}
-                  <div>
-                    {' '}
-                    Subtotal: ${' '}
-                    {carritoLS
-                      .find((item) => item.id === l.id)
-                      ?.total.toFixed(2)}{' '}
-                  </div>
-                </div>
-                <br />
-              </div>
-            </div>
-          ) : null
-        })}
-
-   
-      
-        <div>
-
-           {!toggle && 
-           
-           <div>
-
-            <div>
-
-          <div className="  white-50 w-2/4 rounded-md overflow-hidden shadow-lg mx-4 px-4 text-left ">
-            total actual: {totalCompra}
-          </div>
-          <div className="overflow-hidden p-4 shadow-lg  flex justify-center items-center">
-            <button
-              onClick={handleToggle}
-              type="button"
-              visible={button}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm h-10 px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    <>
+      <div
+        className="flex w-screen flex-wrap justify-center items-center bg-black bg-opacity-90  overflow-y-auto  "
+        id="chec-div"
+      >
+        <div
+          className="w-screen transform translate-x-0 transition ease-in-out duration-700"
+          id="checkout"
+        >
+          <div
+            className="w-screen flex md:flex-row flex-col justify-center"
+            id="cart"
+          >
+            <div
+              className="w-full md:pl-10 pl-4 pr-10 md:pr-4 md:py-12 py-8 bg-white overflow-y-auto overflow-x-hidden h-screen"
+              id="scroll"
             >
-              Continuar compra
-              <svg
-                aria-hidden="true"
-                className="ml-2 -mr-1 w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </button>
+              <Link to={'/home'}>
+                <div className=" flex items-center text-gray-500 hover:text-gray-600 cursor-pointer sticky">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="icon icon-tabler icon-tabler-chevron-left"
+                    width={16}
+                    height={16}
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <polyline points="15 6 9 12 15 18" />
+                  </svg>
+                  <p className="text-sm pl-2 leading-none">Regresar</p>
+                </div>
+              </Link>
 
+              <p className="text-5xl font-black leading-10 text-rosadito-500 pt-3 ">
+                Carrito
+              </p>
+              <div className="  flex-wrap justify-center items-center mt-6 py-2 border-t border-gray-200">
+                {carrito &&
+                  carrito.map((l) => (
+                    <div
+                      key={crypto.randomUUID()}
+                      className="m-2 lg:mx-6 flex flex-wrap shadow-md shadow-gray-600 border-spacing-2 border-black overflow-hidden gap-x-4 sm:gap-y-4 lg:gap-6"
+                    >
+                      <Link
+                        to={`/detalle/${l.id}`}
+                        className="group w-32 sm:w-40 h-48 sm:h-56 block bg-gray-100 overflow-hidden relative"
+                      >
+                        <img
+                          className={
+                            'sm:h-full md:h-full h-full object-cover object-center group-hover:scale-110 transition duration-200'
+                          }
+                          src={l.portada}
+                          alt={l.titulo}
+                          loading="lazy"
+                        />
+                      </Link>
+
+                      <div className="flex flex-col justify-between flex-1 py-4">
+                        <div>
+                          <Link
+                            to="#"
+                            className="inline-block text-gray-800 hover:text-gray-500 text-lg lg:text-xl font-bold transition duration-100 mb-1"
+                          >
+                            {l.titulo}
+                          </Link>
+
+                          <span className="block text-dorado-500">
+                            Autor: {l.autor}
+                          </span>
+                          {/* <span className="block text-gray-500">
+                            Stock: {l.stock}
+                          </span> */}
+                        </div>
+
+                        <div>
+                          <span className="block text-gray-800 md:text-lg font-bold mb-1">
+                            ${l.precio}
+                          </span>
+
+                          {l.stock > 0 ? (
+                            <span className="flex items-center text-green-500 text-sm gap-1">
+                              <Confirmar />
+                              In stock'
+                            </span>
+                          ) : (
+                            <span className="flex items-center text-rose-500 text-sm gap-1">
+                              <Eliminar />
+                              'Out of stock'
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="w-full sm:w-auto flex justify-between border-t sm:border-none p-4 sm:pl-0 lg:p-6 lg:pl-0">
+                        <div className="flex flex-col items-start gap-2">
+                          <div className="w-20 h-12 flex border rounded overflow-hidden text-lg text-violet-600 font-bold">
+                            <input
+                              type="text"
+                              value={
+                                l.stock === 0
+                                  ? 0
+                                  : carritoLS?.find(
+                                      (libro) => libro.id === l.id
+                                    )?.cantidad
+                              }
+                              disabled="disabled"
+                              className="w-full focus:ring ring-inset ring-indigo-300 outline-none transition duration-100 px-4 py-2 "
+                            />
+
+                            <div className="flex flex-col border-l divide-y">
+                              <button
+                                className="w-6 flex justify-center items-center flex-1 bg-white hover:bg-gray-100 active:bg-gray-200 leading-none select-none transition duration-100"
+                                onClick={() => increment(l.id, l.precio)}
+                                disabled={l.stock === 0}
+                              >
+                                +
+                              </button>
+                              <button
+                                className="w-6 flex justify-center items-center flex-1 bg-white hover:bg-gray-100 active:bg-gray-200 leading-none select-none transition duration-100"
+                                onClick={() => decrement(l.id, l.precio)}
+                                disabled={l.stock === 0}
+                              >
+                                -
+                              </button>
+                            </div>
+                          </div>
+
+                          <button
+                            className="text-indigo-500 hover:text-indigo-600 active:text-indigo-700 text-sm font-semibold select-none transition duration-100"
+                            onClick={() => handleEliminar(l.id)}
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+
+                        <div className=" w-14 pt-3 md:pt-2 ml-2 md:ml-8 lg:ml-16 mr-3">
+                          <span className=" block text-rosadito md:text-lg font-bold">
+                            $
+                            {(
+                              l.precio *
+                              carritoLS?.find((libro) => libro.id === l.id)
+                                ?.cantidad
+                            ).toFixed(2)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
-           </div>
-           </div>
-
-           } 
-            {toggle && 
-              <CompraActual totalCompra={totalCompra} />              
-            }
+            <div className="xl:w-1/2 md:w-1/3  w-full bg-gray-200 h-full shadow-sm">
+              <div className="flex flex-col md:h-screen px-14 py-20 justify-between overflow-y-auto">
+                <div>
+                  <p className="text-4xl font-black leading-9 text-rosadito-500 border-b border-white pb-6">
+                    Detalle
+                  </p>
+                  <div className="flex items-center justify-between pt-16">
+                    <p className="text-base font-bold leading-none text-right text-gray-800">
+                      Subtotal
+                    </p>
+                    <p className="text-base font-bold leading-none text-right text-gray-800">
+                      ${totalCompra ?? 0}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between pt-5">
+                    <p className="text-base font-bold leading-none text-right text-gray-800">
+                      Descuento
+                    </p>
+                    <p className="text-base font-bold leading-normal text-right text-gray-800">
+                      $0.00
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between pt-5">
+                    <p className="text-base font-bold leading-none text-right text-gray-800">
+                      Envio
+                    </p>
+                    <p className="text-base font-bold leading-none text-right text-gray-800">
+                      $0.00
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between pt-5">
+                    <p className="text-base font-bold leading-none text-right text-gray-800">
+                      Impuesto
+                    </p>
+                    <p className="text-base font-bold leading-normal text-right text-gray-800">
+                      $0.00
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
+                    <p className="text-2xl font-bold leading-normal text-right text-gray-800">
+                      Total
+                    </p>
+                    <p className="text-2xl font-bold leading-normal text-right text-gray-800">
+                      ${totalCompra ?? 0}
+                    </p>
+                  </div>
+                  <button
+                    className="text-2xl font-bold leading-none w-full py-5 bg-rosadito-500 border-rosadito-500 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white"
+                    onClick={handleComprar}
+                  >
+                    Comprar
+                  </button>
+                  {detalleCompra && (
+                    <ModalComponent
+                      modal={modals['compra']}
+                      closeModal={() => openClose('compra')}
+                      titulo={'Metodo de pago'}
+                      ancho="450px"
+                      padding="40px"
+                    >
+                      <Checkout detalleCompra={detalleCompra} />
+                    </ModalComponent>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    
+      </div>
+      <style>
+        {` /* width */
+                #scroll::-webkit-scrollbar {
+                    width: 10px;
+                }
 
-      
-    </div>
+                /* Track */
+                #scroll::-webkit-scrollbar-track {
+                    background: #f1f1f1;
+                }
 
+                /* Handle */
+                #scroll::-webkit-scrollbar-thumb {
+                    background: #E11D48;
+                }
+`}
+      </style>
+    </>
   )
 }
 
