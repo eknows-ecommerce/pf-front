@@ -1,7 +1,6 @@
-import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-
-import { create, update } from 'features/actions/libros'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAll, create, update } from 'features/actions/libros'
 
 import Item from './Item'
 import SearchBar from '../SearchBar'
@@ -31,11 +30,15 @@ function Libros() {
   const [libroSeleccionado, setLibroSeleccionado] = useState({})
   const [eliminarItemModal, setEliminarItemModal] = useState(false)
 
-  const { libros } = useSelector(({ librosStore }) => librosStore)
+  const { libros, busqueda } = useSelector(({ librosStore }) => librosStore)
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAll(`titulo=${busqueda}`))
+  }, [dispatch, busqueda])
 
   const eliminarItem = () => {
     let libroObj = {
@@ -83,6 +86,9 @@ function Libros() {
                     onClick={() => setFormulario(false)}
                     className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
                   >
+                    <p className="text-sm font-medium leading-none text-white">
+                      Todos los libros
+                    </p>
                     <p className="text-sm font-medium leading-none text-white">
                       Todos los libros
                     </p>
