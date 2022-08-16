@@ -19,9 +19,12 @@ import Libros from 'pages/admin/libros/Libros'
 import Categorias from 'pages/admin/categorias/Categorias'
 import Tags from 'pages/admin/tags/Tags'
 
+import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
+
 import MasVendidos from 'components/NavBar/MasVendidos'
 import Ofertas from 'components/NavBar/Ofertas'
 import Contactanos from 'components/NavBar/Contactanos'
+
 
 import Carrito from 'components/Carrito/Carrito'
 
@@ -33,6 +36,7 @@ function RoutesApp() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="usuarios" element={<Usuarios />} />
         <Route path="ventas" element={<Ventas />} />
+        <Route path="pedidos" element={<PedidosAdmin />} />
         <Route path="libros" element={<Libros />} />
         <Route path="categorias" element={<Categorias />} />
         <Route path="tags" element={<Tags />} />
