@@ -85,7 +85,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        'poiret-one': ['poiret-one', 'sans-serif'],
+        comforta: ['Comfortaa', 'cursive'],
       },
     },
   },

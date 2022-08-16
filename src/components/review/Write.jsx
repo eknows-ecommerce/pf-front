@@ -3,15 +3,17 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-export default function ReviewModal() {
+export default function ReviewModal({ idLibro }) {
   const [showModal, setShowModal] = React.useState(false);
   const dispatch = useDispatch()
 
   const [form, setForm] = useState({
     titulo: "",
     texto: "",
-    rating: 1,
+    rating: 3,
     likes: 0,
+    LibroId: idLibro,
+    //UsuarioId: parseInt(Math.random()*10)
   });
 
   //verificar errores toDo
@@ -24,19 +26,25 @@ export default function ReviewModal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(create(form));
-    alert("Your recipe has been created succesfully");
-    setForm({
-      titulo: "",
-      texto: "",
-      rating: null,
-      likes: 0,
-    });
-    showModal(false)
+    if (form.titulo && form.texto) {
+      dispatch(create(form));
+      setShowModal(false)
+      setForm({
+        titulo: "",
+        texto: "",
+        rating: 3,
+        likes: 0,
+        LibroId: idLibro,
+        //UsuarioId: parseInt(Math.random()*10)
+      })
+    }else{
+      setShowModal(false)
+      setShowModal(true)
+    }
   };
 
   function Stars() {
-    const [rate, setRate] = useState(1);
+    const [rate, setRate] = useState(3);
     let out = []; let star;
     for (let i = 0; i < 5; i++) {
       i < rate ? star = "text-yellow-500" : star = "text-gray-300"
@@ -57,7 +65,7 @@ export default function ReviewModal() {
       )
     }
 
-    return (out)
+    return out
   }
 
   return (
@@ -84,7 +92,7 @@ export default function ReviewModal() {
               <div className="relative m-5 p-1 flex-auto items-center border-4 rounded-2xl">
                 <textarea className="text-slate-800 text-lg leading-relaxed outline-none w-full"
                   maxLength={1024} spellCheck={true}
-                  type='text' placeholder='Escriba su review' name="texto" 
+                  type='text' placeholder='Escriba su review' name="texto"
                   value={form.texto} onChange={(e) => handleChange(e)}
                 >
                 </textarea >
@@ -106,8 +114,7 @@ export default function ReviewModal() {
               </div>
             </div>
           </form>
-          <div className="fixed inset-0 z-40 bg-black opacity-25"
-          />
+          <div className="fixed inset-0 z-40 bg-black opacity-25"/>
         </>
       ) : null}
     </>

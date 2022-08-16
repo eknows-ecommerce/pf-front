@@ -13,6 +13,7 @@ export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
     )
     return data
   } catch (error) {
+    console.log('error', error)
     const msg = error.response.data.msg
     return msg
   }
