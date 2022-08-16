@@ -19,6 +19,14 @@ export default function Detalle() {
   const { reviews, count } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
+  let cats = []; let tags = [];
+  libros.forEach((l) => {
+    //console.log(l)
+    l.id == id &&
+      l.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
+      && l.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
+  })
+
   const libroComprado = true
 
   // useEffect(() => {
@@ -140,34 +148,16 @@ export default function Detalle() {
               <p className="text-justify mr-2 ml-2">{libro.resumen}</p>
               <br />
               <div className="flex justify-evenly">
-                <div>
-                  <h3 className="text-2xl font-poiret-one font-bold ">
-                    Categorias
-                  </h3>
+              <div>
+                  <h3 className="text-2xl font-poiret-one font-bold ">Categorias</h3>
                   <ul>
-                    {libros.length > 0 &&
-                      libros.map((libro) => {
-                        return libro.CategoriaLibro.map((cat) => (
-                          <li key={crypto.randomUUID()} className="mr-2 ml-2">
-                            {' '}
-                            -{cat.nombre}
-                          </li>
-                        ))
-                      })}
+                    {cats}
                   </ul>
                 </div>
                 <div>
                   <h3 className="text-2xl font-poiret-one font-bold ">Tags</h3>
                   <ul>
-                    {libros.length > 0 &&
-                      libros.map((libro) => {
-                        return libro.TagLibro.map((tag) => (
-                          <li key={crypto.randomUUID()} className="mr-2 ml-2">
-                            {' '}
-                            -{tag.nombre}
-                          </li>
-                        ))
-                      })}
+                    {tags}
                   </ul>
                 </div>
               </div>

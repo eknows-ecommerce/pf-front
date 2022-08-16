@@ -13,6 +13,7 @@ import useSearch from '../../hooks/useSearch'
 export default function Navbar() {
   const { isAuthenticated, isLoading } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+ // console.log(user)
 
   const show = useRef(null)
   const { search, handleSearch } = useSearch()
@@ -91,7 +92,7 @@ export default function Navbar() {
             <Link to="contactanos" className="text-gray-900">
               Contactanos
             </Link>
-            {usuario.rol === 'admin' && (
+            {usuario?.rol === 'admin' && (
               <Link to="admin/dashboard" className="text-gray-900">
                 Admin
               </Link>
@@ -120,7 +121,7 @@ export default function Navbar() {
             <Link to="contactanos" className="flex-shrink-0 pl-4 text-gray-900">
               Contactanos
             </Link>
-            {usuario.rol === 'admin' && (
+            {usuario?.rol === 'admin' && (
               <Link
                 to="admin/dashboard"
                 className="flex-shrink-0 pl-4 text-gray-900"
