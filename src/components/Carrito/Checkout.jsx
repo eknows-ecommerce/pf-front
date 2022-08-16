@@ -33,15 +33,14 @@ function CheckoutForm({ detalleCompra }) {
       card: elements.getElement(CardElement),
     })
 
-    console.log(error)
     if (!error) {
       const { id } = paymentMethod
+      console.log(detalleCompra)
       const { data } = await axios.post(REACT_APP_URL_BASE_API, {
         id: id,
         ...detalleCompra,
         type_method: 'card',
       })
-      console.log(data.detalle.status)
       setSuccess({ msg: data.detalle.status, status: true })
       localStorage.setItem('carrito', JSON.stringify([]))
     }

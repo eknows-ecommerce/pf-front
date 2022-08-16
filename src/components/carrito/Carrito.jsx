@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Checkout from './Checkout'
 
+import { useAuth0 } from '@auth0/auth0-react'
+
 function Carrito() {
   const [detalleCompra, setDetalleCompra] = useState({})
   const { modals, openClose } = useModal()
@@ -16,6 +18,8 @@ function Carrito() {
   )
   const [totalCompra, setTotalCompra] = useState(0)
   const { carrito } = useSelector(({ librosStore }) => librosStore)
+
+  const { isAuthenticated, user, loginWithRedirect } = useAuth0()
 
   useEffect(() => {
     //transformar el objeto en string
@@ -42,7 +46,7 @@ function Carrito() {
   const cantidadTotal = () => {
     let precioTotal = 0
     carritoLS.forEach((item) => {
-      precioTotal = precioTotal + item?.total
+      precioTotal = precioTotal + item?.precio * item?.cantidad
     })
     setTotalCompra(precioTotal.toFixed(2))
   }
@@ -80,21 +84,37 @@ function Carrito() {
   }
 
   const handleComprar = () => {
-    let amount = 0
-    carritoLS.forEach((item) => {
-      amount = amount + item.total
-    })
-    setDetalleCompra({
-      ...detalleCompra,
-      currency: 'USD',
-      type: 'card',
-      amount: Number(amount.toFixed(2)),
-      email: 'user@test.com',
-      // description: `Titulo: ${item.titulo} Cantidad: ${
-      //   item.cantidad
-      // } Precio:${item.precio} Total: ${item.cantidad * item.precio}`,
-    })
-    openClose('compra')
+    if (isAuthenticated) {
+      let amount = 0
+      let idLibros = []
+      carritoLS.forEach((item) => {
+        amount = amount + item.precio * item.cantidad
+        idLibros.push({
+          id: item.id,
+          cantidad: item.cantidad,
+          precio: item.precio,
+        })
+      })
+      console.log('idLibros', idLibros)
+      setDetalleCompra({
+        ...detalleCompra,
+        currency: 'USD',
+        type: 'card',
+        amount: Number(amount.toFixed(2)),
+        email: user.email,
+        description: {
+          direccionEnvio: 'DIGITAL',
+          estado: 'Entregado',
+          descuento: 0,
+          libros: idLibros,
+        },
+      })
+      openClose('compra')
+    } else {
+      loginWithRedirect({
+        redirectUri: 'http://localhost:3000/home/carrito',
+      })
+    }
   }
 
   return (

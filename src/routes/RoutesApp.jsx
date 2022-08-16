@@ -25,7 +25,6 @@ import MasVendidos from 'components/NavBar/MasVendidos'
 import Ofertas from 'components/NavBar/Ofertas'
 import Contactanos from 'components/NavBar/Contactanos'
 
-
 import Carrito from 'components/Carrito/Carrito'
 
 //Aqui iran todas las rutas
