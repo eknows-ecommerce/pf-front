@@ -27,8 +27,8 @@ function Categorias() {
     dispatch(getAll(`nombre=${search}`))
   }, [search])
 
-  const crearItem = () => {
-    dispatch(create({ nombre: valorNuevoItem }))
+  const crearItem = (url) => {
+    dispatch(create({ nombre: valorNuevoItem, miniatura: url }))
     setValorNuevoItem('')
     setCrearItemModal(false)
   }

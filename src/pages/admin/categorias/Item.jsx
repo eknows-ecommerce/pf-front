@@ -11,8 +11,12 @@ export default function Item(props) {
         className="pl-4 cursor-pointer"
       >
         <div className="flex items-center">
-          <div className="w-10 h-10">
-            <img className="w-full h-full" src={image} alt="book" />
+          <div className="w-10 h-10 overflow-hidden">
+            <img
+              className="w-full h-full object-cover object-center"
+              src={props.miniatura ?? image}
+              alt="book"
+            />
           </div>
           <div className="pl-4">
             <p className="font-medium">{props.nombre}</p>
