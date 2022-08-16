@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { create, update } from 'features/actions/libros'
+import { create, update, getAll } from 'features/actions/libros'
+import useSearch from 'hooks/useSearch'
 
 import Item from './Item'
-import SearchBar from '../SearchBar'
 import LibroFormulario from './LibroFormulario'
 import DisponibilidadModal from './DisponibilidadModal'
+import SearchPanelAdmin from '../SearchPanelAdmin'
 
 const initialState = {
   titulo: '',
@@ -29,12 +30,17 @@ function Libros() {
   const [nuevoLibro, setNuevoLibro] = useState(initialState)
   const [libroSeleccionado, setLibroSeleccionado] = useState({})
   const [deshabilitarItemModal, setDeshabilitarItemModal] = useState(false)
+  const { search, handleSearch } = useSearch()
 
   const { libros } = useSelector(({ librosStore }) => librosStore)
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAll(`titulo=${search}`))
+  }, [search])
 
   const deshabilitarItem = () => {
     let libroObj = {
@@ -142,7 +148,11 @@ function Libros() {
           <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
             {formulario === '' && (
               <>
-                <SearchBar />
+                <SearchPanelAdmin
+                  search={search}
+                  handleSearch={handleSearch}
+                  placeholder="Buscar por titulo"
+                />
                 <table className="w-full whitespace-nowrap">
                   <thead>
                     <tr className="h-16 w-full text-sm leading-none text-gray-800">

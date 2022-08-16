@@ -62,7 +62,6 @@ const librosSlice = createSlice({
       state.cargando = true
     },
     [getAll.fulfilled]: (state, { payload }) => {
-      console.log('payload', payload)
       state.cargando = false
       state.libros = payload.libros ?? []
       state.count = payload.count

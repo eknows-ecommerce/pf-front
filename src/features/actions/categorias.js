@@ -3,12 +3,12 @@ import axios from 'axios'
 const Production = process.env.NODE_ENV
 
 // <----------------- acciones que interactuan con la DB ----------------->
-export const getAll = createAsyncThunk('categorias/@GET/ALL', async () => {
+export const getAll = createAsyncThunk('categorias/@GET/ALL', async (query) => {
   try {
     const { data } = await axios.get(
       Production === 'production'
-        ? 'https://ebooks-back.herokuapp.com/categorias'
-        : 'http://localhost:8000/categorias'
+        ? `https://ebooks-back.herokuapp.com/categorias?${query}`
+        : `http://localhost:8000/categorias?${query}`
     )
     return data
   } catch (error) {
