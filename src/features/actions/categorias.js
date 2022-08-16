@@ -1,14 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-const Production = process.env.NODE_ENV
+const URL= process.env.URL
 
 // <----------------- acciones que interactuan con la DB ----------------->
-export const getAll = createAsyncThunk('categorias/@GET/ALL', async () => {
+export const getAll = createAsyncThunk('categorias/@GET/ALL', async (query) => {
   try {
     const { data } = await axios.get(
-      Production === 'production'
-        ? 'https://ebooks-back.herokuapp.com/categorias'
-        : 'http://localhost:8000/categorias'
+      `${URL}/categorias?${query}`
     )
     return data
   } catch (error) {
@@ -20,9 +18,7 @@ export const getAll = createAsyncThunk('categorias/@GET/ALL', async () => {
 export const getById = createAsyncThunk('categorias/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/categorias/${id}`
-        : `http://localhost:8000/categorias/${id}`
+      `${URL}/categorias/${id}`
     )
     return data
   } catch (error) {
@@ -36,9 +32,7 @@ export const create = createAsyncThunk(
   async (categoria) => {
     try {
       const { data } = await axios.post(
-        Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/categorias`
-          : 'http://localhost:8000/categorias',
+        `${URL}/categorias`,
         categoria
       )
       return data
@@ -54,9 +48,7 @@ export const update = createAsyncThunk(
   async ({ id, categoria }) => {
     try {
       const { data } = await axios.put(
-        Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/categorias/${id}`
-          : `http://localhost:8000/categorias/${id}`,
+        `${URL}/categorias/${id}`,
         categoria
       )
       return data
@@ -72,9 +64,7 @@ export const deleteById = createAsyncThunk(
   async (id) => {
     try {
       const { data } = await axios.delete(
-        Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/categorias/${id}`
-          : `http://localhost:8000/categorias/${id}`
+        `${URL}/categorias/${id}`
       )
       return data
     } catch (error) {

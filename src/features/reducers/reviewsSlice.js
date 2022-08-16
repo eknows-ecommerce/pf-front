@@ -2,27 +2,22 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import {
   getAll,
-  getById,
   create,
+  getById,
   update,
-  deleteById,
-  getListCar,
-} from 'features/actions/libros'
+  /*deleteById,*/
+} from 'features/actions/review'
 
 const initialState = {
-  libros: [],
-  libro: {},
-  carrito: [],
+  reviews: [],
+  review: {},
   count: 0,
   cargando: null,
   busqueda: '',
-  categorias: '',
-  tags: '',
-  rangoPrecios: '',
 }
 
-const librosSlice = createSlice({
-  name: 'libros',
+const reviewsSlice = createSlice({
+  name: 'reviews',
   initialState,
   reducers: {
     cambiarCargando: (state) => {
@@ -31,39 +26,16 @@ const librosSlice = createSlice({
     setBusqueda: (state, action) => {
       state.busqueda = action.payload
     },
-    setCategorias: (state, action) => {
-      state.categorias = action.payload
-    },
-
-    setCarrito: (state, action) => {
-      state.carrito = action.payload
-    },
-    setTags: (state, action) => {
-      state.tags = action.payload
-    },
-    setRangoPrecios: (state, action) => {
-      state.rangoPrecios = action.payload
-    },
   },
   extraReducers: {
-    //getListCar
-    [getListCar.pending]: (state) => {
-      state.cargando = true
-    },
-    [getListCar.fulfilled]: (state, { payload }) => {
-      state.cargando = false
-      state.carrito = payload.librosToCar
-    },
-    [getListCar.rejected]: (state) => {
-      state.cargando = true
-    },
     //getAll
     [getAll.pending]: (state) => {
       state.cargando = true
     },
     [getAll.fulfilled]: (state, { payload }) => {
+      console.log('payload', payload)
       state.cargando = false
-      state.libros = payload.libros ?? []
+      state.reviews = payload.reviews ?? []
       state.count = payload.count
     },
     [getAll.rejected]: (state) => {
@@ -75,7 +47,7 @@ const librosSlice = createSlice({
     },
     [getById.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.libro = payload.libro
+      state.review = payload.review
     },
     [getById.rejected]: (state) => {
       state.cargando = true
@@ -86,7 +58,7 @@ const librosSlice = createSlice({
     },
     [create.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.libros = [...state.libros, payload.libro]
+      state.reviews = [...state.reviews, payload.review]
       state.total = state.total + 1
     },
     [create.rejected]: (state) => {
@@ -97,39 +69,35 @@ const librosSlice = createSlice({
       state.cargando = true
     },
     [update.fulfilled]: (state, { payload }) => {
-      const index = state.libros.findIndex(
-        (libro) => libro.id === payload.libro.id
+      const index = state.reviews.findIndex(
+        (review) => review.id === payload.review.id
       )
-      state.libros[index] = payload.libro
+      state.reviews[index] = payload.review
       state.cargando = false
     },
     [update.rejected]: (state) => {
       state.cargando = true
     },
     //deleteById
-    [deleteById.pending]: (state) => {
+    /*[deleteById.pending]: (state) => {
       state.cargando = true
     },
     [deleteById.fulfilled]: (state, { payload }) => {
-      state.libros = [
-        ...state.libros.filter((libro) => libro.id !== payload.libro.id),
+      state.reviews = [
+        ...state.reviews.filter((review) => review.id !== payload.review.id),
       ]
       state.total = state.total - 1
       state.cargando = false
     },
     [deleteById.rejected]: (state) => {
       state.cargando = true
-    },
+    },*/
   },
 })
 
 export const {
   cambiarCargando,
   setBusqueda,
-  setCategorias,
-  setTags,
-  setCarrito,
-  setRangoPrecios,
-} = librosSlice.actions
+} = reviewsSlice.actions
 
-export default librosSlice.reducer
+export default reviewsSlice.reducer

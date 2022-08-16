@@ -1,16 +1,24 @@
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import Paginacion from 'components/paginacion/Paginacion'
+import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 
 import Item from './Item'
-import SearchBar from '../SearchBar'
+import SearchPanelAdmin from '../SearchPanelAdmin'
+import useSearch from 'hooks/useSearch'
+import { getAll } from 'features/actions/usuarios'
 
 function Usuarios() {
+  const { search, handleSearch } = useSearch()
   const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
   const { paginas, paginaAnterior, paginaSiguiente, handleTotal } =
     usePaginacion()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAll(`nickname=${search}`))
+  }, [search])
 
   useEffect(() => {
     handleTotal(usuarios.length)
@@ -28,7 +36,11 @@ function Usuarios() {
           </div>
         </div>
         <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
-          <SearchBar />
+          <SearchPanelAdmin
+            search={search}
+            handleSearch={handleSearch}
+            placeholder="Buscar por nickname"
+          />
           <table className="w-full whitespace-nowrap">
             <thead>
               <tr className="h-16 w-full text-sm leading-none text-gray-800">

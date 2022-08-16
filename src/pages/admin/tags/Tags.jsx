@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import useSearch from 'hooks/useSearch'
 
-import { create, deleteById, update } from 'features/actions/tags'
+import { create, deleteById, update, getAll } from 'features/actions/tags'
 
 import Item from './Item'
-import SearchBar from '../SearchBar'
 import CrearItemModal from '../CrearItemModal'
 import EliminarItemModal from '../EliminarItemModal'
 import EditarItemModal from '../EditarItemModal'
+import SearchPanelAdmin from '../SearchPanelAdmin'
 
 function Tags() {
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
@@ -18,8 +19,13 @@ function Tags() {
 
   const [tagSeleccionado, setTagSeleccionado] = useState({})
   const [valorNuevoItem, setValorNuevoItem] = useState('')
+  const { search, handleSearch } = useSearch()
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAll(`nombre=${search}`))
+  }, [search])
 
   const seleccionarTag = (tag) => {
     setTagSeleccionado(tag)
@@ -124,7 +130,11 @@ function Tags() {
             </div>
           </div>
           <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
-            <SearchBar />
+            <SearchPanelAdmin
+              search={search}
+              handleSearch={handleSearch}
+              placeholder="Buscar por nombre"
+            />
             <table className="w-full whitespace-nowrap">
               <thead>
                 <tr className="h-16 w-full text-sm leading-none text-gray-800">

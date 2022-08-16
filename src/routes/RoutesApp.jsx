@@ -1,8 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
 import Landing from '../pages/landing/Landing'
 import Home from '../pages/home/Home'
+
 import NotFound from '../pages/notFound/NotFound'
 import Navbar from '../components/navBar/Navbar'
+
 
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
@@ -17,9 +19,11 @@ import { ProtectedRoute } from './ProtectedRoute'
 import Libros from 'pages/admin/libros/Libros'
 import Categorias from 'pages/admin/categorias/Categorias'
 import Tags from 'pages/admin/tags/Tags'
+
 import MasVendidos from 'components/navBar/MasVendidos'
 import Ofertas from 'components/navBar/Ofertas'
 import Contactanos from 'components/navBar/Contactanos'
+
 
 import Carrito from 'components/Carrito/Carrito'
 
