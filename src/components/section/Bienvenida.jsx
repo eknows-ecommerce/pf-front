@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { create } from 'features/actions/usuarios'
 import Login from '../sesion/Login'
 import Logout from '../sesion/Logout'
+import logo from '../../assets/img/logo.png'
 
 export default function Bienvenida() {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
@@ -30,7 +31,7 @@ export default function Bienvenida() {
     <section className="relative bg-white">
       <img
         className="absolute inset-0 object-[75%] sm:object-[25%] object-cover w-full h-full opacity-25 sm:opacity-100"
-        src="https://image.winudf.com/v2/image/Y29tLkxpdmVXYWxscGFwZXJzVUEuYXBwMDUwM19zY3JlZW5zaG90c18wXzllMmVkZjk4/screen-0.jpg?fakeurl=1&type=.webp"
+        src="https://images.pexels.com/videos/2795307/free-video-2795307.jpg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200"
         alt="Couple on a bed with a dog"
       />
       <div className="hidden sm:block sm:inset-0 sm:absolute sm:bg-gradient-to-r sm:from-white sm:to-transparent" />
