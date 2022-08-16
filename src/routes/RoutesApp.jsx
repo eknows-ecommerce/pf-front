@@ -18,8 +18,13 @@ import { ProtectedRoute } from './ProtectedRoute'
 import Libros from 'pages/admin/libros/Libros'
 import Categorias from 'pages/admin/categorias/Categorias'
 import Tags from 'pages/admin/tags/Tags'
-import Prueba from '../components/sesion/Prueba'
+
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
+
+import MasVendidos from 'components/NavBar/MasVendidos'
+import Ofertas from 'components/NavBar/Ofertas'
+import Contactanos from 'components/NavBar/Contactanos'
+
 
 import Carrito from 'components/Carrito/Carrito'
 
@@ -44,7 +49,9 @@ function RoutesApp() {
         <Route index element={<Landing />} />
 
         <Route path="home" element={<Home />} />
-        <Route path="prueba" element={<Prueba />} />
+        <Route path="ofertas" element={<Ofertas />} />
+        <Route path="masVendidos" element={<MasVendidos />} />
+        <Route path="contactanos" element={<Contactanos />} />
 
         {/* <Route path="login" element={<Login />} /> */}
         <Route path="detalle/:id" element={<Detalle />} />

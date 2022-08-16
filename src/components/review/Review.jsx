@@ -1,4 +1,6 @@
-export default function ReviewCard({ title, text, author, rate }) {
+import React from "react";
+
+export default function ReviewCard({ id, title, text, author, rate, likes }) {
   function Stars() {
     let out = []; let star;
     for (let i = 0; i < 5; i++) {
@@ -6,7 +8,7 @@ export default function ReviewCard({ title, text, author, rate }) {
       out.push(
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className={"w-6 h-6 " + star}
+          className={"w-6 h-6 my-2 " + star}
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -15,29 +17,64 @@ export default function ReviewCard({ title, text, author, rate }) {
       )
     }
 
-    return (out)
+    return out
   }
 
+  const [showModal, setShowModal] = React.useState(false);
+
   return (
-    <blockquote className="flex flex-col justify-between h-full p-8 bg-slate-100 rounded-3xl shadow-xl
-    hover:scale-x-[1.01] hover:scale-y-[1.01]">
-      <div>
-        <div className="flex space-x-0.5">
-          <Stars />
+    <>
+      <blockquote className="flex flex-col justify-between h-full p-8 bg-slate-100 rounded-3xl shadow-xl
+    hover:scale-x-[1.01] hover:scale-y-[1.01]" onClick={() => setShowModal(true)}>
+        <div>
+          <div className="flex flex-rows justify-between">
+            <div className="flex"><Stars /></div>
+            <p>{likes}👍</p>
+          </div>
+          <div className="mt-4">
+            <h5 className="text-xl text-center font-bold text-pink-700 sm:text-2xl">
+              {title}
+            </h5>
+            <p className="mt-4 text-gray-800 text-justify">
+              {
+                text.length > 190
+                  ? text.slice(0, text.indexOf(' ', 190)) + ' ...'
+                  : text
+              }
+            </p>
+          </div>
         </div>
-        <div className="mt-4">
-          <h5 className="text-xl text-center font-bold text-pink-700 sm:text-2xl">
-            {title}
-          </h5>
-          <p className="mt-4 text-gray-800 text-justify">
-            Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Ipsam cumque recusandae dolorum porro, quasi
-            sunt necessitatibus dolorem ab laudantium vel.
-          </p>
-        </div>
-      </div>
-      {author ? null : author = "Anonimo"}
-      <footer className="mt-8 text-gray-700 text-right">- {author}</footer>
-    </blockquote>
+        <footer className="mt-8 text-gray-700 text-right">
+          {author ? '- ' + author : "- Anonimo"}
+        </footer>
+      </blockquote>
+      {showModal ? (
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none">
+            <div className="rounded-lg max-w-5xl m-5 shadow-lg relative flex flex-col bg-white outline-none w-screen">
+              <header className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                <h1 className="text-3xl font-semibold"> {title}</h1>
+                <div className="flex"><Stars/></div>
+                <div className="flex">
+                  <p>{likes}<button onClick={()=>{}}>👍</button></p>
+                  <button
+                    className="text-red-500 borde-5 background-transparent font-bold uppercase mb-6 ml-6"
+                    type="button" onClick={() => setShowModal(false)}
+                  >X</button>
+                </div>
+              </header>
+              <body className="relative m-5 p-1 text-slate-800 text-lg font-medium leading-relaxed outline-none w-full">
+                  {text}
+              </body>
+              <footer className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                - {author}
+              </footer>
+            </div>
+          </div>
+          <div className="fixed inset-0 z-40 bg-black opacity-25"
+          />
+        </>
+      ) : null}
+    </>
   )
 }
