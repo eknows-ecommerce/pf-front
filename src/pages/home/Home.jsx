@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardLibro from 'components/cards/CardLibro'
 import { getAll } from 'features/actions/libros'
-
+import Loading from '../../components/loading/Loading'
 import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 
@@ -13,6 +13,7 @@ import Swal from 'sweetalert2'
 import Filtros from 'components/filtros/Filtros'
 
 function Home() {
+  const [loading = true, setLoading] = useState();
   const { user } = useAuth0()
   const [listaCarrito, setListaCarrito] = useState(
     JSON.parse(localStorage.getItem('carrito')) ?? []
@@ -96,6 +97,10 @@ function Home() {
 
   return (
     <section>
+       {
+                loading ? (
+                    <Loading setLoading={setLoading} />
+                ) : 
       <div className="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
           <Filtros />
@@ -189,6 +194,7 @@ function Home() {
           </div>
         </div>
       </div>
+}
     </section>
   )
 }
