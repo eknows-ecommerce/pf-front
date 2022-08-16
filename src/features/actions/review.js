@@ -8,7 +8,7 @@ export const getAll = createAsyncThunk('reviews/@GET/ALL', async (query) => {
     console.log('query', query)
     const { data } = await axios.get(
       Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/reviews${query}`
+        ? `https://e-knows-back.herokuapp.com/reviews${query}`
         : `http://localhost:8000/reviews${query}`
     )
     console.log('entra', data)
@@ -23,7 +23,7 @@ export const create = createAsyncThunk('reviews/@CREATE', async (review) => {
   try {
     const { data } = await axios.post(
       Production === 'production'
-        ? 'https://ebooks-back.herokuapp.com/reviews'
+        ? 'https://e-knows-back.herokuapp.com/reviews'
         : 'http://localhost:8000/reviews',
       review
     )
@@ -38,7 +38,7 @@ export const getById = createAsyncThunk('reviews/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
       Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/reviews/${id}`
+        ? `https://e-knows-back.herokuapp.com/reviews/${id}`
         : `http://localhost:8000/reviews/${id}`
     )
     return data
@@ -52,7 +52,7 @@ export const update = createAsyncThunk('reviews/@UPDATE', async (review) => {
   try {
     const { data } = await axios.put(
       Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/reviews/${review.id}`
+        ? `https://e-knows-back.herokuapp.com/reviews/${review.id}`
         : `http://localhost:8000/reviews/${review.id}`,
       review
     )
@@ -67,7 +67,7 @@ export const deleteById = createAsyncThunk('reviews/@DELETEBYID', async (id) => 
   try {
     const { data } = await axios.delete(
       Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/reviews/${id}`
+        ? `https://e-knows-back.herokuapp.com/reviews/${id}`
         : `http://localhost:8000/reviews/${id}`
     )
     return data

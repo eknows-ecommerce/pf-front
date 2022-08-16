@@ -10,7 +10,7 @@ export const getAll = createAsyncThunk(
     try {
       const { data } = await axios.get(
         Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/usuarios?${query}`
+          ? `https://e-knows-back.herokuapp.com/usuarios?${query}`
           : `http://localhost:8000/usuarios?${query}`
       )
       return data
@@ -42,7 +42,7 @@ export const getAllByName = createAsyncThunk(
     try {
       const { data } = await axios.get(
         Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/usuarios`
+          ? `https://e-knows-back.herokuapp.com/usuarios`
           : 'http://localhost:8000/usuarios',
         {
           payload,
@@ -60,7 +60,7 @@ export const getById = createAsyncThunk('usuarios/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
       Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/usuarios/${id}`
+        ? `https://e-knows-back.herokuapp.com/usuarios/${id}`
         : `http://localhost:8000/usuarios/${id}`
     )
     return data
@@ -76,7 +76,7 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (body) => {
       method: 'post',
       url:
         Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/usuarios`
+          ? `https://e-knows-back.herokuapp.com/usuarios`
           : 'http://localhost:8000/usuarios',
       headers: { authorization: `Bearer ${body.token}` },
       data: body.user,
@@ -92,7 +92,7 @@ export const update = createAsyncThunk('usuarios/@UPDATE', async (usuario) => {
   try {
     const { data } = await axios.put(
       Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/usuarios/${usuario.id}`
+        ? `https://e-knows-back.herokuapp.com/usuarios/${usuario.id}`
         : `http://localhost:8000/usuarios/${usuario.id}`,
       usuario.datos
     )
@@ -109,7 +109,7 @@ export const deleteById = createAsyncThunk(
     try {
       const { data } = await axios.delete(
         Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/usuarios/${id}`
+          ? `https://e-knows-back.herokuapp.com/usuarios/${id}`
           : `http://localhost:8000/usuarios/${id}`
       )
       return data
