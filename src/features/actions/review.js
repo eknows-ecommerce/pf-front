@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-const Production = process.env.NODE_ENV
+const URL= process.env.URL
 
 // <----------------- acciones que interactuan con la DB ----------------->
 export const getAll = createAsyncThunk('reviews/@GET/ALL', async (query) => {
   try {
     console.log('query', query)
     const { data } = await axios.get(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/reviews${query}`
+      URL!==undefined
+        ? `${URL}/reviews${query}`
         : `http://localhost:8000/reviews${query}`
     )
     console.log('entra', data)
@@ -22,8 +22,8 @@ export const getAll = createAsyncThunk('reviews/@GET/ALL', async (query) => {
 export const create = createAsyncThunk('reviews/@CREATE', async (review) => {
   try {
     const { data } = await axios.post(
-      Production === 'production'
-        ? 'https://ebooks-back.herokuapp.com/reviews'
+      URL!==undefined
+        ? `${URL}/reviews`
         : 'http://localhost:8000/reviews',
       review
     )
@@ -37,8 +37,8 @@ export const create = createAsyncThunk('reviews/@CREATE', async (review) => {
 export const getById = createAsyncThunk('reviews/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/reviews/${id}`
+      URL!==undefined
+        ? `${URL}/reviews/${id}`
         : `http://localhost:8000/reviews/${id}`
     )
     return data
@@ -51,8 +51,8 @@ export const getById = createAsyncThunk('reviews/@GETBYID', async (id) => {
 export const update = createAsyncThunk('reviews/@UPDATE', async (review) => {
   try {
     const { data } = await axios.put(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/reviews/${review.id}`
+      URL!==undefined
+        ? `${URL}/reviews/${review.id}`
         : `http://localhost:8000/reviews/${review.id}`,
       review
     )
@@ -66,8 +66,8 @@ export const update = createAsyncThunk('reviews/@UPDATE', async (review) => {
 export const deleteById = createAsyncThunk('reviews/@DELETEBYID', async (id) => {
   try {
     const { data } = await axios.delete(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/reviews/${id}`
+      URL!==undefined
+        ? `${URL}/reviews/${id}`
         : `http://localhost:8000/reviews/${id}`
     )
     return data

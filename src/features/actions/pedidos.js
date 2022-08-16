@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const Production = process.env.NODE_ENV
+const URL= process.env.URL
 
 // <----------------- acciones que interactuan con la DB ----------------->
 export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {
   try {
     const { data } = await axios.get(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/pedido`
+      URL!==undefined
+        ? `${URL}/pedido`
         : 'http://localhost:8000/pedido'
     )
     return data
@@ -21,8 +21,8 @@ export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {
 export const getById = createAsyncThunk('pedido/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/pedido/${id}`
+      URL!==undefined
+        ? `${URL}/pedido/${id}`
         : `http://localhost:8000/pedido/${id}`
     )
     return data
@@ -35,8 +35,8 @@ export const getById = createAsyncThunk('pedido/@GETBYID', async (id) => {
 export const create = createAsyncThunk('pedido/@CREATE', async (pedido) => {
   try {
     const { data } = await axios.post(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/pedido`
+      URL!==undefined
+        ? `${URL}/pedido`
         : 'http://localhost:8000/pedido',
       pedido
     )
@@ -52,8 +52,8 @@ export const update = createAsyncThunk(
   async ({ id, pedido }) => {
     try {
       const { data } = await axios.put(
-        Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/pedido/${id}`
+        URL!==undefined
+          ? `${URL}/pedido/${id}`
           : `http://localhost:8000/pedido/${id}`,
         pedido
       )
@@ -68,8 +68,8 @@ export const update = createAsyncThunk(
 export const deleteById = createAsyncThunk('pedido/@DELETE/ID', async (id) => {
   try {
     const { data } = await axios.delete(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/pedido/${id}`
+      URL!==undefined
+        ? `${URL}/pedido/${id}`
         : `http://localhost:8000/pedido/${id}`
     )
     return data

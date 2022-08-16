@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const Production = process.env.NODE_ENV
+const URL= process.env.URL
 
 // <----------------- acciones que conectan a la base de datos ----------------->
 export const getAll = createAsyncThunk('medias/@GETALL', async () => {
   try {
     const { data } = await axios.get(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/media`
+      URL!==undefined
+        ? `${URL}/media`
         : 'http://localhost:8000/media'
     )
     return data
@@ -21,8 +21,8 @@ export const getAll = createAsyncThunk('medias/@GETALL', async () => {
 export const getById = createAsyncThunk('medias/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/media/${id}`
+      URL!==undefined
+        ? `${URL}/media/${id}`
         : `http://localhost:8000/media/${id}`
     )
     return data
@@ -34,8 +34,8 @@ export const getById = createAsyncThunk('medias/@GETBYID', async (id) => {
 export const create = createAsyncThunk('medias/@CREATE', async (media) => {
   try {
     const { data } = await axios.post(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/media`
+      URL!==undefined
+        ? `${URL}/media`
         : `http://localhost:8000/media`,
       media
     )
@@ -48,8 +48,8 @@ export const create = createAsyncThunk('medias/@CREATE', async (media) => {
 export const update = createAsyncThunk('medias/@UPDATE', async (media) => {
   try {
     const { data } = await axios.put(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/media/${media.id}`
+      URL!==undefined
+        ? `${URL}/media/${media.id}`
         : `http://localhost:8000/media/${media.id}`,
       media
     )
@@ -62,8 +62,8 @@ export const update = createAsyncThunk('medias/@UPDATE', async (media) => {
 export const deleteById = createAsyncThunk('medias/@DELETEBYID', async (id) => {
   try {
     const { data } = await axios.delete(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/media/${id}`
+      URL!==undefined
+        ? `${URL}/media/${id}`
         : `http://localhost:8000/media/${id}`
     )
     return data

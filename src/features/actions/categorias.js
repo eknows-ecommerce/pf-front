@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-const Production = process.env.NODE_ENV
+const URL= process.env.URL
 
 // <----------------- acciones que interactuan con la DB ----------------->
 export const getAll = createAsyncThunk('categorias/@GET/ALL', async (query) => {
   try {
     const { data } = await axios.get(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/categorias?${query}`
+      URL!==undefined
+        ? `${URL}/categorias?${query}`
         : `http://localhost:8000/categorias?${query}`
     )
     return data
@@ -20,8 +20,8 @@ export const getAll = createAsyncThunk('categorias/@GET/ALL', async (query) => {
 export const getById = createAsyncThunk('categorias/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      Production === 'production'
-        ? `https://ebooks-back.herokuapp.com/categorias/${id}`
+      URL!==undefined
+        ? `${URL}/categorias/${id}`
         : `http://localhost:8000/categorias/${id}`
     )
     return data
@@ -36,8 +36,8 @@ export const create = createAsyncThunk(
   async (categoria) => {
     try {
       const { data } = await axios.post(
-        Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/categorias`
+        URL!==undefined
+          ? `${URL}/categorias`
           : 'http://localhost:8000/categorias',
         categoria
       )
@@ -54,8 +54,8 @@ export const update = createAsyncThunk(
   async ({ id, categoria }) => {
     try {
       const { data } = await axios.put(
-        Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/categorias/${id}`
+        URL!==undefined
+          ? `${URL}/categorias/${id}`
           : `http://localhost:8000/categorias/${id}`,
         categoria
       )
@@ -72,8 +72,8 @@ export const deleteById = createAsyncThunk(
   async (id) => {
     try {
       const { data } = await axios.delete(
-        Production === 'production'
-          ? `https://ebooks-back.herokuapp.com/categorias/${id}`
+        URL!==undefined
+          ? `${URL}/categorias/${id}`
           : `http://localhost:8000/categorias/${id}`
       )
       return data
