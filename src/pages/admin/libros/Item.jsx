@@ -7,7 +7,7 @@ export default function Item(props) {
         className="pl-4 cursor-pointer"
         onClick={() => {
           props.setLibroSeleccionado(props)
-          props.setEditarLibroFormulario(true)
+          props.setFormulario('EDITAR')
         }}
       >
         <div className="flex items-center">

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAll, create, update } from 'features/actions/libros'
+import { create, update } from 'features/actions/libros'
 
 import Item from './Item'
 import SearchBar from '../SearchBar'
@@ -25,21 +25,16 @@ const initialState = {
 }
 
 function Libros() {
-  const [formulario, setFormulario] = useState(false)
+  const [formulario, setFormulario] = useState('') // boton nuevo libro
   const [nuevoLibro, setNuevoLibro] = useState(initialState)
   const [libroSeleccionado, setLibroSeleccionado] = useState({})
   const [deshabilitarItemModal, setDeshabilitarItemModal] = useState(false)
-  const [editarLibroFormulario, setEditarLibroFormulario] = useState(false)
 
-  const { libros, busqueda } = useSelector(({ librosStore }) => librosStore)
+  const { libros } = useSelector(({ librosStore }) => librosStore)
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getAll(`titulo=${busqueda}`))
-  }, [dispatch, busqueda])
 
   const deshabilitarItem = () => {
     let libroObj = {
@@ -59,15 +54,15 @@ function Libros() {
   const crearNuevoLibro = (e, libro) => {
     e.preventDefault()
 
-    if (editarLibroFormulario) {
+    if (formulario === 'EDITAR') {
       dispatch(update(libro))
-      setEditarLibroFormulario(false)
     }
 
-    if (formulario) {
+    if (formulario === 'NUEVO') {
       dispatch(create(libro))
-      setFormulario(false)
     }
+
+    setFormulario('')
 
     setNuevoLibro(initialState)
   }
@@ -92,9 +87,9 @@ function Libros() {
                 Libros
               </p>
               <div>
-                {!formulario && !editarLibroFormulario && (
+                {formulario === '' && (
                   <button
-                    onClick={() => setFormulario(true)}
+                    onClick={() => setFormulario('NUEVO')}
                     className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
                   >
                     <p className="text-sm font-medium leading-none text-white">
@@ -116,33 +111,10 @@ function Libros() {
                     </svg>
                   </button>
                 )}
-                {editarLibroFormulario && (
+
+                {(formulario === 'NUEVO' || formulario === 'EDITAR') && (
                   <button
-                    onClick={() => setEditarLibroFormulario(false)}
-                    className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
-                  >
-                    <p className="text-sm font-medium leading-none text-white">
-                      Todos los libros
-                    </p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
-                      />
-                    </svg>
-                  </button>
-                )}
-                {formulario && (
-                  <button
-                    onClick={() => setFormulario(false)}
+                    onClick={() => setFormulario('')}
                     className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
                   >
                     <p className="text-sm font-medium leading-none text-white">
@@ -168,7 +140,7 @@ function Libros() {
             </div>
           </div>
           <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
-            {!formulario && !editarLibroFormulario && (
+            {formulario === '' && (
               <>
                 <SearchBar />
                 <table className="w-full whitespace-nowrap">
@@ -186,33 +158,33 @@ function Libros() {
                       <Item
                         key={libro.id}
                         {...libro}
-                        setEditarLibroFormulario={setEditarLibroFormulario}
                         deshabilitarLibro={deshabilitarLibro}
                         setLibroSeleccionado={setLibroSeleccionado}
+                        setFormulario={setFormulario}
                       />
                     ))}
                   </tbody>
                 </table>
               </>
             )}
-            {editarLibroFormulario && (
+            {formulario === 'EDITAR' && (
               <LibroFormulario
                 categorias={categorias}
                 tags={tags}
-                setNuevoLibro={setNuevoLibro}
                 libro={libroSeleccionado}
-                crearNuevoLibro={crearNuevoLibro}
                 setLibroSeleccionado={setLibroSeleccionado}
+                formulario={formulario}
+                crearNuevoLibro={crearNuevoLibro}
               />
             )}
-            {formulario && (
+            {formulario === 'NUEVO' && (
               <LibroFormulario
                 categorias={categorias}
                 tags={tags}
                 setNuevoLibro={setNuevoLibro}
                 libro={nuevoLibro}
                 crearNuevoLibro={crearNuevoLibro}
-                setLibroSeleccionado={setLibroSeleccionado}
+                formulario={formulario}
               />
             )}
           </div>
