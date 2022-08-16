@@ -42,7 +42,7 @@ const usuariosSlice = createSlice({
     },
     [getByNickname.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.usuario = payload.usuario
+      state.usuario = payload.usuarios[0]
     },
     [getByNickname.rejected]: (state) => {
       state.cargando = true

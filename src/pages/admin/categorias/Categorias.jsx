@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import useSearch from 'hooks/useSearch'
 
-import { create, deleteById, update } from 'features/actions/categorias'
+import { create, deleteById, update, getAll } from 'features/actions/categorias'
 
 import Item from './Item'
-import SearchBar from '../SearchBar'
 import EliminarItemModal from '../EliminarItemModal'
 import CrearItemModal from '../CrearItemModal'
 import EditarItemModal from '../EditarItemModal'
+import SearchPanelAdmin from '../SearchPanelAdmin'
 
 function Categorias() {
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
@@ -18,8 +19,13 @@ function Categorias() {
 
   const [valorNuevoItem, setValorNuevoItem] = useState('')
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState({})
+  const { search, handleSearch } = useSearch()
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAll(`nombre=${search}`))
+  }, [search])
 
   const crearItem = () => {
     dispatch(create({ nombre: valorNuevoItem }))
@@ -116,7 +122,11 @@ function Categorias() {
             </div>
           </div>
           <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5">
-            <SearchBar />
+            <SearchPanelAdmin
+              search={search}
+              handleSearch={handleSearch}
+              placeholder="Buscar por nombre"
+            />
             <table className="w-full whitespace-nowrap">
               <thead>
                 <tr className="h-16 w-full text-sm leading-none text-gray-800">
