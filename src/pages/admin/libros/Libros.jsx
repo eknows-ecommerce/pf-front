@@ -155,12 +155,13 @@ function Libros() {
                 />
                 <table className="w-full whitespace-nowrap">
                   <thead>
-                    <tr className="h-16 w-full text-sm leading-none text-gray-800">
+                    <tr className="h-16 w-full text-lg leading-none text-white bg-black">
+                      <th className="font-normal text-center p-2">ID</th>
                       <th className="font-normal text-left pl-4">Libro</th>
                       <th className="font-normal text-left pl-12">Estado</th>
                       <th className="font-normal text-left pl-12">Stock</th>
                       <th className="font-normal text-left pl-20">Precio</th>
-                      <th className="font-normal text-left pl-20">ID</th>
+                      <th className="font-normal text-left pl-20"></th>
                     </tr>
                   </thead>
                   <tbody className="w-full">

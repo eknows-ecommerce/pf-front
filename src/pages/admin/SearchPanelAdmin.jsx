@@ -4,7 +4,7 @@ export default function SearchPanelAdmin({
   placeholder,
 }) {
   return (
-    <div className="lg:max-w-[548px] w-full mx-auto border rounded-md">
+    <div className="lg:max-w-[548px] w-full mx-auto border rounded-md mb-5">
       <div>
         <input
           className=" text-sm leading-none text-gray-600 bg-white  rounded  w-full px-10 py-5 outline-none"

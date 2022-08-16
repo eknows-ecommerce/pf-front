@@ -3,6 +3,9 @@ import image from './tag.png'
 export default function Item(props) {
   return (
     <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
+      <td className="pl-20">
+        <p className="font-medium">TG-{props.id}</p>
+      </td>
       <td
         onClick={() => props.editarTag(props)}
         className="pl-4 cursor-pointer"
@@ -16,9 +19,7 @@ export default function Item(props) {
           </div>
         </div>
       </td>
-      <td className="pl-20">
-        <p className="font-medium">{props.id}</p>
-      </td>
+
       <td>
         <button onClick={() => props.eliminarTag(props)}>
           <svg

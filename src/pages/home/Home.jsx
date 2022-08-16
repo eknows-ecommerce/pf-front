@@ -54,7 +54,6 @@ function Home() {
     query += queryTags && queryTags !== 'tags' ? `&${queryTags}` : ''
 
     query += queryRangoPrecios ? `&${queryRangoPrecios}` : ''
-    console.log(query)
     if (!busqueda) {
       dispatch(getAll(`offset=${paginas.currentPage - 1}` + sortQuery + query))
       handleTotal(count)

@@ -3,6 +3,9 @@ import image from './libro.png'
 export default function Item(props) {
   return (
     <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
+      <td className="text-center">
+        <p className="font-medium">EB-{props.id}</p>
+      </td>
       <td
         className="pl-4 cursor-pointer"
         onClick={() => {
@@ -41,9 +44,7 @@ export default function Item(props) {
         <p className="font-medium">${props.precio}</p>
         <p className="text-xs leading-3 text-gray-600 mt-2">Sin Descuento</p>
       </td>
-      <td className="pl-20">
-        <p className="font-medium">{props.id}</p>
-      </td>
+
       <td className="pl-20">
         <button onClick={() => props.deshabilitarLibro(props)}>
           {props.isAvail ? (

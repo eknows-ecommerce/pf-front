@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const URL = process.env.URL
+const URL = process.env.REACT_APP_URL
 
 // <----------------- acciones que interactuan con la DB ----------------->
 export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {

@@ -3,6 +3,9 @@ import image from './categoria.png'
 export default function Item(props) {
   return (
     <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
+      <td className="pl-20">
+        <p className="font-medium">CAT-{props.id}</p>
+      </td>
       <td
         onClick={() => props.editarCategoria(props)}
         className="pl-4 cursor-pointer"
@@ -16,9 +19,7 @@ export default function Item(props) {
           </div>
         </div>
       </td>
-      <td className="pl-20">
-        <p className="font-medium">{props.id}</p>
-      </td>
+
       <td>
         <button onClick={() => props.eliminarCategoria(props)}>
           <svg

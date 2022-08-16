@@ -129,9 +129,10 @@ function Categorias() {
             />
             <table className="w-full whitespace-nowrap">
               <thead>
-                <tr className="h-16 w-full text-sm leading-none text-gray-800">
-                  <th className="font-normal text-left pl-4">Categoria</th>
+                <tr className="h-16 w-full text-lg leading-none text-white bg-black">
                   <th className="font-normal text-left pl-20">ID</th>
+                  <th className="font-normal text-left pl-4">Categoria</th>
+                  <th className="font-normal text-left pl-4"></th>
                 </tr>
               </thead>
               <tbody className="w-full">
