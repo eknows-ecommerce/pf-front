@@ -1,24 +1,19 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { setBusqueda } from 'features/reducers/librosSlice'
-import { getAll } from 'features/actions/libros'
+import { getAllPredictivo } from 'features/actions/libros'
 
 function Search({ search, handleSearch }) {
-  const [libros, setLibros] = useState(false)
+  // const [libros, setLibros] = useState(false)
+  const { totalLibros } = useSelector(({ librosStore }) => librosStore)
   const dispatch = useDispatch()
 
-  const handleClick = () => {
-    dispatch(setBusqueda(search))
-  }
+  // const handleClick = () => {
+  //   dispatch(setBusqueda(search))
+  // }
 
   useEffect(() => {
-    dispatch(getAll('limit=9999'))
-      .then((res) => {
-        setLibros(res.payload.libros)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    dispatch(getAllPredictivo('limit=9999'))
   }, [])
 
   useEffect(() => {
@@ -27,7 +22,7 @@ function Search({ search, handleSearch }) {
 
   return (
     <div className="relative">
-      {libros && (
+      {totalLibros && (
         <>
           <input
             className="h-10 w-full pl-2 text-sm placeholder-gray-300 border border-gray-200 rounded-lg focus:z-10"
@@ -39,7 +34,7 @@ function Search({ search, handleSearch }) {
             placeholder="Busqueda..."
           />
           <datalist id="my-list-libros">
-            {libros.map((libro) => (
+            {totalLibros.map((libro) => (
               <option key={libro.id} value={libro.titulo} />
             ))}
           </datalist>
@@ -47,7 +42,7 @@ function Search({ search, handleSearch }) {
             <button
               className="absolute inset-y-0 right-0 p-2 mr-px text-gray-600 rounded-r-lg"
               type="button"
-              onClick={handleClick}
+              // onClick={handleClick}
             >
               <svg
                 className="w-5 h-5"

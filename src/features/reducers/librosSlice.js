@@ -7,12 +7,14 @@ import {
   update,
   deleteById,
   getListCar,
+  getAllPredictivo,
 } from 'features/actions/libros'
 
 const initialState = {
   libros: [],
   libro: {},
   carrito: [],
+  totalLibros: [],
   count: 0,
   cargando: null,
   busqueda: '',
@@ -46,6 +48,18 @@ const librosSlice = createSlice({
     },
   },
   extraReducers: {
+    //getAll
+    [getAllPredictivo.pending]: (state) => {
+      state.cargando = true
+    },
+    [getAllPredictivo.fulfilled]: (state, { payload }) => {
+      state.cargando = false
+      state.totalLibros = payload.libros ?? []
+      state.count = payload.count
+    },
+    [getAllPredictivo.rejected]: (state) => {
+      state.cargando = true
+    },
     //getListCar
     [getListCar.pending]: (state) => {
       state.cargando = true

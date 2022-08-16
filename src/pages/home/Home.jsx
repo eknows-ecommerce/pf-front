@@ -88,7 +88,6 @@ function Home() {
     const existe =
       listaCarrito.length > 0 && listaCarrito.find((item) => item.id === id)
     if (!existe) {
-      console.log(listaCarrito)
       const elemento = [...listaCarrito, { id, cantidad: 1, precio }]
       setListaCarrito(elemento)
       localStorage.setItem('carrito', JSON.stringify(elemento))

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getById } from '../../features/actions/libros'
 import { getAll } from '../../features/actions/review'
@@ -11,31 +11,19 @@ import Footer from 'components/footer/Footer'
 export default function Detalle() {
   const dispatch = useDispatch()
   const { id } = useParams()
-
-
-
-  const { libros, libro } = useSelector(
-    ({ librosStore }) => librosStore
-  )
-  const { reviews, count } = useSelector(
-    ({ reviewsStore }) => reviewsStore
-  )
-  const { usuario } = useSelector(
-    ({ usuariosStore }) => usuariosStore
+  const [listaCarrito, setListaCarrito] = useState(
+    JSON.parse(localStorage.getItem('carrito')) ?? []
   )
 
-  let cats = []; let tags = [];
-  libros.forEach((l) => {
-    l.id == id &&
-      l.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
-      && l.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
-  })
-  const libroComprado = true; 
+  const { libros, libro } = useSelector(({ librosStore }) => librosStore)
+  const { reviews, count } = useSelector(({ reviewsStore }) => reviewsStore)
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
-  useEffect(() => {
-    dispatch(getAll('?LibroId=' + id))
-  }, [id, dispatch])
+  const libroComprado = true
 
+  // useEffect(() => {
+  //   dispatch(getAll('?LibroId=' + id))
+  // }, [id, dispatch])
 
   useEffect(() => {
     dispatch(getById(id))
@@ -43,24 +31,37 @@ export default function Detalle() {
 
   function getReviews(limit = Infinity) {
     let out = []
-    let i = 0;
+    let i = 0
     reviews.forEach((r) => {
       if (i < limit)
         out.push(
           <ReviewCard
+            key={crypto.randomUUID()}
             title={r.titulo}
             text={r.texto}
             rate={r.rating}
             likes={r.likes}
-          />)
-      i++;
+          />
+        )
+      i++
     })
     return out
   }
 
-  function handleBuy(e) {
-    e.preventDefault()
+  function handleCarrito(e) {
+    const existe =
+      listaCarrito.length > 0 &&
+      listaCarrito.find((item) => item.id === libro.id)
+    if (!existe) {
+      const elemento = [
+        ...listaCarrito,
+        { id: libro.id, cantidad: 1, precio: libro.precio },
+      ]
+      setListaCarrito(elemento)
+      localStorage.setItem('carrito', JSON.stringify(elemento))
+    }
   }
+
   function handleAdd(e) {
     e.preventDefault()
   }
@@ -126,7 +127,9 @@ export default function Detalle() {
               <div>
                 <p className="text-xl  font-bold">${libro.precio}</p>
               </div>
-              <Button>Comprar</Button>
+              <Link to="/home/carrito">
+                <Button onClick={handleCarrito}>Comprar</Button>
+              </Link>
               <Button secondary>Agregar a favoritos</Button>
             </form>
           </div>
@@ -134,23 +137,40 @@ export default function Detalle() {
           <div className="lg:col-span-3 prose max-w-none ">
             <div className="m-2 p-8 mx-auto max-w-screen-2xl sm:px-6 lg:px-8 shadow-2xl rounded-2xl bg-orange-50">
               <h2 className="text-3xl font-poiret-one font-bold ">Resumen:</h2>
-              <p className='text-justify mr-2 ml-2'>{libro.resumen}</p>
+              <p className="text-justify mr-2 ml-2">{libro.resumen}</p>
               <br />
-              <div className='flex justify-evenly'>
+              <div className="flex justify-evenly">
                 <div>
-                  <h3 className="text-2xl font-poiret-one font-bold ">Categorias</h3>
+                  <h3 className="text-2xl font-poiret-one font-bold ">
+                    Categorias
+                  </h3>
                   <ul>
-                    {cats}
+                    {libros.length > 0 &&
+                      libros.map((libro) => {
+                        return libro.CategoriaLibro.map((cat) => (
+                          <li key={crypto.randomUUID()} className="mr-2 ml-2">
+                            {' '}
+                            -{cat.nombre}
+                          </li>
+                        ))
+                      })}
                   </ul>
                 </div>
                 <div>
                   <h3 className="text-2xl font-poiret-one font-bold ">Tags</h3>
                   <ul>
-                    {tags}
+                    {libros.length > 0 &&
+                      libros.map((libro) => {
+                        return libro.TagLibro.map((tag) => (
+                          <li key={crypto.randomUUID()} className="mr-2 ml-2">
+                            {' '}
+                            -{tag.nombre}
+                          </li>
+                        ))
+                      })}
                   </ul>
                 </div>
               </div>
-
             </div>
             <div className="m-2 p-8 mx-auto max-w-screen-2xl sm:px-6 lg:px-8 shadow-2xl rounded-2xl bg-orange-50">
               <div className="items-end justify-between sm:flex">
@@ -166,7 +186,7 @@ export default function Detalle() {
                   {libroComprado ? <ReviewModal idLibro={id} /> : null}
                   <button
                     className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
-                  //onClick={getReviews}
+                    //onClick={getReviews}
                   >
                     Lea todas las reviews
                     <svg
@@ -183,7 +203,6 @@ export default function Detalle() {
                         d="M14 5l7 7m0 0l-7 7m7-7H3"
                       />
                     </svg>
-
                   </button>
                 </>
               </div>
@@ -198,4 +217,3 @@ export default function Detalle() {
     </>
   )
 }
-

@@ -10,7 +10,7 @@ function Filtros() {
     <div className="sticky top-0 z-50 shadow-xl bg-slate-100 w-full">
       <details open className="overflow-hidden rounded">
         <summary className="flex items-center justify-between px-5 py-3 bg-gray-100 cursor-pointer">
-          <span className="text-sm font-medium">Toggle Filters</span>
+          <span className="text-sm font-medium">Filtros</span>
           <svg
             className="w-5 h-5"
             xmlns="http://www.w3.org/2000/svg"
