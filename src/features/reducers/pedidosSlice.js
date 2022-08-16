@@ -63,9 +63,7 @@ const pedidosSlice = createSlice({
       const index = state.pedidos.findIndex(
         (pedido) => pedido.id === payload.pedido.id
       )
-
       state.pedidos[index] = payload.pedido
-
       state.cargando = false
       state.msg = payload.msg
     },
