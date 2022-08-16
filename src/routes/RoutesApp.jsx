@@ -17,9 +17,9 @@ import { ProtectedRoute } from './ProtectedRoute'
 import Libros from 'pages/admin/libros/Libros'
 import Categorias from 'pages/admin/categorias/Categorias'
 import Tags from 'pages/admin/tags/Tags'
-import MasVendidos from 'components/navBar/MasVendidos'
-import Ofertas from 'components/navBar/Ofertas'
-import Contactanos from 'components/navBar/Contactanos'
+import MasVendidos from 'components/NavBar/MasVendidos'
+import Ofertas from 'components/NavBar/Ofertas'
+import Contactanos from 'components/NavBar/Contactanos'
 
 import Carrito from 'components/Carrito/Carrito'
 
