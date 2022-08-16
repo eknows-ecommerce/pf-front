@@ -7,9 +7,7 @@ const URL= process.env.URL
 export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {
   try {
     const { data } = await axios.get(
-      URL!==undefined
-        ? `${URL}/pedido`
-        : 'http://localhost:8000/pedido'
+      `${URL}/pedido`
     )
     return data
   } catch (error) {
@@ -21,9 +19,7 @@ export const getAll = createAsyncThunk('pedidos/@GET/ALL', async () => {
 export const getById = createAsyncThunk('pedido/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      URL!==undefined
-        ? `${URL}/pedido/${id}`
-        : `http://localhost:8000/pedido/${id}`
+      `${URL}/pedido/${id}`
     )
     return data
   } catch (error) {
@@ -35,9 +31,7 @@ export const getById = createAsyncThunk('pedido/@GETBYID', async (id) => {
 export const create = createAsyncThunk('pedido/@CREATE', async (pedido) => {
   try {
     const { data } = await axios.post(
-      URL!==undefined
-        ? `${URL}/pedido`
-        : 'http://localhost:8000/pedido',
+      `${URL}/pedido`,
       pedido
     )
     return data
@@ -52,9 +46,7 @@ export const update = createAsyncThunk(
   async ({ id, pedido }) => {
     try {
       const { data } = await axios.put(
-        URL!==undefined
-          ? `${URL}/pedido/${id}`
-          : `http://localhost:8000/pedido/${id}`,
+        `${URL}/pedido/${id}`,
         pedido
       )
       return data
@@ -68,9 +60,7 @@ export const update = createAsyncThunk(
 export const deleteById = createAsyncThunk('pedido/@DELETE/ID', async (id) => {
   try {
     const { data } = await axios.delete(
-      URL!==undefined
-        ? `${URL}/pedido/${id}`
-        : `http://localhost:8000/pedido/${id}`
+      `${URL}/pedido/${id}`
     )
     return data
   } catch (error) {

@@ -7,9 +7,7 @@ export const getAll = createAsyncThunk('reviews/@GET/ALL', async (query) => {
   try {
     console.log('query', query)
     const { data } = await axios.get(
-      URL!==undefined
-        ? `${URL}/reviews${query}`
-        : `http://localhost:8000/reviews${query}`
+      `${URL}/reviews${query}`
     )
     console.log('entra', data)
     return data
@@ -22,9 +20,7 @@ export const getAll = createAsyncThunk('reviews/@GET/ALL', async (query) => {
 export const create = createAsyncThunk('reviews/@CREATE', async (review) => {
   try {
     const { data } = await axios.post(
-      URL!==undefined
-        ? `${URL}/reviews`
-        : 'http://localhost:8000/reviews',
+      `${URL}/reviews`,
       review
     )
     return data
@@ -37,9 +33,7 @@ export const create = createAsyncThunk('reviews/@CREATE', async (review) => {
 export const getById = createAsyncThunk('reviews/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      URL!==undefined
-        ? `${URL}/reviews/${id}`
-        : `http://localhost:8000/reviews/${id}`
+      `${URL}/reviews/${id}`
     )
     return data
   } catch (error) {
@@ -51,9 +45,7 @@ export const getById = createAsyncThunk('reviews/@GETBYID', async (id) => {
 export const update = createAsyncThunk('reviews/@UPDATE', async (review) => {
   try {
     const { data } = await axios.put(
-      URL!==undefined
-        ? `${URL}/reviews/${review.id}`
-        : `http://localhost:8000/reviews/${review.id}`,
+      `${URL}/reviews/${review.id}`,
       review
     )
     return data
@@ -66,9 +58,7 @@ export const update = createAsyncThunk('reviews/@UPDATE', async (review) => {
 export const deleteById = createAsyncThunk('reviews/@DELETEBYID', async (id) => {
   try {
     const { data } = await axios.delete(
-      URL!==undefined
-        ? `${URL}/reviews/${id}`
-        : `http://localhost:8000/reviews/${id}`
+      `${URL}/reviews/${id}`
     )
     return data
   } catch (error) {

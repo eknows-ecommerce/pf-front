@@ -7,9 +7,7 @@ const URL= process.env.URL
 export const getAll = createAsyncThunk('tags/@GETALL', async (query) => {
   try {
     const { data } = await axios.get(
-      URL!==undefined
-        ? `${URL}/tags?${query}`
-        : `http://localhost:8000/tags?${query}`
+      `${URL}/tags?${query}`
     )
     return data
   } catch (error) {
@@ -21,9 +19,7 @@ export const getAll = createAsyncThunk('tags/@GETALL', async (query) => {
 export const getById = createAsyncThunk('tags/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      URL!==undefined
-        ? `${URL}/tags/${id}`
-        : `http://localhost:8000/tags/${id}`
+      `${URL}/tags/${id}`
     )
     return data
   } catch (error) {
@@ -35,9 +31,7 @@ export const getById = createAsyncThunk('tags/@GETBYID', async (id) => {
 export const create = createAsyncThunk('tags/@CREATE', async (tag) => {
   try {
     const { data } = await axios.post(
-      URL!==undefined
-        ? `${URL}/tags`
-        : 'http://localhost:8000/tags',
+      `${URL}/tags`,
       tag
     )
     return data
@@ -50,9 +44,7 @@ export const create = createAsyncThunk('tags/@CREATE', async (tag) => {
 export const update = createAsyncThunk('tags/@UPDATE', async (tag) => {
   try {
     const { data } = await axios.put(
-      URL!==undefined
-        ? `${URL}/tags/${tag.id}`
-        : `http://localhost:8000/tags/${tag.id}`,
+      `${URL}/tags/${tag.id}`,
       tag
     )
     return data
@@ -65,9 +57,7 @@ export const update = createAsyncThunk('tags/@UPDATE', async (tag) => {
 export const deleteById = createAsyncThunk('tags/@DELETEBYID', async (id) => {
   try {
     const { data } = await axios.delete(
-      URL!==undefined
-        ? `${URL}/tags/${id}`
-        : `http://localhost:8000/tags/${id}`
+      `${URL}/tags/${id}`
     )
     return data
   } catch (error) {

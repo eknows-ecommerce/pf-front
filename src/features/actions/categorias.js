@@ -6,9 +6,7 @@ const URL= process.env.URL
 export const getAll = createAsyncThunk('categorias/@GET/ALL', async (query) => {
   try {
     const { data } = await axios.get(
-      URL!==undefined
-        ? `${URL}/categorias?${query}`
-        : `http://localhost:8000/categorias?${query}`
+      `${URL}/categorias?${query}`
     )
     return data
   } catch (error) {
@@ -20,9 +18,7 @@ export const getAll = createAsyncThunk('categorias/@GET/ALL', async (query) => {
 export const getById = createAsyncThunk('categorias/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      URL!==undefined
-        ? `${URL}/categorias/${id}`
-        : `http://localhost:8000/categorias/${id}`
+      `${URL}/categorias/${id}`
     )
     return data
   } catch (error) {
@@ -36,9 +32,7 @@ export const create = createAsyncThunk(
   async (categoria) => {
     try {
       const { data } = await axios.post(
-        URL!==undefined
-          ? `${URL}/categorias`
-          : 'http://localhost:8000/categorias',
+        `${URL}/categorias`,
         categoria
       )
       return data
@@ -54,9 +48,7 @@ export const update = createAsyncThunk(
   async ({ id, categoria }) => {
     try {
       const { data } = await axios.put(
-        URL!==undefined
-          ? `${URL}/categorias/${id}`
-          : `http://localhost:8000/categorias/${id}`,
+        `${URL}/categorias/${id}`,
         categoria
       )
       return data
@@ -72,9 +64,7 @@ export const deleteById = createAsyncThunk(
   async (id) => {
     try {
       const { data } = await axios.delete(
-        URL!==undefined
-          ? `${URL}/categorias/${id}`
-          : `http://localhost:8000/categorias/${id}`
+        `${URL}/categorias/${id}`
       )
       return data
     } catch (error) {

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-const URL= process.env.URL
+const URL = process.env.URL
 
 // <----------------- acciones que conectan a la base de datos ----------------->
 
@@ -9,9 +9,7 @@ export const getAll = createAsyncThunk(
   async (query = '') => {
     try {
       const { data } = await axios.get(
-        URL!==undefined
-          ? `${URL}/usuarios?${query}`
-          : `http://localhost:8000/usuarios?${query}`
+        `${URL}/usuarios?${query}`
       )
       return data
     } catch (error) {
@@ -26,7 +24,7 @@ export const getByNickname = createAsyncThunk(
   async (user) => {
     try {
       const { data } = await axios.get(
-        'http://localhost:8000/usuarios?nickname=' + user.nickname
+        `${URL}/usuarios?nickname=${user.nickname}`
       )
       return data
     } catch (error) {
@@ -41,9 +39,7 @@ export const getAllByName = createAsyncThunk(
   async ({ payload }) => {
     try {
       const { data } = await axios.get(
-        URL!==undefined
-          ? `${URL}/usuarios`
-          : 'http://localhost:8000/usuarios',
+        `${URL}/usuarios`,
         {
           payload,
         }
@@ -59,9 +55,7 @@ export const getAllByName = createAsyncThunk(
 export const getById = createAsyncThunk('usuarios/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(
-      URL!==undefined
-        ? `${URL}/usuarios/${id}`
-        : `http://localhost:8000/usuarios/${id}`
+      `${URL}/usuarios/${id}`
     )
     return data
   } catch (error) {
@@ -74,10 +68,7 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (body) => {
   try {
     const { data } = await axios({
       method: 'post',
-      url:
-        URL!==undefined
-          ? `${URL}/usuarios`
-          : 'http://localhost:8000/usuarios',
+      url: `${URL}/usuarios`,
       headers: { authorization: `Bearer ${body.token}` },
       data: body.user,
     })
@@ -91,9 +82,7 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (body) => {
 export const update = createAsyncThunk('usuarios/@UPDATE', async (usuario) => {
   try {
     const { data } = await axios.put(
-      URL!==undefined
-        ? `${URL}/usuarios/${usuario.id}`
-        : `http://localhost:8000/usuarios/${usuario.id}`,
+      `${URL}/usuarios/${usuario.id}`,
       usuario.datos
     )
     return data
@@ -108,9 +97,7 @@ export const deleteById = createAsyncThunk(
   async (id) => {
     try {
       const { data } = await axios.delete(
-        URL!==undefined
-          ? `${URL}/usuarios/${id}`
-          : `http://localhost:8000/usuarios/${id}`
+        `${URL}/usuarios/${id}`
       )
       return data
     } catch (error) {
