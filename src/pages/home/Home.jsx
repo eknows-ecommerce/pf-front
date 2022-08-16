@@ -44,10 +44,6 @@ function Home() {
   }, [getByNickname, user])
 
   useEffect(() => {
-    dispatch(getByNickname(user))
-  }, [getByNickname, user])
-
-  useEffect(() => {
     const [sort, dir] = sorter
     let sortQuery = sort !== 'Sort' ? `&orden=${sort}&direcion=${dir}` : ''
     let query =
