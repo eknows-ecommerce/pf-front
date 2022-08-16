@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import Landing from '../pages/landing/Landing'
+import Landing from '../pages/Landing/Landing'
 import Home from '../pages/home/Home'
 import NotFound from '../pages/notFound/NotFound'
 import Navbar from '../components/navBar/Navbar'
