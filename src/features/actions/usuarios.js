@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-const Production = process.env.NODE_ENV
+const URL = process.env.URL
 
 // <----------------- acciones que conectan a la base de datos ----------------->
 
@@ -8,11 +8,7 @@ export const getAll = createAsyncThunk(
   'usuarios/@GETALL',
   async (query = '') => {
     try {
-      const { data } = await axios.get(
-        Production === 'production'
-          ? `https://e-knows-back.herokuapp.com/usuarios?${query}`
-          : `http://localhost:8000/usuarios?${query}`
-      )
+      const { data } = await axios.get(`${URL}/usuarios?${query}`)
       return data
     } catch (error) {
       const msg = error.message.data.msg
@@ -26,7 +22,7 @@ export const getByNickname = createAsyncThunk(
   async (user) => {
     try {
       const { data } = await axios.get(
-        'http://localhost:8000/usuarios?nickname=' + user.nickname
+        `${URL}/usuarios?nickname=${user.nickname}`
       )
       return data
     } catch (error) {
@@ -40,14 +36,9 @@ export const getAllByName = createAsyncThunk(
   'getAll/@GETALL',
   async ({ payload }) => {
     try {
-      const { data } = await axios.get(
-        Production === 'production'
-          ? `https://e-knows-back.herokuapp.com/usuarios`
-          : 'http://localhost:8000/usuarios',
-        {
-          payload,
-        }
-      )
+      const { data } = await axios.get(`${URL}/usuarios`, {
+        payload,
+      })
       return data
     } catch (error) {
       const msg = error.message.data.msg
@@ -58,11 +49,7 @@ export const getAllByName = createAsyncThunk(
 
 export const getById = createAsyncThunk('usuarios/@GETBYID', async (id) => {
   try {
-    const { data } = await axios.get(
-      Production === 'production'
-        ? `https://e-knows-back.herokuapp.com/usuarios/${id}`
-        : `http://localhost:8000/usuarios/${id}`
-    )
+    const { data } = await axios.get(`${URL}/usuarios/${id}`)
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -74,10 +61,7 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (body) => {
   try {
     const { data } = await axios({
       method: 'post',
-      url:
-        Production === 'production'
-          ? `https://e-knows-back.herokuapp.com/usuarios`
-          : 'http://localhost:8000/usuarios',
+      url: `${URL}/usuarios`,
       headers: { authorization: `Bearer ${body.token}` },
       data: body.user,
     })
@@ -91,9 +75,7 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (body) => {
 export const update = createAsyncThunk('usuarios/@UPDATE', async (usuario) => {
   try {
     const { data } = await axios.put(
-      Production === 'production'
-        ? `https://e-knows-back.herokuapp.com/usuarios/${usuario.id}`
-        : `http://localhost:8000/usuarios/${usuario.id}`,
+      `${URL}/usuarios/${usuario.id}`,
       usuario.datos
     )
     return data
@@ -107,11 +89,7 @@ export const deleteById = createAsyncThunk(
   'usuarios/@DELETEBYID',
   async (id) => {
     try {
-      const { data } = await axios.delete(
-        Production === 'production'
-          ? `https://e-knows-back.herokuapp.com/usuarios/${id}`
-          : `http://localhost:8000/usuarios/${id}`
-      )
+      const { data } = await axios.delete(`${URL}/usuarios/${id}`)
       return data
     } catch (error) {
       const msg = error.response.data.msg
