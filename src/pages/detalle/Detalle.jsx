@@ -9,9 +9,11 @@ import ReviewModal from '../../components/review/Write.jsx'
 import Footer from 'components/footer/Footer'
 
 export default function Detalle() {
-  //const history = useNavigate()
   const dispatch = useDispatch()
   const { id } = useParams()
+
+
+
   const { libros, libro } = useSelector(
     ({ librosStore }) => librosStore
   )
@@ -24,17 +26,16 @@ export default function Detalle() {
 
   let cats = []; let tags = [];
   libros.forEach((l) => {
-    //console.log(l)
     l.id == id &&
       l.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
       && l.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
   })
-  console.log(cats, tags)
-  const libroComprado = true; //console.log(usuario.id)
+  const libroComprado = true; 
 
   useEffect(() => {
     dispatch(getAll('?LibroId=' + id))
   }, [id, dispatch])
+
 
   useEffect(() => {
     dispatch(getById(id))
@@ -59,11 +60,9 @@ export default function Detalle() {
 
   function handleBuy(e) {
     e.preventDefault()
-    console.log(e)
   }
   function handleAdd(e) {
     e.preventDefault()
-    console.log(e)
   }
 
   return (
@@ -131,6 +130,7 @@ export default function Detalle() {
               <Button secondary>Agregar a favoritos</Button>
             </form>
           </div>
+
           <div className="lg:col-span-3 prose max-w-none ">
             <div className="m-2 p-8 mx-auto max-w-screen-2xl sm:px-6 lg:px-8 shadow-2xl rounded-2xl bg-orange-50">
               <h2 className="text-3xl font-poiret-one font-bold ">Resumen:</h2>
@@ -183,6 +183,7 @@ export default function Detalle() {
                         d="M14 5l7 7m0 0l-7 7m7-7H3"
                       />
                     </svg>
+
                   </button>
                 </>
               </div>
@@ -198,54 +199,3 @@ export default function Detalle() {
   )
 }
 
-/* <fieldset>
-                <legend className="text-lg font-bold">Color</legend>
-                <div className="flex mt-2 space-x-1">
-                  <label htmlFor="color_green" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      id="color_green"
-                      name="color"
-                      className="sr-only peer"
-                      defaultChecked=""
-                    />
-                    <span className="block w-6 h-6 bg-green-700 border border-gray-200 rounded-full ring-1 ring-offset-1 ring-transparent peer-checked:ring-gray-300" />
-                  </label>
-                  <label htmlFor="color_blue" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      id="color_blue"
-                      name="color"
-                      className="sr-only peer"
-                    />
-                    <span className="block w-6 h-6 bg-blue-700 border border-gray-200 rounded-full ring-1 ring-offset-1 ring-transparent peer-checked:ring-gray-300" />
-                  </label>
-                  <label htmlFor="color_pink" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      id="color_pink"
-                      name="color"
-                      className="sr-only peer"
-                    />
-                    <span className="block w-6 h-6 bg-pink-700 border border-gray-200 rounded-full ring-1 ring-offset-1 ring-transparent peer-checked:ring-gray-300" />
-                  </label>
-                  <label htmlFor="color_red" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      id="color_red"
-                      name="color"
-                      className="sr-only peer"
-                    />
-                    <span className="block w-6 h-6 bg-red-700 border border-gray-200 rounded-full ring-1 ring-offset-1 ring-transparent peer-checked:ring-gray-300" />
-                  </label>
-                  <label htmlFor="color_indigo" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      id="color_indigo"
-                      name="color"
-                      className="sr-only peer"
-                    />
-                    <span className="block w-6 h-6 bg-indigo-700 border border-gray-200 rounded-full ring-1 ring-offset-1 ring-transparent peer-checked:ring-gray-300" />
-                  </label>
-                </div>
-              </fieldset> */

@@ -1,9 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 import CardLibro from 'components/cards/CardLibro'
 import { getAll } from 'features/actions/libros'
-import Paginacion from 'components/Paginacion/Paginacion'
+import Paginacion from 'components/paginacion/Paginacion'
+
+
 import usePaginacion from 'hooks/usePaginacion'
 
 import { useAuth0 } from '@auth0/auth0-react'
@@ -36,10 +39,9 @@ function Home() {
     ({ librosStore }) => librosStore.rangoPrecios
   )
 
-
   const [sorter, setSort] = useState(['Sort', 'asc'])
-  
-    useEffect(() => {
+
+  useEffect(() => {
     dispatch(getByNickname(user))
   }, [getByNickname, user])
 
