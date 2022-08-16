@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 export default function ReviewCard({ id, title, text, author, rate, likes }) {
   function Stars() {
@@ -21,6 +22,12 @@ export default function ReviewCard({ id, title, text, author, rate, likes }) {
   }
 
   const [showModal, setShowModal] = React.useState(false);
+  const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
+  let name = 'Anonimo';
+  author && usuarios.forEach((u) => {
+    if (u.id === author)
+      name = u.nickname
+  })
 
   return (
     <>
@@ -45,7 +52,7 @@ export default function ReviewCard({ id, title, text, author, rate, likes }) {
           </div>
         </div>
         <footer className="mt-8 text-gray-700 text-right">
-          {author ? '- ' + author : "- Anonimo"}
+          - {name}
         </footer>
       </blockquote>
       {showModal ? (
@@ -54,9 +61,9 @@ export default function ReviewCard({ id, title, text, author, rate, likes }) {
             <div className="rounded-lg max-w-5xl m-5 shadow-lg relative flex flex-col bg-white outline-none w-screen">
               <header className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                 <h1 className="text-3xl font-semibold"> {title}</h1>
-                <div className="flex"><Stars/></div>
+                <div className="flex"><Stars /></div>
                 <div className="flex">
-                  <p>{likes}<button onClick={()=>{}}>👍</button></p>
+                  <p>{likes}<button onClick={() => { }}>👍</button></p>
                   <button
                     className="text-red-500 borde-5 background-transparent font-bold uppercase mb-6 ml-6"
                     type="button" onClick={() => setShowModal(false)}
@@ -64,7 +71,7 @@ export default function ReviewCard({ id, title, text, author, rate, likes }) {
                 </div>
               </header>
               <body className="relative m-5 p-1 text-slate-800 text-lg font-medium leading-relaxed outline-none w-full">
-                  {text}
+                {text}
               </body>
               <footer className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                 - {author}

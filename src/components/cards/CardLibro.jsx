@@ -61,7 +61,7 @@ function CardLibro({
         <img
           className="object-contain w-full h-56 lg:h-72 hover:scale-105 transition-all duration-700 ease-in-out"
           src={portada}
-          alt="Build Your Own Drone"
+          alt={titulo}
           loading="lazy"
         />
       </Link>

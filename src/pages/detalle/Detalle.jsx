@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getById } from '../../features/actions/libros'
 import { getAll } from '../../features/actions/review'
@@ -18,26 +18,26 @@ export default function Detalle() {
   const { libros, libro } = useSelector(({ librosStore }) => librosStore)
   const { reviews, count } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+  //const { pedido } = useSelector(({ pedidosStore }) => pedidosStore)
 
   let cats = []; let tags = [];
   libros.forEach((l) => {
-    //console.log(l)
     l.id == id &&
       l.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
       && l.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
   })
 
-  const libroComprado = true
+  //const libroComprado = true
 
-  // useEffect(() => {
-  //   dispatch(getAll('?LibroId=' + id))
-  // }, [id, dispatch])
+  useEffect(() => {
+    dispatch(getAll('?LibroId=' + id))
+  }, [id, dispatch])
 
   useEffect(() => {
     dispatch(getById(id))
   }, [id, dispatch])
 
-  function getReviews(limit = Infinity) {
+  function getReviews(limit = count) {
     let out = []
     let i = 0
     reviews.forEach((r) => {
@@ -49,6 +49,7 @@ export default function Detalle() {
             text={r.texto}
             rate={r.rating}
             likes={r.likes}
+            author={usuario.id}
           />
         )
       i++
@@ -70,9 +71,9 @@ export default function Detalle() {
     }
   }
 
-  function handleAdd(e) {
+  /*function handleAdd(e) {
     e.preventDefault()
-  }
+  }*/
 
   return (
     <>
@@ -148,7 +149,7 @@ export default function Detalle() {
               <p className="text-justify mr-2 ml-2">{libro.resumen}</p>
               <br />
               <div className="flex justify-evenly">
-              <div>
+                <div>
                   <h3 className="text-2xl font-poiret-one font-bold ">Categorias</h3>
                   <ul>
                     {cats}
@@ -173,10 +174,10 @@ export default function Detalle() {
                       Ve lo que otros lectores tiene que decir
                     </p>
                   </div>
-                  {libroComprado ? <ReviewModal idLibro={id} /> : null}
+                  {usuario.id > 0 ? <ReviewModal idLibro={id} idUsuario={usuario.id} /> : null}
                   <button
                     className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
-                    //onClick={getReviews}
+                  //onClick={getReviews}
                   >
                     Lea todas las reviews
                     <svg
