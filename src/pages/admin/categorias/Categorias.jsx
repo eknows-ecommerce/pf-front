@@ -10,7 +10,7 @@ import CrearItemModal from '../CrearItemModal'
 import EditarItemModal from '../EditarItemModal'
 import SearchPanelAdmin from '../SearchPanelAdmin'
 
-function Categorias() {
+export default function Categorias() {
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
 
   const [eliminarItemModal, setEliminarItemModal] = useState(false)
@@ -133,7 +133,7 @@ function Categorias() {
             />
             <table className="w-full whitespace-nowrap">
               <thead>
-                <tr className="h-16 w-full text-lg leading-none text-white bg-black">
+                <tr className="h-16 w-full text-lg leading-none text-white bg-neutral-800">
                   <th className="font-normal text-left pl-20">ID</th>
                   <th className="font-normal text-left pl-4">Categoria</th>
                   <th className="font-normal text-left pl-4"></th>
@@ -156,5 +156,3 @@ function Categorias() {
     </>
   )
 }
-
-export default Categorias

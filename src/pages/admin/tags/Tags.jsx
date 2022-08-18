@@ -10,7 +10,7 @@ import EliminarItemModal from '../EliminarItemModal'
 import EditarItemModal from '../EditarItemModal'
 import SearchPanelAdmin from '../SearchPanelAdmin'
 
-function Tags() {
+export default function Tags() {
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
 
   const [eliminarItemModal, setEliminarItemModal] = useState(false)
@@ -25,7 +25,7 @@ function Tags() {
 
   useEffect(() => {
     dispatch(getAll(`nombre=${search}`))
-  }, [search])
+  }, [dispatch, search])
 
   const seleccionarTag = (tag) => {
     setTagSeleccionado(tag)
@@ -139,7 +139,7 @@ function Tags() {
             />
             <table className="w-full whitespace-nowrap">
               <thead>
-                <tr className="h-16 w-full text-lg leading-none text-white bg-black">
+                <tr className="h-16 w-full text-lg leading-none text-white bg-neutral-800">
                   <th className="font-normal text-left pl-20">ID</th>
                   <th className="font-normal text-left pl-4">Tag</th>
                   <th className="font-normal text-left pl-4"></th>
@@ -163,5 +163,3 @@ function Tags() {
     </>
   )
 }
-
-export default Tags
