@@ -17,7 +17,7 @@ function Usuarios() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAll(`nickname=${search}`))
+    dispatch(getAll(`?nickname=${search}`))
   }, [search])
 
   useEffect(() => {
