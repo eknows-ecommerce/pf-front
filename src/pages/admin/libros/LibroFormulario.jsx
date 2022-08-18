@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { validarInputNumero, validarInputText } from 'assets/validacionesInputs/validaciones'
 
 export default function LibroFormulario({
   categorias,
@@ -8,12 +9,37 @@ export default function LibroFormulario({
   crearNuevoLibro,
   formulario,
   setLibroSeleccionado,
-}) {
-  // const [libroActualizar, setLibroActualizar] = useState(libro)
+}) { 
   const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([])
   const [tagsSeleccionados, setTagsSeleccionados] = useState([])
-  // let libroObj = { ...libro }
-
+    function  handleChange (e, setter, property, value)  {
+      if(property === libro.autor || libro.editorial || libro.lenguaje ){
+        if(validarInputText(value)){
+        setter({ ...libro, [property]: value });}
+                } else {
+                  validarInputNumero(e.target.value)
+                  setter({ ...libro, [property]: value });
+                }
+            }
+  
+  const handleInput = (e) => {
+   if(validarInputText(e.target.value)){
+    setNuevoLibro({...libro,
+      [e.target.name]: e.target.value})
+   } else {
+    setNuevoLibro({...libro,
+      [e.target.name]: libro[e.target.name]})
+   }
+  }
+  const handleNumber = (e) => {
+    if(validarInputNumero(e.target.value)){
+     setNuevoLibro({...libro,
+       [e.target.name]: e.target.value})
+    } else {
+     setNuevoLibro({...libro,
+       [e.target.name]: libro[e.target.name]})
+    }
+   }
   useEffect(() => {
     if (formulario === 'EDITAR') {
       setCategoriasSeleccionadas(libro.CategoriaLibro.map((cat) => cat.id))
@@ -24,17 +50,12 @@ export default function LibroFormulario({
         tags: tagsSeleccionados,
       })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formulario])
 
-  const handleChange = (e, setter, property, value) => {
-    setter({ ...libro, [property]: value })
-  }
+  }, []);
 
   const handleCategorias = (e, id) => {
     if (formulario === 'NUEVO') {
-      console.log(id)
-      if (e.target.checked) {
+           if (e.target.checked) {
         if (!libro.categorias.includes(id)) {
           setNuevoLibro({ ...libro, categorias: [...libro.categorias, id] })
         }
@@ -57,7 +78,6 @@ export default function LibroFormulario({
       libro.categorias = categoriasSeleccionadas
     }
   }
-
   const handleTags = (e, id) => {
     if (formulario === 'NUEVO') {
       if (e.target.checked) {
@@ -80,7 +100,6 @@ export default function LibroFormulario({
       libro.tags = tagsSeleccionados
     }
   }
-
   return (
     <form onSubmit={(e) => crearNuevoLibro(e, libro)} className="px-2 py-5 ">
       <div className="flex flex-no-wrap items-start">
@@ -98,23 +117,6 @@ export default function LibroFormulario({
                       Título
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'titulo',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'titulo',
-                                e.target.value
-                              )
-                      }
                       value={libro.titulo ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
@@ -124,23 +126,8 @@ export default function LibroFormulario({
                       Autor
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'autor',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'autor',
-                                e.target.value
-                              )
-                      }
+                    name = "autor"
+                      onChange={handleInput}
                       value={libro.autor ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
@@ -150,105 +137,45 @@ export default function LibroFormulario({
                       Editorial
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'editorial',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'editorial',
-                                e.target.value
-                              )
-                      }
+                    name="editorial"
+                      onChange={handleInput}
                       value={libro.editorial ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
-                  </div>
+                </div>
                   <div className="w-full">
                     <p className="text-base font-medium leading-none text-gray-800">
                       Lenguaje
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'lenguaje',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'lenguaje',
-                                e.target.value
-                              )
-                      }
+                    name="lenguaje"
+                      onChange={handleInput}
                       value={libro.lenguaje ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
-                  </div>
+               </div>
                   <div className="w-full">
                     <p className="text-base font-medium leading-none text-gray-800">
                       Cantidad de páginas
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'paginas',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'paginas',
-                                e.target.value
-                              )
-                      }
+                    name = "paginas"
+                      onChange={handleNumber}
                       value={libro.paginas ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
-                  </div>
+                </div>
                   <div className="w-full">
                     <p className="text-base font-medium leading-none text-gray-800">
                       Detalles
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'detalles',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'detalles',
-                                e.target.value
-                              )
-                      }
+                    name = "detalles"
+                      onChange={handleInput}
                       value={libro.detalles ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
-                  </div>
+                </div>
                   <div>
                     <p className="text-base font-medium leading-none text-gray-800">
                       Fecha de publicación
@@ -287,56 +214,25 @@ export default function LibroFormulario({
                       Precio
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'precio',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'precio',
-                                e.target.value
-                              )
-                      }
+                    name="precio"
+                      onChange={handleNumber}
                       value={libro.precio ?? ''}
                       type="number"
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
-                  </div>
+               </div>
                   <div>
                     <p className="text-base font-medium leading-none text-gray-800">
                       Stock
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'stock',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'stock',
-                                e.target.value
-                              )
-                      }
+                    name="stock"
+                      onChange={handleNumber}
                       value={libro.stock ?? ''}
                       type="number"
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
-                  </div>
-
+                       </div>
                   <div className="col-span-full w-full">
                     <label className="text-sm text-left font-medium leading-none text-gray-800">
                       Categorias
@@ -479,4 +375,4 @@ export default function LibroFormulario({
       </div>
     </form>
   )
-}
+                        }
