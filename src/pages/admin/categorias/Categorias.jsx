@@ -28,15 +28,9 @@ function Categorias() {
   }, [search])
 
   const crearItem = (url) => {
-    dispatch(create({ nombre: valorNuevoItem, miniatura: url }))
+    dispatch(create({ nombre: valorNuevoItem, miniatura: url || null }))
     setValorNuevoItem('')
     setCrearItemModal(false)
-  }
-
-  const editarCategoria = (categoria) => {
-    setCategoriaSeleccionada(categoria)
-    setValorNuevoItem(categoria.nombre)
-    setEditarItemModal(true)
   }
 
   const editarItem = () => {
@@ -50,15 +44,21 @@ function Categorias() {
     setEditarItemModal(false)
   }
 
-  const eliminarCategoria = (categoria) => {
+  const editarCategoria = (categoria) => {
     setCategoriaSeleccionada(categoria)
-    setEliminarItemModal(true)
+    setValorNuevoItem(categoria.nombre)
+    setEditarItemModal(true)
   }
 
   const eliminarItem = () => {
     dispatch(deleteById(categoriaSeleccionada.id))
     setCategoriaSeleccionada({})
     setEliminarItemModal(false)
+  }
+
+  const eliminarCategoria = (categoria) => {
+    setCategoriaSeleccionada(categoria)
+    setEliminarItemModal(true)
   }
 
   return (
@@ -88,7 +88,7 @@ function Categorias() {
           tipo="Categoria"
         />
       )}
-      <div className="xl:px-20 py-2">
+      <div>
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
             <div className="sm:flex items-center justify-between">

@@ -1,6 +1,8 @@
-import useUploadImage from 'hooks/useUploadImage'
-import axios from 'axios'
 import { useState } from 'react'
+import axios from 'axios'
+
+import useUploadImage from 'hooks/useUploadImage'
+
 const URL_API = process.env.REACT_APP_URL_API_CLOUDINARY
 
 function CrearItemModal({
@@ -11,20 +13,27 @@ function CrearItemModal({
   tipo,
 }) {
   const { preview, handleImage } = useUploadImage()
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState(null)
+
   const handleSubmit = async (e) => {
-    const file = image
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('upload_preset', 'Images')
-    const res = await axios.post(URL_API, formData)
-    if (res.statusText === 'OK') {
-      //modificar alertas mas piolas
-      alert('Su imagen se subio correctamente')
+    e.preventDefault()
+    handleImage(e)
+
+    if (!image) {
+      crearItem()
     } else {
-      alert('Ocurrio un error al subir la imagen')
+      const file = image
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('upload_preset', 'Images')
+      const res = await axios.post(URL_API, formData)
+      if (res.statusText === 'OK') {
+        alert('Su imagen se subio correctamente') //modificar alertas mas piolas
+      } else {
+        alert('Ocurrio un error al subir la imagen') //modificar alertas mas piolas
+      }
+      crearItem(res.data.secure_url)
     }
-    crearItem(res.data.secure_url)
   }
 
   return (
@@ -106,7 +115,8 @@ function CrearItemModal({
                     </div>
                   </div>
                 )}
-                <form className="mt-11">
+
+                <form onSubmit={handleSubmit} className="mt-11">
                   <div className="flex flex-wrap space-y-2">
                     <label className="text-sm mx-2 font-bold">Nombre</label>
                     <input
@@ -126,32 +136,28 @@ function CrearItemModal({
                           id="image"
                           type="file"
                           className="w-full focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
-                          onChange={(e) => {
-                            handleImage(e)
-                            setImage(e.target.files[0])
-                          }}
+                          onChange={(e) => setImage(e.target.files[0])}
                           accept=".jpg, .jpeg, .png"
+                          required={false}
                         />
                       </>
                     )}
                   </div>
+                  <div className="flex items-center justify-around mt-9">
+                    <button
+                      onClick={() => setCrearItemModal(false)}
+                      className="px-6 py-3 bg-gray-400 hover:bg-red-700 shadow rounded text-sm text-white transition-all"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-6 py-3 bg-green-600 hover:bg-green-700 shadow rounded text-sm text-white transition-all"
+                    >
+                      Confirmar
+                    </button>
+                  </div>
                 </form>
-                <div className="flex items-center justify-around mt-9">
-                  <button
-                    onClick={() => setCrearItemModal(false)}
-                    className="px-6 py-3 bg-gray-400 hover:bg-red-700 shadow rounded text-sm text-white transition-all"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      handleSubmit(e)
-                    }}
-                    className="px-6 py-3 bg-green-600 hover:bg-green-700 shadow rounded text-sm text-white transition-all"
-                  >
-                    Confirmar
-                  </button>
-                </div>
               </div>
             </div>
           </div>
