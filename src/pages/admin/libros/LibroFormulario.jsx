@@ -15,7 +15,7 @@ export default function LibroFormulario({
 }) {
   const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([])
   const [tagsSeleccionados, setTagsSeleccionados] = useState([])
-<<<<<<< HEAD
+
   const [selectedFile, setSelectedFile] = useState()
   const [checkFile, setCheckFile] = useState(false)
 
@@ -44,19 +44,7 @@ export default function LibroFormulario({
     }
   }
 
-=======
-  function handleChange(e, setter, property, value) {
-    if (property === libro.autor || libro.editorial || libro.lenguaje) {
-      if (validarInputText(value)) {
-        setter({ ...libro, [property]: value })
-      }
-    } else {
-      validarInputNumero(e.target.value)
-      setter({ ...libro, [property]: value })
-    }
-  }
 
->>>>>>> b5842a4509709a0c82dfbde062b509de99571500
   const handleInput = (e) => {
     if (validarInputText(e.target.value)) {
       setNuevoLibro({ ...libro, [e.target.name]: e.target.value })
@@ -147,10 +135,9 @@ export default function LibroFormulario({
                       Título
                     </p>
                     <input
-<<<<<<< HEAD
+
                       name="titulo"
-=======
->>>>>>> b5842a4509709a0c82dfbde062b509de99571500
+
                       value={libro.titulo ?? ''}
                       onChange={handleInput}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
