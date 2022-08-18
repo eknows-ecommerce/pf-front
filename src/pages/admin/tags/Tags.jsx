@@ -20,7 +20,6 @@ export default function Tags() {
   const [tagSeleccionado, setTagSeleccionado] = useState({})
   const [valorNuevoItem, setValorNuevoItem] = useState('')
   const { search, handleSearch } = useSearch()
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -33,7 +32,6 @@ export default function Tags() {
   }
 
   const editarTag = (tag) => {
-    alert('Ingresar nombre de tag')
     setTagSeleccionado(tag)
     setValorNuevoItem(tag.nombre)
     setEditarItemModal(true)
@@ -62,6 +60,7 @@ export default function Tags() {
   }
 
   const crearItem = () => {
+    setTagSeleccionado({})
     if (!valorNuevoItem) {
       alert('Ingresar nombre de tag')
     } else {
@@ -69,6 +68,12 @@ export default function Tags() {
       setValorNuevoItem('')
       setCrearItemModal(false)
     }
+  }
+
+  const handleNewTag = () => {
+    setTagSeleccionado({})
+    setValorNuevoItem('')
+    setCrearItemModal(true)
   }
 
   return (
@@ -86,7 +91,7 @@ export default function Tags() {
           valorNuevoItem={valorNuevoItem}
           setValorNuevoItem={setValorNuevoItem}
           crearItem={crearItem}
-          tipo="Tag"
+          tipo="tag"
         />
       )}
       {editarItemModal && (
@@ -95,7 +100,7 @@ export default function Tags() {
           valorNuevoItem={valorNuevoItem}
           setValorNuevoItem={setValorNuevoItem}
           editarItem={editarItem}
-          tipo="Tag"
+          tipo="tag"
         />
       )}
       <div className="overflow-x-auto py-2">
@@ -107,7 +112,7 @@ export default function Tags() {
               </p>
               <div>
                 <button
-                  onClick={() => setCrearItemModal(true)}
+                  onClick={handleNewTag}
                   className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
                 >
                   <p className="text-sm font-medium leading-none text-white">

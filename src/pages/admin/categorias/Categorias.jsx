@@ -89,7 +89,7 @@ export default function Categorias() {
           valorNuevoItem={valorNuevoItem}
           setValorNuevoItem={setValorNuevoItem}
           editarItem={editarItem}
-          tipo="Categoria"
+          tipo="categoria"
         />
       )}
       <div className="overflow-x-auto py-2">
