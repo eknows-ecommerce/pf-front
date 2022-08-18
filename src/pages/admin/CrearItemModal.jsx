@@ -2,10 +2,11 @@ import { useState } from 'react'
 import axios from 'axios'
 
 import useUploadImage from 'hooks/useUploadImage'
+import { validarInputText } from 'assets/validacionesInputs/validaciones'
 
 const URL_API = process.env.REACT_APP_URL_API_CLOUDINARY
 
-function CrearItemModal({
+export default function CrearItemModal({
   setCrearItemModal,
   valorNuevoItem,
   setValorNuevoItem,
@@ -17,23 +18,30 @@ function CrearItemModal({
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    handleImage(e)
-
-    if (!image) {
-      crearItem()
-    } else {
-      const file = image
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('upload_preset', 'Images')
-      const res = await axios.post(URL_API, formData)
-      if (res.statusText === 'OK') {
-        alert('Su imagen se subio correctamente') //modificar alertas mas piolas
+    if (validarInputText(valorNuevoItem)) {
+      if (!image) {
+        crearItem()
       } else {
-        alert('Ocurrio un error al subir la imagen') //modificar alertas mas piolas
+        const file = image
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('upload_preset', 'Images')
+        const res = await axios.post(URL_API, formData)
+        if (res.statusText === 'OK') {
+          alert('Su imagen se subio correctamente') //modificar alertas mas piolas
+        } else {
+          alert('Ocurrio un error al subir la imagen') //modificar alertas mas piolas
+        }
+        crearItem(res.data.secure_url)
       }
-      crearItem(res.data.secure_url)
+    } else {
+      alert('Nombre invalido') //modificar alertas mas piolas
     }
+  }
+
+  const handleImageChange = (e) => {
+    handleImage(e)
+    setImage(e.target.files[0])
   }
 
   return (
@@ -135,7 +143,7 @@ function CrearItemModal({
                         id="image"
                         type="file"
                         className="w-full focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
-                        onChange={(e) => setImage(e.target.files[0])}
+                        onChange={handleImageChange}
                         accept=".jpg, .jpeg, .png"
                         required={false}
                       />
@@ -164,5 +172,3 @@ function CrearItemModal({
     </div>
   )
 }
-
-export default CrearItemModal
