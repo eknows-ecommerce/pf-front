@@ -25,12 +25,16 @@ function Categorias() {
 
   useEffect(() => {
     dispatch(getAll(`nombre=${search}`))
-  }, [search])
+  }, [dispatch, search])
 
   const crearItem = (url) => {
-    dispatch(create({ nombre: valorNuevoItem, miniatura: url || null }))
-    setValorNuevoItem('')
-    setCrearItemModal(false)
+    if (!valorNuevoItem) {
+      alert('Ingresar nombre de categoria')
+    } else {
+      dispatch(create({ nombre: valorNuevoItem, miniatura: url || null }))
+      setValorNuevoItem('')
+      setCrearItemModal(false)
+    }
   }
 
   const editarItem = () => {
@@ -88,7 +92,7 @@ function Categorias() {
           tipo="Categoria"
         />
       )}
-      <div>
+      <div className="overflow-x-auto py-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
             <div className="sm:flex items-center justify-between">

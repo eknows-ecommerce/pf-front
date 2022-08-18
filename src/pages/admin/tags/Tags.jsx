@@ -33,6 +33,7 @@ function Tags() {
   }
 
   const editarTag = (tag) => {
+    alert('Ingresar nombre de tag')
     setTagSeleccionado(tag)
     setValorNuevoItem(tag.nombre)
     setEditarItemModal(true)
@@ -61,12 +62,13 @@ function Tags() {
   }
 
   const crearItem = () => {
-    let tag = {
-      nombre: valorNuevoItem,
+    if (!valorNuevoItem) {
+      alert('Ingresar nombre de tag')
+    } else {
+      dispatch(create({ nombre: valorNuevoItem }))
+      setValorNuevoItem('')
+      setCrearItemModal(false)
     }
-    dispatch(create(tag))
-    setValorNuevoItem('')
-    setCrearItemModal(false)
   }
 
   return (
@@ -96,7 +98,7 @@ function Tags() {
           tipo="Tag"
         />
       )}
-      <div className="overflow-x-auto xl:px-20 py-2">
+      <div className="overflow-x-auto py-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
             <div className="sm:flex items-center justify-between">
