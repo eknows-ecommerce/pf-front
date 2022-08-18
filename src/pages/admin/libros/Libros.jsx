@@ -60,6 +60,7 @@ function Libros() {
   const crearNuevoLibro = (e, libro) => {
     e.preventDefault()
     if (
+<<<<<<< HEAD
       libro.autor !== "" &&
       /^[A-Za-z\s]+$/g.test(libro.autor) &&
       libro.titulo !== "" &&
@@ -89,6 +90,45 @@ function Libros() {
     } else {
       alert ("Complete todos los campos por favor...!")
     }
+=======
+      libro.autor !== '' &&
+      /^[A-Za-z\s]+$/g.test(libro.autor) &&
+      libro.titulo !== '' &&
+      libro.precio !== '' &&
+      parseInt(libro.precio) &&
+      libro.stock !== '' &&
+      parseInt(libro.stock) &&
+      libro.paginas !== '' &&
+      parseInt(libro.paginas) &&
+      libro.editorial !== '' &&
+      /^[A-Za-z\s]+$/g.test(libro.editorial) &&
+      libro.lenguaje !== '' &&
+      /^[A-Za-z\s]+$/g.test(libro.lenguaje) &&
+      libro.resumen !== '' &&
+      libro.detalles !== ''
+      /* &&
+      parseInt(input.weightMax) > parseInt(input.weightMin) &&
+      input.life_spanMin !== "" &&
+      parseInt(input.life_spanMax) > parseInt(input.life_spanMin) &&
+      input.temperament.length !== 0 && 
+      (/[a-z0-9-.]+\.[a-z]{2,4}\/?([^\s<>#%",{}\\|^[\]`]+)?$/.test(input.image) || input.image === '')
+     */
+    ) {
+      if (formulario === 'EDITAR') {
+        dispatch(update(libro))
+      }
+
+      if (formulario === 'NUEVO') {
+        dispatch(create(libro))
+      }
+
+      setFormulario('')
+
+      setNuevoLibro(initialState)
+    } else {
+      alert('Complete todos los campos por favor...!')
+    }
+>>>>>>> b5842a4509709a0c82dfbde062b509de99571500
   }
 
   return (
