@@ -40,7 +40,7 @@ function Libros() {
 
   useEffect(() => {
     dispatch(getAll(`titulo=${search}`))
-  }, [search])
+  }, [dispatch, search])
 
   const deshabilitarItem = () => {
     let libroObj = {
@@ -59,7 +59,22 @@ function Libros() {
 
   const crearNuevoLibro = (e, libro) => {
     e.preventDefault()
-
+    if (
+      libro.autor !== "" &&
+      /^[A-Za-z\s]+$/g.test(libro.autor) &&
+      libro.titulo !== "" &&
+      libro.precio !== "" &&
+      parseInt(libro.precio) &&
+      libro.stock !== "" && parseInt(libro.stock) && 
+      libro.paginas !== "" &&
+      parseInt(libro.paginas) &&
+      libro.editorial !== "" &&
+      /^[A-Za-z\s]+$/g.test(libro.editorial) &&
+      libro.lenguaje !== "" &&
+      /^[A-Za-z\s]+$/g.test(libro.lenguaje) &&
+      libro.resumen !== "" && libro.detalles !== "" &&
+      libro.categorias > 0 && libro.tags > 0
+      ){
     if (formulario === 'EDITAR') {
       dispatch(update(libro))
     }
@@ -71,6 +86,9 @@ function Libros() {
     setFormulario('')
 
     setNuevoLibro(initialState)
+    } else {
+      alert ("Complete todos los campos por favor...!")
+    }
   }
 
   return (
@@ -155,13 +173,12 @@ function Libros() {
                 />
                 <table className="w-full whitespace-nowrap">
                   <thead>
-                    <tr className="h-16 w-full text-lg leading-none text-white bg-black">
-                      <th className="font-normal text-center p-2">ID</th>
+                    <tr className="h-16 w-full text-sm leading-none text-gray-800">
                       <th className="font-normal text-left pl-4">Libro</th>
                       <th className="font-normal text-left pl-12">Estado</th>
                       <th className="font-normal text-left pl-12">Stock</th>
                       <th className="font-normal text-left pl-20">Precio</th>
-                      <th className="font-normal text-left pl-20"></th>
+                      <th className="font-normal text-left pl-20">ID</th>
                     </tr>
                   </thead>
                   <tbody className="w-full">

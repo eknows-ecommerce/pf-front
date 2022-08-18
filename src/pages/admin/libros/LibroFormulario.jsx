@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react'
+import {
+  validarInputNumero,
+  validarInputText,
+} from 'assets/validacionesInputs/validaciones'
 
 export default function LibroFormulario({
   categorias,
@@ -9,11 +13,50 @@ export default function LibroFormulario({
   formulario,
   setLibroSeleccionado,
 }) {
-  // const [libroActualizar, setLibroActualizar] = useState(libro)
   const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([])
   const [tagsSeleccionados, setTagsSeleccionados] = useState([])
-  // let libroObj = { ...libro }
+  const [selectedFile, setSelectedFile] = useState()
+  const [checkFile, setCheckFile] = useState(false)
 
+  const imageHandler = (e) => {
+    setSelectedFile(e.target.files[0])
+    setCheckFile(true)
+  }
+
+  const imagesubmission = () => {
+    if (checkFile) {
+      alert('Imagen subida')
+      console.log(selectedFile)
+    } else {
+      alert('Elija una imagen')
+    }
+  }
+
+  function handleChange(e, setter, property, value) {
+    if (property === libro.autor || libro.editorial || libro.lenguaje) {
+      if (validarInputText(value)) {
+        setter({ ...libro, [property]: value })
+      }
+    } else {
+      validarInputNumero(e.target.value)
+      setter({ ...libro, [property]: value })
+    }
+  }
+
+  const handleInput = (e) => {
+    if (validarInputText(e.target.value)) {
+      setNuevoLibro({ ...libro, [e.target.name]: e.target.value })
+    } else {
+      setNuevoLibro({ ...libro, [e.target.name]: libro[e.target.name] })
+    }
+  }
+  const handleNumber = (e) => {
+    if (validarInputNumero(e.target.value)) {
+      setNuevoLibro({ ...libro, [e.target.name]: e.target.value })
+    } else {
+      setNuevoLibro({ ...libro, [e.target.name]: libro[e.target.name] })
+    }
+  }
   useEffect(() => {
     if (formulario === 'EDITAR') {
       setCategoriasSeleccionadas(libro.CategoriaLibro.map((cat) => cat.id))
@@ -24,16 +67,10 @@ export default function LibroFormulario({
         tags: tagsSeleccionados,
       })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formulario])
-
-  const handleChange = (e, setter, property, value) => {
-    setter({ ...libro, [property]: value })
-  }
+  }, [])
 
   const handleCategorias = (e, id) => {
     if (formulario === 'NUEVO') {
-      console.log(id)
       if (e.target.checked) {
         if (!libro.categorias.includes(id)) {
           setNuevoLibro({ ...libro, categorias: [...libro.categorias, id] })
@@ -57,7 +94,6 @@ export default function LibroFormulario({
       libro.categorias = categoriasSeleccionadas
     }
   }
-
   const handleTags = (e, id) => {
     if (formulario === 'NUEVO') {
       if (e.target.checked) {
@@ -80,7 +116,6 @@ export default function LibroFormulario({
       libro.tags = tagsSeleccionados
     }
   }
-
   return (
     <form onSubmit={(e) => crearNuevoLibro(e, libro)} className="px-2 py-5 ">
       <div className="flex flex-no-wrap items-start">
@@ -98,24 +133,9 @@ export default function LibroFormulario({
                       Título
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'titulo',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'titulo',
-                                e.target.value
-                              )
-                      }
+                      name="titulo"
                       value={libro.titulo ?? ''}
+                      onChange={handleInput}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
                   </div>
@@ -124,23 +144,8 @@ export default function LibroFormulario({
                       Autor
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'autor',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'autor',
-                                e.target.value
-                              )
-                      }
+                      name="autor"
+                      onChange={handleInput}
                       value={libro.autor ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
@@ -150,23 +155,8 @@ export default function LibroFormulario({
                       Editorial
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'editorial',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'editorial',
-                                e.target.value
-                              )
-                      }
+                      name="editorial"
+                      onChange={handleInput}
                       value={libro.editorial ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
@@ -176,23 +166,8 @@ export default function LibroFormulario({
                       Lenguaje
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'lenguaje',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'lenguaje',
-                                e.target.value
-                              )
-                      }
+                      name="lenguaje"
+                      onChange={handleInput}
                       value={libro.lenguaje ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
@@ -202,23 +177,8 @@ export default function LibroFormulario({
                       Cantidad de páginas
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'paginas',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'paginas',
-                                e.target.value
-                              )
-                      }
+                      name="paginas"
+                      onChange={handleNumber}
                       value={libro.paginas ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
@@ -228,23 +188,8 @@ export default function LibroFormulario({
                       Detalles
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'detalles',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'detalles',
-                                e.target.value
-                              )
-                      }
+                      name="detalles"
+                      onChange={handleInput}
                       value={libro.detalles ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
@@ -253,57 +198,81 @@ export default function LibroFormulario({
                     <p className="text-base font-medium leading-none text-gray-800">
                       Fecha de publicación
                     </p>
-                    <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'fechaPublicacion',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'fechaPublicacion',
-                                e.target.value
-                              )
-                      }
-                      value={libro.fechaPublicacion ?? ''}
-                      type="date"
-                      className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
-                    />
+                    <div className="relative">
+                      <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                        <svg
+                          aria-hidden="true"
+                          className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      </div>
+                      <input
+                        datepicker
+                        type="text"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Select date"
+                      />
+                    </div>
                   </div>
                   <div>
                     <p className="text-base font-medium leading-none text-gray-800">
-                      Portada ????
+                      Portada
                     </p>
-                    <input className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50" />
+                    <>
+                      <div className="grid justify-items-center">
+                        <div className="flex items-center justify-center">
+                          <div className="h-20 cursor-pointer relative flex justify-center items-center border-2 rounded-md bg-gray-200">
+                            <input
+                              type="file"
+                              value={libro.portada}
+                              name="file"
+                              onChange={imageHandler}
+                              className="z-20 opacity-0 cursor-pointer h-full w-full"
+                            />
+                            <div className="absolute flex justify-center items-center gap-2">
+                              <img
+                                className={`h-10 w-10 rounded-full ${
+                                  checkFile ? 'opacity-1' : 'opacity-0'
+                                }`}
+                                src={
+                                  selectedFile
+                                    ? URL.createObjectURL(selectedFile)
+                                    : null
+                                }
+                                alt="caratula"
+                              />
+                              <span className="text-[18px] w-56 truncate">
+                                {checkFile
+                                  ? selectedFile.name
+                                  : 'choose a file'}
+                              </span>
+                            </div>
+                          </div>
+                          <button
+                            onClick={imagesubmission}
+                            className="bg-indigo-700 rounded hover:bg-indigo-600 transform duration-300 ease-in-out text-sm font-medium px-6 py-4 text-white lg:max-w-[144px] w-full"
+                          >
+                            Upload
+                          </button>
+                        </div>
+                      </div>
+                    </>
                   </div>
                   <div>
                     <p className="text-base font-medium leading-none text-gray-800">
                       Precio
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'precio',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'precio',
-                                e.target.value
-                              )
-                      }
+                      name="precio"
+                      onChange={handleNumber}
                       value={libro.precio ?? ''}
                       type="number"
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
@@ -314,29 +283,13 @@ export default function LibroFormulario({
                       Stock
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'stock',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'stock',
-                                e.target.value
-                              )
-                      }
+                      name="stock"
+                      onChange={handleNumber}
                       value={libro.stock ?? ''}
                       type="number"
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
                   </div>
-
                   <div className="col-span-full w-full">
                     <label className="text-sm text-left font-medium leading-none text-gray-800">
                       Categorias
