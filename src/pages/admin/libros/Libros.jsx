@@ -72,14 +72,9 @@ function Libros() {
       /^[A-Za-z\s]+$/g.test(libro.editorial) &&
       libro.lenguaje !== "" &&
       /^[A-Za-z\s]+$/g.test(libro.lenguaje) &&
-      libro.resumen !== "" && libro.detalles !== ""
-      /* &&
-      parseInt(input.weightMax) > parseInt(input.weightMin) &&
-      input.life_spanMin !== "" &&
-      parseInt(input.life_spanMax) > parseInt(input.life_spanMin) &&
-      input.temperament.length !== 0 && 
-      (/[a-z0-9-.]+\.[a-z]{2,4}\/?([^\s<>#%",{}\\|^[\]`]+)?$/.test(input.image) || input.image === '')
-     */){
+      libro.resumen !== "" && libro.detalles !== "" &&
+      libro.categorias > 0 && libro.tags > 0
+      ){
     if (formulario === 'EDITAR') {
       dispatch(update(libro))
     }
