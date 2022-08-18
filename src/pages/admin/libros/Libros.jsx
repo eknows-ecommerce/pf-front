@@ -57,29 +57,30 @@ function Libros() {
     setDeshabilitarItemModal(true)
   }
 
-  const crearNuevoLibro = (e, libro) => {
+  const crearNuevoLibro = (e, libroConPortada) => {
+    
     e.preventDefault()
-    if (libro.autor !== "" &&
-      /^[A-Za-z\s]+$/g.test(libro.autor) &&
-      libro.titulo !== "" &&
-      libro.precio !== "" &&
-      parseInt(libro.precio) &&
-      libro.stock !== "" && parseInt(libro.stock) && 
-      libro.paginas !== "" &&
-      parseInt(libro.paginas) &&
-      libro.editorial !== "" &&
-      /^[A-Za-z\s]+$/g.test(libro.editorial) &&
-      libro.lenguaje !== "" &&
-      /^[A-Za-z\s]+$/g.test(libro.lenguaje) &&
-      libro.resumen !== "" && libro.detalles !== "" &&
-      libro.categorias > 0 && libro.tags > 0
+    if (libroConPortada.autor !== "" &&
+      /^[A-Za-z\s]+$/g.test(libroConPortada.autor) &&
+      libroConPortada.titulo !== "" &&
+      libroConPortada.precio !== "" &&
+      parseInt(libroConPortada.precio) &&
+      libroConPortada.stock !== "" && parseInt(libroConPortada.stock) && 
+      libroConPortada.paginas !== "" &&
+      parseInt(libroConPortada.paginas) &&
+      libroConPortada.editorial !== "" &&
+      /^[A-Za-z\s]+$/g.test(libroConPortada.editorial) &&
+      libroConPortada.lenguaje !== "" &&
+      /^[A-Za-z\s]+$/g.test(libroConPortada.lenguaje) &&
+      libroConPortada.resumen !== "" && libroConPortada.detalles !== "" &&
+      libroConPortada.categorias > 0 && libroConPortada.tags > 0
       ){
     if (formulario === 'EDITAR') {
-      dispatch(update(libro))
+      dispatch(update(libroConPortada))
     }
 
     if (formulario === 'NUEVO') {
-      dispatch(create(libro))
+      dispatch(create(libroConPortada))
     }
 
     setFormulario('')

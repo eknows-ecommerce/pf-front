@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
+import useUploadImage from 'hooks/useUploadImage'
+import axios from 'axios'
 import {
   validarInputNumero,
   validarInputText,
 } from 'assets/validacionesInputs/validaciones'
+const URL_API = process.env.REACT_APP_URL_API_CLOUDINARY
 
 export default function LibroFormulario({
   categorias,
@@ -15,22 +18,38 @@ export default function LibroFormulario({
 }) {
   const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([])
   const [tagsSeleccionados, setTagsSeleccionados] = useState([])
+const {preview, handleImage} = useUploadImage()
+  const [selectedFile, setSelectedFile] = useState(null)
 
-  const [selectedFile, setSelectedFile] = useState()
-  const [checkFile, setCheckFile] = useState(false)
 
   const imageHandler = (e) => {
+    handleImage(e)
     setSelectedFile(e.target.files[0])
-    setCheckFile(true)
   }
 
-  const imagesubmission = () => {
-    if (checkFile) {
-      alert('Imagen subida')
-      console.log(selectedFile)
-    } else {
-      alert('Elija una imagen')
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault() 
+     
+      if (!selectedFile) {
+        const portadaPorDefecto = {...libro, portada: "https://previews.123rf.com/images/pakmor/pakmor0901/pakmor090100092/4088782-libro-con-el-dise%C3%B1o-gen%C3%A9rico.jpg"}
+        crearNuevoLibro(e, portadaPorDefecto)
+      } else {
+        const file = selectedFile
+        console.log(preview);
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('upload_preset', 'Images')
+        const res = await axios.post(URL_API, formData)
+        if (res.statusText === 'OK') {
+          alert('Su imagen se subio correctamente') //modificar alertas mas piolas
+        } else {
+          alert('Ocurrio un error al subir la imagen') //modificar alertas mas piolas
+        }
+        const libroPortada = {...libro, portada: res.data.secure_url}
+        console.log("LIBRO", libroPortada);
+        crearNuevoLibro(e, libroPortada)
+      }
+   
   }
 
   function handleChange(e, setter, property, value) {
@@ -42,8 +61,10 @@ export default function LibroFormulario({
       validarInputNumero(e.target.value)
       setter({ ...libro, [property]: value })
     }
-  }
+  } 
+  const subida = (e) => {
 
+  }
 
   const handleInput = (e) => {
     if (validarInputText(e.target.value)) {
@@ -119,7 +140,7 @@ export default function LibroFormulario({
     }
   }
   return (
-    <form onSubmit={(e) => crearNuevoLibro(e, libro)} className="px-2 py-5 ">
+    <form onSubmit={handleSubmit} className="px-2 py-5 ">
       <div className="flex flex-no-wrap items-start">
         <div className="w-full">
           <div className="py-4 px-2">
@@ -234,39 +255,36 @@ export default function LibroFormulario({
                       <div className="grid justify-items-center">
                         <div className="flex items-center justify-center">
                           <div className="h-20 cursor-pointer relative flex justify-center items-center border-2 rounded-md bg-gray-200">
-                            <input
-                              type="file"
-                              value={libro.portada}
-                              name="file"
-                              onChange={imageHandler}
-                              className="z-20 opacity-0 cursor-pointer h-full w-full"
-                            />
-                            <div className="absolute flex justify-center items-center gap-2">
+                          <input                        
+                        placeholder="Portada"
+                        id="image"
+                        type="file"
+                        className="w-full focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
+                        onChange={imageHandler}
+                        accept=".jpg, .jpeg, .png"
+                        required={false}
+                      />
+                            {/* <div className="absolute flex justify-center items-center gap-2">
                               <img
                                 className={`h-10 w-10 rounded-full ${
-                                  checkFile ? 'opacity-1' : 'opacity-0'
+                                  selectedFile ? 'opacity-1' : 'opacity-0'
                                 }`}
                                 src={
                                   selectedFile
-                                    ? URL.createObjectURL(selectedFile)
+                                    ? URL.createObjectURL(preview)
                                     : null
                                 }
                                 alt="caratula"
+                                
                               />
                               <span className="text-[18px] w-56 truncate">
-                                {checkFile
+                                {selectedFile
                                   ? selectedFile.name
                                   : 'choose a file'}
                               </span>
-                            </div>
+                            </div> */}
                           </div>
-                          <button
-                            onClick={imagesubmission}
-                            className="bg-indigo-700 rounded hover:bg-indigo-600 transform duration-300 ease-in-out text-sm font-medium px-6 py-4 text-white lg:max-w-[144px] w-full"
-                          >
-                            Upload
-                          </button>
-                        </div>
+                                          </div>
                       </div>
                     </>
                   </div>
