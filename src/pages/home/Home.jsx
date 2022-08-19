@@ -148,11 +148,11 @@ function Home() {
                     setSort(v.target.value.split('-'))
                   }}
                 >
-                  <option readOnly="">Sort</option>
-                  <option value="titulo-asc">Title, A-Z</option>
-                  <option value="titulo-desc">Title, Z-A</option>
-                  <option value="precio-asc">Price, Low-High</option>
-                  <option value="precio-desc">Price, High-Low</option>
+                  <option readOnly="">Ordenar</option>
+                  <option value="titulo-asc">Titulo, A-Z</option>
+                  <option value="titulo-desc">Titulo, Z-A</option>
+                  <option value="precio-asc">Precio, Min-Max</option>
+                  <option value="precio-desc">Precio, Max-Min</option>
                 </select>
               </div>
             </div>

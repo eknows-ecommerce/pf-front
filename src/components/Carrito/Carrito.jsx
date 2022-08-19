@@ -205,12 +205,12 @@ function Carrito() {
                           {l.stock > 0 ? (
                             <span className="flex items-center text-green-500 text-sm gap-1">
                               <Confirmar />
-                              In stock'
+                              'En stock'
                             </span>
                           ) : (
                             <span className="flex items-center text-rose-500 text-sm gap-1">
                               <Eliminar />
-                              'Out of stock'
+                              'Sin stock'
                             </span>
                           )}
                         </div>
