@@ -11,7 +11,6 @@ import {
 const initialState = {
   reviews: [],
   review: {},
-  count: 0,
   cargando: null,
   busqueda: '',
 }
@@ -36,7 +35,6 @@ const reviewsSlice = createSlice({
       console.log('payload', payload)
       state.cargando = false
       state.reviews = payload.reviews ?? []
-      state.count = payload.count
     },
     [getAll.rejected]: (state) => {
       state.cargando = true

@@ -8,7 +8,7 @@ export const getAll = createAsyncThunk(
   'usuarios/@GETALL',
   async (query = '') => {
     try {
-      const { data } = await axios.get(`${URL}/usuarios?${query}`)
+      const { data } = await axios.get(`${URL}/usuarios${query}`)
       return data
     } catch (error) {
       const msg = error.message.data.msg

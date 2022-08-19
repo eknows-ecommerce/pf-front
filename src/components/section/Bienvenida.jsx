@@ -1,15 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { create } from 'features/actions/usuarios'
 import Login from '../sesion/Login'
 import Logout from '../sesion/Logout'
 import logo from '../../assets/img/logo.png'
 
 export default function Bienvenida() {
+
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
   const dispatch = useDispatch()
+  const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
 
   useEffect(() => {
     const authenticateUser = async () => {
@@ -20,8 +22,7 @@ export default function Bienvenida() {
           token: token,
           user,
         }
-
-        dispatch(create(body))
+        !usuarios.some((u) => u.nickname === user.nickname) && dispatch(create(body))
       }
     }
     authenticateUser()
@@ -39,7 +40,7 @@ export default function Bienvenida() {
         <div className="max-w-xl text-center sm:text-left">
           <h1 className="text-6xl font-extrabold  font-comforta-300 sm:text-7xl">
             Bievenidos a
-            <br/>
+            <br />
             <strong className="font-extrabold text-rose-700 sm:block">
               e-Knows
             </strong>
