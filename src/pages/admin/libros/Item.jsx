@@ -45,7 +45,12 @@ export default function Item(props) {
       </td>
 
       <td className="pl-20">
-        <button>
+        <button
+          onClick={() => {
+            props.setDeshabilitarItemModal(true)
+            props.setLibro(props)
+          }}
+        >
           {props.isAvail ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"

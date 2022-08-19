@@ -43,60 +43,34 @@ function Libros() {
     dispatch(getAll(`titulo=${search}`))
   }, [dispatch, search])
 
-  // const deshabilitarItem = () => {
-  //   let libroObj = {
-  //     ...libroSeleccionado,
-  //     isAvail: !libroSeleccionado.isAvail,
-  //   }
-  //   dispatch(update(libroObj))
-  //   setLibroSeleccionado({})
-  //   setDeshabilitarItemModal(false)
-  // }
-
-  // const deshabilitarLibro = (libro) => {
-  //   setLibroSeleccionado(libro)
-  //   setDeshabilitarItemModal(true)
-  // }
-
   const crearNuevoLibro = (e, libroObj) => {
     e.preventDefault()
     if (formulario === 'nuevo') dispatch(create(libroObj))
     if (formulario === 'editar') dispatch(update(libroObj))
     setLibro(initialState)
-    // setNuevoLibro(initialState)
     setFormulario('')
-    // if (
-    //   libroObj.autor !== '' &&
-    //   /^[A-Za-z\s]+$/g.test(libroObj.autor) &&
-    //   libroObj.titulo !== '' &&
-    //   libroObj.precio !== '' &&
-    //   parseInt(libroObj.precio) &&
-    //   libroObj.stock !== '' &&
-    //   parseInt(libroObj.stock) &&
-    //   libroObj.paginas !== '' &&
-    //   parseInt(libroObj.paginas) &&
-    //   libroObj.editorial !== '' &&
-    //   /^[A-Za-z\s]+$/g.test(libroObj.editorial) &&
-    //   libroObj.lenguaje !== '' &&
-    //   /^[A-Za-z\s]+$/g.test(libroObj.lenguaje) &&
-    //   libroObj.resumen !== '' &&
-    //   libroObj.detalles !== '' &&
-    //   libroObj.categorias > 0 &&
-    //   libroObj.tags > 0
-    // )
+  }
+
+  const deshabilitarLibro = () => {
+    const libroObj = {
+      ...libro,
+      isAvail: !libro.isAvail,
+    }
+
+    dispatch(update(libroObj))
+    setDeshabilitarItemModal(false)
+    setLibro(initialState)
   }
 
   return (
     <>
-      {/* {deshabilitarItemModal && (
+      {deshabilitarItemModal && (
         <DisponibilidadModal
-          libroSeleccionado={libroSeleccionado}
+          libroSeleccionado={libro}
           setDeshabilitarItemModal={setDeshabilitarItemModal}
-          deshabilitarItem={deshabilitarItem}
-          item={libroSeleccionado.titulo}
-          tipo="libro"
+          deshabilitarLibro={deshabilitarLibro}
         />
-      )} */}
+      )}
       <div className="overflow-x-auto pt-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
@@ -184,9 +158,8 @@ function Libros() {
                         key={crypto.randomUUID()}
                         setLibro={setLibro}
                         setFormulario={setFormulario}
+                        setDeshabilitarItemModal={setDeshabilitarItemModal}
                         {...libro}
-                        // deshabilitarLibro={deshabilitarLibro}
-                        // setLibroSeleccionado={setLibroSeleccionado}
                       />
                     ))}
                   </tbody>
@@ -203,27 +176,6 @@ function Libros() {
                 crearNuevoLibro={crearNuevoLibro}
               />
             )}
-
-            {/* {formulario === 'EDITAR' && (
-              <LibroFormulario
-                categorias={categorias}
-                tags={tags}
-                libro={libroSeleccionado}
-                setLibroSeleccionado={setLibroSeleccionado}
-                formulario={formulario}
-                crearNuevoLibro={crearNuevoLibro}
-              />
-            )}
-            {formulario === 'NUEVO' && (
-              <LibroFormulario
-                categorias={categorias}
-                tags={tags}
-                setNuevoLibro={setNuevoLibro}
-                libro={nuevoLibro}
-                crearNuevoLibro={crearNuevoLibro}
-                formulario={formulario}
-              />
-            )} */}
           </div>
         </div>
       </div>

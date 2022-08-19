@@ -1,9 +1,7 @@
 export default function DisponibilidadModal({
   libroSeleccionado,
   setDeshabilitarItemModal,
-  deshabilitarItem,
-  item,
-  tipo,
+  deshabilitarLibro,
 }) {
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -39,25 +37,29 @@ export default function DisponibilidadModal({
             <div className="mt-2 text-center sm:ml-4 sm:text-left">
               <h4 className="text-lg font-medium text-gray-800">
                 {libroSeleccionado.isAvail ? 'Deshabilitar' : 'Habilitar'}{' '}
-                {item}?
+                {libroSeleccionado.titulo}?
               </h4>
               <p className="mt-2 text-[15px] leading-relaxed text-gray-500">
                 {libroSeleccionado.isAvail ? (
                   <span>
-                    {item} se deshabilitará y dejará de mostrarse en la tienda.
+                    {libroSeleccionado.titulo} se deshabilitará y dejará de
+                    mostrarse en la tienda.
                   </span>
                 ) : (
-                  <span>{item} se habilitará y se mostrará en la tienda.</span>
+                  <span>
+                    {libroSeleccionado.titulo} se habilitará y se mostrará en la
+                    tienda.
+                  </span>
                 )}
               </p>
               <div className="items-center gap-2 mt-3 sm:flex">
                 <button
+                  onClick={deshabilitarLibro}
                   className={`w-full mt-2 p-2.5 flex-1 text-white ${
                     libroSeleccionado.isAvail
                       ? 'bg-red-600 ring-red-600'
                       : 'bg-green-600 ring-green-600'
                   } rounded-md outline-none ring-offset-2  focus:ring-2`}
-                  onClick={deshabilitarItem}
                 >
                   {libroSeleccionado.isAvail ? 'Deshabilitar' : 'Habilitar'}
                 </button>

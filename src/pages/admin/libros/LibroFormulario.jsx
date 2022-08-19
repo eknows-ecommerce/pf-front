@@ -20,7 +20,7 @@ export default function LibroFormulario({
   const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([])
   const [tagsSeleccionados, setTagsSeleccionados] = useState([])
   const [imageInput, setImageInput] = useState(null)
-  const { preview, handleImage } = useUploadImage()
+  const { handleImage } = useUploadImage()
 
   useEffect(() => {
     if (libro.CategoriaLibro || libro.TagLibro) {
@@ -72,15 +72,16 @@ export default function LibroFormulario({
     const { type, name, value, files, checked } = e.target
     switch (type) {
       case 'text':
-        // -- validaciones --
-        setLibro({ ...libro, [name]: value })
+        if (validarInputText(value)) {
+          setLibro({ ...libro, [name]: value })
+        }
         break
       case 'number':
-        // -- validaciones --
-        setLibro({ ...libro, [name]: value })
+        if (validarInputNumero(value)) {
+          setLibro({ ...libro, [name]: value })
+        }
         break
       case 'date':
-        // -- validaciones --
         setLibro({ ...libro, [name]: value })
         break
       case 'file':
@@ -88,7 +89,6 @@ export default function LibroFormulario({
         setImageInput(files[0])
         break
       case 'textarea':
-        // -- validaciones --
         setLibro({ ...libro, [name]: value })
         break
       case 'checkbox':
@@ -141,6 +141,7 @@ export default function LibroFormulario({
                       value={libro.titulo || ''}
                       onChange={handleInputChange}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
                   <div className="w-full">
@@ -153,6 +154,7 @@ export default function LibroFormulario({
                       onChange={handleInputChange}
                       value={libro.autor || ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
                   <div className="w-full">
@@ -240,6 +242,7 @@ export default function LibroFormulario({
                       onChange={handleInputChange}
                       value={libro.precio || ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
                   <div>
@@ -252,6 +255,7 @@ export default function LibroFormulario({
                       onChange={handleInputChange}
                       value={libro.stock || ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
                   <div className="col-span-full w-full">
@@ -324,6 +328,7 @@ export default function LibroFormulario({
                     className="resize-none w-full h-[170px] px-4 py-4 text-base outline-none text-slate-600"
                     placeholder="Resumen del libro.."
                     value={libro.resumen}
+                    required
                   />
                 </div>
                 <div className="flex justify-center space-x-10 items-center">
