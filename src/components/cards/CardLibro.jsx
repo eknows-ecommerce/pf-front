@@ -1,6 +1,14 @@
-import { Link } from 'react-router-dom'
-import useFavorite from '../../hooks/useToggle'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useDispatch, useSelector } from 'react-redux'
+import { useAuth0 } from '@auth0/auth0-react'
+
+import { createByUser, deleteByUser } from 'features/actions/favoritos'
+
+import useFavorite from 'hooks/useToggle'
+
 import Button from '../templates/Button'
+import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 function CardLibro({
   id,
@@ -9,8 +17,47 @@ function CardLibro({
   descuento = 15,
   precio,
   handleCarrito,
+  esFavorito,
 }) {
-  const { toggle, handleToggle } = useFavorite(false)
+  const { toggle, handleToggle } = useFavorite(esFavorito)
+  const dispatch = useDispatch()
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+  const { isAuthenticated, loginWithPopup } = useAuth0()
+
+  const handleFavorite = () => {
+    if (isAuthenticated) {
+      if (toggle) {
+        dispatch(deleteByUser({ usuarioId: usuario.id, libroId: id }))
+        Swal.fire(
+          'Eliminar de favoritos',
+          'Se ha elimino exitosamente',
+          'success'
+        )
+      } else {
+        dispatch(createByUser({ usuarioId: usuario.id, libroId: id }))
+        Swal.fire(
+          'Agregar a favoritos',
+          'Se ha agregado exitosamente',
+          'success'
+        )
+      }
+      handleToggle()
+    } else {
+      Swal.fire({
+        title: 'Log in',
+        text: 'Debe logearse para agregar a favoritos',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#E11D48',
+        confirmButtonText: 'Si, ir a logearse',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          loginWithPopup()
+        }
+      })
+    }
+  }
 
   return (
     <div className="relative flex flex-col justify-between items-center content-center m-2 shadow-lg shadow-current p-3">
@@ -18,7 +65,7 @@ function CardLibro({
         <button
           className="absolute p-2 text-rosadito bg-black rounded-full right-2 top-4 z-10"
           type="button"
-          onClick={handleToggle}
+          onClick={handleFavorite}
         >
           <svg
             className="w-4 h-4 hover:scale-125 transition-all duration-700 ease-in-out"
@@ -39,7 +86,7 @@ function CardLibro({
         <button
           className="absolute p-2 text-white bg-black rounded-full right-2 top-4 z-10"
           type="button"
-          onClick={handleToggle}
+          onClick={handleFavorite}
         >
           <svg
             className="w-4 h-4 hover:scale-125 transition-all duration-700 ease-in-out"

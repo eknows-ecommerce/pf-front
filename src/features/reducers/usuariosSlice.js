@@ -36,15 +36,15 @@ const usuariosSlice = createSlice({
     [getAll.rejected]: (state) => {
       state.cargando = true
     },
-    //getById
+    //getByNickname
     [getByNickname.pending]: (state) => {
       state.cargando = true
     },
     [getByNickname.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.usuario = payload.usuarios[0]
+      state.usuario = payload?.usuarios[0]
     },
-    [getByNickname.rejected]: (state) => {
+    [getByNickname.rejected]: (state, { type }) => {
       state.cargando = true
     },
     //getById

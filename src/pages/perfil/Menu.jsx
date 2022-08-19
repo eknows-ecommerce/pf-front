@@ -100,9 +100,9 @@ export default function Menu() {
                     Mis Pedidos
                   </h6>
                 </Link>
-                <a
+                <Link
                   className="block p-6 border border-gray-100 shadow-sm rounded-xl focus:outline-none focus:ring hover:border-violetapaleta-200 hover:ring-1 hover:ring-violetapaleta-200"
-                  href="/accountant"
+                  to="favoritos"
                 >
                   <span className="inline-block p-4 rounded-lg bg-gray-50">
                     <svg
@@ -118,7 +118,7 @@ export default function Menu() {
                   <h6 className="mt-2 text-2xl font-comforta-300 font-normal">
                     Favoritos
                   </h6>
-                </a>
+                </Link>
               </div>
               <Outlet />
             </div>

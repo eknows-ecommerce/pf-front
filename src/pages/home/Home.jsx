@@ -1,14 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import CardLibro from 'components/cards/CardLibro'
-import { getAll } from 'features/actions/libros'
+
+
+import { useAuth0 } from '@auth0/auth0-react'
+
+
 import Loading from '../../components/loading/Loading'
-import Paginacion from 'components/Paginacion/Paginacion'
-import usePaginacion from 'hooks/usePaginacion'
 
 import Swal from 'sweetalert2'
+
+import CardLibro from 'components/cards/CardLibro'
+import Paginacion from 'components/Paginacion/Paginacion'
 import Filtros from 'components/filtros/Filtros'
+
+import { getAll } from 'features/actions/libros'
+import { getByUser } from 'features/actions/favoritos'
+
+import { getByNickname } from 'features/actions/usuarios'
+
+import usePaginacion from 'hooks/usePaginacion'
 
 function Home() {
 
@@ -26,6 +37,7 @@ function Home() {
     paginaSiguiente,
     handleTotal,
   } = usePaginacion()
+
   const { libros, count, busqueda } = useSelector(
     ({ librosStore }) => librosStore
   )
@@ -37,9 +49,20 @@ function Home() {
   const queryRangoPrecios = useSelector(
     ({ librosStore }) => librosStore.rangoPrecios
   )
-
   const [sorter, setSort] = useState(['Sort', 'asc'])
 
+
+  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+
+  useEffect(() => {
+    dispatch(getByNickname(user))
+  }, [getByNickname, user])
+
+
+  useEffect(() => {
+    dispatch(getByUser(usuario.id))
+  }, [usuario])
 
   useEffect(() => {
     const [sort, dir] = sorter
@@ -118,18 +141,16 @@ function Home() {
                   </>
                 ) : paginas.totalPages === paginas.currentPage ? (
                   <>
-                    <>
-                      <span className="text-sm font-bold text-rosadito-500">
-                        {' '}
-                        {(paginas.currentPage - 1) * 6 +
-                          (count === 6 ? count : count % 6)}
-                      </span>{' '}
-                      de{' '}
-                      <span className="text-sm font-bold text-rosadito-500">
-                        {count}
-                      </span>{' '}
-                      Libros
-                    </>
+                    <span className="text-sm font-bold text-rosadito-500">
+                      {' '}
+                      {(paginas.currentPage - 1) * 6 +
+                        (count === 6 ? count : count % 6)}
+                    </span>{' '}
+                    de{' '}
+                    <span className="text-sm font-bold text-rosadito-500">
+                      {count}
+                    </span>{' '}
+                    Libros
                   </>
                 ) : (
                   <>
@@ -175,6 +196,11 @@ function Home() {
                     descuento={libro.descuento}
                     precio={libro.precio}
                     handleCarrito={() => handleCarrito(libro.id, libro.precio)}
+                    esFavorito={
+                      favoritos.length > 0
+                        ? favoritos.some((fav) => fav.id === libro.id)
+                        : false
+                    }
                   />
                 ))}
             </div>
