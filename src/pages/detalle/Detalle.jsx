@@ -20,12 +20,14 @@ export default function Detalle() {
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   //const { pedido } = useSelector(({ pedidosStore }) => pedidosStore)
 
-  let cats = []; let tags = [];
+  let cats = []
+  let tags = []
   libros.forEach((l) => {
     l.id === id &&
       l.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
       && l.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
   })
+  
   //const libroComprado = true
 
   useEffect(() => {
@@ -145,16 +147,14 @@ export default function Detalle() {
               <br />
               <div className="flex justify-evenly">
                 <div>
-                  <h3 className="text-2xl font-comforta-300 font-bold ">Categorias</h3>
-                  <ul>
-                    {cats}
-                  </ul>
+                  <h3 className="text-2xl font-poiret-one font-bold">
+                    Categorias
+                  </h3>
+                  <ul>{cats}</ul>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-comforta-300 font-bold ">Tags</h3>
-                  <ul>
-                    {tags}
-                  </ul>
+                  <h3 className="text-2xl font-poiret-one font-bold">Tags</h3>
+                  <ul>{tags}</ul>
                 </div>
               </div>
             </div>
@@ -169,13 +169,14 @@ export default function Detalle() {
                       Ve lo que otros lectores tiene que decir
                     </p>
                   </div>
-                  {usuario?.id > 0 && <ReviewModal idLibro={id} idUsuario={usuario.id} />}
-                  {revs < reviews.length && <button
+                  {usuario.id > 0 ? (
+                    <ReviewModal idLibro={id} idUsuario={usuario.id} />
+                  ) : null}
+                  <button
                     className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
-                    onClick={() => setRevs(revs + 3)}
                   >
                     Lea todas las reviews
-                  </button>}
+                  </button>
                 </>
               </div>
               <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
