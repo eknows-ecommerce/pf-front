@@ -61,14 +61,14 @@ function CardLibro({
         <img
           className="object-contain w-full h-56 lg:h-72 hover:scale-105 transition-all duration-700 ease-in-out"
           src={portada}
-          alt="Build Your Own Drone"
+          alt={titulo}
           loading="lazy"
         />
       </Link>
 
       <div className="p-2 w-full h-full block flex-col justify-between items-center content-center">
         <strong className="inline-block px-3 py-1 text-xs font-medium bg-yellow-400">
-          New
+          Nuevo
         </strong>
         <h5 className=" mt-4 text-lg font-bold font-comforta-300">{titulo}</h5>
       </div>
@@ -76,7 +76,7 @@ function CardLibro({
       <h5 className="mt-2 text-lg font-bold text-gray-900 pb-2">${precio}</h5>
       <Button primary onClick={handleCarrito}>
         <>
-          <span className="text-sm font-medium">Add to Cart</span>
+          <span className="text-sm font-medium">Agregar al carrito</span>
           <svg
             className="w-5 h-5 ml-1.5"
             xmlns="http://www.w3.org/2000/svg"

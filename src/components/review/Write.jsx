@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-export default function ReviewModal({ idLibro }) {
+export default function ReviewModal({ idLibro, idUsuario }) {
   const [showModal, setShowModal] = React.useState(false);
   const dispatch = useDispatch()
 
@@ -11,9 +11,9 @@ export default function ReviewModal({ idLibro }) {
     titulo: "",
     texto: "",
     rating: 3,
-    likes: 0,
+    likes: parseInt(Math.random() * 100),
     LibroId: idLibro,
-    //UsuarioId: parseInt(Math.random()*10)
+    UsuarioId: idUsuario
   });
 
   //verificar errores toDo
@@ -33,11 +33,11 @@ export default function ReviewModal({ idLibro }) {
         titulo: "",
         texto: "",
         rating: 3,
-        likes: 0,
+        likes: parseInt(Math.random() * 100),
         LibroId: idLibro,
-        //UsuarioId: parseInt(Math.random()*10)
+        UsuarioId: idUsuario
       })
-    }else{
+    } else {
       setShowModal(false)
       setShowModal(true)
     }
@@ -114,7 +114,7 @@ export default function ReviewModal({ idLibro }) {
               </div>
             </div>
           </form>
-          <div className="fixed inset-0 z-40 bg-black opacity-25"/>
+          <div className="fixed inset-0 z-40 bg-black opacity-25" />
         </>
       ) : null}
     </>

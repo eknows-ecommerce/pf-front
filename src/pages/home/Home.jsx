@@ -7,14 +7,14 @@ import Loading from '../../components/loading/Loading'
 import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 
-import { useAuth0 } from '@auth0/auth0-react'
-import { getByNickname } from 'features/actions/usuarios'
 import Swal from 'sweetalert2'
 import Filtros from 'components/filtros/Filtros'
 
 function Home() {
+
   const [loading = true, setLoading] = useState();
   const { user } = useAuth0()
+
   const [listaCarrito, setListaCarrito] = useState(
     JSON.parse(localStorage.getItem('carrito')) ?? []
   )
@@ -40,9 +40,6 @@ function Home() {
 
   const [sorter, setSort] = useState(['Sort', 'asc'])
 
-  useEffect(() => {
-    dispatch(getByNickname(user))
-  }, [getByNickname, user])
 
   useEffect(() => {
     const [sort, dir] = sorter
@@ -159,11 +156,11 @@ function Home() {
                     setSort(v.target.value.split('-'))
                   }}
                 >
-                  <option readOnly="">Sort</option>
-                  <option value="titulo-asc">Title, A-Z</option>
-                  <option value="titulo-desc">Title, Z-A</option>
-                  <option value="precio-asc">Price, Low-High</option>
-                  <option value="precio-desc">Price, High-Low</option>
+                  <option readOnly="">Ordenar</option>
+                  <option value="titulo-asc">Titulo, A-Z</option>
+                  <option value="titulo-desc">Titulo, Z-A</option>
+                  <option value="precio-asc">Precio, Min-Max</option>
+                  <option value="precio-desc">Precio, Max-Min</option>
                 </select>
               </div>
             </div>

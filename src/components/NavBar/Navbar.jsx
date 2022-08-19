@@ -4,15 +4,26 @@ import { FaShoppingCart } from 'react-icons/fa'
 import images from '../../assets/img/logo.png'
 import Search from '../search/Search'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAll } from 'features/actions/usuarios'
+import { getByNickname } from 'features/actions/usuarios'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import useSearch from '../../hooks/useSearch'
 // import Footer from '../footer/Footer'
-
 export default function Navbar() {
-  const { isAuthenticated, isLoading } = useAuth0()
+  const dispatch = useDispatch()
+  const { user,isAuthenticated, isLoading } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+  // console.log(user)
+
+  useEffect(() => {
+    dispatch(getByNickname(user))
+  }, [user])
+
+  useEffect(() => {
+    dispatch(getAll())
+  }, [])
 
   const show = useRef(null)
   const { search, handleSearch } = useSearch()
@@ -91,7 +102,7 @@ export default function Navbar() {
             <Link to="contactanos" className="text-gray-900">
               Contactanos
             </Link>
-            {usuario.rol === 'admin' && (
+            {usuario?.rol === 'admin' && (
               <Link to="admin/dashboard" className="text-gray-900">
                 Admin
               </Link>
@@ -120,7 +131,7 @@ export default function Navbar() {
             <Link to="contactanos" className="flex-shrink-0 pl-4 text-gray-900">
               Contactanos
             </Link>
-            {usuario.rol === 'admin' && (
+            {usuario?.rol === 'admin' && (
               <Link
                 to="admin/dashboard"
                 className="flex-shrink-0 pl-4 text-gray-900"
