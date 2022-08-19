@@ -15,9 +15,9 @@ const Footer = () => {
                 </div>
                 <div className="flex flex-wrap sm:gap-10 gap-8 items-center justify-center mt-8">
                     <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Acerca de e-Knows</p>
-                    <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Contactanos</p>
+                    <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Contáctanos</p>
                     <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Términos de servicio</p>
-                    <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Politicas de privacidad</p>
+                    <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Política de privacidad</p>
                 </div>
                 <div className="flex items-center gap-x-8 mt-6">
                     <div className="cursor-pointer">
