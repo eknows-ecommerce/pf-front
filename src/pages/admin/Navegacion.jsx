@@ -21,7 +21,7 @@ export default function Navegacion() {
 
   return (
     <div className="h-full w-full">
-      <div className="bg-slate-800 xl:hidden flex justify-between w-full px-6 py-4 items-center fixed">
+      <div className="bg-neutral-900 xl:hidden flex justify-between w-full px-6 py-4 items-center fixed">
         <div className="flex justify-between items-center space-x-3">
           <Link to="/" className="w-10 h-10 bg-transparent">
             <img

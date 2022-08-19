@@ -27,8 +27,9 @@ const initialState = {
 
 function Libros() {
   const [formulario, setFormulario] = useState('') // boton nuevo libro
-  const [nuevoLibro, setNuevoLibro] = useState(initialState)
-  const [libroSeleccionado, setLibroSeleccionado] = useState({})
+  // const [nuevoLibro, setNuevoLibro] = useState(initialState)
+  // const [libroSeleccionado, setLibroSeleccionado] = useState({})
+  const [libro, setLibro] = useState(initialState)
   const [deshabilitarItemModal, setDeshabilitarItemModal] = useState(false)
   const { search, handleSearch } = useSearch()
 
@@ -42,58 +43,52 @@ function Libros() {
     dispatch(getAll(`titulo=${search}`))
   }, [dispatch, search])
 
-  const deshabilitarItem = () => {
-    let libroObj = {
-      ...libroSeleccionado,
-      isAvail: !libroSeleccionado.isAvail,
-    }
-    dispatch(update(libroObj))
-    setLibroSeleccionado({})
-    setDeshabilitarItemModal(false)
-  }
+  // const deshabilitarItem = () => {
+  //   let libroObj = {
+  //     ...libroSeleccionado,
+  //     isAvail: !libroSeleccionado.isAvail,
+  //   }
+  //   dispatch(update(libroObj))
+  //   setLibroSeleccionado({})
+  //   setDeshabilitarItemModal(false)
+  // }
 
-  const deshabilitarLibro = (libro) => {
-    setLibroSeleccionado(libro)
-    setDeshabilitarItemModal(true)
-  }
+  // const deshabilitarLibro = (libro) => {
+  //   setLibroSeleccionado(libro)
+  //   setDeshabilitarItemModal(true)
+  // }
 
-  const crearNuevoLibro = (e, libroConPortada) => {
-    
+  const crearNuevoLibro = (e, libroObj) => {
     e.preventDefault()
-    if (libroConPortada.autor !== "" &&
-      /^[A-Za-z\s]+$/g.test(libroConPortada.autor) &&
-      libroConPortada.titulo !== "" &&
-      libroConPortada.precio !== "" &&
-      parseInt(libroConPortada.precio) &&
-      libroConPortada.stock !== "" && parseInt(libroConPortada.stock) && 
-      libroConPortada.paginas !== "" &&
-      parseInt(libroConPortada.paginas) &&
-      libroConPortada.editorial !== "" &&
-      /^[A-Za-z\s]+$/g.test(libroConPortada.editorial) &&
-      libroConPortada.lenguaje !== "" &&
-      /^[A-Za-z\s]+$/g.test(libroConPortada.lenguaje) &&
-      libroConPortada.resumen !== "" && libroConPortada.detalles !== "" &&
-      libroConPortada.categorias > 0 && libroConPortada.tags > 0
-      ){
-    if (formulario === 'EDITAR') {
-      dispatch(update(libroConPortada))
-    }
-
-    if (formulario === 'NUEVO') {
-      dispatch(create(libroConPortada))
-    }
-
+    if (formulario === 'nuevo') dispatch(create(libroObj))
+    if (formulario === 'editar') dispatch(update(libroObj))
+    setLibro(initialState)
+    // setNuevoLibro(initialState)
     setFormulario('')
-
-    setNuevoLibro(initialState)
-    } else {
-      alert ("Complete todos los campos por favor...!")
-    }
+    // if (
+    //   libroObj.autor !== '' &&
+    //   /^[A-Za-z\s]+$/g.test(libroObj.autor) &&
+    //   libroObj.titulo !== '' &&
+    //   libroObj.precio !== '' &&
+    //   parseInt(libroObj.precio) &&
+    //   libroObj.stock !== '' &&
+    //   parseInt(libroObj.stock) &&
+    //   libroObj.paginas !== '' &&
+    //   parseInt(libroObj.paginas) &&
+    //   libroObj.editorial !== '' &&
+    //   /^[A-Za-z\s]+$/g.test(libroObj.editorial) &&
+    //   libroObj.lenguaje !== '' &&
+    //   /^[A-Za-z\s]+$/g.test(libroObj.lenguaje) &&
+    //   libroObj.resumen !== '' &&
+    //   libroObj.detalles !== '' &&
+    //   libroObj.categorias > 0 &&
+    //   libroObj.tags > 0
+    // )
   }
 
   return (
     <>
-      {deshabilitarItemModal && (
+      {/* {deshabilitarItemModal && (
         <DisponibilidadModal
           libroSeleccionado={libroSeleccionado}
           setDeshabilitarItemModal={setDeshabilitarItemModal}
@@ -101,9 +96,8 @@ function Libros() {
           item={libroSeleccionado.titulo}
           tipo="libro"
         />
-      )}
-
-      <div className="overflow-x-auto xl:px-20 pt-2">
+      )} */}
+      <div className="overflow-x-auto pt-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
             <div className="sm:flex items-center justify-between">
@@ -113,7 +107,7 @@ function Libros() {
               <div>
                 {formulario === '' && (
                   <button
-                    onClick={() => setFormulario('NUEVO')}
+                    onClick={() => setFormulario('nuevo')}
                     className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
                   >
                     <p className="text-sm font-medium leading-none text-white">
@@ -136,9 +130,12 @@ function Libros() {
                   </button>
                 )}
 
-                {(formulario === 'NUEVO' || formulario === 'EDITAR') && (
+                {(formulario === 'nuevo' || formulario === 'editar') && (
                   <button
-                    onClick={() => setFormulario('')}
+                    onClick={() => {
+                      setFormulario('')
+                      setLibro(initialState)
+                    }}
                     className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
                   >
                     <p className="text-sm font-medium leading-none text-white">
@@ -184,18 +181,30 @@ function Libros() {
                   <tbody className="w-full">
                     {libros?.map((libro) => (
                       <Item
-                        key={libro.id}
-                        {...libro}
-                        deshabilitarLibro={deshabilitarLibro}
-                        setLibroSeleccionado={setLibroSeleccionado}
+                        key={crypto.randomUUID()}
+                        setLibro={setLibro}
                         setFormulario={setFormulario}
+                        {...libro}
+                        // deshabilitarLibro={deshabilitarLibro}
+                        // setLibroSeleccionado={setLibroSeleccionado}
                       />
                     ))}
                   </tbody>
                 </table>
               </>
             )}
-            {formulario === 'EDITAR' && (
+            {formulario !== '' && (
+              <LibroFormulario
+                libro={libro}
+                setLibro={setLibro}
+                tags={tags}
+                categorias={categorias}
+                formulario={formulario}
+                crearNuevoLibro={crearNuevoLibro}
+              />
+            )}
+
+            {/* {formulario === 'EDITAR' && (
               <LibroFormulario
                 categorias={categorias}
                 tags={tags}
@@ -214,7 +223,7 @@ function Libros() {
                 crearNuevoLibro={crearNuevoLibro}
                 formulario={formulario}
               />
-            )}
+            )} */}
           </div>
         </div>
       </div>
