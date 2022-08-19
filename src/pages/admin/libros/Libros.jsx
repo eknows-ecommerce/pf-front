@@ -27,8 +27,9 @@ const initialState = {
 
 function Libros() {
   const [formulario, setFormulario] = useState('') // boton nuevo libro
-  const [nuevoLibro, setNuevoLibro] = useState(initialState)
-  const [libroSeleccionado, setLibroSeleccionado] = useState({})
+  // const [nuevoLibro, setNuevoLibro] = useState(initialState)
+  // const [libroSeleccionado, setLibroSeleccionado] = useState({})
+  const [libro, setLibro] = useState(initialState)
   const [deshabilitarItemModal, setDeshabilitarItemModal] = useState(false)
   const { search, handleSearch } = useSearch()
 
@@ -40,52 +41,37 @@ function Libros() {
 
   useEffect(() => {
     dispatch(getAll(`titulo=${search}`))
-  }, [search])
+  }, [dispatch, search])
 
-  const deshabilitarItem = () => {
-    let libroObj = {
-      ...libroSeleccionado,
-      isAvail: !libroSeleccionado.isAvail,
-    }
-    dispatch(update(libroObj))
-    setLibroSeleccionado({})
-    setDeshabilitarItemModal(false)
-  }
-
-  const deshabilitarLibro = (libro) => {
-    setLibroSeleccionado(libro)
-    setDeshabilitarItemModal(true)
-  }
-
-  const crearNuevoLibro = (e, libro) => {
+  const crearNuevoLibro = (e, libroObj) => {
     e.preventDefault()
-
-    if (formulario === 'EDITAR') {
-      dispatch(update(libro))
-    }
-
-    if (formulario === 'NUEVO') {
-      dispatch(create(libro))
-    }
-
+    if (formulario === 'nuevo') dispatch(create(libroObj))
+    if (formulario === 'editar') dispatch(update(libroObj))
+    setLibro(initialState)
     setFormulario('')
+  }
 
-    setNuevoLibro(initialState)
+  const deshabilitarLibro = () => {
+    const libroObj = {
+      ...libro,
+      isAvail: !libro.isAvail,
+    }
+
+    dispatch(update(libroObj))
+    setDeshabilitarItemModal(false)
+    setLibro(initialState)
   }
 
   return (
     <>
       {deshabilitarItemModal && (
         <DisponibilidadModal
-          libroSeleccionado={libroSeleccionado}
+          libroSeleccionado={libro}
           setDeshabilitarItemModal={setDeshabilitarItemModal}
-          deshabilitarItem={deshabilitarItem}
-          item={libroSeleccionado.titulo}
-          tipo="libro"
+          deshabilitarLibro={deshabilitarLibro}
         />
       )}
-
-      <div className="overflow-x-auto xl:px-20 pt-2">
+      <div className="overflow-x-auto pt-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
             <div className="sm:flex items-center justify-between">
@@ -95,7 +81,7 @@ function Libros() {
               <div>
                 {formulario === '' && (
                   <button
-                    onClick={() => setFormulario('NUEVO')}
+                    onClick={() => setFormulario('nuevo')}
                     className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
                   >
                     <p className="text-sm font-medium leading-none text-white">
@@ -118,9 +104,12 @@ function Libros() {
                   </button>
                 )}
 
-                {(formulario === 'NUEVO' || formulario === 'EDITAR') && (
+                {(formulario === 'nuevo' || formulario === 'editar') && (
                   <button
-                    onClick={() => setFormulario('')}
+                    onClick={() => {
+                      setFormulario('')
+                      setLibro(initialState)
+                    }}
                     className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
                   >
                     <p className="text-sm font-medium leading-none text-white">
@@ -155,47 +144,36 @@ function Libros() {
                 />
                 <table className="w-full whitespace-nowrap">
                   <thead>
-                    <tr className="h-16 w-full text-lg leading-none text-white bg-black">
-                      <th className="font-normal text-center p-2">ID</th>
+                    <tr className="h-16 w-full text-sm leading-none text-gray-800">
                       <th className="font-normal text-left pl-4">Libro</th>
                       <th className="font-normal text-left pl-12">Estado</th>
                       <th className="font-normal text-left pl-12">Stock</th>
                       <th className="font-normal text-left pl-20">Precio</th>
-                      <th className="font-normal text-left pl-20"></th>
+                      <th className="font-normal text-left pl-20">ID</th>
                     </tr>
                   </thead>
                   <tbody className="w-full">
                     {libros?.map((libro) => (
                       <Item
-                        key={libro.id}
-                        {...libro}
-                        deshabilitarLibro={deshabilitarLibro}
-                        setLibroSeleccionado={setLibroSeleccionado}
+                        key={crypto.randomUUID()}
+                        setLibro={setLibro}
                         setFormulario={setFormulario}
+                        setDeshabilitarItemModal={setDeshabilitarItemModal}
+                        {...libro}
                       />
                     ))}
                   </tbody>
                 </table>
               </>
             )}
-            {formulario === 'EDITAR' && (
+            {formulario !== '' && (
               <LibroFormulario
-                categorias={categorias}
+                libro={libro}
+                setLibro={setLibro}
                 tags={tags}
-                libro={libroSeleccionado}
-                setLibroSeleccionado={setLibroSeleccionado}
+                categorias={categorias}
                 formulario={formulario}
                 crearNuevoLibro={crearNuevoLibro}
-              />
-            )}
-            {formulario === 'NUEVO' && (
-              <LibroFormulario
-                categorias={categorias}
-                tags={tags}
-                setNuevoLibro={setNuevoLibro}
-                libro={nuevoLibro}
-                crearNuevoLibro={crearNuevoLibro}
-                formulario={formulario}
               />
             )}
           </div>

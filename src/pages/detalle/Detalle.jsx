@@ -14,47 +14,45 @@ export default function Detalle() {
   const [listaCarrito, setListaCarrito] = useState(
     JSON.parse(localStorage.getItem('carrito')) ?? []
   )
-
+  const [revs, setRevs] = useState(6)
   const { libros, libro } = useSelector(({ librosStore }) => librosStore)
-  const { reviews, count } = useSelector(({ reviewsStore }) => reviewsStore)
+  const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   //const { pedido } = useSelector(({ pedidosStore }) => pedidosStore)
 
-  let cats = []; let tags = [];
+  let cats = []
+  let tags = []
   libros.forEach((l) => {
-    l.id == id &&
+    l.id === id &&
       l.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
       && l.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
   })
-
+  
   //const libroComprado = true
 
   useEffect(() => {
     dispatch(getAll('?LibroId=' + id))
-  }, [id, dispatch])
+  }, [])
 
   useEffect(() => {
     dispatch(getById(id))
-  }, [id, dispatch])
+  }, [])
 
-  function getReviews(limit = count) {
+  function getReviews() {
     let out = []
-    let i = 0
     reviews.forEach((r) => {
-      if (i < limit)
-        out.push(
-          <ReviewCard
-            key={crypto.randomUUID()}
-            title={r.titulo}
-            text={r.texto}
-            rate={r.rating}
-            likes={r.likes}
-            author={usuario.id}
-          />
-        )
-      i++
+      out.push(
+        <ReviewCard
+          key={crypto.randomUUID()}
+          title={r.titulo}
+          text={r.texto}
+          rate={r.rating}
+          likes={r.likes}
+          author={r.UsuarioId}
+        />
+      )
     })
-    return out
+    return out.slice(0, revs)
   }
 
   function handleCarrito(e) {
@@ -70,7 +68,6 @@ export default function Detalle() {
       localStorage.setItem('carrito', JSON.stringify(elemento))
     }
   }
-
   /*function handleAdd(e) {
     e.preventDefault()
   }*/
@@ -79,7 +76,7 @@ export default function Detalle() {
     <>
       <div className="relative max-w-screen-2xl px-4 py-8 mx-auto">
         <div>
-          <h1 className="text-3xl font-bold lg:text-5xl font-comforta-300">
+          <h1 className="text-3xl font-bold lg:text-5xl font-comforta">
             {libro.titulo}
           </h1>
           <p className="mt-1 text-sm text-gray-500 ">{libro.autor}</p>
@@ -145,21 +142,19 @@ export default function Detalle() {
 
           <div className="lg:col-span-3 prose max-w-none ">
             <div className="m-2 p-8 mx-auto max-w-screen-2xl sm:px-6 lg:px-8 shadow-2xl rounded-2xl bg-orange-50">
-              <h2 className="text-3xl font-poiret-one font-bold ">Resumen:</h2>
+              <h2 className="text-3xl font-comforta-300 font-bold ">Resumen:</h2>
               <p className="text-justify mr-2 ml-2">{libro.resumen}</p>
               <br />
               <div className="flex justify-evenly">
                 <div>
-                  <h3 className="text-2xl font-poiret-one font-bold ">Categorias</h3>
-                  <ul>
-                    {cats}
-                  </ul>
+                  <h3 className="text-2xl font-poiret-one font-bold">
+                    Categorias
+                  </h3>
+                  <ul>{cats}</ul>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-poiret-one font-bold ">Tags</h3>
-                  <ul>
-                    {tags}
-                  </ul>
+                  <h3 className="text-2xl font-poiret-one font-bold">Tags</h3>
+                  <ul>{tags}</ul>
                 </div>
               </div>
             </div>
@@ -174,31 +169,18 @@ export default function Detalle() {
                       Ve lo que otros lectores tiene que decir
                     </p>
                   </div>
-                  {usuario.id > 0 ? <ReviewModal idLibro={id} idUsuario={usuario.id} /> : null}
+                  {usuario.id > 0 ? (
+                    <ReviewModal idLibro={id} idUsuario={usuario.id} />
+                  ) : null}
                   <button
                     className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
-                  //onClick={getReviews}
                   >
                     Lea todas las reviews
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-4 h-4 ml-3"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      />
-                    </svg>
                   </button>
                 </>
               </div>
               <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
-                {getReviews(6)}
+                {getReviews()}
               </div>
             </div>
           </div>

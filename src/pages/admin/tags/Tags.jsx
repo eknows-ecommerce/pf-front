@@ -10,7 +10,7 @@ import EliminarItemModal from '../EliminarItemModal'
 import EditarItemModal from '../EditarItemModal'
 import SearchPanelAdmin from '../SearchPanelAdmin'
 
-function Tags() {
+export default function Tags() {
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
 
   const [eliminarItemModal, setEliminarItemModal] = useState(false)
@@ -20,12 +20,11 @@ function Tags() {
   const [tagSeleccionado, setTagSeleccionado] = useState({})
   const [valorNuevoItem, setValorNuevoItem] = useState('')
   const { search, handleSearch } = useSearch()
-
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getAll(`nombre=${search}`))
-  }, [search])
+  }, [dispatch, search])
 
   const seleccionarTag = (tag) => {
     setTagSeleccionado(tag)
@@ -61,12 +60,20 @@ function Tags() {
   }
 
   const crearItem = () => {
-    let tag = {
-      nombre: valorNuevoItem,
+    setTagSeleccionado({})
+    if (!valorNuevoItem) {
+      alert('Ingresar nombre de tag')
+    } else {
+      dispatch(create({ nombre: valorNuevoItem }))
+      setValorNuevoItem('')
+      setCrearItemModal(false)
     }
-    dispatch(create(tag))
+  }
+
+  const handleNewTag = () => {
+    setTagSeleccionado({})
     setValorNuevoItem('')
-    setCrearItemModal(false)
+    setCrearItemModal(true)
   }
 
   return (
@@ -84,7 +91,7 @@ function Tags() {
           valorNuevoItem={valorNuevoItem}
           setValorNuevoItem={setValorNuevoItem}
           crearItem={crearItem}
-          tipo="Tag"
+          tipo="tag"
         />
       )}
       {editarItemModal && (
@@ -93,10 +100,10 @@ function Tags() {
           valorNuevoItem={valorNuevoItem}
           setValorNuevoItem={setValorNuevoItem}
           editarItem={editarItem}
-          tipo="Tag"
+          tipo="tag"
         />
       )}
-      <div className="overflow-x-auto xl:px-20 py-2">
+      <div className="overflow-x-auto py-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
             <div className="sm:flex items-center justify-between">
@@ -105,7 +112,7 @@ function Tags() {
               </p>
               <div>
                 <button
-                  onClick={() => setCrearItemModal(true)}
+                  onClick={handleNewTag}
                   className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
                 >
                   <p className="text-sm font-medium leading-none text-white">
@@ -137,7 +144,7 @@ function Tags() {
             />
             <table className="w-full whitespace-nowrap">
               <thead>
-                <tr className="h-16 w-full text-lg leading-none text-white bg-black">
+                <tr className="h-16 w-full text-lg leading-none text-white bg-neutral-800">
                   <th className="font-normal text-left pl-20">ID</th>
                   <th className="font-normal text-left pl-4">Tag</th>
                   <th className="font-normal text-left pl-4"></th>
@@ -161,5 +168,3 @@ function Tags() {
     </>
   )
 }
-
-export default Tags

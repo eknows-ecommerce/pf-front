@@ -23,7 +23,7 @@ function Landing() {
     dispatch(getAllLibros(`offset=0`))
     dispatch(getallCat())
     dispatch(getallTag())
-  }, [dispatch])
+  }, [])
 
   useEffect(() => {
     if (isAuthenticated) {

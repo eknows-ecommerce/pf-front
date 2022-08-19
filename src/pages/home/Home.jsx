@@ -2,7 +2,12 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+
 import { useAuth0 } from '@auth0/auth0-react'
+
+
+import Loading from '../../components/loading/Loading'
+
 import Swal from 'sweetalert2'
 
 import CardLibro from 'components/cards/CardLibro'
@@ -17,6 +22,8 @@ import { getByNickname } from 'features/actions/usuarios'
 import usePaginacion from 'hooks/usePaginacion'
 
 function Home() {
+
+  const [loading = true, setLoading] = useState();
   const { user } = useAuth0()
 
   const [listaCarrito, setListaCarrito] = useState(
@@ -44,12 +51,14 @@ function Home() {
   )
   const [sorter, setSort] = useState(['Sort', 'asc'])
 
+
   const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   useEffect(() => {
     dispatch(getByNickname(user))
   }, [getByNickname, user])
+
 
   useEffect(() => {
     dispatch(getByUser(usuario.id))
@@ -108,6 +117,10 @@ function Home() {
 
   return (
     <section>
+       {
+                loading ? (
+                    <Loading setLoading={setLoading} />
+                ) : 
       <div className="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
           <Filtros />
@@ -164,11 +177,11 @@ function Home() {
                     setSort(v.target.value.split('-'))
                   }}
                 >
-                  <option readOnly="">Sort</option>
-                  <option value="titulo-asc">Title, A-Z</option>
-                  <option value="titulo-desc">Title, Z-A</option>
-                  <option value="precio-asc">Price, Low-High</option>
-                  <option value="precio-desc">Price, High-Low</option>
+                  <option readOnly="">Ordenar</option>
+                  <option value="titulo-asc">Titulo, A-Z</option>
+                  <option value="titulo-desc">Titulo, Z-A</option>
+                  <option value="precio-asc">Precio, Min-Max</option>
+                  <option value="precio-desc">Precio, Max-Min</option>
                 </select>
               </div>
             </div>
@@ -204,6 +217,7 @@ function Home() {
           </div>
         </div>
       </div>
+}
     </section>
   )
 }
