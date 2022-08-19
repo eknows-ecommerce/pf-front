@@ -5,12 +5,13 @@ const URL = process.env.REACT_APP_URL
 // <----------------- acciones que conectan a la base de datos ----------------->
 
 export const getAll = createAsyncThunk(
-  'usuarios/@GETALL',
+  'USUARIOS/@GETALL',
   async (query = '') => {
     try {
       const { data } = await axios.get(`${URL}/usuarios?${query}`)
       return data
     } catch (error) {
+      console.log('actions', error)
       const msg = error.message.data.msg
       return msg
     }
@@ -18,7 +19,7 @@ export const getAll = createAsyncThunk(
 )
 
 export const getByNickname = createAsyncThunk(
-  'getByNickname/@GETBYNICKNAME',
+  'USUARIOS/@GETBYNICKNAME',
   async (user) => {
     try {
       const { data } = await axios.get(
@@ -33,7 +34,7 @@ export const getByNickname = createAsyncThunk(
 )
 
 export const getAllByName = createAsyncThunk(
-  'getAll/@GETALL',
+  'USUARIOS/@GETALL',
   async ({ payload }) => {
     try {
       const { data } = await axios.get(`${URL}/usuarios`, {
@@ -47,7 +48,7 @@ export const getAllByName = createAsyncThunk(
   }
 )
 
-export const getById = createAsyncThunk('usuarios/@GETBYID', async (id) => {
+export const getById = createAsyncThunk('USUARIOS/@GETBYID', async (id) => {
   try {
     const { data } = await axios.get(`${URL}/usuarios/${id}`)
     return data
@@ -57,7 +58,7 @@ export const getById = createAsyncThunk('usuarios/@GETBYID', async (id) => {
   }
 })
 
-export const create = createAsyncThunk('usuarios/@CREATE', async (body) => {
+export const create = createAsyncThunk('USUARIOS/@CREATE', async (body) => {
   try {
     const { data } = await axios({
       method: 'post',
@@ -72,7 +73,7 @@ export const create = createAsyncThunk('usuarios/@CREATE', async (body) => {
   }
 })
 
-export const update = createAsyncThunk('usuarios/@UPDATE', async (usuario) => {
+export const update = createAsyncThunk('USUARIOS/@UPDATE', async (usuario) => {
   try {
     const { data } = await axios.put(
       `${URL}/usuarios/${usuario.id}`,
@@ -86,7 +87,7 @@ export const update = createAsyncThunk('usuarios/@UPDATE', async (usuario) => {
 })
 
 export const deleteById = createAsyncThunk(
-  'usuarios/@DELETEBYID',
+  'USUARIOS/@DELETEBYID',
   async (id) => {
     try {
       const { data } = await axios.delete(`${URL}/usuarios/${id}`)

@@ -26,6 +26,7 @@ import Ofertas from 'components/NavBar/Ofertas'
 import Contactanos from 'components/NavBar/Contactanos'
 
 import Carrito from 'components/Carrito/Carrito'
+import Favoritos from 'pages/perfil/Favoritos'
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -43,6 +44,7 @@ function RoutesApp() {
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="editar" element={<Editar />} />
+        <Route path="favoritos" element={<Favoritos />} />
       </Route>
       <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />

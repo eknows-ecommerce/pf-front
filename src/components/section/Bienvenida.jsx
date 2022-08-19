@@ -39,7 +39,7 @@ export default function Bienvenida() {
         <div className="max-w-xl text-center sm:text-left">
           <h1 className="text-6xl font-extrabold  font-comforta-300 sm:text-7xl">
             Bievenidos a
-            <br/>
+            <br />
             <strong className="font-extrabold text-rose-700 sm:block">
               e-Knows
             </strong>
