@@ -31,77 +31,7 @@ export default function Menu() {
         </div>
         <div>
           <Outlet />
-          =======
-          <div>
-            <div className="grid  gap-4 sm:grid-cols-3">
-              <Link
-                className="block p-6 border border-gray-100 shadow-sm rounded-xl focus:outline-none focus:ring hover:border-violetapaleta-200 hover:ring-1 hover:ring-violetapaleta-200"
-                to="editar"
-              >
-                <span className="inline-block p-4 rounded-lg bg-gray-50">
-                  <svg
-                    className="w-10 h-10"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                </span>
-                <h6 className="mt-2 text-2xl font-comforta-300 font-normal">
-                  Editar Perfil
-                </h6>
-              </Link>
-              <Link
-                className="block p-6 border border-gray-100 shadow-sm rounded-xl focus:outline-none focus:ring hover:border-violetapaleta-200 hover:ring-1 hover:ring-violetapaleta-200"
-                to="pedidos"
-              >
-                <span className="inline-block p-4 rounded-lg bg-gray-50">
-                  <svg
-                    className="w-10 h-10"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-                    />
-                  </svg>
-                </span>
-                <h6 className="mt-2 text-2xl font-comforta-300 font-normal">
-                  Mis Pedidos
-                </h6>
-              </Link>
-              <Link
-                className="block p-6 border border-gray-100 shadow-sm rounded-xl focus:outline-none focus:ring hover:border-violetapaleta-200 hover:ring-1 hover:ring-violetapaleta-200"
-                to="favoritos"
-              >
-                <span className="inline-block p-4 rounded-lg bg-gray-50">
-                  <svg
-                    className="w-10 h-10"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                </span>
-                <h6 className="mt-2 text-2xl font-comforta-300 font-normal">
-                  Favoritos
-                </h6>
-              </Link>
-            </div>
-            <Outlet />
-          </div>
+         
         </div>
       </div>
     </section>
