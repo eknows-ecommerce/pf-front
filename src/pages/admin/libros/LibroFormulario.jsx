@@ -1,88 +1,126 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
+
+import useUploadImage from 'hooks/useUploadImage'
+import {
+  validarInputNumero,
+  validarInputText,
+} from 'assets/validacionesInputs/validaciones'
+
+const URL_API = process.env.REACT_APP_URL_API_CLOUDINARY
 
 export default function LibroFormulario({
   categorias,
   tags,
-  setNuevoLibro,
+  setLibro,
   libro,
   crearNuevoLibro,
   formulario,
-  setLibroSeleccionado,
 }) {
-  // const [libroActualizar, setLibroActualizar] = useState(libro)
   const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([])
   const [tagsSeleccionados, setTagsSeleccionados] = useState([])
-  // let libroObj = { ...libro }
+  const [imageInput, setImageInput] = useState(null)
+  const { handleImage } = useUploadImage()
 
   useEffect(() => {
-    if (formulario === 'EDITAR') {
-      setCategoriasSeleccionadas(libro.CategoriaLibro.map((cat) => cat.id))
-      setTagsSeleccionados(libro.TagLibro.map((tag) => tag.id))
-      setLibroSeleccionado({
-        ...libro,
-        categorias: categoriasSeleccionadas,
-        tags: tagsSeleccionados,
-      })
+    if (libro.CategoriaLibro || libro.TagLibro) {
+      let cats = libro.CategoriaLibro.map((cat) => cat.id)
+      let tags = libro.TagLibro.map((tag) => tag.id)
+      setCategoriasSeleccionadas([...cats])
+      setTagsSeleccionados([...tags])
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formulario])
+  }, [libro])
 
-  const handleChange = (e, setter, property, value) => {
-    setter({ ...libro, [property]: value })
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      if (!imageInput) {
+        const libroSinPortada = {
+          ...libro,
+          portada: 'https://i.imgur.com/md6Ac63.jpeg',
+          categorias: categoriasSeleccionadas,
+          tags: tagsSeleccionados,
+        }
+        crearNuevoLibro(e, libroSinPortada)
+        alert('Libro sin portada creado')
+        setCategoriasSeleccionadas([])
+        setTagsSeleccionados([])
+      } else {
+        const file = imageInput
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('upload_preset', 'Images')
+        const res = await axios.post(URL_API, formData)
+        const libroPortada = {
+          ...libro,
+          portada: res.data.secure_url,
+          categorias: categoriasSeleccionadas,
+          tags: tagsSeleccionados,
+        }
+        crearNuevoLibro(e, libroPortada)
+        alert('Libro con portada creado')
+        setCategoriasSeleccionadas([])
+        setTagsSeleccionados([])
+      }
+    } catch (error) {
+      console.log(error)
+      alert('Error al enviar formulario')
+    }
   }
 
-  const handleCategorias = (e, id) => {
-    if (formulario === 'NUEVO') {
-      console.log(id)
-      if (e.target.checked) {
-        if (!libro.categorias.includes(id)) {
-          setNuevoLibro({ ...libro, categorias: [...libro.categorias, id] })
+  const handleInputChange = (e) => {
+    const { type, name, value, files, checked } = e.target
+    switch (type) {
+      case 'text':
+        if (validarInputText(value)) {
+          setLibro({ ...libro, [name]: value })
         }
-      } else {
-        const categoriasFilter = libro.categorias.filter((i) => i !== id)
-        setNuevoLibro({ ...libro, categorias: categoriasFilter })
-      }
-    } else {
-      if (e.target.checked) {
-        if (!libro.categorias.includes(id)) {
-          setLibroSeleccionado({
-            ...libro,
-            categorias: [...libro.categorias, id],
-          })
+        break
+      case 'number':
+        if (validarInputNumero(value)) {
+          setLibro({ ...libro, [name]: value })
         }
-      } else {
-        const categoriasFilter = libro.categorias.filter((i) => i !== id)
-        setLibroSeleccionado({ ...libro, categorias: categoriasFilter })
-      }
-      libro.categorias = categoriasSeleccionadas
+        break
+      case 'date':
+        setLibro({ ...libro, [name]: value })
+        break
+      case 'file':
+        handleImage(e)
+        setImageInput(files[0])
+        break
+      case 'textarea':
+        setLibro({ ...libro, [name]: value })
+        break
+      case 'checkbox':
+        setLibro({ ...libro, [name]: checked ? false : true })
+        break
+      default:
+        break
     }
   }
 
-  const handleTags = (e, id) => {
-    if (formulario === 'NUEVO') {
-      if (e.target.checked) {
-        if (!libro.tags.includes(id)) {
-          setNuevoLibro({ ...libro, tags: [...libro.tags, id] })
-        }
-      } else {
-        const tagsFilter = libro.tags.filter((i) => i !== id)
-        setNuevoLibro({ ...libro, tags: tagsFilter })
-      }
+  const handleCategorias = (e) => {
+    const { id } = e.target
+    if (categoriasSeleccionadas.includes(+id)) {
+      setCategoriasSeleccionadas(
+        categoriasSeleccionadas.filter((cat) => cat !== +id)
+      )
     } else {
-      if (e.target.checked) {
-        if (!libro.tags.includes(id)) {
-          setLibroSeleccionado({ ...libro, tags: [...libro.tags, id] })
-        }
-      } else {
-        const tagsFilter = libro.tags.filter((i) => i !== id)
-        setLibroSeleccionado({ ...libro, tags: tagsFilter })
-      }
-      libro.tags = tagsSeleccionados
+      setCategoriasSeleccionadas([...categoriasSeleccionadas, +id])
+    }
+  }
+
+  const handleTags = (e) => {
+    const { id } = e.target
+    if (tagsSeleccionados.includes(+id)) {
+      setTagsSeleccionados(tagsSeleccionados.filter((tag) => tag !== +id))
+    } else {
+      setTagsSeleccionados([...tagsSeleccionados, +id])
     }
   }
 
   return (
-    <form onSubmit={(e) => crearNuevoLibro(e, libro)} className="px-2 py-5 ">
+    <form onSubmit={handleSubmit} className="px-2 py-5 ">
       <div className="flex flex-no-wrap items-start">
         <div className="w-full">
           <div className="py-4 px-2">
@@ -90,7 +128,7 @@ export default function LibroFormulario({
               <div className="hidden lg:block md:hidden"></div>
               <div className="mt-10 px-7">
                 <p className="text-xl font-semibold leading-tight text-gray-800">
-                  {formulario === 'NUEVO' ? 'Nuevo libro' : 'Editar libro'}
+                  {formulario === 'nuevo' ? 'Nuevo libro' : 'Editar libro'}
                 </p>
                 <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-7 mt-7 ">
                   <div className="w-full">
@@ -98,25 +136,12 @@ export default function LibroFormulario({
                       Título
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'titulo',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'titulo',
-                                e.target.value
-                              )
-                      }
-                      value={libro.titulo ?? ''}
+                      type="text"
+                      name="titulo"
+                      value={libro.titulo || ''}
+                      onChange={handleInputChange}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
                   <div className="w-full">
@@ -124,25 +149,12 @@ export default function LibroFormulario({
                       Autor
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'autor',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'autor',
-                                e.target.value
-                              )
-                      }
-                      value={libro.autor ?? ''}
+                      type="text"
+                      name="autor"
+                      onChange={handleInputChange}
+                      value={libro.autor || ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
                   <div className="w-full">
@@ -150,24 +162,10 @@ export default function LibroFormulario({
                       Editorial
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'editorial',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'editorial',
-                                e.target.value
-                              )
-                      }
-                      value={libro.editorial ?? ''}
+                      type="text"
+                      name="editorial"
+                      onChange={handleInputChange}
+                      value={libro.editorial || ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
                   </div>
@@ -176,24 +174,10 @@ export default function LibroFormulario({
                       Lenguaje
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'lenguaje',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'lenguaje',
-                                e.target.value
-                              )
-                      }
-                      value={libro.lenguaje ?? ''}
+                      type="text"
+                      name="lenguaje"
+                      onChange={handleInputChange}
+                      value={libro.lenguaje || ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
                   </div>
@@ -202,24 +186,10 @@ export default function LibroFormulario({
                       Cantidad de páginas
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'paginas',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'paginas',
-                                e.target.value
-                              )
-                      }
-                      value={libro.paginas ?? ''}
+                      type="number"
+                      name="paginas"
+                      onChange={handleInputChange}
+                      value={libro.paginas || ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
                   </div>
@@ -228,24 +198,10 @@ export default function LibroFormulario({
                       Detalles
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'detalles',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'detalles',
-                                e.target.value
-                              )
-                      }
-                      value={libro.detalles ?? ''}
+                      type="text"
+                      name="detalles"
+                      onChange={handleInputChange}
+                      value={libro.detalles || ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
                   </div>
@@ -254,59 +210,39 @@ export default function LibroFormulario({
                       Fecha de publicación
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'fechaPublicacion',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'fechaPublicacion',
-                                e.target.value
-                              )
-                      }
-                      value={libro.fechaPublicacion ?? ''}
                       type="date"
+                      onChange={handleInputChange}
+                      name="fechaPublicacion"
+                      value={libro.fechaPublicacion ?? ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
                   </div>
                   <div>
-                    <p className="text-base font-medium leading-none text-gray-800">
-                      Portada ????
-                    </p>
-                    <input className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50" />
+                    <div>
+                      <p className="text-base font-medium leading-none text-gray-800">
+                        Portada
+                      </p>
+                      <input
+                        name="image"
+                        type="file"
+                        onChange={handleInputChange}
+                        accept=".jpg, .jpeg, .png"
+                        required={false}
+                        className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      />
+                    </div>
                   </div>
                   <div>
                     <p className="text-base font-medium leading-none text-gray-800">
                       Precio
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'precio',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'precio',
-                                e.target.value
-                              )
-                      }
-                      value={libro.precio ?? ''}
                       type="number"
+                      name="precio"
+                      onChange={handleInputChange}
+                      value={libro.precio || ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
                   <div>
@@ -314,29 +250,14 @@ export default function LibroFormulario({
                       Stock
                     </p>
                     <input
-                      onChange={
-                        formulario === 'NUEVO'
-                          ? (e) =>
-                              handleChange(
-                                e,
-                                setNuevoLibro,
-                                'stock',
-                                e.target.value
-                              )
-                          : (e) =>
-                              handleChange(
-                                e,
-                                setLibroSeleccionado,
-                                'stock',
-                                e.target.value
-                              )
-                      }
-                      value={libro.stock ?? ''}
                       type="number"
+                      name="stock"
+                      onChange={handleInputChange}
+                      value={libro.stock || ''}
                       className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
-
                   <div className="col-span-full w-full">
                     <label className="text-sm text-left font-medium leading-none text-gray-800">
                       Categorias
@@ -345,16 +266,15 @@ export default function LibroFormulario({
                       <div className="flex flex-wrap justify-between items-center w-full border rounded border-gray-300 md:px-6 px-3 py-1 lg:gap-x-2 md:gap-x-2 gap-x-1">
                         {categorias?.map((categoria) => (
                           <div
-                            key={categoria.id}
+                            key={crypto.randomUUID()}
                             className="flex items-center space-x-2 text-sm leading-none text-gray-600 p-3 hover:bg-indigo-100 hover:text-indigo-700 hover:rounded focus:bg-indigo-100 focus:text-indigo-700 focus:rounded"
                           >
                             <input
+                              id={categoria.id}
                               type="checkbox"
                               name={categoria.nombre}
                               className="cursor-pointer"
-                              onChange={(e) =>
-                                handleCategorias(e, categoria.id)
-                              }
+                              onChange={handleCategorias}
                               defaultChecked={categoriasSeleccionadas.includes(
                                 categoria.id
                               )}
@@ -375,9 +295,8 @@ export default function LibroFormulario({
                     <div className="flex flex-wrap justify-start items-center mt-2">
                       <div className="flex flex-wrap justify-between items-center w-full border rounded border-gray-300 md:px-6 px-3 py-1 lg:gap-x-2 md:gap-x-2 gap-x-1">
                         {tags?.map((tag) => (
-                          <label
-                            htmlFor={tag.id}
-                            key={tag.id}
+                          <div
+                            key={crypto.randomUUID()}
                             className="flex items-center space-x-2 text-sm leading-none text-gray-600 p-3 hover:bg-indigo-100 hover:text-indigo-700 hover:rounded focus:bg-indigo-100 focus:text-indigo-700 focus:rounded"
                           >
                             <input
@@ -385,13 +304,13 @@ export default function LibroFormulario({
                               name={tag.nombre}
                               id={tag.id}
                               className="cursor-pointer"
-                              onChange={(e) => handleTags(e, tag.id)}
+                              onChange={handleTags}
                               defaultChecked={tagsSeleccionados.includes(
                                 tag.id
                               )}
                             />
-                            <span>{tag.nombre}</span>
-                          </label>
+                            <label htmlFor={tag.nombre}>{tag.nombre}</label>
+                          </div>
                         ))}
                       </div>
                     </div>
@@ -404,61 +323,24 @@ export default function LibroFormulario({
                 </p>
                 <div className="my-5 border border-gray-300 rounded">
                   <textarea
+                    onChange={handleInputChange}
+                    name="resumen"
                     className="resize-none w-full h-[170px] px-4 py-4 text-base outline-none text-slate-600"
                     placeholder="Resumen del libro.."
                     value={libro.resumen}
-                    onChange={
-                      formulario === 'NUEVO'
-                        ? (e) =>
-                            handleChange(
-                              e,
-                              setNuevoLibro,
-                              'resumen',
-                              e.target.value
-                            )
-                        : (e) =>
-                            handleChange(
-                              e,
-                              setLibroSeleccionado,
-                              'resumen',
-                              e.target.value
-                            )
-                    }
+                    required
                   />
                 </div>
                 <div className="flex justify-center space-x-10 items-center">
                   <div className="flex items-center space-x-2">
-                    {formulario === 'NUEVO' ? (
-                      <>
-                        <input
-                          type="checkbox"
-                          className="w-full border border-gray-300 rounded outline-none focus:bg-gray-50"
-                          defaultChecked={!libro.isAvail}
-                          onClick={(e) =>
-                            setNuevoLibro({
-                              ...libro,
-                              isAvail: !libro.isAvail,
-                            })
-                          }
-                        />
-                        <label>No Disponible</label>
-                      </>
-                    ) : (
-                      <>
-                        <input
-                          type="checkbox"
-                          className="w-full border border-gray-300 rounded outline-none focus:bg-gray-50"
-                          defaultChecked={!libro.isAvail}
-                          onClick={(e) =>
-                            setLibroSeleccionado({
-                              ...libro,
-                              isAvail: !libro.isAvail,
-                            })
-                          }
-                        />
-                        <label>No Disponible</label>
-                      </>
-                    )}
+                    <input
+                      name="isAvail"
+                      type="checkbox"
+                      className="w-full border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      defaultChecked={false}
+                      onChange={handleInputChange}
+                    />
+                    <label>No Disponible</label>
                   </div>
                 </div>
               </div>

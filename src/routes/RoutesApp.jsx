@@ -43,7 +43,6 @@ function RoutesApp() {
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="editar" element={<Editar />} />
-
       </Route>
 
       <Route path="/" element={<NavBar />}>
@@ -53,11 +52,10 @@ function RoutesApp() {
         <Route path="masVendidos" element={<MejoresValarados />} />
         <Route path="contactanos" element={<Contactanos />} />
 
-        {/* <Route path="login" element={<Login />} /> */}
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>
       <Route path="home/carrito" element={<Carrito />} />
-      
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

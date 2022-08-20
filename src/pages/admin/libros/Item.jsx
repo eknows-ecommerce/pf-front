@@ -1,18 +1,17 @@
 import image from './libro.png'
 
 export default function Item(props) {
+  const handleEditar = () => {
+    props.setLibro(props)
+    props.setFormulario('editar')
+  }
+
   return (
     <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
       <td className="text-center">
         <p className="font-medium">EB-{props.id}</p>
       </td>
-      <td
-        className="pl-4 cursor-pointer"
-        onClick={() => {
-          props.setLibroSeleccionado(props)
-          props.setFormulario('EDITAR')
-        }}
-      >
+      <td className="pl-4 cursor-pointer" onClick={handleEditar}>
         <div className="flex items-center">
           <div className="w-10 h-10">
             <img className="w-full h-full" src={image} alt="book" />
@@ -46,7 +45,12 @@ export default function Item(props) {
       </td>
 
       <td className="pl-20">
-        <button onClick={() => props.deshabilitarLibro(props)}>
+        <button
+          onClick={() => {
+            props.setDeshabilitarItemModal(true)
+            props.setLibro(props)
+          }}
+        >
           {props.isAvail ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"

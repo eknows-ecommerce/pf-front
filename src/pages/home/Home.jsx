@@ -1,19 +1,31 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import CardLibro from 'components/cards/CardLibro'
-import { getAll } from 'features/actions/libros'
 
-import Paginacion from 'components/Paginacion/Paginacion'
-import usePaginacion from 'hooks/usePaginacion'
 
 import { useAuth0 } from '@auth0/auth0-react'
-import { getByNickname } from 'features/actions/usuarios'
+
+
+import Loading from '../../components/loading/Loading'
+
 import Swal from 'sweetalert2'
+
+import CardLibro from 'components/cards/CardLibro'
+import Paginacion from 'components/Paginacion/Paginacion'
 import Filtros from 'components/filtros/Filtros'
 
+import { getAll } from 'features/actions/libros'
+import { getByUser } from 'features/actions/favoritos'
+
+import { getByNickname } from 'features/actions/usuarios'
+
+import usePaginacion from 'hooks/usePaginacion'
+
 function Home() {
+
+  const [loading = true, setLoading] = useState();
   const { user } = useAuth0()
+
   const [listaCarrito, setListaCarrito] = useState(
     JSON.parse(localStorage.getItem('carrito')) ?? []
   )
@@ -25,6 +37,7 @@ function Home() {
     paginaSiguiente,
     handleTotal,
   } = usePaginacion()
+
   const { libros, count, busqueda } = useSelector(
     ({ librosStore }) => librosStore
   )
@@ -36,12 +49,20 @@ function Home() {
   const queryRangoPrecios = useSelector(
     ({ librosStore }) => librosStore.rangoPrecios
   )
-
   const [sorter, setSort] = useState(['Sort', 'asc'])
+
+
+  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   useEffect(() => {
     dispatch(getByNickname(user))
   }, [getByNickname, user])
+
+
+  useEffect(() => {
+    dispatch(getByUser(usuario.id))
+  }, [usuario])
 
   useEffect(() => {
     const [sort, dir] = sorter
@@ -96,6 +117,10 @@ function Home() {
 
   return (
     <section>
+       {
+                loading ? (
+                    <Loading setLoading={setLoading} />
+                ) : 
       <div className="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
           <Filtros />
@@ -116,18 +141,16 @@ function Home() {
                   </>
                 ) : paginas.totalPages === paginas.currentPage ? (
                   <>
-                    <>
-                      <span className="text-sm font-bold text-rosadito-500">
-                        {' '}
-                        {(paginas.currentPage - 1) * 6 +
-                          (count === 6 ? count : count % 6)}
-                      </span>{' '}
-                      de{' '}
-                      <span className="text-sm font-bold text-rosadito-500">
-                        {count}
-                      </span>{' '}
-                      Libros
-                    </>
+                    <span className="text-sm font-bold text-rosadito-500">
+                      {' '}
+                      {(paginas.currentPage - 1) * 6 +
+                        (count === 6 ? count : count % 6)}
+                    </span>{' '}
+                    de{' '}
+                    <span className="text-sm font-bold text-rosadito-500">
+                      {count}
+                    </span>{' '}
+                    Libros
                   </>
                 ) : (
                   <>
@@ -154,11 +177,11 @@ function Home() {
                     setSort(v.target.value.split('-'))
                   }}
                 >
-                  <option readOnly="">Sort</option>
-                  <option value="titulo-asc">Title, A-Z</option>
-                  <option value="titulo-desc">Title, Z-A</option>
-                  <option value="precio-asc">Price, Low-High</option>
-                  <option value="precio-desc">Price, High-Low</option>
+                  <option readOnly="">Ordenar</option>
+                  <option value="titulo-asc">Titulo, A-Z</option>
+                  <option value="titulo-desc">Titulo, Z-A</option>
+                  <option value="precio-asc">Precio, Min-Max</option>
+                  <option value="precio-desc">Precio, Max-Min</option>
                 </select>
               </div>
             </div>
@@ -173,6 +196,11 @@ function Home() {
                     descuento={libro.descuento}
                     precio={libro.precio}
                     handleCarrito={() => handleCarrito(libro.id, libro.precio)}
+                    esFavorito={
+                      favoritos.length > 0
+                        ? favoritos.some((fav) => fav.id === libro.id)
+                        : false
+                    }
                   />
                 ))}
             </div>
@@ -189,6 +217,7 @@ function Home() {
           </div>
         </div>
       </div>
+}
     </section>
   )
 }
