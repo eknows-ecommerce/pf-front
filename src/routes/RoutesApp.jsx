@@ -22,10 +22,10 @@ import Tags from 'pages/admin/tags/Tags'
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 
 import MejoresValarados from 'components/navBar/MejoresValorados'
-import Ofertas from 'components/navBar/Ofertas'
 import Contactanos from 'components/navBar/Contactanos'
 
 import Carrito from 'components/Carrito/Carrito'
+import DetallePedidos from 'pages/perfil/DetallePedido'
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -43,12 +43,13 @@ function RoutesApp() {
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="editar" element={<Editar />} />
+
       </Route>
+
       <Route path="/" element={<NavBar />}>
         <Route index element={<Landing />} />
 
         <Route path="home" element={<Home />} />
-        <Route path="ofertas" element={<Ofertas />} />
         <Route path="masVendidos" element={<MejoresValarados />} />
         <Route path="contactanos" element={<Contactanos />} />
 
@@ -56,6 +57,7 @@ function RoutesApp() {
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>
       <Route path="home/carrito" element={<Carrito />} />
+      
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

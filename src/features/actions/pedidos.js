@@ -56,3 +56,13 @@ export const deleteById = createAsyncThunk('pedido/@DELETE/ID', async (id) => {
     return msg
   }
 })
+
+export const getByUser = createAsyncThunk('pedido/@GETBYUSER', async (id) => {
+  try {
+    const { data } = await axios.get(`${URL}/pedidos/usuario/${id}`)
+    return data
+  } catch (error) {
+    const msg = error.response.data.msg
+    return msg
+  }
+})
