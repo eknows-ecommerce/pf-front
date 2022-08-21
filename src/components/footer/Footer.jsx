@@ -1,10 +1,10 @@
 // <<<<<<< HEAD
 // import logo from '../../assets/img/logos.png'
-import logo from '../../assets/img/e-Knews-footer.png'
 // =======
 // import logo from '../../assets/img/logos.png'
 // >>>>>>> 0915c5fba1b5e09586554b455bc4076bf23e24b2
 import React from "react";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -14,9 +14,9 @@ const Footer = () => {
               
                 </div>
                 <div className="flex flex-wrap sm:gap-10 gap-8 items-center justify-center mt-8">
-                    <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Acerca de e-Knows</p>
-                    <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Contáctanos</p>
-                    <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Términos de servicio</p>
+                    <Link to="/acercade"><p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Acerca de e-Knows</p></Link>
+                    <Link to="/contactanos"><p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Contáctanos</p></Link>
+                   <Link to="terminos"> <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Términos de servicio</p></Link>
                     <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Política de privacidad</p>
                 </div>
                 <div className="flex items-center gap-x-8 mt-6">
