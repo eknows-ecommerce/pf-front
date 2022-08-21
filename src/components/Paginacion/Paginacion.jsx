@@ -1,8 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-const Paginacion = ({ paginaAnterior, paginaSiguiente, paginas }) => {
+const Paginacion = ({
+  paginaAnterior,
+  paginaSiguiente,
+  total,
+  currentPage,
+  totalPages,
+}) => {
   return (
     <div className="inline-flex items-center justify-center w-full space-x-4  bg-transparent">
-      {!isNaN(paginas?.totalPages) ? (
+      {total !== 0 ? (
         <>
           <a
             href={'#'}
@@ -23,9 +29,9 @@ const Paginacion = ({ paginaAnterior, paginaSiguiente, paginas }) => {
             </svg>
           </a>
           <p className="text-xs">
-            {paginas?.currentPage}
+            {currentPage}
             <span className="mx-0.5">/</span>
-            {paginas?.totalPages}
+            {totalPages}
           </p>
 
           <a
