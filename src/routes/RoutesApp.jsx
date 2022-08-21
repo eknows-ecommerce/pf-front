@@ -2,8 +2,10 @@ import { Route, Routes } from 'react-router-dom'
 import Landing from '../pages/landing/Landing'
 import Home from '../pages/home/Home'
 
+
 import NotFound from '../pages/notFound/NotFound'
 import Navbar from '../components/navBar/Navbar'
+
 
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
@@ -21,6 +23,7 @@ import Tags from 'pages/admin/tags/Tags'
 
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 
+
 import MasVendidos from 'components/navBar/MasVendidos'
 import Ofertas from 'components/navBar/Ofertas'
 import Contactanos from 'components/navBar/Contactanos'
@@ -29,6 +32,7 @@ import Carrito from 'components/carrito/Carrito'
 import Favoritos from 'pages/perfil/Favoritos'
 import AcercaDe from 'components/footer/AcercaDe'
 import Terminos from 'components/footer/Terminos'
+
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -46,24 +50,23 @@ function RoutesApp() {
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="editar" element={<Editar />} />
-        <Route path="favoritos" element={<Favoritos />} />
       </Route>
-      <Route path="/" element={<Navbar />}>
+
+      <Route path="/" element={<NavBar />}>
         <Route index element={<Landing />} />
 
         <Route path="home" element={<Home />} />
-        <Route path="ofertas" element={<Ofertas />} />
-        <Route path="masVendidos" element={<MasVendidos />} />
+        <Route path="masVendidos" element={<MejoresValarados />} />
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />
         <Route path="terminos" element={<Terminos />} />
 
 
 
-        {/* <Route path="login" element={<Login />} /> */}
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>
       <Route path="home/carrito" element={<Carrito />} />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   )
