@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getById } from '../../features/actions/libros'
@@ -15,20 +16,13 @@ export default function Detalle() {
     JSON.parse(localStorage.getItem('carrito')) ?? []
   )
   const [revs, setRevs] = useState(6)
-  const { libros, libro } = useSelector(({ librosStore }) => librosStore)
+  const { libro } = useSelector(({ librosStore }) => librosStore)
   const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   //const { pedido } = useSelector(({ pedidosStore }) => pedidosStore)
 
-  let cats = []
   let tags = []
-  libros.forEach((l) => {
-    l.id === id &&
-      l.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
-      && l.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
-  })
-  
-  //const libroComprado = true
+
 
   useEffect(() => {
     dispatch(getAll('?LibroId=' + id))
@@ -37,6 +31,17 @@ export default function Detalle() {
   useEffect(() => {
     dispatch(getById(id))
   }, [])
+
+  function getCategorias() {
+    let cats = []
+    libro.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
+    return cats
+  }
+  function getTags() {
+    let tags = []
+    libro.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
+    return tags
+  }
 
   function getReviews() {
     let out = []
@@ -143,18 +148,20 @@ export default function Detalle() {
           <div className="lg:col-span-3 prose max-w-none ">
             <div className="m-2 p-8 mx-auto max-w-screen-2xl sm:px-6 lg:px-8 shadow-2xl rounded-2xl bg-orange-50">
               <h2 className="text-3xl font-comforta-300 font-bold ">Resumen:</h2>
-              <p className="text-justify mr-2 ml-2">{libro.resumen}</p>
+              <p className="font-comforta font-bold text-justify mr-2 ml-2">{libro.resumen}</p>
               <br />
               <div className="flex justify-evenly">
                 <div>
-                  <h3 className="text-2xl font-poiret-one font-bold">
-                    Categorias
-                  </h3>
-                  <ul>{cats}</ul>
+                  <h3 className="text-2xl font-comforta-300 font-bold ">Categorias</h3>
+                  <ul>
+                    {getCategorias()}
+                  </ul>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-poiret-one font-bold">Tags</h3>
-                  <ul>{tags}</ul>
+                  <h3 className="text-2xl font-comforta-300 font-bold ">Tags</h3>
+                  <ul>
+                    {getTags()}
+                  </ul>
                 </div>
               </div>
             </div>
@@ -165,23 +172,26 @@ export default function Detalle() {
                     <h2 className="text-3xl font-bold font-comforta-300 tracking-tight sm:text-3xl">
                       Reseñas
                     </h2>
-                    <p className="max-w-lg">
+                    <p className="font-comforta font-bold max-w-lg">
                       Ve lo que otros lectores tiene que decir
                     </p>
                   </div>
-                  {usuario.id > 0 ? (
-                    <ReviewModal idLibro={id} idUsuario={usuario.id} />
-                  ) : null}
-                  <button
+                  {usuario?.id > 0 && <ReviewModal idLibro={id} idUsuario={usuario.id} />}
+                  {revs < reviews.length && <button
                     className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
+                    onClick={() => setRevs(revs + 3)}
                   >
                     Lea todas las reviews
-                  </button>
+                  </button>}
                 </>
               </div>
-              <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
-                {getReviews()}
-              </div>
+              {reviews.length > 0 ?
+                <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
+                  {getReviews()}
+                </div>
+                : 
+                <div className='text-center font-comforta font-bold'>No hay reviews</div>
+              }
             </div>
           </div>
         </div>
