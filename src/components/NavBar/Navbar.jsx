@@ -103,9 +103,7 @@ export default function Navbar() {
             <Link to="masvendidos" className="text-gray-900">
               Mas Vendidos
             </Link>
-            <Link to="Ofertas" className="text-gray-900">
-              Ofertas
-            </Link>
+            
             <Link to="contactanos" className="text-gray-900">
               Contactanos
             </Link>

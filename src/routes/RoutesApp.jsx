@@ -3,7 +3,7 @@ import Landing from '../pages/Landing/Landing'
 import Home from '../pages/home/Home'
 
 import NotFound from '../pages/NotFound/NotFound'
-import Navbar from '../components/NavBar/Navbar'
+import NavBar from '../components/navBar/Navbar'
 
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
@@ -21,12 +21,11 @@ import Tags from 'pages/admin/tags/Tags'
 
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 
-import MasVendidos from 'components/NavBar/MasVendidos'
-import Ofertas from 'components/NavBar/Ofertas'
-import Contactanos from 'components/NavBar/Contactanos'
+import MejoresValarados from 'components/navBar/MejoresValorados'
+import Contactanos from 'components/navBar/Contactanos'
 
 import Carrito from 'components/Carrito/Carrito'
-import Favoritos from 'pages/perfil/Favoritos'
+import DetallePedidos from 'pages/perfil/DetallePedido'
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -44,20 +43,19 @@ function RoutesApp() {
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="editar" element={<Editar />} />
-        <Route path="favoritos" element={<Favoritos />} />
       </Route>
-      <Route path="/" element={<Navbar />}>
+
+      <Route path="/" element={<NavBar />}>
         <Route index element={<Landing />} />
 
         <Route path="home" element={<Home />} />
-        <Route path="ofertas" element={<Ofertas />} />
-        <Route path="masVendidos" element={<MasVendidos />} />
+        <Route path="masVendidos" element={<MejoresValarados />} />
         <Route path="contactanos" element={<Contactanos />} />
 
-        {/* <Route path="login" element={<Login />} /> */}
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>
       <Route path="home/carrito" element={<Carrito />} />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   )
