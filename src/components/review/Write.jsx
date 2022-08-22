@@ -9,7 +9,7 @@ export default function ReviewModal({ idLibro, idUsuario }) {
 
   const [form, setForm] = useState({
     titulo: "",
-    texto: "",
+    comentario: "",
     rating: 3,
     likes: parseInt(Math.random() * 100),
     LibroId: idLibro,
@@ -26,12 +26,12 @@ export default function ReviewModal({ idLibro, idUsuario }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (form.titulo && form.texto) {
+    if (form.titulo && form.comentario) {
       dispatch(create(form));
       setShowModal(false)
       setForm({
         titulo: "",
-        texto: "",
+        comentario: "",
         rating: 3,
         likes: parseInt(Math.random() * 100),
         LibroId: idLibro,
@@ -92,8 +92,8 @@ export default function ReviewModal({ idLibro, idUsuario }) {
               <div className="relative m-5 p-1 flex-auto items-center border-4 rounded-2xl">
                 <textarea className="text-slate-800 text-lg leading-relaxed outline-none w-full"
                   maxLength={1024} spellCheck={true}
-                  type='text' placeholder='Escriba su review' name="texto"
-                  value={form.texto} onChange={(e) => handleChange(e)}
+                  type='text' placeholder='Escriba su review' name="comentario"
+                  value={form.comentario} onChange={(e) => handleChange(e)}
                 >
                 </textarea >
               </div>

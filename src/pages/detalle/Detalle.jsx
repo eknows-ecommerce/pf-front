@@ -20,9 +20,7 @@ export default function Detalle() {
   const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   //const { pedido } = useSelector(({ pedidosStore }) => pedidosStore)
-
-  let tags = []
-
+  
 
   useEffect(() => {
     dispatch(getAll('?LibroId=' + id))
@@ -34,12 +32,12 @@ export default function Detalle() {
 
   function getCategorias() {
     let cats = []
-    libro.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
+    libro.CategoriaLibro?.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
     return cats
   }
   function getTags() {
     let tags = []
-    libro.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
+    libro.TagLibro?.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
     return tags
   }
 
@@ -50,7 +48,7 @@ export default function Detalle() {
         <ReviewCard
           key={crypto.randomUUID()}
           title={r.titulo}
-          text={r.texto}
+          text={r.comentario}
           rate={r.rating}
           likes={r.likes}
           author={r.UsuarioId}
@@ -189,7 +187,7 @@ export default function Detalle() {
                 <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
                   {getReviews()}
                 </div>
-                : 
+                :
                 <div className='text-center font-comforta font-bold'>No hay reviews</div>
               }
             </div>

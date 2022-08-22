@@ -33,7 +33,7 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
         <div>
           <div className="flex flex-rows justify-between">
             <div className="flex"><Stars /></div>
-            <p>{likes}👍</p>
+            {/*<p>{likes}👍</p>*/}
           </div>
           <div className="mt-4">
             <h5 className="text-xl text-center font-bold text-pink-700 sm:text-2xl">
@@ -60,7 +60,7 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
                 <h1 className="text-3xl font-semibold"> {title}</h1>
                 <div className="flex"><Stars /></div>
                 <div className="flex">
-                  <p>{likes}<button onClick={() => { }}>👍</button></p>
+                  {/*<p>{likes}<button onClick={() => { }}>👍</button></p>*/}
                   <button
                     className="text-red-500 borde-5 background-transparent font-bold uppercase mb-6 ml-6"
                     type="button" onClick={() => setShowModal(false)}
