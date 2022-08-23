@@ -11,7 +11,7 @@ import Loading from '../../components/loading/Loading'
 import Swal from 'sweetalert2'
 
 import CardLibro from 'components/cards/CardLibro'
-import Paginacion from 'components/Paginacion/Paginacion'
+import Paginacion from 'components/paginacion/Paginacion'
 import Filtros from 'components/filtros/Filtros'
 
 import { getAll } from 'features/actions/libros'
