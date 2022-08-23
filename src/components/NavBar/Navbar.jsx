@@ -12,13 +12,15 @@ import { useLocation } from 'react-router-dom'
 import { setSearch } from 'features/reducers/librosSlice'
 
 import { useEffect, useRef } from 'react'
-// import Footer from '../footer/Footer'
+
 export default function Navbar() {
   const location = useLocation()
   const dispatch = useDispatch()
   const { user, isAuthenticated, isLoading } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+
   const { search, totalLibros } = useSelector(({ librosStore }) => librosStore)
+
 
   useEffect(() => {
     dispatch(getByNickname(user))
@@ -35,6 +37,7 @@ export default function Navbar() {
   const handleSearch = (e) => {
     dispatch(setSearch(e.target.value))
   }
+
 
   const show = useRef(null)
 
@@ -75,11 +78,13 @@ export default function Navbar() {
             </Link>
             {location.pathname === '/home' ? (
               <form className="hidden mb-0 lg:flex w-96">
+
                 <Search
                   search={search}
                   handleSearch={handleSearch}
                   totalLibros={totalLibros}
                 />
+
               </form>
             ) : (
               ''
@@ -87,11 +92,13 @@ export default function Navbar() {
           </div>
           <div className="flex justify-end flex-1 w-0 lg:hidden">
             <div ref={show} className="hidden">
+
               <Search
                 busqueda={search}
                 handleSearch={handleSearch}
                 totalLibros={totalLibros}
               />
+
             </div>
             <button
               className="p-2 text-gray-500 bg-gray-100 rounded-full"

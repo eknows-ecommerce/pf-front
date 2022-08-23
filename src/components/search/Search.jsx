@@ -1,4 +1,6 @@
+
 function Search({ search, handleSearch, totalLibros }) {
+
   return (
     <div className="relative">
       <>

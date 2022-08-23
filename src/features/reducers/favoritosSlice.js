@@ -28,8 +28,6 @@ const favoritosSlice = createSlice({
       state.cargando = true
     },
     [getByUser.fulfilled]: (state, { payload }) => {
-      console.log('patload', payload)
-
       state.cargando = false
       state.favoritos = payload?.favoritos ?? []
       state.count = payload?.count ?? 0

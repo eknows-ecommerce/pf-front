@@ -148,7 +148,7 @@ export default function Categorias() {
               <tbody className="w-full">
                 {categorias?.map((categoria) => (
                   <Item
-                    key={categoria.id}
+                    key={crypto.randomUUID()}
                     eliminarCategoria={eliminarCategoria}
                     editarCategoria={editarCategoria}
                     {...categoria}

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import image from './libro.png'
 
 export default function Item(props) {
@@ -11,18 +12,20 @@ export default function Item(props) {
       <td className="text-center">
         <p className="font-medium">EB-{props.id}</p>
       </td>
-      <td className="pl-4 cursor-pointer" onClick={handleEditar}>
-        <div className="flex items-center">
-          <div className="w-10 h-10">
-            <img className="w-full h-full" src={image} alt="book" />
+      <td className="pl-4 cursor-pointer">
+        <Link to={`editar/${props.id}`}>
+          <div className="flex items-center">
+            <div className="w-10 h-10">
+              <img className="w-full h-full" src={image} alt="book" />
+            </div>
+            <div className="pl-4">
+              <p className="font-medium">{props.titulo}</p>
+              <p className="text-xs leading-3 text-gray-600 pt-2">
+                {props.autor}
+              </p>
+            </div>
           </div>
-          <div className="pl-4">
-            <p className="font-medium">{props.titulo}</p>
-            <p className="text-xs leading-3 text-gray-600 pt-2">
-              {props.autor}
-            </p>
-          </div>
-        </div>
+        </Link>
       </td>
       <td className="p-4 pl-12 text-gray-700 whitespace-nowrap cursor-pointer">
         {props.isAvail ? (
