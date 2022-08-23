@@ -1,24 +1,77 @@
 import Button from 'components/templates/Button'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet } from 'react-router-dom'
 import Logout from '../../components/sesion/Logout'
 import { getByNickname } from 'features/actions/usuarios'
 import { useAuth0 } from '@auth0/auth0-react'
+import Audio from 'components/audio/Audio'
+
+
 
 export default function Menu() {
   const dispatch = useDispatch()
   const { user } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
-  useEffect(() => {
-    dispatch(getByNickname(user))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getByNickname, user])
+  const [Speak, setSpeak] = useState(false)
+  const [tags, setTags] = useState(document.getElementsByName('DIV'))
+  const synth = window.speechSynthesis;
 
+  function speech(Speak) {
+
+    tags.forEach((tag) => {
+      tag.addEventListener('click', (e) => {
+
+        var voices = synth.getVoices();
+        let msg = '';
+        e.target.innerText ? msg = e.target.innerText : msg = e.target.placeholder
+
+        var utterThis = new SpeechSynthesisUtterance(msg);
+        utterThis.voice = voices[1];
+        utterThis.pitch = 1;
+        utterThis.rate = 1;
+
+        if (synth.speaking) {
+          synth.cancel();
+          setTimeout(() => { localStorage.audio === 'on' && synth.speak(utterThis); }, 250);
+        }
+        else {
+          synth.speak(utterThis);
+        }
+
+      });
+    });
+
+  }
+
+  function hi(n) {
+    var voices = synth.getVoices();
+    var utterThis = new SpeechSynthesisUtterance('perfil actual\n' + n);
+    utterThis.voice = voices[1];
+    utterThis.pitch = 1;
+    utterThis.rate = 1;
+    if (synth.speaking) {
+      synth.cancel();
+      setTimeout(() => { (localStorage.audio === 'on') && synth.speak(utterThis); }, 250);
+    }
+    else {
+      synth.speak(utterThis);
+    }
+  }
+  useEffect(() => {
+    localStorage.audio === 'on' && speech(Speak)
+    dispatch(getByNickname(user))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getByNickname, user, Speak])
+useEffect(()=>{   hi(user.name)},[])
   return (
     <div>
       <section>
+        <div className="grid justify-items-end max-w-screen-xl px-4 py-2 sm:px-6 lg:px-8">
+              <Audio />
+        </div>
         <div className="max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
           <Link to="/home">
             <Button>Volver</Button>
@@ -73,7 +126,7 @@ export default function Menu() {
                       />
                     </svg>
                   </span>
-                  <h6 className="mt-2 text-2xl font-comforta-300 font-normal">
+                  <h6 name='DIV' className="mt-2 text-2xl font-comforta-300 font-normal">
                     Editar Perfil
                   </h6>
                 </Link>
@@ -93,10 +146,11 @@ export default function Menu() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+ 
                       />
                     </svg>
                   </span>
-                  <h6 className="mt-2 text-2xl font-comforta-300 font-normal">
+                  <h6 name='DIV' className="mt-2 text-2xl font-comforta-300 font-normal">
                     Mis Pedidos
                   </h6>
                 </Link>
@@ -115,7 +169,7 @@ export default function Menu() {
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   </span>
-                  <h6 className="mt-2 text-2xl font-comforta-300 font-normal">
+                  <h6 name='DIV' className="mt-2 text-2xl font-comforta-300 font-normal">
                     Favoritos
                   </h6>
                 </a>
