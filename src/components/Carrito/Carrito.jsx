@@ -18,6 +18,7 @@ function Carrito() {
   )
   const [totalCompra, setTotalCompra] = useState(0)
   const { carrito } = useSelector(({ librosStore }) => librosStore)
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   const { isAuthenticated, user, loginWithRedirect } = useAuth0()
 
@@ -92,7 +93,6 @@ function Carrito() {
           precio: item.precio,
         })
       })
-      console.log('idLibros', idLibros)
       setDetalleCompra({
         ...detalleCompra,
         currency: 'USD',
@@ -104,6 +104,7 @@ function Carrito() {
           estado: 'Entregado',
           descuento: 0,
           libros: idLibros,
+          UsuarioId: usuario.id,
         },
       })
       openClose('compra')
