@@ -6,9 +6,8 @@ import { getAll as getAllCat } from 'features/actions/categorias'
 import Categoria from './Categoria'
 import { setCategorias } from 'features/reducers/librosSlice'
 
-export default function Categorias({ reset, setReset }) {
+export default function Categorias({ reset, setReset, handleCurrent }) {
   const [selected, setSelected] = useState({})
-  // const [catSelect, setCatSelect] = useState([])
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
 
   const dispatch = useDispatch()
@@ -16,14 +15,16 @@ export default function Categorias({ reset, setReset }) {
   useEffect(() => {
     dispatch(getAllCat())
   }, [])
+
   useEffect(() => {
     if (reset) {
-      setCategorias('categorias')
+      setCategorias([])
       setSelected({})
       setReset(false)
     }
   }, [reset])
-  function handleClick(e) {
+
+  const handleClick = (e) => {
     setSelected({
       ...selected,
       [e.target.id]: e.target.checked,
@@ -31,26 +32,24 @@ export default function Categorias({ reset, setReset }) {
   }
 
   useEffect(() => {
-    let query = 'categorias='
+    let whereCategorias = []
     for (const key in selected) {
-      if (selected[key]) {
-        query += key + ','
-      }
+      if (selected[key]) whereCategorias.push(Number(key.slice(3)))
     }
-    query = query.slice(0, -1)
-    dispatch(setCategorias(query))
+    dispatch(setCategorias(whereCategorias))
+    handleCurrent(1)
   }, [selected])
 
   return (
-    <div className="px-5 py-6 space-y-2">
+    <div className="px-5 py-6 space-y-2 cursor-default">
       {categorias &&
-        categorias?.map((cat) => (
+        categorias?.map(({ id, nombre }) => (
           <Categoria
             key={crypto.randomUUID()}
-            nombre={cat.nombre}
-            id={cat.id}
+            nombre={nombre}
+            id={id}
             handleClick={handleClick}
-            selected={selected[cat.id]}
+            selected={selected[`cat${id}`]}
           />
         ))}
     </div>
