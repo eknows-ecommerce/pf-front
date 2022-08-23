@@ -32,26 +32,8 @@ function Libros() {
     }
   }, [msg])
 
-  // const deshabilitarLibro = () => {
-  //   const libroObj = {
-  //     ...libro,
-  //     isAvail: !libro.isAvail,
-  //   }
-
-  //   dispatch(update(libroObj))
-  //   setDeshabilitarItemModal(false)
-  //   setLibro(initialState)
-  // }
-
   return (
     <>
-      {/* {deshabilitarItemModal && (
-        <DisponibilidadModal
-          libroSeleccionado={libro}
-          setDeshabilitarItemModal={setDeshabilitarItemModal}
-          deshabilitarLibro={deshabilitarLibro}
-        />
-      )} */}
       <div className="overflow-x-auto pt-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">

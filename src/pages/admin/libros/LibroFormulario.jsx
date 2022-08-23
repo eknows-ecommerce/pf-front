@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAll as getAllCategorias } from 'features/actions/categorias'
 import { getAll as getAllTags } from 'features/actions/tags'
@@ -7,13 +8,12 @@ import { create, getById, update } from 'features/actions/libros'
 
 import { useNavigate, useParams } from 'react-router-dom'
 
+import { FaLongArrowAltLeft } from 'react-icons/fa'
+
 import axios from 'axios'
 
 import useUploadImage from 'hooks/useUploadImage'
-import {
-  validarInputNumero,
-  validarInputText,
-} from 'assets/validacionesInputs/validaciones'
+import { validarInputText } from 'assets/validacionesInputs/validaciones'
 
 const URL_API = process.env.REACT_APP_URL_API_CLOUDINARY
 
@@ -197,283 +197,297 @@ export default function LibroFormulario() {
   }
 
   return (
-    <form id="formularioId" onSubmit={handleSubmit} className="px-2 py-5 ">
-      <div className="flex flex-no-wrap items-start">
-        <div className="w-full">
-          <div className="py-4 px-2">
-            <div className="bg-white rounded shadow py-7">
-              <div className="hidden lg:block md:hidden"></div>
-              <div className="mt-10 px-7">
-                <p className="text-xl font-semibold leading-tight text-gray-800">
-                  Nuevo libro
-                </p>
-                <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-7 mt-7 ">
-                  <div className="w-full">
-                    <p className="text-base font-medium leading-none text-gray-800">
-                      Título
-                    </p>
-                    <input
-                      type="text"
-                      name="titulo"
-                      onChange={handleInputChange}
-                      onKeyUp={handleKeyUp}
-                      value={formulario.titulo}
-                      className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
-                      required
-                    />
-                  </div>
-                  <div className="w-full">
-                    <p className="text-base font-medium leading-none text-gray-800">
-                      Autor
-                    </p>
-                    <input
-                      type="text"
-                      name="autor"
-                      onChange={handleInputChange}
-                      value={formulario.autor}
-                      className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
-                      required
-                    />
-                  </div>
-                  <div className="w-full">
-                    <p className="text-base font-medium leading-none text-gray-800">
-                      Editorial
-                    </p>
-                    <input
-                      type="text"
-                      name="editorial"
-                      onChange={handleInputChange}
-                      value={formulario.editorial}
-                      className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
-                    />
-                  </div>
-                  <div className="w-full">
-                    <p className="text-base font-medium leading-none text-gray-800">
-                      Lenguaje
-                    </p>
-                    <input
-                      type="text"
-                      name="lenguaje"
-                      onChange={handleInputChange}
-                      value={formulario.lenguaje}
-                      className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
-                    />
-                  </div>
-                  <div className="w-full">
-                    <p className="text-base font-medium leading-none text-gray-800">
-                      Cantidad de páginas
-                    </p>
-                    <input
-                      type="number"
-                      name="paginas"
-                      onChange={handleInputChange}
-                      value={formulario.paginas}
-                      className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
-                    />
-                  </div>
-                  <div className="w-full">
-                    <p className="text-base font-medium leading-none text-gray-800">
-                      Detalles
-                    </p>
-                    <input
-                      type="text"
-                      name="detalles"
-                      onChange={handleInputChange}
-                      value={formulario.detalles}
-                      className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-base font-medium leading-none text-gray-800">
-                      Fecha de publicación
-                    </p>
-                    <input
-                      disabled
-                      type="date"
-                      onChange={handleInputChange}
-                      name="fechaPublicacion"
-                      value={formulario.fechaPublicacion}
-                      className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
-                    />
-                  </div>
-                  <div>
-                    <div>
+    <>
+      <div className="flex justify-end pt-10 px-10">
+        <Link to="/admin/libros">
+          <button className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
+            <p className="text-sm font-medium leading-none text-white">
+              Todos los libros
+            </p>
+            <FaLongArrowAltLeft className="h-4 w-4 text-white" />
+          </button>
+        </Link>
+      </div>
+      <form id="formularioId" onSubmit={handleSubmit} className="px-2 py-5 ">
+        <div className="flex flex-no-wrap items-start">
+          <div className="w-full">
+            <div className="py-4 px-2">
+              <div className="bg-white rounded shadow py-7">
+                <div className="hidden lg:block md:hidden"></div>
+                <div className="mt-10 px-7">
+                  <p className="text-xl font-semibold leading-tight text-gray-800">
+                    Nuevo libro
+                  </p>
+                  <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-7 mt-7 ">
+                    <div className="w-full">
                       <p className="text-base font-medium leading-none text-gray-800">
-                        Portada
+                        Título
                       </p>
                       <input
-                        name="image"
-                        type="file"
+                        type="text"
+                        name="titulo"
                         onChange={handleInputChange}
-                        accept=".jpg, .jpeg, .png"
-                        required={false}
+                        onKeyUp={handleKeyUp}
+                        value={formulario.titulo}
+                        className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                        required
+                      />
+                    </div>
+                    <div className="w-full">
+                      <p className="text-base font-medium leading-none text-gray-800">
+                        Autor
+                      </p>
+                      <input
+                        type="text"
+                        name="autor"
+                        onChange={handleInputChange}
+                        value={formulario.autor}
+                        className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                        required
+                      />
+                    </div>
+                    <div className="w-full">
+                      <p className="text-base font-medium leading-none text-gray-800">
+                        Editorial
+                      </p>
+                      <input
+                        type="text"
+                        name="editorial"
+                        onChange={handleInputChange}
+                        value={formulario.editorial}
                         className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
                       />
                     </div>
-                  </div>
-                  <div>
-                    <p className="text-base font-medium leading-none text-gray-800">
-                      Precio
-                    </p>
-                    <input
-                      type="number"
-                      name="precio"
-                      onChange={handleInputChange}
-                      value={formulario.precio}
-                      className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <p className="text-base font-medium leading-none text-gray-800">
-                      Stock
-                    </p>
-                    <input
-                      type="number"
-                      name="stock"
-                      onChange={handleInputChange}
-                      value={formulario.stock}
-                      className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
-                      required
-                    />
-                  </div>
-                  <div className="col-span-full w-full">
-                    <label className="text-sm text-left font-medium leading-none text-gray-800">
-                      Categorias
-                    </label>
-                    <div className="flex flex-wrap justify-start items-center mt-2">
-                      <div className="flex flex-wrap justify-between items-center w-full border rounded border-gray-300 md:px-6 px-3 py-1 lg:gap-x-2 md:gap-x-2 gap-x-1">
-                        {categorias?.map((categoria) => (
-                          <div
-                            key={crypto.randomUUID()}
-                            className="flex items-center space-x-2 text-sm leading-none text-gray-600 p-3 hover:bg-indigo-100 hover:text-indigo-700 hover:rounded focus:bg-indigo-100 focus:text-indigo-700 focus:rounded"
-                          >
-                            <input
-                              id={categoria.nombre}
-                              type="checkbox"
-                              name={categoria.id}
-                              className="cursor-pointer"
-                              onChange={(e) => handleCheckbox(e, 'categorias')}
-                              defaultChecked={formulario?.categorias?.some(
-                                (cat) => cat === categoria.id
-                              )}
-                            />
-                            <label
-                              className="cursor-pointer"
-                              htmlFor={categoria.nombre}
+                    <div className="w-full">
+                      <p className="text-base font-medium leading-none text-gray-800">
+                        Lenguaje
+                      </p>
+                      <input
+                        type="text"
+                        name="lenguaje"
+                        onChange={handleInputChange}
+                        value={formulario.lenguaje}
+                        className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <p className="text-base font-medium leading-none text-gray-800">
+                        Cantidad de páginas
+                      </p>
+                      <input
+                        type="number"
+                        name="paginas"
+                        onChange={handleInputChange}
+                        value={formulario.paginas}
+                        className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <p className="text-base font-medium leading-none text-gray-800">
+                        Detalles
+                      </p>
+                      <input
+                        type="text"
+                        name="detalles"
+                        onChange={handleInputChange}
+                        value={formulario.detalles}
+                        className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-base font-medium leading-none text-gray-800">
+                        Fecha de publicación
+                      </p>
+                      <input
+                        disabled
+                        type="date"
+                        onChange={handleInputChange}
+                        name="fechaPublicacion"
+                        value={formulario.fechaPublicacion}
+                        className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      />
+                    </div>
+                    <div>
+                      <div>
+                        <p className="text-base font-medium leading-none text-gray-800">
+                          Portada
+                        </p>
+                        <input
+                          name="image"
+                          type="file"
+                          onChange={handleInputChange}
+                          accept=".jpg, .jpeg, .png"
+                          required={false}
+                          className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-base font-medium leading-none text-gray-800">
+                        Precio
+                      </p>
+                      <input
+                        type="number"
+                        name="precio"
+                        onChange={handleInputChange}
+                        value={formulario.precio}
+                        className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <p className="text-base font-medium leading-none text-gray-800">
+                        Stock
+                      </p>
+                      <input
+                        type="number"
+                        name="stock"
+                        onChange={handleInputChange}
+                        value={formulario.stock}
+                        className="w-full p-3 mt-4 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                        required
+                      />
+                    </div>
+                    <div className="col-span-full w-full">
+                      <label className="text-sm text-left font-medium leading-none text-gray-800">
+                        Categorias
+                      </label>
+                      <div className="flex flex-wrap justify-start items-center mt-2">
+                        <div className="flex flex-wrap justify-between items-center w-full border rounded border-gray-300 md:px-6 px-3 py-1 lg:gap-x-2 md:gap-x-2 gap-x-1">
+                          {categorias?.map((categoria) => (
+                            <div
+                              key={crypto.randomUUID()}
+                              className="flex items-center space-x-2 text-sm leading-none text-gray-600 p-3 hover:bg-indigo-100 hover:text-indigo-700 hover:rounded focus:bg-indigo-100 focus:text-indigo-700 focus:rounded"
                             >
-                              {categoria.nombre}
-                            </label>
-                          </div>
-                        ))}
+                              <input
+                                id={categoria.nombre}
+                                type="checkbox"
+                                name={categoria.id}
+                                className="cursor-pointer"
+                                onChange={(e) =>
+                                  handleCheckbox(e, 'categorias')
+                                }
+                                defaultChecked={formulario?.categorias?.some(
+                                  (cat) => cat === categoria.id
+                                )}
+                              />
+                              <label
+                                className="cursor-pointer"
+                                htmlFor={categoria.nombre}
+                              >
+                                {categoria.nombre}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="col-span-full w-full">
-                    <label className="text-sm text-left font-medium leading-none text-gray-800">
-                      Tags
-                    </label>
-                    <div className="flex flex-wrap justify-start items-center mt-2">
-                      <div className="flex flex-wrap justify-between items-center w-full border rounded border-gray-300 md:px-6 px-3 py-1 lg:gap-x-2 md:gap-x-2 gap-x-1">
-                        {tags?.map((tag) => (
-                          <div
-                            key={crypto.randomUUID()}
-                            className="flex items-center space-x-2 text-sm leading-none text-gray-600 p-3 hover:bg-indigo-100 hover:text-indigo-700 hover:rounded focus:bg-indigo-100 focus:text-indigo-700 focus:rounded"
-                          >
-                            <input
-                              type="checkbox"
-                              name={tag.id}
-                              id={tag.nombre}
-                              className="cursor-pointer"
-                              onChange={(e) => handleCheckbox(e, 'tags')}
-                              defaultChecked={formulario?.tags?.some(
-                                (t) => t === tag.id
-                              )}
-                            />
-                            <label htmlFor={tag.nombre}>{tag.nombre}</label>
-                          </div>
-                        ))}
+                    <div className="col-span-full w-full">
+                      <label className="text-sm text-left font-medium leading-none text-gray-800">
+                        Tags
+                      </label>
+                      <div className="flex flex-wrap justify-start items-center mt-2">
+                        <div className="flex flex-wrap justify-between items-center w-full border rounded border-gray-300 md:px-6 px-3 py-1 lg:gap-x-2 md:gap-x-2 gap-x-1">
+                          {tags?.map((tag) => (
+                            <div
+                              key={crypto.randomUUID()}
+                              className="flex items-center space-x-2 text-sm leading-none text-gray-600 p-3 hover:bg-indigo-100 hover:text-indigo-700 hover:rounded focus:bg-indigo-100 focus:text-indigo-700 focus:rounded"
+                            >
+                              <input
+                                type="checkbox"
+                                name={tag.id}
+                                id={tag.nombre}
+                                className="cursor-pointer"
+                                onChange={(e) => handleCheckbox(e, 'tags')}
+                                defaultChecked={formulario?.tags?.some(
+                                  (t) => t === tag.id
+                                )}
+                              />
+                              <label htmlFor={tag.nombre}>{tag.nombre}</label>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="col-span-full w-full">
-                    <label className="text-sm text-left font-medium leading-none text-gray-800">
-                      Formatos
-                    </label>
-                    <div className="flex flex-wrap justify-start items-center mt-2">
-                      <div className="flex flex-wrap justify-between items-center w-full border rounded border-gray-300 md:px-6 px-3 py-1 lg:gap-x-2 md:gap-x-2 gap-x-1">
-                        {formatos?.map((formato) => (
-                          <div
-                            key={crypto.randomUUID()}
-                            className="flex items-center space-x-2 text-sm leading-none text-gray-600 p-3 hover:bg-indigo-100 hover:text-indigo-700 hover:rounded focus:bg-indigo-100 focus:text-indigo-700 focus:rounded"
-                          >
-                            <input
-                              type="checkbox"
-                              name={formato.id}
-                              id={formato.nombre}
-                              className="cursor-pointer"
-                              onChange={(e) => handleCheckbox(e, 'formatos')}
-                              defaultChecked={formulario?.formatos?.some(
-                                (f) => f === formato.id
-                              )}
-                            />
-                            <label htmlFor={formato.nombre}>
-                              {formato.nombre}
-                            </label>
-                          </div>
-                        ))}
+                    <div className="col-span-full w-full">
+                      <label className="text-sm text-left font-medium leading-none text-gray-800">
+                        Formatos
+                      </label>
+                      <div className="flex flex-wrap justify-start items-center mt-2">
+                        <div className="flex flex-wrap justify-between items-center w-full border rounded border-gray-300 md:px-6 px-3 py-1 lg:gap-x-2 md:gap-x-2 gap-x-1">
+                          {formatos?.map((formato) => (
+                            <div
+                              key={crypto.randomUUID()}
+                              className="flex items-center space-x-2 text-sm leading-none text-gray-600 p-3 hover:bg-indigo-100 hover:text-indigo-700 hover:rounded focus:bg-indigo-100 focus:text-indigo-700 focus:rounded"
+                            >
+                              <input
+                                type="checkbox"
+                                name={formato.id}
+                                id={formato.nombre}
+                                className="cursor-pointer"
+                                onChange={(e) => handleCheckbox(e, 'formatos')}
+                                defaultChecked={formulario?.formatos?.some(
+                                  (f) => f === formato.id
+                                )}
+                              />
+                              <label htmlFor={formato.nombre}>
+                                {formato.nombre}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="pt-6 border-gray-300 mt-2 mb-10 px-7">
-                <p className="text-base font-semibold leading-4 text-gray-800">
-                  Resumen
-                </p>
-                <div className="my-5 border border-gray-300 rounded">
-                  <textarea
-                    onChange={handleInputChange}
-                    name="resumen"
-                    className="resize-none w-full h-[170px] px-4 py-4 text-base outline-none text-slate-600"
-                    placeholder="Resumen del formulario.."
-                    value={formulario.resumen}
-                    required
-                  />
-                </div>
-                <div className="flex justify-center space-x-10 items-center">
-                  <div className="flex items-center space-x-2">
-                    <input
-                      name="isAvail"
-                      type="checkbox"
-                      className="w-full border border-gray-300 rounded outline-none focus:bg-gray-50"
-                      defaultChecked={formulario.isAvail}
+                <div className="pt-6 border-gray-300 mt-2 mb-10 px-7">
+                  <p className="text-base font-semibold leading-4 text-gray-800">
+                    Resumen
+                  </p>
+                  <div className="my-5 border border-gray-300 rounded">
+                    <textarea
                       onChange={handleInputChange}
+                      name="resumen"
+                      className="resize-none w-full h-[170px] px-4 py-4 text-base outline-none text-slate-600"
+                      placeholder="Resumen del formulario.."
+                      value={formulario.resumen}
+                      required
                     />
-                    <label>Disponible</label>
+                  </div>
+                  <div className="flex justify-center space-x-10 items-center">
+                    <div className="flex items-center space-x-2">
+                      <input
+                        name="isAvail"
+                        type="checkbox"
+                        className="w-full border border-gray-300 rounded outline-none focus:bg-gray-50"
+                        defaultChecked={formulario.isAvail}
+                        onChange={handleInputChange}
+                      />
+                      <label>Disponible</label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex flex-col flex-wrap items-center justify-center w-full px-7 lg:flex-row lg:justify-end md:justify-end gap-x-4 gap-y-4">
-                <button
-                  onClick={handleReset}
-                  className="bg-white border-indigo-700 rounded hover:bg-gray-50 transform duration-300 ease-in-out text-sm font-medium px-6 py-4 text-indigo-700 border lg:max-w-[95px]  w-full"
-                >
-                  Limpiar
-                </button>
-                <button
-                  type="submit"
-                  className="bg-indigo-700 rounded hover:bg-indigo-600 transform duration-300 ease-in-out text-sm font-medium px-6 py-4 text-white lg:max-w-[144px] w-full"
-                >
-                  Confirmar
-                </button>
+                <div className="flex flex-col flex-wrap items-center justify-center w-full px-7 lg:flex-row lg:justify-end md:justify-end gap-x-4 gap-y-4">
+                  <button
+                    onClick={handleReset}
+                    className="bg-white border-indigo-700 rounded hover:bg-gray-50 transform duration-300 ease-in-out text-sm font-medium px-6 py-4 text-indigo-700 border lg:max-w-[95px]  w-full"
+                  >
+                    Limpiar
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-indigo-700 rounded hover:bg-indigo-600 transform duration-300 ease-in-out text-sm font-medium px-6 py-4 text-white lg:max-w-[144px] w-full"
+                  >
+                    Confirmar
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </>
   )
 }
