@@ -1,18 +1,15 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from "react";
+import { useSelector } from "react-redux";
 
 export default function ReviewCard({ title, text, author, rate, likes }) {
   function Stars() {
-    let out = []
-    let star
+    let out = []; let star;
     for (let i = 0; i < 5; i++) {
-      i < rate
-        ? (star = 'hover:animate-spin text-yellow-500')
-        : (star = 'text-gray-300')
+      i < rate ? star = "hover:animate-spin text-yellow-500" : star = "text-gray-300"
       out.push(
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className={'w-6 h-6 my-2 ' + star}
+          className={"w-6 h-6 my-2 " + star}
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -23,23 +20,19 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
     return out
   }
 
-  const [showModal, setShowModal] = React.useState(false)
+  const [showModal, setShowModal] = React.useState(false);
 
   const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
-  let name = 'Anonimo'
-  name = usuarios.find((u) => u.id === author)?.name
+  let name = 'Anonimo';
+  name = usuarios.find((u) => u.id === author)?.name;
 
   return (
     <>
-      <blockquote
-        className="flex flex-col justify-between h-full p-8 bg-slate-100 rounded-3xl shadow-xl hover:scale-x-[1.01] hover:scale-y-[1.01]"
-        onClick={() => setShowModal(true)}
-      >
+      <blockquote className="flex flex-col justify-between h-full p-8 bg-slate-100 rounded-3xl shadow-xl hover:scale-x-[1.01] hover:scale-y-[1.01]"
+        onClick={() => setShowModal(true)}>
         <div>
           <div className="flex flex-rows justify-between">
-            <div className="flex">
-              <Stars />
-            </div>
+            <div className="flex"><Stars /></div>
             <p>{likes}👍</p>
           </div>
           <div className="mt-4">
@@ -47,13 +40,17 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
               {title}
             </h5>
             <p className="mt-4 text-gray-800 text-justify">
-              {text.length > 170
-                ? text.slice(0, text.indexOf(' ', 170)) + ' ...'
-                : text}
+              {
+                text.length > 170
+                  ? text.slice(0, text.indexOf(' ', 170)) + ' ...'
+                  : text
+              }
             </p>
           </div>
         </div>
-        <footer className="mt-8 text-gray-700 text-right">- {name}</footer>
+        <footer className="mt-8 text-gray-700 text-right">
+          - {name}
+        </footer>
       </blockquote>
       {showModal ? (
         <>
@@ -61,21 +58,13 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
             <div className="rounded-lg max-w-5xl m-5 shadow-lg relative flex flex-col bg-white outline-none w-screen">
               <header className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                 <h1 className="text-3xl font-semibold"> {title}</h1>
+                <div className="flex"><Stars /></div>
                 <div className="flex">
-                  <Stars />
-                </div>
-                <div className="flex">
-                  <p>
-                    {likes}
-                    <button onClick={() => {}}>👍</button>
-                  </p>
+                  <p>{likes}<button onClick={() => { }}>👍</button></p>
                   <button
                     className="text-red-500 borde-5 background-transparent font-bold uppercase mb-6 ml-6"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    X
-                  </button>
+                    type="button" onClick={() => setShowModal(false)}
+                  >X</button>
                 </div>
               </header>
               <body className="relative m-5 p-1 text-slate-800 text-lg font-medium leading-relaxed outline-none w-full">
@@ -86,7 +75,8 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
               </footer>
             </div>
           </div>
-          <div className="fixed inset-0 z-40 bg-black opacity-25" />
+          <div className="fixed inset-0 z-40 bg-black opacity-25"
+          />
         </>
       ) : null}
     </>

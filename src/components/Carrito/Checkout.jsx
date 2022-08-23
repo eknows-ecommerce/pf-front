@@ -11,17 +11,17 @@ import { useState } from 'react'
 const REACT_APP_URL_BASE_API = process.env.REACT_APP_URL_BASE_API
 const REACT_APP_STRIPE_CHECKOUT_PK = process.env.REACT_APP_STRIPE_CHECKOUT_PK
 
-function Checkout({ detalleCompra, setCarritoLS }) {
+function Checkout({ detalleCompra }) {
   const stripePromise = loadStripe(REACT_APP_STRIPE_CHECKOUT_PK)
   console.log(detalleCompra)
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm detalleCompra={detalleCompra} setCarritoLS={setCarritoLS} />
+      <CheckoutForm detalleCompra={detalleCompra} />
     </Elements>
   )
 }
 
-function CheckoutForm({ detalleCompra, setCarritoLS }) {
+function CheckoutForm({ detalleCompra }) {
   const stripe = useStripe()
   const elements = useElements()
   const [success, setSuccess] = useState({})
@@ -35,14 +35,14 @@ function CheckoutForm({ detalleCompra, setCarritoLS }) {
 
     if (!error) {
       const { id } = paymentMethod
+      console.log(detalleCompra)
       const { data } = await axios.post(REACT_APP_URL_BASE_API, {
         id: id,
         ...detalleCompra,
         type_method: 'card',
       })
-      setSuccess({ msg: data.detalle, status: true })
+      setSuccess({ msg: data.detalle.status, status: true })
       localStorage.setItem('carrito', JSON.stringify([]))
-      setCarritoLS(JSON.parse(localStorage.getItem('carrito')) || [])
     }
   }
 

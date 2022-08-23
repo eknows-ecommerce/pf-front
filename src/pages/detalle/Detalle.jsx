@@ -24,14 +24,10 @@ export default function Detalle() {
   let tags = []
   libros.forEach((l) => {
     l.id === id &&
-      l.CategoriaLibro.map((c) =>
-        cats.push(<li className="mr-2 ml-2"> -{c.nombre}</li>)
-      ) &&
-      l.TagLibro.map((t) =>
-        tags.push(<li className="mr-2 ml-2"> -{t.nombre}</li>)
-      )
+      l.CategoriaLibro.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
+      && l.TagLibro.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
   })
-
+  
   //const libroComprado = true
 
   useEffect(() => {
@@ -49,9 +45,9 @@ export default function Detalle() {
         <ReviewCard
           key={crypto.randomUUID()}
           title={r.titulo}
-          text={r.comentario}
+          text={r.texto}
           rate={r.rating}
-          likes={100}
+          likes={r.likes}
           author={r.UsuarioId}
         />
       )
@@ -146,9 +142,7 @@ export default function Detalle() {
 
           <div className="lg:col-span-3 prose max-w-none ">
             <div className="m-2 p-8 mx-auto max-w-screen-2xl sm:px-6 lg:px-8 shadow-2xl rounded-2xl bg-orange-50">
-              <h2 className="text-3xl font-comforta-300 font-bold ">
-                Resumen:
-              </h2>
+              <h2 className="text-3xl font-comforta-300 font-bold ">Resumen:</h2>
               <p className="text-justify mr-2 ml-2">{libro.resumen}</p>
               <br />
               <div className="flex justify-evenly">
@@ -178,7 +172,9 @@ export default function Detalle() {
                   {usuario.id > 0 ? (
                     <ReviewModal idLibro={id} idUsuario={usuario.id} />
                   ) : null}
-                  <button className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white">
+                  <button
+                    className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
+                  >
                     Lea todas las reviews
                   </button>
                 </>

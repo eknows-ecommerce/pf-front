@@ -6,8 +6,9 @@ import { getAll as getAllCat } from 'features/actions/categorias'
 import Categoria from './Categoria'
 import { setCategorias } from 'features/reducers/librosSlice'
 
-export default function Categorias({ reset, setReset, handleCurrent }) {
+export default function Categorias({ reset, setReset }) {
   const [selected, setSelected] = useState({})
+  // const [catSelect, setCatSelect] = useState([])
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
 
   const dispatch = useDispatch()
@@ -15,16 +16,14 @@ export default function Categorias({ reset, setReset, handleCurrent }) {
   useEffect(() => {
     dispatch(getAllCat())
   }, [])
-
   useEffect(() => {
     if (reset) {
-      setCategorias([])
+      setCategorias('categorias')
       setSelected({})
       setReset(false)
     }
   }, [reset])
-
-  const handleClick = (e) => {
+  function handleClick(e) {
     setSelected({
       ...selected,
       [e.target.id]: e.target.checked,
@@ -32,24 +31,26 @@ export default function Categorias({ reset, setReset, handleCurrent }) {
   }
 
   useEffect(() => {
-    let whereCategorias = []
+    let query = 'categorias='
     for (const key in selected) {
-      if (selected[key]) whereCategorias.push(Number(key.slice(3)))
+      if (selected[key]) {
+        query += key + ','
+      }
     }
-    dispatch(setCategorias(whereCategorias))
-    handleCurrent(1)
+    query = query.slice(0, -1)
+    dispatch(setCategorias(query))
   }, [selected])
 
   return (
-    <div className="px-5 py-6 space-y-2 cursor-default">
+    <div className="px-5 py-6 space-y-2">
       {categorias &&
-        categorias?.map(({ id, nombre }) => (
+        categorias?.map((cat) => (
           <Categoria
             key={crypto.randomUUID()}
-            nombre={nombre}
-            id={id}
+            nombre={cat.nombre}
+            id={cat.id}
             handleClick={handleClick}
-            selected={selected[`cat${id}`]}
+            selected={selected[cat.id]}
           />
         ))}
     </div>

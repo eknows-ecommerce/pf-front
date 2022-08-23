@@ -4,6 +4,7 @@ import Home from '../pages/home/Home'
 
 import NotFound from '../pages/NotFound/NotFound'
 import Navbar from '../components/NavBar/Navbar'
+import Kpages from 'pages/kpages/Kpages'
 
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
@@ -21,11 +22,12 @@ import Tags from 'pages/admin/tags/Tags'
 
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 
-import MejoresValorados from 'components/NavBar/MejoresValorados'
 import Contactanos from 'components/NavBar/Contactanos'
 
+import MasVendidos from 'components/NavBar/MasVendidos'
+
 import Carrito from 'components/Carrito/Carrito'
-// import Favoritos from 'pages/perfil/Favoritos'
+
 import AcercaDe from 'components/footer/AcercaDe'
 import Terminos from 'components/footer/Terminos'
 
@@ -46,18 +48,18 @@ function RoutesApp() {
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="editar" element={<Editar />} />
       </Route>
-
       <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />
         <Route path="home" element={<Home />} />
-        <Route path="masVendidos" element={<MejoresValorados />} />
+        <Route path="masvendidos" element={<MasVendidos />} />
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />
         <Route path="terminos" element={<Terminos />} />
+        <Route path="views" element={<Kpages />} />
+        <Route path="stories" element={<Kpages />} />
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>
       <Route path="home/carrito" element={<Carrito />} />
-
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

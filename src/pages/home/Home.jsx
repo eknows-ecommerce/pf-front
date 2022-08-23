@@ -2,7 +2,11 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+
 import { useAuth0 } from '@auth0/auth0-react'
+
+
+import Loading from '../../components/loading/Loading'
 
 import Swal from 'sweetalert2'
 
@@ -16,93 +20,89 @@ import { getByUser } from 'features/actions/favoritos'
 import { getByNickname } from 'features/actions/usuarios'
 
 import usePaginacion from 'hooks/usePaginacion'
-import Ordenamiento from 'components/filtros/Ordenamiento'
 
 function Home() {
+
+  const [loading = true, setLoading] = useState();
   const { user } = useAuth0()
 
   const [listaCarrito, setListaCarrito] = useState(
     JSON.parse(localStorage.getItem('carrito')) ?? []
   )
   const dispatch = useDispatch()
-
   const {
-    libros,
-    count,
-    search,
-    categorias,
-    tags,
-    formatos,
-    rangoPrecios,
-    orden,
-    buscarPor,
-    limit,
-  } = useSelector(({ librosStore }) => librosStore)
+    paginas,
+    paginaAnterior,
+    paginaSeleccionada,
+    paginaSiguiente,
+    handleTotal,
+  } = usePaginacion()
 
-  const [ordenar, setOrdenar] = useState({})
+  const { libros, count, busqueda } = useSelector(
+    ({ librosStore }) => librosStore
+  )
+  // const { busqueda } = useSelector(({ librosStore }) => librosStore)
+  const queryCategorias = useSelector(
+    ({ librosStore }) => librosStore.categorias
+  )
+  const queryTags = useSelector(({ librosStore }) => librosStore.tags)
+  const queryRangoPrecios = useSelector(
+    ({ librosStore }) => librosStore.rangoPrecios
+  )
+  const [sorter, setSort] = useState(['Sort', 'asc'])
+
 
   const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
-  const { paginado, handlePrevius, handleCurrent, handleNext, handleTotal } =
-    usePaginacion()
+  useEffect(() => {
+    dispatch(getByNickname(user))
+  }, [getByNickname, user])
 
-  // useEffect(() => {
-  //   dispatch(getByNickname(user))
-  // }, [getByNickname, user])
-
-  // useEffect(() => {
-  //   if (usuario !== undefined) dispatch(getByUser(usuario.id))
-  // }, [usuario])
 
   useEffect(() => {
-    handleTotal(count)
-  }, [count])
+    dispatch(getByUser(usuario.id))
+  }, [usuario])
 
   useEffect(() => {
-    let query = ''
+    const [sort, dir] = sorter
+    let sortQuery = sort !== 'Sort' ? `&orden=${sort}&direcion=${dir}` : ''
+    let query =
+      queryCategorias && queryCategorias !== 'categorias'
+        ? `&${queryCategorias}`
+        : ''
 
-    if (categorias.length > 0) {
-      query += `categorias=${JSON.stringify(categorias)}&`
-    }
-    if (tags.length > 0) {
-      query += `tags=${JSON.stringify(tags)}&`
-    }
+    query += queryTags && queryTags !== 'tags' ? `&${queryTags}` : ''
 
-    if (formatos.length > 0) {
-      query += `formatos=${JSON.stringify(formatos)}&`
+    query += queryRangoPrecios ? `&${queryRangoPrecios}` : ''
+    if (!busqueda) {
+      dispatch(getAll(`offset=${paginas.currentPage - 1}` + sortQuery + query))
+      handleTotal(count)
     }
-
-    if (rangoPrecios) {
-      query += `precios=${JSON.stringify(rangoPrecios)}&`
+    if (busqueda) {
+      dispatch(
+        getAll(
+          `titulo=${busqueda}&offset=${paginas.currentPage - 1}` +
+            sortQuery +
+            query
+        )
+      )
+      handleTotal(count)
     }
-
-    if (orden) {
-      query += `orden=${JSON.stringify(orden)}&`
-    }
-
-    if (buscarPor) {
-      query += `buscarPor=${buscarPor}&`
-    }
-
-    if (search) {
-      query += `search=${search}&`
-    }
-
-    query += `limite=${limit}&`
-    query += `pagina=${paginado.currentPage}`
-    dispatch(getAll(query))
   }, [
-    search,
-    categorias,
-    tags,
-    rangoPrecios,
-    formatos,
-    orden,
-    buscarPor,
-    limit,
-    paginado.currentPage,
+    paginas.currentPage,
+    count,
+    busqueda,
+    queryCategorias,
+    queryTags,
+    queryRangoPrecios,
+    sorter,
   ])
+
+  useEffect(() => {
+    paginaSeleccionada(1)
+    handleTotal(count)
+  }, [busqueda, queryCategorias, queryTags, queryRangoPrecios])
 
   const handleCarrito = (id, precio) => {
     Swal.fire('Agregar al carrito', 'Se ha agregado exitosamente', 'success')
@@ -117,19 +117,21 @@ function Home() {
 
   return (
     <section>
-      (
+       {
+                loading ? (
+                    <Loading setLoading={setLoading} />
+                ) : 
       <div className="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
-          <Filtros handleCurrent={handleCurrent} />
+          <Filtros />
           <div className="lg:col-span-3 ">
             <div className="flex items-center justify-between bg-gray-100 px-2 z-20 rounded shadow-xl sticky lg:top-0 top-14">
               <p className="text-sm font-medium px-2 py-3">
                 <span className="sm:inline">Vistos </span>
-                {paginado.total &&
-                paginado.totalPages !== paginado.currentPage ? (
+                {count && paginas.totalPages !== paginas.currentPage ? (
                   <>
                     <span className="text-sm font-bold text-rosadito-500">
-                      {paginado.currentPage * limit}
+                      {paginas.currentPage * 6}
                     </span>{' '}
                     de{' '}
                     <span className="text-sm font-bold text-rosadito-500">
@@ -137,12 +139,12 @@ function Home() {
                     </span>{' '}
                     Libros
                   </>
-                ) : paginado.totalPages === paginado.currentPage ? (
+                ) : paginas.totalPages === paginas.currentPage ? (
                   <>
                     <span className="text-sm font-bold text-rosadito-500">
                       {' '}
-                      {(paginado.currentPage - 1) * limit +
-                        (count === 6 ? count : count % limit)}
+                      {(paginas.currentPage - 1) * 6 +
+                        (count === 6 ? count : count % 6)}
                     </span>{' '}
                     de{' '}
                     <span className="text-sm font-bold text-rosadito-500">
@@ -163,7 +165,25 @@ function Home() {
                   </>
                 )}
               </p>
-              <Ordenamiento handleCurrent={handleCurrent} />
+              <div className="ml-4 bg-gray-100">
+                <label htmlFor="SortBy" className="sr-only">
+                  Sort
+                </label>
+                <select
+                  id="SortBy"
+                  name="sort_by"
+                  className="text-sm bg-gray-200 border-gray-200 font-medium rounded"
+                  onChange={(v) => {
+                    setSort(v.target.value.split('-'))
+                  }}
+                >
+                  <option readOnly="">Ordenar</option>
+                  <option value="titulo-asc">Titulo, A-Z</option>
+                  <option value="titulo-desc">Titulo, Z-A</option>
+                  <option value="precio-asc">Precio, Min-Max</option>
+                  <option value="precio-desc">Precio, Max-Min</option>
+                </select>
+              </div>
             </div>
             <div className=" grid grid-cols-1 gap-px mt-4 bg-gray-100 border border-gray-100 sm:grid-cols-2 lg:grid-cols-3">
               {libros &&
@@ -185,19 +205,19 @@ function Home() {
                 ))}
             </div>
             <div className="grid bg-gray-200 text-sm border border-gray-200 font-bold rounded shadow-xl my-3">
-              {paginado && (
+              {count !== 0 && (
                 <Paginacion
-                  paginaAnterior={handlePrevius}
-                  paginaSiguiente={handleNext}
-                  paginaSeleccionada={handleCurrent}
-                  {...paginado}
+                  paginaAnterior={paginaAnterior}
+                  paginaSiguiente={paginaSiguiente}
+                  paginaSeleccionada={paginaSeleccionada}
+                  paginas={paginas}
                 />
               )}
             </div>
           </div>
         </div>
       </div>
-      )
+}
     </section>
   )
 }
