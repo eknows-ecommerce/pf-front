@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-import Swal from 'sweetalert2'
 import CardLibro from 'components/cards/CardLibro'
 import { useSelector } from 'react-redux'
 

@@ -65,6 +65,7 @@ export default function Tags() {
       alert('Ingresar nombre de tag')
     } else {
       dispatch(create({ nombre: valorNuevoItem }))
+      alert('Tag creado')
       setValorNuevoItem('')
       setCrearItemModal(false)
     }
