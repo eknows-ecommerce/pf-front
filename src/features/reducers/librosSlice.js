@@ -17,10 +17,11 @@ const initialState = {
   carrito: [],
   totalLibros: [],
   paginado: {
-    paginaActual: 0,
+    paginaActual: 1,
     total: 0,
     anterior: 0,
     siguiente: 0,
+    limite: 10,
   },
   msg: '',
   cargando: null,
@@ -77,16 +78,25 @@ const librosSlice = createSlice({
       }
     },
     setPaginaActual: (state, { payload }) => {
-      state.paginado.paginaActual = payload.paginaActual
+      state.paginado.paginaActual = payload
     },
     setPaginasTotales: (state, { payload }) => {
-      state.paginado.total = payload.total
+      state.paginado.total = Math.ceil(payload / state.paginado.limite)
     },
-    setPaginaSiguiente: (state, { payload }) => {
-      state.paginado.siguiente = payload.siguiente
+    setPaginaAnterior: (state) => {
+      state.paginado.paginaActual =
+        state.paginado.paginaActual - 1 < 1
+          ? state.paginado.total
+          : state.paginado.paginaActual - 1
     },
-    setPaginaAnterior: (state, { payload }) => {
-      state.paginado.anterior = payload.anterior
+    setPaginaSiguiente: (state) => {
+      state.paginado.paginaActual =
+        state.paginado.paginaActual + 1 <= state.paginado.total
+          ? state.paginado.paginaActual + 1
+          : 1
+    },
+    setLimite: (state, { payload }) => {
+      state.paginado.limite = payload.limite
     },
     setFormatos: (state, action) => {
       state.formatos = action.payload
@@ -129,6 +139,7 @@ const librosSlice = createSlice({
       state.cargando = false
       state.libros = payload?.libros ?? []
       state.count = payload?.count
+      state.paginado.total = Math.ceil(payload?.count / state.paginado.limite)
     },
     [getAll.rejected]: (state) => {
       state.cargando = true
@@ -207,6 +218,7 @@ export const {
   setPaginasTotales,
   setPaginaSiguiente,
   setPaginaAnterior,
+  setLimite,
 } = librosSlice.actions
 
 export default librosSlice.reducer

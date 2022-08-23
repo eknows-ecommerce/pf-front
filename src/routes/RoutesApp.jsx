@@ -7,7 +7,6 @@ import Navbar from '../components/NavBar/Navbar'
 
 import Kpages from 'pages/kpages/Kpages'
 
-
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
 import Menu from '../pages/perfil/Menu'
@@ -24,7 +23,6 @@ import Tags from 'pages/admin/tags/Tags'
 
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 
-import MejoresValorados from 'components/NavBar/MejoresValorados'
 import Contactanos from 'components/NavBar/Contactanos'
 
 import Carrito from 'components/Carrito/Carrito'
@@ -35,7 +33,6 @@ import Terminos from 'components/footer/Terminos'
 import LibroFormulario from 'pages/admin/libros/LibroFormulario'
 
 import Politicas from 'components/footer/Politicas'
-
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -61,7 +58,6 @@ function RoutesApp() {
       <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />
         <Route path="home" element={<Home />} />
-        <Route path="masvendidos" element={<MejoresValorados />} />
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />
         <Route path="terminos" element={<Terminos />} />
