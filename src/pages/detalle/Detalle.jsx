@@ -32,13 +32,49 @@ export default function Detalle() {
 
   function getCategorias() {
     let cats = []
-    libro.CategoriaLibro?.map((c) => cats.push(<li className='mr-2 ml-2'> -{c.nombre}</li>))
+    libro.CategoriaLibro?.map((c) => cats.push(
+      <li key={crypto.randomUUID()}
+        className='mr-2 ml-2'> -{c.nombre}
+      </li>))
     return cats
   }
   function getTags() {
     let tags = []
-    libro.TagLibro?.map((t) => tags.push(<li className='mr-2 ml-2'> -{t.nombre}</li>))
+    libro.TagLibro?.map((t) => tags.push(
+      <li key={crypto.randomUUID()}
+        className='mr-2 ml-2'> -{t.nombre}
+      </li>))
     return tags
+  }
+
+  function getTipo() {
+    let tipos = []
+    libro.FormatoLibro?.map((t) => tipos.push(
+      <label
+        key={crypto.randomUUID()}
+        htmlFor={t.nombre}
+        className="cursor-pointer">
+        <input
+          type="radio"
+          id={t.nombre}
+          name="tipo"
+          className="sr-only peer"
+          defaultChecked=""
+        />
+        <span className="block px-3 py-1 text-xs border border-gray-200 rounded-full peer-checked:bg-gray-100">
+          {t.nombre}
+        </span>
+      </label>
+    ))
+
+    return (
+      <fieldset>
+        <legend className="text-lg font-bold">TIPO</legend>
+        <div className="flex mt-2 space-x-1">
+          {tipos}
+        </div>
+      </fieldset>
+    )
   }
 
   function getReviews() {
@@ -91,40 +127,10 @@ export default function Detalle() {
               src={libro.portada}
               className="relative mt-4 w-full rounded-xl h-72 lg:h-[540px] object-contain"
             />
-            {/*extra imgs?*/}
           </div>
           <div className="lg:top-0 lg:sticky">
             <form className="space-y-4 lg:pt-8">
-              {/** colores comentario abajo */}
-              <fieldset>
-                <legend className="text-lg font-bold">Tipo</legend>
-                <div className="flex mt-2 space-x-1">
-                  <label htmlFor="tipo_ebook" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      id="tipo_ebook"
-                      name="tipo"
-                      className="sr-only peer"
-                      defaultChecked=""
-                    />
-                    <span className="block px-3 py-1 text-xs border border-gray-200 rounded-full peer-checked:bg-gray-100">
-                      eBook
-                    </span>
-                  </label>
-                  <label htmlFor="tipo_fisico" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      id="tipo_fisico"
-                      name="tipo"
-                      className="sr-only peer"
-                      defaultChecked=""
-                    />
-                    <span className="block px-3 py-1 text-xs border border-gray-200 rounded-full peer-checked:bg-gray-100">
-                      Físico
-                    </span>
-                  </label>
-                </div>
-              </fieldset>
+              {getTipo()}
               <div className="p-4 bg-gray-100 border rounded">
                 <p className="text-sm">
                   <span className="block">Texto para posibles descuentos?</span>
