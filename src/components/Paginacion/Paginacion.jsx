@@ -1,12 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-const Paginacion = ({
-  paginaAnterior,
-  paginaSiguiente,
-  total,
-  currentPage,
-  totalPages,
-}) => {
+const Paginacion = ({ paginaAnterior, paginaSiguiente, paginas }) => {
   return (
+
     <div className="grid bg-gray-200 text-sm border border-gray-200 font-bold rounded shadow-xl my-3">
       <div className="inline-flex items-center justify-center w-full space-x-4  bg-transparent">
         {total !== 0 ? (

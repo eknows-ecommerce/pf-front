@@ -6,7 +6,7 @@ import { setTags } from 'features/reducers/librosSlice'
 
 import Tag from './Tag'
 
-function Tags({ reset, setReset, handleCurrent }) {
+function Tags({ reset, setReset }) {
   // eslint-disable-next-line no-unused-vars
   const [tagSelect, setTagSelect] = useState([])
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
@@ -18,13 +18,12 @@ function Tags({ reset, setReset, handleCurrent }) {
 
   useEffect(() => {
     if (reset) {
-      setTags([])
+      setTags('tags')
       setTagSelect({})
       setReset(false)
     }
   }, [reset])
-
-  const handleClick = (e) => {
+  function handleClick(e) {
     setTagSelect({
       ...tagSelect,
       [e.target.id]: e.target.checked,
@@ -32,25 +31,26 @@ function Tags({ reset, setReset, handleCurrent }) {
   }
 
   useEffect(() => {
-    const whereTags = []
+    let query = 'tags='
+    console.log()
     for (const key in tagSelect) {
       if (tagSelect[key]) {
-        whereTags.push(Number(key.slice(3)))
+        query += key + ','
       }
     }
-    dispatch(setTags(whereTags))
-    handleCurrent(1)
+    query = query.slice(0, -1)
+    dispatch(setTags(query))
   }, [tagSelect])
 
   return (
-    <div className="px-5 py-6 space-y-2 cursor-default">
-      {tags?.map(({ id, nombre }) => (
+    <div className="px-5 py-6 space-y-2">
+      {tags?.map((tag) => (
         <Tag
           key={crypto.randomUUID()}
           handleClick={handleClick}
-          nombre={nombre}
-          id={id}
-          selected={tagSelect[`tag${id}`]}
+          nombre={tag.nombre}
+          id={tag.id}
+          selected={tagSelect[tag.id]}
         />
       ))}
     </div>

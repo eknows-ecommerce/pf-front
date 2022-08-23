@@ -19,17 +19,17 @@ function Landing() {
   const { isAuthenticated } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
-  // useEffect(() => {
-  // dispatch(getAllLibros(`offset=0`))
-  // dispatch(getallCat())
-  // dispatch(getallTag())
-  // }, [])
+  useEffect(() => {
+    dispatch(getAllLibros(`offset=0`))
+    dispatch(getallCat())
+    dispatch(getallTag())
+  }, [])
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     dispatch(getByUser(usuario.id))
-  //   }
-  // }, [usuario, isAuthenticated, dispatch])
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(getByUser(usuario.id))
+    }
+  }, [usuario, isAuthenticated, dispatch])
 
   return (
     <div>

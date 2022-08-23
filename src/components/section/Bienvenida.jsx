@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { create } from 'features/actions/usuarios'
 import Login from '../sesion/Login'
 import Logout from '../sesion/Logout'
+import logo from '../../assets/img/logo.png'
 
 export default function Bienvenida() {
+
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
   const dispatch = useDispatch()
   const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
@@ -20,8 +22,7 @@ export default function Bienvenida() {
           token: token,
           user,
         }
-        !usuarios.some((u) => u.nickname === user.nickname) &&
-          dispatch(create(body))
+        !usuarios.some((u) => u.nickname === user.nickname) && dispatch(create(body))
       }
     }
     authenticateUser()

@@ -23,8 +23,11 @@ function Carrito() {
 
   useEffect(() => {
     //transformar el objeto en string
-    const libros = carritoLS.map(({ id }) => Number(id))
-    let query = `carrito=${JSON.stringify(libros)}`
+    let query = 'carrito='
+    carritoLS.forEach((item) => {
+      query += item.id + ','
+    })
+    query = query.slice(0, -1)
     dispatch(getListCar(query))
     cantidadTotal()
   }, [carritoLS])
@@ -332,10 +335,7 @@ function Carrito() {
                       ancho="450px"
                       padding="40px"
                     >
-                      <Checkout
-                        detalleCompra={detalleCompra}
-                        setCarritoLS={setCarritoLS}
-                      />
+                      <Checkout detalleCompra={detalleCompra} />
                     </ModalComponent>
                   )}
                 </div>
