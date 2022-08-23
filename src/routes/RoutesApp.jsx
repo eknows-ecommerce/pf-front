@@ -61,6 +61,7 @@ function RoutesApp() {
         <Route path="masvendidos" element={<MasVendidos />} />
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />
+        <Route path="politicas" element={<Politicas />} />
         <Route path="terminos" element={<Terminos />} />
         <Route path="views" element={<Kpages />} />
         <Route path="stories" element={<Kpages />} />
