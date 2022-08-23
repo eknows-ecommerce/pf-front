@@ -4,45 +4,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function ReviewModal({ idLibro, idUsuario }) {
-  const [showModal, setShowModal] = React.useState(false);
-  const dispatch = useDispatch()
-
-  const [form, setForm] = useState({
-    titulo: "",
-    texto: "",
-    rating: 3,
-    likes: parseInt(Math.random() * 100),
-    LibroId: idLibro,
-    UsuarioId: idUsuario
-  });
-
-  //verificar errores toDo
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (form.titulo && form.texto) {
-      dispatch(create(form));
-      setShowModal(false)
-      setForm({
-        titulo: "",
-        texto: "",
-        rating: 3,
-        likes: parseInt(Math.random() * 100),
-        LibroId: idLibro,
-        UsuarioId: idUsuario
-      })
-    } else {
-      setShowModal(false)
-      setShowModal(true)
-    }
-  };
-
   function Stars() {
     const [rate, setRate] = useState(3);
     let out = []; let star;
@@ -57,6 +18,7 @@ export default function ReviewModal({ idLibro, idUsuario }) {
               form.rating = (i + 1)
             }} />
           <svg className={"w-6 h-6 hover:animate-spin " + star}
+            key={crypto.randomUUID()}
             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
           >
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -64,9 +26,47 @@ export default function ReviewModal({ idLibro, idUsuario }) {
         </label>
       )
     }
-
     return out
   }
+  
+  const [showModal, setShowModal] = React.useState(false);
+  const dispatch = useDispatch()
+
+  const [form, setForm] = useState({
+    titulo: "",
+    comentario: "",
+    rating: 3,
+    //likes: parseInt(Math.random() * 100),
+    LibroId: idLibro,
+    UsuarioId: idUsuario
+  });
+
+  //verificar errores toDo
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (form.titulo && form.comentario) {
+      dispatch(create(form));
+      setShowModal(false)
+      setForm({
+        titulo: "",
+        comentario: "",
+        rating: 3,
+        //likes: parseInt(Math.random() * 100),
+        LibroId: idLibro,
+        UsuarioId: idUsuario
+      })
+    } else {
+      setShowModal(false)
+      setShowModal(true)
+    }
+  };
 
   return (
     <>
@@ -92,8 +92,8 @@ export default function ReviewModal({ idLibro, idUsuario }) {
               <div className="relative m-5 p-1 flex-auto items-center border-4 rounded-2xl">
                 <textarea className="text-slate-800 text-lg leading-relaxed outline-none w-full"
                   maxLength={1024} spellCheck={true}
-                  type='text' placeholder='Escriba su review' name="texto"
-                  value={form.texto} onChange={(e) => handleChange(e)}
+                  type='text' placeholder='Escriba su review' name="comentario"
+                  value={form.comentario} onChange={(e) => handleChange(e)}
                 >
                 </textarea >
               </div>

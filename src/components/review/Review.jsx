@@ -11,6 +11,7 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
         : (star = 'text-gray-300')
       out.push(
         <svg
+          key={crypto.randomUUID()}
           xmlns="http://www.w3.org/2000/svg"
           className={'w-6 h-6 my-2 ' + star}
           viewBox="0 0 20 20"
@@ -26,8 +27,7 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
   const [showModal, setShowModal] = React.useState(false)
 
   const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
-  let name = 'Anonimo'
-  name = usuarios.find((u) => u.id === author)?.name
+  const name = usuarios.find((u) => u.id === author)?.name;
 
   return (
     <>
@@ -37,10 +37,8 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
       >
         <div>
           <div className="flex flex-rows justify-between">
-            <div className="flex">
-              <Stars />
-            </div>
-            <p>{likes}👍</p>
+            <div className="flex"><Stars /></div>
+            {/*<p>{likes}👍</p>*/}
           </div>
           <div className="mt-4">
             <h5 className="text-xl text-center font-bold text-pink-700 sm:text-2xl">
@@ -61,14 +59,9 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
             <div className="rounded-lg max-w-5xl m-5 shadow-lg relative flex flex-col bg-white outline-none w-screen">
               <header className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                 <h1 className="text-3xl font-semibold"> {title}</h1>
+                <div className="flex"><Stars /></div>
                 <div className="flex">
-                  <Stars />
-                </div>
-                <div className="flex">
-                  <p>
-                    {likes}
-                    <button onClick={() => {}}>👍</button>
-                  </p>
+                  {/*<p>{likes}<button onClick={() => { }}>👍</button></p>*/}
                   <button
                     className="text-red-500 borde-5 background-transparent font-bold uppercase mb-6 ml-6"
                     type="button"
