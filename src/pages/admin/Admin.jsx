@@ -23,15 +23,6 @@ export default function Admin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getByNickname, user])
 
-  useEffect(() => {
-    if (usuario.rol === 'admin') {
-      dispatch(getAllUsuarios())
-      dispatch(getAllLibros())
-      dispatch(getAllCategorias())
-      dispatch(getAllTags())
-    }
-  }, [dispatch, usuario])
-
   if (usuario.rol !== 'admin') {
     return (
       <div>

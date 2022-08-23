@@ -2,11 +2,9 @@ import { Route, Routes } from 'react-router-dom'
 import Landing from '../pages/Landing/Landing'
 import Home from '../pages/home/Home'
 
-
 import NotFound from '../pages/NotFound/NotFound'
 import Navbar from '../components/NavBar/Navbar'
 import Kpages from 'pages/kpages/Kpages'
-
 
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
@@ -24,6 +22,7 @@ import Tags from 'pages/admin/tags/Tags'
 
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 
+
 import Contactanos from 'components/NavBar/Contactanos'
 
 import MasVendidos from 'components/NavBar/MasVendidos'
@@ -34,6 +33,9 @@ import Carrito from 'components/Carrito/Carrito'
 
 import AcercaDe from 'components/footer/AcercaDe'
 import Terminos from 'components/footer/Terminos'
+
+import LibroFormulario from 'pages/admin/libros/LibroFormulario'
+
 import Politicas from 'components/footer/Politicas'
 
 //Aqui iran todas las rutas
@@ -45,7 +47,9 @@ function RoutesApp() {
         <Route path="usuarios" element={<Usuarios />} />
         <Route path="ventas" element={<Ventas />} />
         <Route path="pedidos" element={<PedidosAdmin />} />
-        <Route path="libros" element={<Libros />} />
+        <Route path="libros/editar/:libroId" element={<LibroFormulario />} />
+        <Route path="libros/crear" element={<LibroFormulario />} />
+        <Route path="libros" element={<Libros />}></Route>
         <Route path="categorias" element={<Categorias />} />
         <Route path="tags" element={<Tags />} />
       </Route>
@@ -58,11 +62,14 @@ function RoutesApp() {
       <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />
         <Route path="home" element={<Home />} />
+
         <Route path="masvendidos" element={<MasVendidos />} />
+
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />
         <Route path="politicas" element={<Politicas />} />
         <Route path="terminos" element={<Terminos />} />
+
         <Route path="views" element={<Kpages />} />
         <Route path="stories" element={<Kpages />} />
         <Route path="detalle/:id" element={<Detalle />} />

@@ -7,6 +7,7 @@ import mediasReducer from 'features/reducers/mediasSlice'
 import tagsReducer from 'features/reducers/tagsSlice'
 import usuariosReducer from 'features/reducers/usuariosSlice'
 import favoritosReducer from 'features/reducers/favoritosSlice'
+import formatosReducer from 'features/reducers/formatosSlice'
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     multimediaStore: mediasReducer,
     tagsStore: tagsReducer,
     favoritosStore: favoritosReducer,
+    formatosStore: formatosReducer,
   },
 })

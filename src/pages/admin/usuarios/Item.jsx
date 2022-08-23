@@ -2,15 +2,18 @@ import image from './usuario.png'
 
 export default function Item({
   name,
-  platform,
   isBan,
   nickname,
   email,
   id,
   rol,
+  handleEditarUsuario,
 }) {
   return (
-    <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100 cursor-pointer">
+    <tr
+      onClick={() => handleEditarUsuario(id, name, rol, isBan)}
+      className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100 cursor-pointer"
+    >
       <td className="text-center">
         <p className="font-medium">US-{id}</p>
       </td>
@@ -42,11 +45,6 @@ export default function Item({
       <td className="pl-12">
         <p className="font-medium">{rol}</p>
         <p className="text-xs leading-3 text-gray-600 mt-2">Tipo de cuenta</p>
-      </td>
-      <td className="pl-20">
-        <button className="mx-2 my-2 bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-6 py-2 text-xs">
-          Ver más
-        </button>
       </td>
     </tr>
   )

@@ -147,6 +147,23 @@ export default function EditarItemModal({
                         />
                       </>
                     )}
+                    {tipo === 'usuario' && (
+                      <>
+                        <label className="text-sm mx-2 font-bold ">Rol</label>
+                        <input
+                          placeholder="Acción"
+                          defaultValue={valorNuevoItem}
+                          onChange={(e) => setValorNuevoItem(e.target.value)}
+                          className="w-full focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
+                          required
+                        />
+                        <label className="text-sm mx-2 font-bold">Estado</label>
+                        <select>
+                          <option>Activo</option>
+                          <option>Inhabilitado</option>
+                        </select>
+                      </>
+                    )}
                   </div>
                   <div className="flex items-center justify-around mt-9">
                     <button
