@@ -80,7 +80,6 @@ const librosSlice = createSlice({
     [getAllPredictivo.fulfilled]: (state, { payload }) => {
       state.cargando = false
       state.totalLibros = payload.libros ?? []
-      state.count = payload.count
     },
     [getAllPredictivo.rejected]: (state) => {
       state.cargando = true

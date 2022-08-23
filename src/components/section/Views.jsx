@@ -10,10 +10,10 @@ function Views() {
             K-views
           </h2>
           <p className="hidden text-gray-500 font-bold   font-comforta-300 md:mt-3x2 md:block">
-            Lleva las historias que te atrapan en formato digital a donde vayas.
+            Lleva las historias que te atrapan, a donde vayas
           </p>
           <div className="mt-4 md:mt-8">
-            <Link to="views">
+            <Link to="#">
               <Button>Ver</Button>
             </Link>
           </div>
