@@ -24,8 +24,8 @@ function Usuarios() {
 
   const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
   const { search, handleSearch } = useSearch()
-  const { paginas, paginaAnterior, paginaSiguiente, handleTotal } =
-    usePaginacion()
+  // const { paginas, paginaAnterior, paginaSiguiente, handleTotal } =
+  //   usePaginacion()
 
   const dispatch = useDispatch()
 
@@ -38,22 +38,9 @@ function Usuarios() {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [paginas.totalPages])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    const usuarioObj = {
-      id: usuario.id,
-      datos: { ...usuario },
-    }
-
-    dispatch(update(usuarioObj))
-    setShowEditarModal(false)
-    setUsuario(initialState)
-  }
-
   const handleEditarUsuario = (id, name, rol, isBan) => {
-    setShowEditarModal(true)
     setUsuario({ id, name, rol, isBan })
+    setShowEditarModal(true)
   }
 
   return (
@@ -61,10 +48,8 @@ function Usuarios() {
       {showEditarModal && (
         <EditarModal
           setShowEditarModal={setShowEditarModal}
-          setUsuario={setUsuario}
           usuario={usuario}
-          initialState={initialState}
-          handleSubmit={handleSubmit}
+          setUsuario={setUsuario}
         />
       )}
       <div className="overflow-x-auto xl:px-20 py-2">
@@ -96,7 +81,7 @@ function Usuarios() {
               <tbody className="w-full">
                 {usuarios?.map((usuario) => (
                   <Item
-                    key={usuario.id}
+                    key={crypto.randomUUID()}
                     handleEditarUsuario={handleEditarUsuario}
                     {...usuario}
                   />

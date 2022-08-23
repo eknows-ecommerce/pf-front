@@ -2,11 +2,6 @@ import { Link } from 'react-router-dom'
 import image from './libro.png'
 
 export default function Item(props) {
-  const handleEditar = () => {
-    props.setLibro(props)
-    props.setFormulario('editar')
-  }
-
   return (
     <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
       <td className="text-center">

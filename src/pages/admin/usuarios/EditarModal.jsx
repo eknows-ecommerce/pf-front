@@ -1,10 +1,25 @@
+import { useDispatch } from 'react-redux'
+
+import { update } from 'features/actions/usuarios'
+
 export default function EditarModal({
   setShowEditarModal,
   setUsuario,
   usuario,
-  initialState,
-  handleSubmit,
 }) {
+  const dispatch = useDispatch()
+
+  const handleIsBan = (e) => {
+    let value = e.target.value
+    setUsuario({ ...usuario, isBan: value === 'activo' ? false : true })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(update(usuario))
+    setShowEditarModal(false)
+  }
+
   return (
     <>
       <div id="popup" className="z-50 fixed w-full flex justify-center inset-0">
@@ -19,7 +34,7 @@ export default function EditarModal({
                 <p className="text-base font-semibold">Editar usuario</p>
               </div>
               <div className="px-4 md:px-10 md:pb-4 pb-7">
-                <form onSubmit={handleSubmit} className="mt-11">
+                <div className="mt-11">
                   <div className="flex flex-wrap space-y-2">
                     <label className="text-sm mx-2 font-bold">Nombre</label>
                     <input
@@ -70,24 +85,11 @@ export default function EditarModal({
                         <p>
                           (
                           {`actual: ${
-                            usuario.isBan ? 'activo' : 'inhabilitado'
+                            usuario.isBan ? 'inhabilitado' : 'activo'
                           }`}
                           )
                         </p>
-                        <select
-                          id="isBan"
-                          onChange={(e) =>
-                            setUsuario({
-                              ...usuario,
-                              isBan:
-                                e.target.value === 'activo'
-                                  ? false
-                                  : e.target.value === 'inhabilitado'
-                                  ? true
-                                  : usuario.isBan,
-                            })
-                          }
-                        >
+                        <select id="isBan" onChange={handleIsBan}>
                           <option value={null}>Seleccionar</option>
                           <option value="activo">Activo</option>
                           <option value="inhabilitado">Inhabilitado</option>
@@ -98,7 +100,6 @@ export default function EditarModal({
                   <div className="flex items-center justify-around mt-9">
                     <button
                       onClick={() => {
-                        setUsuario(initialState)
                         setShowEditarModal(false)
                       }}
                       className="px-6 py-3 bg-gray-400 hover:bg-red-700 shadow rounded text-sm text-white transition-all"
@@ -106,13 +107,13 @@ export default function EditarModal({
                       Cancelar
                     </button>
                     <button
-                      type="submit"
+                      onClick={handleSubmit}
                       className="px-6 py-3 bg-green-600 hover:bg-green-700 shadow rounded text-sm text-white transition-all"
                     >
                       Confirmar
                     </button>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>

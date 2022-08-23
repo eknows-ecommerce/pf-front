@@ -7,9 +7,8 @@ import { Link } from 'react-router-dom'
 import { setReset } from 'features/reducers/librosSlice'
 
 import Item from './Item'
-import LibroFormulario from './LibroFormulario'
-import DisponibilidadModal from './DisponibilidadModal'
 import SearchPanelAdmin from '../SearchPanelAdmin'
+import Paginacion2 from 'components/Paginacion/Paginacion2'
 
 function Libros() {
   const [formulario, setFormulario] = useState('')
@@ -123,6 +122,7 @@ function Libros() {
           </div>
         </div>
       </div>
+      <Paginacion2 />
     </>
   )
 }
