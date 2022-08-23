@@ -2,10 +2,8 @@ import { Route, Routes } from 'react-router-dom'
 import Landing from '../pages/landing/Landing'
 import Home from '../pages/home/Home'
 
-
 import NotFound from '../pages/notFound/NotFound'
 import Navbar from '../components/navBar/Navbar'
-
 
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
@@ -23,16 +21,15 @@ import Tags from 'pages/admin/tags/Tags'
 
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 
-
-import MasVendidos from 'components/navBar/MasVendidos'
-import Ofertas from 'components/navBar/Ofertas'
+import MejoresValorados from 'components/navBar/MejoresValorados'
+// import Ofertas from 'components/navBar/Ofertas'
 import Contactanos from 'components/navBar/Contactanos'
 
 import Carrito from 'components/carrito/Carrito'
 import Favoritos from 'pages/perfil/Favoritos'
 import AcercaDe from 'components/footer/AcercaDe'
 import Terminos from 'components/footer/Terminos'
-
+import LibroFormulario from 'pages/admin/libros/LibroFormulario'
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -43,7 +40,9 @@ function RoutesApp() {
         <Route path="usuarios" element={<Usuarios />} />
         <Route path="ventas" element={<Ventas />} />
         <Route path="pedidos" element={<PedidosAdmin />} />
-        <Route path="libros" element={<Libros />} />
+        <Route path="libros/editar/:libroId" element={<LibroFormulario />} />
+        <Route path="libros/crear" element={<LibroFormulario />} />
+        <Route path="libros" element={<Libros />}></Route>
         <Route path="categorias" element={<Categorias />} />
         <Route path="tags" element={<Tags />} />
       </Route>
@@ -52,16 +51,14 @@ function RoutesApp() {
         <Route path="editar" element={<Editar />} />
       </Route>
 
-      <Route path="/" element={<NavBar />}>
+      <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />
 
         <Route path="home" element={<Home />} />
-        <Route path="masVendidos" element={<MejoresValarados />} />
+        <Route path="masVendidos" element={<MejoresValorados />} />
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />
         <Route path="terminos" element={<Terminos />} />
-
-
 
         <Route path="detalle/:id" element={<Detalle />} />
       </Route>

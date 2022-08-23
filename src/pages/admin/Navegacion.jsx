@@ -153,7 +153,7 @@ export default function Navegacion() {
             <p className="text-base leading-4">Pedidos</p>
           </Link>
           <Link
-            to="Libros"
+            to="libros"
             className="flex justify-start items-center space-x-6 hover:text-white focus:bg-neutral-800 focus:text-white hover:bg-neutral-800 text-neutral-400 rounded px-3 py-3 w-full"
           >
             <FaBook className="h-5 w-5" />

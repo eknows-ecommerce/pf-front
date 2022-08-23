@@ -21,6 +21,7 @@ const initialState = {
   categorias: '',
   tags: '',
   rangoPrecios: '',
+  msg: '',
 }
 
 const librosSlice = createSlice({
@@ -45,6 +46,13 @@ const librosSlice = createSlice({
     },
     setRangoPrecios: (state, action) => {
       state.rangoPrecios = action.payload
+    },
+    setReset: (state, { payload }) => {
+      if (payload.all) {
+        state = initialState
+      } else {
+        state[payload.nombre] = payload.valor
+      }
     },
   },
   extraReducers: {
@@ -102,9 +110,11 @@ const librosSlice = createSlice({
       state.cargando = false
       state.libros = [...state.libros, payload.libro]
       state.total = state.total + 1
+      state.msg = payload.msg
     },
-    [create.rejected]: (state) => {
+    [create.rejected]: (state, { payload }) => {
       state.cargando = true
+      state.msg = payload.msg
     },
     //update
     [update.pending]: (state) => {
@@ -144,6 +154,7 @@ export const {
   setTags,
   setCarrito,
   setRangoPrecios,
+  setReset,
 } = librosSlice.actions
 
 export default librosSlice.reducer
