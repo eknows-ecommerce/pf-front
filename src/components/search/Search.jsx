@@ -1,20 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { getAllPredictivo } from 'features/actions/libros'
-import { setSearch } from 'features/reducers/librosSlice'
 
-function Search() {
-  const { totalLibros, search, formatos } = useSelector(
-    ({ librosStore }) => librosStore
-  )
-  const dispatch = useDispatch()
-  const handleSearch = (e) => {
-    dispatch(setSearch(`${e.target.value}`))
-  }
-
-  useEffect(() => {
-    dispatch(getAllPredictivo(`${formatos}&${search}`))
-  }, [dispatch, formatos, search])
+function Search({ search, handleSearch, totalLibros }) {
 
   return (
     <div className="relative">
