@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 //import { useMediaQuery } from 'react-responsive'
 import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getById } from '../../features/actions/libros'
-import { getAll } from '../../features/actions/review'
+import { getById as getBook } from '../../features/actions/libros'
+import { getAll as getAllReviews} from '../../features/actions/review'
+import { getByUser as getPedidos} from '../../features/actions/pedidos'
 import Button from '../../components/templates/Button'
 import ReviewCard from '../../components/review/Review.jsx'
 import ReviewModal from '../../components/review/Write.jsx'
@@ -19,15 +20,19 @@ export default function Detalle() {
   const { libro } = useSelector(({ librosStore }) => librosStore)
   const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
-  //const { pedido } = useSelector(({ pedidosStore }) => pedidosStore)
-  
+  const { pedido } = useSelector(({ pedidosStore }) => pedidosStore)
+
 
   useEffect(() => {
-    dispatch(getAll('?LibroId=' + id))
+    dispatch(getAllReviews('?LibroId=' + id))
   }, [])
 
   useEffect(() => {
-    dispatch(getById(id))
+    dispatch(getBook(id))
+  }, [])
+
+  useEffect(() => {
+    dispatch(getPedidos(usuario.id))
   }, [])
 
   function getCategorias() {
@@ -107,9 +112,10 @@ export default function Detalle() {
       localStorage.setItem('carrito', JSON.stringify(elemento))
     }
   }
-  /*function handleAdd(e) {
+
+  function handleFavorito(e) {
     e.preventDefault()
-  }*/
+  }
 
   return (
     <>
@@ -145,7 +151,7 @@ export default function Detalle() {
               <Link to="/home/carrito">
                 <Button onClick={handleCarrito}>Comprar</Button>
               </Link>
-              <Button secondary>Agregar a favoritos</Button>
+              <Button secondary onClick={handleFavorito}>Agregar a favoritos</Button>
             </form>
           </div>
 
