@@ -5,33 +5,38 @@ import images from '../../assets/img/logo.png'
 import Search from '../search/Search'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAll } from 'features/actions/usuarios'
-import { getByNickname } from 'features/actions/usuarios'
+import { getAll, getByNickname } from 'features/actions/usuarios'
+import { getAllPredictivo } from 'features/actions/libros'
+
 import { useLocation } from 'react-router-dom'
+import { setSearch } from 'features/reducers/librosSlice'
 
 import { useEffect, useRef } from 'react'
-import useSearch from '../../hooks/useSearch'
 // import Footer from '../footer/Footer'
 export default function Navbar() {
   const location = useLocation()
   const dispatch = useDispatch()
-  const { user,isAuthenticated, isLoading } = useAuth0()
+  const { user, isAuthenticated, isLoading } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
-  
+  const { search, totalLibros } = useSelector(({ librosStore }) => librosStore)
+
   useEffect(() => {
     dispatch(getByNickname(user))
   }, [dispatch, user])
-  
-  useEffect(() => {
-    dispatch(getAll())
-  }, [dispatch])
-  
-  useEffect(()=>{
-  console.log("LOCATION", location.pathname)
 
-}, [location])
+  // useEffect(() => {
+  //   dispatch(getAll())
+  // }, [dispatch])
+
+  useEffect(() => {
+    dispatch(getAllPredictivo())
+  }, [])
+
+  const handleSearch = (e) => {
+    dispatch(setSearch(e.target.value))
+  }
+
   const show = useRef(null)
-  const { search, handleSearch } = useSearch()
 
   const handleClick = () => {
     show.current.classList.toggle('hidden')
@@ -59,7 +64,7 @@ export default function Navbar() {
               isLoading
             )}
           </div>
-             
+
           <div className="flex items-center space-x-4 ">
             <Link to="/" className="w-16 h-14 bg-transparent">
               <img
@@ -68,19 +73,30 @@ export default function Navbar() {
                 className="w-16 h-14 bg-transparent object-cover rounded-full hover:scale-110 transition duration-700 ease-in-out"
               />
             </Link>
-            {location.pathname === '/home'?
-            <form className="hidden mb-0 lg:flex w-96">
-              <Search search={search} handleSearch={handleSearch} />
-            </form>:''}
+            {location.pathname === '/home' ? (
+              <form className="hidden mb-0 lg:flex w-96">
+                <Search
+                  search={search}
+                  handleSearch={handleSearch}
+                  totalLibros={totalLibros}
+                />
+              </form>
+            ) : (
+              ''
+            )}
           </div>
           <div className="flex justify-end flex-1 w-0 lg:hidden">
             <div ref={show} className="hidden">
-              <Search search={search} handleSearch={handleSearch} />
+              <Search
+                busqueda={search}
+                handleSearch={handleSearch}
+                totalLibros={totalLibros}
+              />
             </div>
             <button
               className="p-2 text-gray-500 bg-gray-100 rounded-full"
               type="button"
-            > 
+            >
               <svg
                 onClick={handleClick}
                 className="w-5 h-5"
@@ -103,7 +119,7 @@ export default function Navbar() {
             <Link to="masvendidos" className="text-gray-900">
               Mas Vendidos
             </Link>
-            
+
             <Link to="contactanos" className="text-gray-900">
               Contactanos
             </Link>

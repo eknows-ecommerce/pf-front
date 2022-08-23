@@ -1,50 +1,62 @@
 import { useState } from 'react'
 
-function usePaginacion() {
-  const [paginas, setPaginas] = useState({
-    currentPage: 1,
-    totalPages: 1,
-  })
+const initialState = {
+  total: 0,
+  currentPage: 1,
+  totalPages: 1,
+  limit: 6,
+}
+
+function usePaginacion(valor = initialState) {
+  const [paginado, setPaginado] = useState(valor)
 
   const handleTotal = (total) => {
-    setPaginas({
-      currentPage: paginas.currentPage,
-      totalPages: Math.ceil(total / 6),
+    setPaginado({
+      ...paginado,
+      total,
+      totalPages: Math.ceil(total / paginado.limit),
     })
   }
 
-  const paginaAnterior = () => {
-    setPaginas({
-      ...paginas,
-      currentPage:
-        paginas.currentPage - 1 < 1
-          ? paginas.totalPages
-          : paginas.currentPage - 1,
+  const handleCurrent = (currentPage) => {
+    setPaginado({
+      ...paginado,
+      currentPage,
     })
   }
-  const paginaSiguiente = () => {
-    setPaginas({
-      ...paginas,
+  const handleLimit = (limit) => {
+    setPaginado({
+      ...paginado,
+      limit,
+    })
+  }
+
+  const handlePrevius = () => {
+    setPaginado({
+      ...paginado,
       currentPage:
-        paginas.currentPage + 1 <= paginas.totalPages
-          ? paginas.currentPage + 1
+        paginado.currentPage - 1 < 1
+          ? paginado.totalPages
+          : paginado.currentPage - 1,
+    })
+  }
+  const handleNext = () => {
+    setPaginado({
+      ...paginado,
+      currentPage:
+        paginado.currentPage + 1 <= paginado.totalPages
+          ? paginado.currentPage + 1
           : 1,
-    })
-  }
-  const paginaSeleccionada = (pagina) => {
-    setPaginas({
-      ...paginas,
-      currentPage: pagina,
     })
   }
 
   return {
-    paginas,
-    paginaAnterior,
-    paginaSeleccionada,
-    paginaSiguiente,
+    paginado,
+    handlePrevius,
+    handleCurrent,
+    handleNext,
     handleTotal,
+    handleLimit,
   }
 }
-
 export default usePaginacion

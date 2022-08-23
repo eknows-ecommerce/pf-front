@@ -9,7 +9,6 @@ export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
     const { data } = await axios.get(`${URL}/libros?${query}`)
     return data
   } catch (error) {
-    console.log('error', error)
     const msg = error.response.data.msg
     return msg
   }
@@ -17,12 +16,11 @@ export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
 
 export const getAllPredictivo = createAsyncThunk(
   'libros/@GETALLPREDICTIVO',
-  async (query) => {
+  async () => {
     try {
-      const { data } = await axios.get(`${URL}/libros?${query}`)
+      const { data } = await axios.get(`${URL}/libros`)
       return data
     } catch (error) {
-      console.log('error', error)
       const msg = error.response.data.msg
       return msg
     }
