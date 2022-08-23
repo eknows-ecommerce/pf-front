@@ -27,8 +27,6 @@ import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 import MejoresValorados from 'components/NavBar/MejoresValorados'
 import Contactanos from 'components/NavBar/Contactanos'
 
-import MejoresValorados from 'components/NavBar/MejoresValorados'
-
 import Carrito from 'components/Carrito/Carrito'
 
 import AcercaDe from 'components/footer/AcercaDe'
