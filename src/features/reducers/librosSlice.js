@@ -16,6 +16,12 @@ const initialState = {
   carrito: [],
   totalLibros: [],
   count: 0,
+  paginado: {
+    paginaActual: 0,
+    total: 0,
+    anterior: 0,
+    siguiente: 0,
+  },
   cargando: null,
   busqueda: '',
   categorias: '',
@@ -53,6 +59,18 @@ const librosSlice = createSlice({
       } else {
         state[payload.nombre] = payload.valor
       }
+    },
+    setPaginaActual: (state, { payload }) => {
+      state.paginado.paginaActual = payload.paginaActual
+    },
+    setPaginasTotales: (state, { payload }) => {
+      state.paginado.total = payload.total
+    },
+    setPaginaSiguiente: (state, { payload }) => {
+      state.paginado.siguiente = payload.siguiente
+    },
+    setPaginaAnterior: (state, { payload }) => {
+      state.paginado.anterior = payload.anterior
     },
   },
   extraReducers: {

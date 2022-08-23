@@ -21,7 +21,7 @@ import Tags from 'pages/admin/tags/Tags'
 
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 
-import MejoresValorados from 'components/navBar/MejoresValorados'
+// import MejoresValorados from 'components/navBar/MejoresValorados'
 // import Ofertas from 'components/navBar/Ofertas'
 import Contactanos from 'components/navBar/Contactanos'
 
@@ -55,7 +55,7 @@ function RoutesApp() {
         <Route index element={<Landing />} />
 
         <Route path="home" element={<Home />} />
-        <Route path="masVendidos" element={<MejoresValorados />} />
+        {/* <Route path="masVendidos" element={<MejoresValorados />} /> */}
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />
         <Route path="terminos" element={<Terminos />} />
