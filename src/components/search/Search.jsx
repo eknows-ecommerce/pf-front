@@ -9,7 +9,7 @@ function Search() {
   )
   const dispatch = useDispatch()
   const handleSearch = (e) => {
-    dispatch(setSearch(`search=${e.target.value}`))
+    dispatch(setSearch(`${e.target.value}`))
   }
 
   useEffect(() => {
