@@ -16,6 +16,13 @@ const initialState = {
   libro: {},
   carrito: [],
   totalLibros: [],
+  paginado: {
+    paginaActual: 0,
+    total: 0,
+    anterior: 0,
+    siguiente: 0,
+  },
+  msg: '',
   cargando: null,
   search: '',
   categorias: [],
@@ -62,6 +69,25 @@ const librosSlice = createSlice({
     setRangoPrecios: (state, action) => {
       state.rangoPrecios = action.payload
     },
+    setReset: (state, { payload }) => {
+      if (payload.all) {
+        state = initialState
+      } else {
+        state[payload.nombre] = payload.valor
+      }
+    },
+    setPaginaActual: (state, { payload }) => {
+      state.paginado.paginaActual = payload.paginaActual
+    },
+    setPaginasTotales: (state, { payload }) => {
+      state.paginado.total = payload.total
+    },
+    setPaginaSiguiente: (state, { payload }) => {
+      state.paginado.siguiente = payload.siguiente
+    },
+    setPaginaAnterior: (state, { payload }) => {
+      state.paginado.anterior = payload.anterior
+    },
     setFormatos: (state, action) => {
       state.formatos = action.payload
     },
@@ -80,6 +106,7 @@ const librosSlice = createSlice({
     [getAllPredictivo.fulfilled]: (state, { payload }) => {
       state.cargando = false
       state.totalLibros = payload.libros ?? []
+      state.count = payload.count
     },
     [getAllPredictivo.rejected]: (state) => {
       state.cargando = true
@@ -127,9 +154,11 @@ const librosSlice = createSlice({
       state.libros = [...state.libros, payload.libro]
       state.totalLibros = [...state.totalLibros, payload.libro]
       state.total = state.total + 1
+      state.msg = payload.msg
     },
-    [create.rejected]: (state) => {
+    [create.rejected]: (state, { payload }) => {
       state.cargando = true
+      state.msg = payload.msg
     },
     //update
     [update.pending]: (state) => {
@@ -171,9 +200,14 @@ export const {
   setCarrito,
   setTags,
   setRangoPrecios,
+  setReset,
   setFormatos,
   setPagina,
   setLimit,
+  setPaginaActual,
+  setPaginasTotales,
+  setPaginaSiguiente,
+  setPaginaAnterior,
 } = librosSlice.actions
 
 export default librosSlice.reducer
