@@ -2,7 +2,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-
 import { useAuth0 } from '@auth0/auth0-react'
 
 import Paginacion from 'components/Paginacion/Paginacion'
@@ -14,17 +13,14 @@ import { getByUser } from 'features/actions/favoritos'
 import { getByNickname } from 'features/actions/usuarios'
 
 import usePaginacion from 'hooks/usePaginacion'
-
 import Ordenamiento from 'components/filtros/Ordenamiento'
 import HomeLibros from 'components/contenedores/HomeLibros'
 
 function Home() {
   const { user, isAuthenticated } = useAuth0()
-
-
   const dispatch = useDispatch()
-  const {
 
+  const {
     count,
     search,
     categorias,
@@ -52,8 +48,8 @@ function Home() {
   }, [usuario])
 
   useEffect(() => {
-    dispatch(getByUser(usuario.id))
-  }, [usuario])
+    handleTotal(count)
+  }, [count])
 
   useEffect(() => {
     let query = ''
@@ -68,35 +64,39 @@ function Home() {
 
     if (search) {
       query += `search=${search}&`
-
     }
+
+    query += `limite=${limit}&`
+    query += `pagina=${paginado.currentPage}`
+    dispatch(getAll(query))
   }, [
-    paginas.currentPage,
-    count,
-    busqueda,
-    queryCategorias,
-    queryTags,
-    queryRangoPrecios,
-    sorter,
+    search,
+    categorias,
+    tags,
+    rangoPrecios,
+    formatos,
+    orden,
+    buscarPor,
+    limit,
+    paginado.currentPage,
   ])
 
   return (
     <section>
-       {
-                loading ? (
-                    <Loading setLoading={setLoading} />
-                ) : 
+      (
       <div className="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
           <Filtros handleCurrent={handleCurrent} />
+
           <div className="lg:col-span-3 ">
             <div className="flex items-center justify-between bg-gray-100 px-2 z-20 rounded shadow-xl sticky lg:top-0 top-14">
               <p className="text-sm font-medium px-2 py-3">
                 <span className="sm:inline">Vistos </span>
-                {count && paginas.totalPages !== paginas.currentPage ? (
+                {paginado.total &&
+                paginado.totalPages !== paginado.currentPage ? (
                   <>
                     <span className="text-sm font-bold text-rosadito-500">
-                      {paginas.currentPage * 6}
+                      {paginado.currentPage * limit}
                     </span>{' '}
                     de{' '}
                     <span className="text-sm font-bold text-rosadito-500">
@@ -104,12 +104,12 @@ function Home() {
                     </span>{' '}
                     Libros
                   </>
-                ) : paginas.totalPages === paginas.currentPage ? (
+                ) : paginado.totalPages === paginado.currentPage ? (
                   <>
                     <span className="text-sm font-bold text-rosadito-500">
                       {' '}
-                      {(paginas.currentPage - 1) * 6 +
-                        (count === 6 ? count : count % 6)}
+                      {(paginado.currentPage - 1) * limit +
+                        (count === 6 ? count : count % limit)}
                     </span>{' '}
                     de{' '}
                     <span className="text-sm font-bold text-rosadito-500">
@@ -147,7 +147,7 @@ function Home() {
           </div>
         </div>
       </div>
-}
+      )
     </section>
   )
 }

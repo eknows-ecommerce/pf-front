@@ -22,14 +22,11 @@ import Tags from 'pages/admin/tags/Tags'
 
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 
-
 import Contactanos from 'components/NavBar/Contactanos'
 
-import MasVendidos from 'components/NavBar/MasVendidos'
-
+import MejoresValorados from 'components/NavBar/MejoresValorados'
 
 import Carrito from 'components/Carrito/Carrito'
-
 
 import AcercaDe from 'components/footer/AcercaDe'
 import Terminos from 'components/footer/Terminos'
@@ -53,7 +50,7 @@ function RoutesApp() {
         <Route path="categorias" element={<Categorias />} />
         <Route path="tags" element={<Tags />} />
       </Route>
-      
+
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="editar" element={<Editar />} />
@@ -63,7 +60,7 @@ function RoutesApp() {
         <Route index element={<Landing />} />
         <Route path="home" element={<Home />} />
 
-        <Route path="masvendidos" element={<MasVendidos />} />
+        <Route path="masvendidos" element={<MejoresValorados />} />
 
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />

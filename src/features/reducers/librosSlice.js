@@ -87,6 +87,7 @@ const librosSlice = createSlice({
     },
     setPaginaAnterior: (state, { payload }) => {
       state.paginado.anterior = payload.anterior
+    },
     setFormatos: (state, action) => {
       state.formatos = action.payload
     },
