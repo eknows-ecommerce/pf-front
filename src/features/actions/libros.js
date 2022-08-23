@@ -9,7 +9,6 @@ export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
     const { data } = await axios.get(`${URL}/libros?${query}`)
     return data
   } catch (error) {
-    console.log('error', error)
     const msg = error.response.data.msg
     return msg
   }
@@ -17,12 +16,11 @@ export const getAll = createAsyncThunk('libros/@GETALL', async (query) => {
 
 export const getAllPredictivo = createAsyncThunk(
   'libros/@GETALLPREDICTIVO',
-  async (query) => {
+  async () => {
     try {
-      const { data } = await axios.get(`${URL}/libros?${query}`)
+      const { data } = await axios.get(`${URL}/libros`)
       return data
     } catch (error) {
-      console.log('error', error)
       const msg = error.response.data.msg
       return msg
     }
@@ -57,7 +55,8 @@ export const create = createAsyncThunk('libros/@CREATE', async (libro) => {
     const { data } = await axios.post(`${URL}/libros`, libro)
     return data
   } catch (error) {
-    const msg = error.response.data.msg
+    console.log(error)
+    const msg = error.response.data
     return msg
   }
 })
@@ -77,7 +76,7 @@ export const deleteById = createAsyncThunk('libros/@DELETEBYID', async (id) => {
     const { data } = await axios.delete(`${URL}/libros/${id}`)
     return data
   } catch (error) {
-    const msg = error.response.data.msg
+    const msg = error.response.data
     return msg
   }
 })

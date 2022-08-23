@@ -1,76 +1,39 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { create, update, getAll } from 'features/actions/libros'
+import { create, update, getAll as getAllLibros } from 'features/actions/libros'
 import useSearch from 'hooks/useSearch'
+import { Link } from 'react-router-dom'
+
+import { setReset } from 'features/reducers/librosSlice'
 
 import Item from './Item'
-import LibroFormulario from './LibroFormulario'
-import DisponibilidadModal from './DisponibilidadModal'
 import SearchPanelAdmin from '../SearchPanelAdmin'
 
-const initialState = {
-  titulo: '',
-  autor: '',
-  resumen: '',
-  precio: 0,
-  isAvail: true,
-  stock: 0,
-  editorial: '',
-  fechaPublicacion: new Date(),
-  paginas: 0,
-  detalles: '',
-  lenguaje: '',
-  portada: '',
-  categorias: [],
-  tags: [],
-}
+import Paginacion2 from 'components/Paginacion/Paginacion2'
 
 function Libros() {
-  const [formulario, setFormulario] = useState('') // boton nuevo libro
-  // const [nuevoLibro, setNuevoLibro] = useState(initialState)
-  // const [libroSeleccionado, setLibroSeleccionado] = useState({})
-  const [libro, setLibro] = useState(initialState)
+  const [formulario, setFormulario] = useState('')
+
   const [deshabilitarItemModal, setDeshabilitarItemModal] = useState(false)
   const { search, handleSearch } = useSearch()
 
-  const { libros } = useSelector(({ librosStore }) => librosStore)
-  const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
-  const { tags } = useSelector(({ tagsStore }) => tagsStore)
+  const { libros, msg } = useSelector(({ librosStore }) => librosStore)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAll(`titulo=${search}`))
+    dispatch(getAllLibros(`search=${search}`))
+    dispatch(setReset({ nombre: 'libro', valor: {} }))
   }, [dispatch, search])
 
-  const crearNuevoLibro = (e, libroObj) => {
-    e.preventDefault()
-    if (formulario === 'nuevo') dispatch(create(libroObj))
-    if (formulario === 'editar') dispatch(update(libroObj))
-    setLibro(initialState)
-    setFormulario('')
-  }
-
-  const deshabilitarLibro = () => {
-    const libroObj = {
-      ...libro,
-      isAvail: !libro.isAvail,
+  useEffect(() => {
+    if (msg !== '') {
+      alert(msg)
     }
-
-    dispatch(update(libroObj))
-    setDeshabilitarItemModal(false)
-    setLibro(initialState)
-  }
+  }, [msg])
 
   return (
     <>
-      {deshabilitarItemModal && (
-        <DisponibilidadModal
-          libroSeleccionado={libro}
-          setDeshabilitarItemModal={setDeshabilitarItemModal}
-          deshabilitarLibro={deshabilitarLibro}
-        />
-      )}
       <div className="overflow-x-auto pt-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
@@ -79,11 +42,8 @@ function Libros() {
                 Libros
               </p>
               <div>
-                {formulario === '' && (
-                  <button
-                    onClick={() => setFormulario('nuevo')}
-                    className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
-                  >
+                <Link to="crear">
+                  <button className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
                     <p className="text-sm font-medium leading-none text-white">
                       Nuevo Libro
                     </p>
@@ -102,16 +62,10 @@ function Libros() {
                       />
                     </svg>
                   </button>
-                )}
+                </Link>
 
                 {(formulario === 'nuevo' || formulario === 'editar') && (
-                  <button
-                    onClick={() => {
-                      setFormulario('')
-                      setLibro(initialState)
-                    }}
-                    className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
-                  >
+                  <button className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
                     <p className="text-sm font-medium leading-none text-white">
                       Todos los libros
                     </p>
@@ -156,7 +110,7 @@ function Libros() {
                     {libros?.map((libro) => (
                       <Item
                         key={crypto.randomUUID()}
-                        setLibro={setLibro}
+                        // setLibro={setLibro}
                         setFormulario={setFormulario}
                         setDeshabilitarItemModal={setDeshabilitarItemModal}
                         {...libro}
@@ -166,19 +120,10 @@ function Libros() {
                 </table>
               </>
             )}
-            {formulario !== '' && (
-              <LibroFormulario
-                libro={libro}
-                setLibro={setLibro}
-                tags={tags}
-                categorias={categorias}
-                formulario={formulario}
-                crearNuevoLibro={crearNuevoLibro}
-              />
-            )}
           </div>
         </div>
       </div>
+      <Paginacion2 />
     </>
   )
 }
