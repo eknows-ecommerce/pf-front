@@ -10,7 +10,7 @@ import CrearItemModal from '../CrearItemModal'
 import EditarItemModal from '../EditarItemModal'
 import SearchPanelAdmin from '../SearchPanelAdmin'
 
-function Categorias() {
+export default function Categorias() {
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
 
   const [eliminarItemModal, setEliminarItemModal] = useState(false)
@@ -25,12 +25,27 @@ function Categorias() {
 
   useEffect(() => {
     dispatch(getAll(`nombre=${search}`))
-  }, [search])
+  }, [dispatch, search])
 
   const crearItem = (url) => {
-    dispatch(create({ nombre: valorNuevoItem, miniatura: url }))
-    setValorNuevoItem('')
-    setCrearItemModal(false)
+    if (!valorNuevoItem) {
+      alert('Ingresar nombre de categoria')
+    } else {
+      dispatch(create({ nombre: valorNuevoItem, miniatura: url || null }))
+      setValorNuevoItem('')
+      setCrearItemModal(false)
+    }
+  }
+
+  const editarItem = (url) => {
+    dispatch(
+      update({
+        id: categoriaSeleccionada.id,
+        categoria: { nombre: valorNuevoItem, miniatura: url },
+      })
+    )
+    setCategoriaSeleccionada({})
+    setEditarItemModal(false)
   }
 
   const editarCategoria = (categoria) => {
@@ -39,15 +54,10 @@ function Categorias() {
     setEditarItemModal(true)
   }
 
-  const editarItem = () => {
-    dispatch(
-      update({
-        id: categoriaSeleccionada.id,
-        categoria: { nombre: valorNuevoItem },
-      })
-    )
+  const eliminarItem = () => {
+    dispatch(deleteById(categoriaSeleccionada.id))
     setCategoriaSeleccionada({})
-    setEditarItemModal(false)
+    setEliminarItemModal(false)
   }
 
   const eliminarCategoria = (categoria) => {
@@ -55,10 +65,10 @@ function Categorias() {
     setEliminarItemModal(true)
   }
 
-  const eliminarItem = () => {
-    dispatch(deleteById(categoriaSeleccionada.id))
+  const handleNewCategoria = () => {
     setCategoriaSeleccionada({})
-    setEliminarItemModal(false)
+    setValorNuevoItem('')
+    setCrearItemModal(true)
   }
 
   return (
@@ -85,10 +95,10 @@ function Categorias() {
           valorNuevoItem={valorNuevoItem}
           setValorNuevoItem={setValorNuevoItem}
           editarItem={editarItem}
-          tipo="Categoria"
+          tipo="categoria"
         />
       )}
-      <div className="xl:px-20 py-2">
+      <div className="overflow-x-auto py-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
             <div className="sm:flex items-center justify-between">
@@ -97,7 +107,7 @@ function Categorias() {
               </p>
               <div>
                 <button
-                  onClick={() => setCrearItemModal(true)}
+                  onClick={handleNewCategoria}
                   className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
                 >
                   <p className="text-sm font-medium leading-none text-white">
@@ -129,7 +139,7 @@ function Categorias() {
             />
             <table className="w-full whitespace-nowrap">
               <thead>
-                <tr className="h-16 w-full text-lg leading-none text-white bg-black">
+                <tr className="h-16 w-full text-lg leading-none text-white bg-neutral-800">
                   <th className="font-normal text-left pl-20">ID</th>
                   <th className="font-normal text-left pl-4">Categoria</th>
                   <th className="font-normal text-left pl-4"></th>
@@ -138,7 +148,7 @@ function Categorias() {
               <tbody className="w-full">
                 {categorias?.map((categoria) => (
                   <Item
-                    key={categoria.id}
+                    key={crypto.randomUUID()}
                     eliminarCategoria={eliminarCategoria}
                     editarCategoria={editarCategoria}
                     {...categoria}
@@ -152,5 +162,3 @@ function Categorias() {
     </>
   )
 }
-
-export default Categorias

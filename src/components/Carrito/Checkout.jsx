@@ -13,6 +13,7 @@ import { useState } from 'react'
 const REACT_APP_URL_BASE_API = process.env.REACT_APP_URL_BASE_API
 const REACT_APP_STRIPE_CHECKOUT_PK = process.env.REACT_APP_STRIPE_CHECKOUT_PK
 
+
 const inputStyle = {
   iconColor: '#c4f0ff',
   color: '#6C648B',
@@ -33,17 +34,19 @@ const CardInputWrapper = styled.div`
       padding: 10px 5px 10px 5px;
       
       `;
-function Checkout({ detalleCompra }) {
+
+function Checkout({ detalleCompra, setCarritoLS }) {
+
   const stripePromise = loadStripe(REACT_APP_STRIPE_CHECKOUT_PK)
   console.log(detalleCompra)
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm detalleCompra={detalleCompra} />
+      <CheckoutForm detalleCompra={detalleCompra} setCarritoLS={setCarritoLS} />
     </Elements>
   )
 }
 
-function CheckoutForm({ detalleCompra }) {
+function CheckoutForm({ detalleCompra, setCarritoLS }) {
   const stripe = useStripe()
   const elements = useElements()
   const [success, setSuccess] = useState({})
@@ -60,15 +63,16 @@ function CheckoutForm({ detalleCompra }) {
     if (!error) {
       setBill(true)
       const { id } = paymentMethod
-      console.log(detalleCompra)
       const { data } = await axios.post(REACT_APP_URL_BASE_API, {
         id: id,
         ...detalleCompra,
         type_method: 'card',
       })
+
       setBill(false)
-      setSuccess({ msg: data.detalle.status, status: true })
+      setSuccess({ msg: data.detalle, status: true })
       localStorage.setItem('carrito', JSON.stringify([]))
+      setCarritoLS(JSON.parse(localStorage.getItem('carrito')) || [])
     }
   }
 

@@ -1,91 +1,40 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { create, update, getAll } from 'features/actions/libros'
+import { create, update, getAll as getAllLibros } from 'features/actions/libros'
 import useSearch from 'hooks/useSearch'
+import { Link } from 'react-router-dom'
+
+import { setReset } from 'features/reducers/librosSlice'
 
 import Item from './Item'
-import LibroFormulario from './LibroFormulario'
-import DisponibilidadModal from './DisponibilidadModal'
 import SearchPanelAdmin from '../SearchPanelAdmin'
 
-const initialState = {
-  titulo: '',
-  autor: '',
-  resumen: '',
-  precio: 0,
-  isAvail: true,
-  stock: 0,
-  editorial: '',
-  fechaPublicacion: new Date(),
-  paginas: 0,
-  detalles: '',
-  lenguaje: '',
-  portada: '',
-  categorias: [],
-  tags: [],
-}
+import Paginacion2 from 'components/Paginacion/Paginacion2'
 
 function Libros() {
-  const [formulario, setFormulario] = useState('') // boton nuevo libro
-  const [nuevoLibro, setNuevoLibro] = useState(initialState)
-  const [libroSeleccionado, setLibroSeleccionado] = useState({})
+  const [formulario, setFormulario] = useState('')
+
   const [deshabilitarItemModal, setDeshabilitarItemModal] = useState(false)
   const { search, handleSearch } = useSearch()
 
-  const { libros } = useSelector(({ librosStore }) => librosStore)
-  const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
-  const { tags } = useSelector(({ tagsStore }) => tagsStore)
+  const { libros, msg } = useSelector(({ librosStore }) => librosStore)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAll(`titulo=${search}`))
-  }, [search])
+    dispatch(getAllLibros(`search=${search}`))
+    dispatch(setReset({ nombre: 'libro', valor: {} }))
+  }, [dispatch, search])
 
-  const deshabilitarItem = () => {
-    let libroObj = {
-      ...libroSeleccionado,
-      isAvail: !libroSeleccionado.isAvail,
+  useEffect(() => {
+    if (msg !== '') {
+      alert(msg)
     }
-    dispatch(update(libroObj))
-    setLibroSeleccionado({})
-    setDeshabilitarItemModal(false)
-  }
-
-  const deshabilitarLibro = (libro) => {
-    setLibroSeleccionado(libro)
-    setDeshabilitarItemModal(true)
-  }
-
-  const crearNuevoLibro = (e, libro) => {
-    e.preventDefault()
-
-    if (formulario === 'EDITAR') {
-      dispatch(update(libro))
-    }
-
-    if (formulario === 'NUEVO') {
-      dispatch(create(libro))
-    }
-
-    setFormulario('')
-
-    setNuevoLibro(initialState)
-  }
+  }, [msg])
 
   return (
     <>
-      {deshabilitarItemModal && (
-        <DisponibilidadModal
-          libroSeleccionado={libroSeleccionado}
-          setDeshabilitarItemModal={setDeshabilitarItemModal}
-          deshabilitarItem={deshabilitarItem}
-          item={libroSeleccionado.titulo}
-          tipo="libro"
-        />
-      )}
-
-      <div className="overflow-x-auto xl:px-20 pt-2">
+      <div className="overflow-x-auto pt-2">
         <div className="w-full sm:px-6">
           <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
             <div className="sm:flex items-center justify-between">
@@ -93,11 +42,8 @@ function Libros() {
                 Libros
               </p>
               <div>
-                {formulario === '' && (
-                  <button
-                    onClick={() => setFormulario('NUEVO')}
-                    className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
-                  >
+                <Link to="crear">
+                  <button className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
                     <p className="text-sm font-medium leading-none text-white">
                       Nuevo Libro
                     </p>
@@ -116,13 +62,10 @@ function Libros() {
                       />
                     </svg>
                   </button>
-                )}
+                </Link>
 
-                {(formulario === 'NUEVO' || formulario === 'EDITAR') && (
-                  <button
-                    onClick={() => setFormulario('')}
-                    className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
-                  >
+                {(formulario === 'nuevo' || formulario === 'editar') && (
+                  <button className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-center space-x-2 justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
                     <p className="text-sm font-medium leading-none text-white">
                       Todos los libros
                     </p>
@@ -155,52 +98,32 @@ function Libros() {
                 />
                 <table className="w-full whitespace-nowrap">
                   <thead>
-                    <tr className="h-16 w-full text-lg leading-none text-white bg-black">
-                      <th className="font-normal text-center p-2">ID</th>
+                    <tr className="h-16 w-full text-sm leading-none text-gray-800">
                       <th className="font-normal text-left pl-4">Libro</th>
                       <th className="font-normal text-left pl-12">Estado</th>
                       <th className="font-normal text-left pl-12">Stock</th>
                       <th className="font-normal text-left pl-20">Precio</th>
-                      <th className="font-normal text-left pl-20"></th>
+                      <th className="font-normal text-left pl-20">ID</th>
                     </tr>
                   </thead>
                   <tbody className="w-full">
                     {libros?.map((libro) => (
                       <Item
-                        key={libro.id}
-                        {...libro}
-                        deshabilitarLibro={deshabilitarLibro}
-                        setLibroSeleccionado={setLibroSeleccionado}
+                        key={crypto.randomUUID()}
+                        // setLibro={setLibro}
                         setFormulario={setFormulario}
+                        setDeshabilitarItemModal={setDeshabilitarItemModal}
+                        {...libro}
                       />
                     ))}
                   </tbody>
                 </table>
               </>
             )}
-            {formulario === 'EDITAR' && (
-              <LibroFormulario
-                categorias={categorias}
-                tags={tags}
-                libro={libroSeleccionado}
-                setLibroSeleccionado={setLibroSeleccionado}
-                formulario={formulario}
-                crearNuevoLibro={crearNuevoLibro}
-              />
-            )}
-            {formulario === 'NUEVO' && (
-              <LibroFormulario
-                categorias={categorias}
-                tags={tags}
-                setNuevoLibro={setNuevoLibro}
-                libro={nuevoLibro}
-                crearNuevoLibro={crearNuevoLibro}
-                formulario={formulario}
-              />
-            )}
           </div>
         </div>
       </div>
+      <Paginacion2 />
     </>
   )
 }

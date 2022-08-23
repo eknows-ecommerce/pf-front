@@ -2,8 +2,9 @@ import { useState } from 'react'
 import Categorias from 'components/filtros/FiltroCategorias/Categorias'
 import Tags from 'components/filtros/filtrosTags/Tags'
 import RangoPrecios from 'components/filtros/RangoPrecios'
+import Formatos from 'components/filtros/Formatos'
 
-function Filtros() {
+function Filtros({ handleCurrent }) {
   const [reset, setReset] = useState()
 
   return (
@@ -27,23 +28,45 @@ function Filtros() {
           </svg>
         </summary>
         <form action="" className="border-t border-gray-200 lg:border-t-0">
-          <details close="true" className="overflow-hidden">
-            <summary className="px-5 py-3 text-xs font-medium bg-gray-50">
+          <details close="true" className="overflow-hidden cursor-pointer">
+            <summary className="px-5 py-3 text-sm text-blue-500 font-medium bg-gray-50 ">
               Categorias
             </summary>
-            <Categorias reset={reset} setReset={setReset} />
+            <Categorias
+              reset={reset}
+              setReset={setReset}
+              handleCurrent={handleCurrent}
+            />
           </details>
-          <details close="true" className="overflow-hidden">
-            <summary className="px-5 py-3 text-xs font-medium bg-gray-50">
+          <details close="true" className="overflow-hidden cursor-pointer">
+            <summary className="px-5 py-3 text-sm text-blue-500 font-medium bg-gray-50 ">
               Tags
             </summary>
-            <Tags reset={reset} setReset={setReset} />
+            <Tags
+              reset={reset}
+              setReset={setReset}
+              handleCurrent={handleCurrent}
+            />
           </details>
-          <details close="true" className="overflow-hidden">
-            <summary className="px-5 py-3 text-xs font-medium bg-gray-50">
+          <details close="true" className="overflow-hidden cursor-pointer">
+            <summary className="px-5 py-3  font-medium bg-gray-50 text-sm text-blue-500">
               Precios
             </summary>
-            <RangoPrecios reset={reset} setReset={setReset} />
+            <RangoPrecios
+              reset={reset}
+              setReset={setReset}
+              handleCurrent={handleCurrent}
+            />
+          </details>
+          <details close="true" className="overflow-hidden cursor-pointer">
+            <summary className="px-5 py-3  font-medium bg-gray-50 text-sm text-blue-500">
+              Formatos
+            </summary>
+            <Formatos
+              reset={reset}
+              setReset={setReset}
+              handleCurrent={handleCurrent}
+            />
           </details>
 
           <div className="flex justify-center px-5 py-3 border-t border-gray-200">

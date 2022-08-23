@@ -1,24 +1,81 @@
-import { Link } from 'react-router-dom'
-import useFavorite from '../../hooks/useToggle'
-import Button from '../templates/Button'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useDispatch, useSelector } from 'react-redux'
+import { useAuth0 } from '@auth0/auth0-react'
 
-function CardLibro({
-  id,
-  portada,
-  titulo,
-  descuento = 15,
-  precio,
-  handleCarrito,
-}) {
-  const { toggle, handleToggle } = useFavorite(false)
+import { createByUser, deleteByUser } from 'features/actions/favoritos'
+
+import useFavorite from 'hooks/useToggle'
+
+import Button from '../templates/Button'
+import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import { useState } from 'react'
+
+function CardLibro({ id, portada, titulo, descuento = 15, precio }) {
+  const dispatch = useDispatch()
+  const { isAuthenticated, loginWithPopup } = useAuth0()
+  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+  const { toggle, handleToggle } = useFavorite(
+    favoritos.some((fav) => fav?.id === id)
+  )
+  const [listaCarrito, setListaCarrito] = useState(
+    JSON.parse(localStorage.getItem('carrito')) ?? []
+  )
+
+  const handleFavorite = () => {
+    if (isAuthenticated) {
+      if (toggle) {
+        dispatch(deleteByUser({ usuarioId: usuario.id, libroId: id }))
+        Swal.fire(
+          'Eliminar de favoritos',
+          'Se ha elimino exitosamente',
+          'success'
+        )
+      } else {
+        dispatch(createByUser({ usuarioId: usuario.id, libroId: id }))
+        Swal.fire(
+          'Agregar a favoritos',
+          'Se ha agregado exitosamente',
+          'success'
+        )
+      }
+      handleToggle()
+    } else {
+      Swal.fire({
+        title: 'Log in',
+        text: 'Debe logearse para agregar a favoritos',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#E11D48',
+        confirmButtonText: 'Si, ir a logearse',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          loginWithPopup()
+        }
+      })
+    }
+  }
+
+  const handleCarrito = (id, precio) => {
+    Swal.fire('Agregar al carrito', 'Se ha agregado exitosamente', 'success')
+    const existe =
+      listaCarrito.length > 0 && listaCarrito.find((item) => item.id === id)
+    if (!existe) {
+      const elemento = [...listaCarrito, { id, cantidad: 1, precio }]
+      setListaCarrito(elemento)
+      localStorage.setItem('carrito', JSON.stringify(elemento))
+    }
+  }
 
   return (
     <div className="relative flex flex-col justify-between items-center content-center m-2 shadow-lg shadow-current p-3">
-      {toggle ? (
+      {favoritos.length > 0 && toggle ? (
         <button
           className="absolute p-2 text-rosadito bg-black rounded-full right-2 top-4 z-10"
           type="button"
-          onClick={handleToggle}
+          onClick={handleFavorite}
         >
           <svg
             className="w-4 h-4 hover:scale-125 transition-all duration-700 ease-in-out"
@@ -39,7 +96,7 @@ function CardLibro({
         <button
           className="absolute p-2 text-white bg-black rounded-full right-2 top-4 z-10"
           type="button"
-          onClick={handleToggle}
+          onClick={handleFavorite}
         >
           <svg
             className="w-4 h-4 hover:scale-125 transition-all duration-700 ease-in-out"
@@ -68,15 +125,15 @@ function CardLibro({
 
       <div className="p-2 w-full h-full block flex-col justify-between items-center content-center">
         <strong className="inline-block px-3 py-1 text-xs font-medium bg-yellow-400">
-          New
+          Nuevo
         </strong>
         <h5 className=" mt-4 text-lg font-bold font-comforta-300">{titulo}</h5>
       </div>
       {/* <Link to="/home" onClick={addItem} className="flex flex-col items-center"> */}
       <h5 className="mt-2 text-lg font-bold text-gray-900 pb-2">${precio}</h5>
-      <Button primary onClick={handleCarrito}>
+      <Button primary onClick={() => handleCarrito(id, precio)}>
         <>
-          <span className="text-sm font-medium">Add to Cart</span>
+          <span className="text-sm font-medium">Agregar al carrito</span>
           <svg
             className="w-5 h-5 ml-1.5"
             xmlns="http://www.w3.org/2000/svg"

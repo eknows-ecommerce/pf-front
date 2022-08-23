@@ -18,16 +18,14 @@ function Carrito() {
   )
   const [totalCompra, setTotalCompra] = useState(0)
   const { carrito } = useSelector(({ librosStore }) => librosStore)
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   const { isAuthenticated, user, loginWithRedirect } = useAuth0()
 
   useEffect(() => {
     //transformar el objeto en string
-    let query = 'carrito='
-    carritoLS.forEach((item) => {
-      query += item.id + ','
-    })
-    query = query.slice(0, -1)
+    const libros = carritoLS.map(({ id }) => Number(id))
+    let query = `carrito=${JSON.stringify(libros)}`
     dispatch(getListCar(query))
     cantidadTotal()
   }, [carritoLS])
@@ -95,7 +93,6 @@ function Carrito() {
           precio: item.precio,
         })
       })
-      console.log('idLibros', idLibros)
       setDetalleCompra({
         ...detalleCompra,
         currency: 'USD',
@@ -107,6 +104,7 @@ function Carrito() {
           estado: 'Entregado',
           descuento: 0,
           libros: idLibros,
+          UsuarioId: usuario.id,
         },
       })
       openClose('compra')
@@ -205,12 +203,12 @@ function Carrito() {
                           {l.stock > 0 ? (
                             <span className="flex items-center text-green-500 text-sm gap-1">
                               <Confirmar />
-                              In stock'
+                              'En stock'
                             </span>
                           ) : (
                             <span className="flex items-center text-rose-500 text-sm gap-1">
                               <Eliminar />
-                              'Out of stock'
+                              'Sin stock'
                             </span>
                           )}
                         </div>
@@ -335,7 +333,10 @@ function Carrito() {
                       ancho="450px"
                       padding="40px"
                     >
-                      <Checkout detalleCompra={detalleCompra} />
+                      <Checkout
+                        detalleCompra={detalleCompra}
+                        setCarritoLS={setCarritoLS}
+                      />
                     </ModalComponent>
                   )}
                 </div>

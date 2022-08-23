@@ -36,15 +36,15 @@ const usuariosSlice = createSlice({
     [getAll.rejected]: (state) => {
       state.cargando = true
     },
-    //getById
+    //getByNickname
     [getByNickname.pending]: (state) => {
       state.cargando = true
     },
     [getByNickname.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.usuario = payload.usuarios[0]
+      state.usuario = payload?.usuarios[0]
     },
-    [getByNickname.rejected]: (state) => {
+    [getByNickname.rejected]: (state, { type }) => {
       state.cargando = true
     },
     //getById
@@ -76,12 +76,10 @@ const usuariosSlice = createSlice({
       state.cargando = true
     },
     [update.fulfilled]: (state, { payload }) => {
-      /*  const index = state.usuarios.findIndex(
+      const index = state.usuarios.findIndex(
         (usuario) => usuario.id === payload.usuario.id
-      ) 
-       state.usuarios[index] = payload.usuario 
-     console.log("PAYLOAD", payload); */
-      state.usuario = payload.usuario
+      )
+      state.usuarios[index] = payload.usuario
       state.cargando = false
     },
     [update.rejected]: (state) => {
