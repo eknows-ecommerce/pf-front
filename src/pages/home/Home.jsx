@@ -1,16 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 
 import { useAuth0 } from '@auth0/auth0-react'
 
-
-import Loading from '../../components/loading/Loading'
-
-import Swal from 'sweetalert2'
-
-import CardLibro from 'components/cards/CardLibro'
 import Paginacion from 'components/Paginacion/Paginacion'
 import Filtros from 'components/filtros/Filtros'
 
@@ -21,73 +15,60 @@ import { getByNickname } from 'features/actions/usuarios'
 
 import usePaginacion from 'hooks/usePaginacion'
 
+import Ordenamiento from 'components/filtros/Ordenamiento'
+import HomeLibros from 'components/contenedores/HomeLibros'
+
 function Home() {
+  const { user, isAuthenticated } = useAuth0()
 
-  const [loading = true, setLoading] = useState();
-  const { user } = useAuth0()
 
-  const [listaCarrito, setListaCarrito] = useState(
-    JSON.parse(localStorage.getItem('carrito')) ?? []
-  )
   const dispatch = useDispatch()
   const {
-    paginas,
-    paginaAnterior,
-    paginaSeleccionada,
-    paginaSiguiente,
-    handleTotal,
-  } = usePaginacion()
 
-  const { libros, count, busqueda } = useSelector(
-    ({ librosStore }) => librosStore
-  )
-  // const { busqueda } = useSelector(({ librosStore }) => librosStore)
-  const queryCategorias = useSelector(
-    ({ librosStore }) => librosStore.categorias
-  )
-  const queryTags = useSelector(({ librosStore }) => librosStore.tags)
-  const queryRangoPrecios = useSelector(
-    ({ librosStore }) => librosStore.rangoPrecios
-  )
-  const [sorter, setSort] = useState(['Sort', 'asc'])
+    count,
+    search,
+    categorias,
+    tags,
+    formatos,
+    rangoPrecios,
+    orden,
+    buscarPor,
+    limit,
+  } = useSelector(({ librosStore }) => librosStore)
 
-
-  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
-  useEffect(() => {
-    dispatch(getByNickname(user))
-  }, [getByNickname, user])
+  const { paginado, handlePrevius, handleCurrent, handleNext, handleTotal } =
+    usePaginacion()
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(getByNickname(user))
+    }
+  }, [isAuthenticated])
+
+  useEffect(() => {
+    if (usuario !== undefined) dispatch(getByUser(usuario.id))
+  }, [usuario])
 
   useEffect(() => {
     dispatch(getByUser(usuario.id))
   }, [usuario])
 
   useEffect(() => {
-    const [sort, dir] = sorter
-    let sortQuery = sort !== 'Sort' ? `&orden=${sort}&direcion=${dir}` : ''
-    let query =
-      queryCategorias && queryCategorias !== 'categorias'
-        ? `&${queryCategorias}`
-        : ''
+    let query = ''
 
-    query += queryTags && queryTags !== 'tags' ? `&${queryTags}` : ''
+    if (categorias.length > 0)
+      query += `categorias=${JSON.stringify(categorias)}&`
+    if (tags.length > 0) query += `tags=${JSON.stringify(tags)}&`
+    if (formatos.length > 0) query += `formatos=${JSON.stringify(formatos)}&`
+    if (rangoPrecios) query += `precios=${JSON.stringify(rangoPrecios)}&`
+    if (orden) query += `orden=${JSON.stringify(orden)}&`
+    if (buscarPor) query += `buscarPor=${buscarPor}&`
 
-    query += queryRangoPrecios ? `&${queryRangoPrecios}` : ''
-    if (!busqueda) {
-      dispatch(getAll(`offset=${paginas.currentPage - 1}` + sortQuery + query))
-      handleTotal(count)
-    }
-    if (busqueda) {
-      dispatch(
-        getAll(
-          `titulo=${busqueda}&offset=${paginas.currentPage - 1}` +
-            sortQuery +
-            query
-        )
-      )
-      handleTotal(count)
+    if (search) {
+      query += `search=${search}&`
+
     }
   }, [
     paginas.currentPage,
@@ -99,22 +80,6 @@ function Home() {
     sorter,
   ])
 
-  useEffect(() => {
-    paginaSeleccionada(1)
-    handleTotal(count)
-  }, [busqueda, queryCategorias, queryTags, queryRangoPrecios])
-
-  const handleCarrito = (id, precio) => {
-    Swal.fire('Agregar al carrito', 'Se ha agregado exitosamente', 'success')
-    const existe =
-      listaCarrito.length > 0 && listaCarrito.find((item) => item.id === id)
-    if (!existe) {
-      const elemento = [...listaCarrito, { id, cantidad: 1, precio }]
-      setListaCarrito(elemento)
-      localStorage.setItem('carrito', JSON.stringify(elemento))
-    }
-  }
-
   return (
     <section>
        {
@@ -123,7 +88,7 @@ function Home() {
                 ) : 
       <div className="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
-          <Filtros />
+          <Filtros handleCurrent={handleCurrent} />
           <div className="lg:col-span-3 ">
             <div className="flex items-center justify-between bg-gray-100 px-2 z-20 rounded shadow-xl sticky lg:top-0 top-14">
               <p className="text-sm font-medium px-2 py-3">
@@ -165,55 +130,20 @@ function Home() {
                   </>
                 )}
               </p>
-              <div className="ml-4 bg-gray-100">
-                <label htmlFor="SortBy" className="sr-only">
-                  Sort
-                </label>
-                <select
-                  id="SortBy"
-                  name="sort_by"
-                  className="text-sm bg-gray-200 border-gray-200 font-medium rounded"
-                  onChange={(v) => {
-                    setSort(v.target.value.split('-'))
-                  }}
-                >
-                  <option readOnly="">Ordenar</option>
-                  <option value="titulo-asc">Titulo, A-Z</option>
-                  <option value="titulo-desc">Titulo, Z-A</option>
-                  <option value="precio-asc">Precio, Min-Max</option>
-                  <option value="precio-desc">Precio, Max-Min</option>
-                </select>
-              </div>
+
+              <Ordenamiento handleCurrent={handleCurrent} />
             </div>
-            <div className=" grid grid-cols-1 gap-px mt-4 bg-gray-100 border border-gray-100 sm:grid-cols-2 lg:grid-cols-3">
-              {libros &&
-                libros.map((libro) => (
-                  <CardLibro
-                    key={crypto.randomUUID()}
-                    id={libro.id}
-                    portada={libro.portada}
-                    titulo={libro.titulo}
-                    descuento={libro.descuento}
-                    precio={libro.precio}
-                    handleCarrito={() => handleCarrito(libro.id, libro.precio)}
-                    esFavorito={
-                      favoritos.length > 0
-                        ? favoritos.some((fav) => fav.id === libro.id)
-                        : false
-                    }
-                  />
-                ))}
-            </div>
-            <div className="grid bg-gray-200 text-sm border border-gray-200 font-bold rounded shadow-xl my-3">
-              {count !== 0 && (
-                <Paginacion
-                  paginaAnterior={paginaAnterior}
-                  paginaSiguiente={paginaSiguiente}
-                  paginaSeleccionada={paginaSeleccionada}
-                  paginas={paginas}
-                />
-              )}
-            </div>
+
+            <HomeLibros />
+
+            {paginado && (
+              <Paginacion
+                paginaAnterior={handlePrevius}
+                paginaSiguiente={handleNext}
+                paginaSeleccionada={handleCurrent}
+                {...paginado}
+              />
+            )}
           </div>
         </div>
       </div>

@@ -11,23 +11,34 @@ import {
 } from 'features/actions/libros'
 
 const initialState = {
+  count: 0,
   libros: [],
   libro: {},
   carrito: [],
   totalLibros: [],
-  count: 0,
   paginado: {
     paginaActual: 0,
     total: 0,
     anterior: 0,
     siguiente: 0,
   },
-  cargando: null,
-  busqueda: '',
-  categorias: '',
-  tags: '',
-  rangoPrecios: '',
   msg: '',
+  cargando: null,
+  search: '',
+  categorias: [],
+  tags: [],
+  formatos: [],
+  rangoPrecios: {
+    min: 0,
+    max: 9999,
+  },
+  orden: {
+    valor: 'titulo',
+    dir: 'asc',
+  },
+  buscarPor: 'titulo',
+  pagina: 1,
+  limit: 6,
 }
 
 const librosSlice = createSlice({
@@ -37,13 +48,18 @@ const librosSlice = createSlice({
     cambiarCargando: (state) => {
       state.cargando = !state.cargando
     },
-    setBusqueda: (state, action) => {
-      state.busqueda = action.payload
+    setOrden: (state, { payload }) => {
+      state.orden = payload
+    },
+    setBuscarPor: (state, action) => {
+      state.buscarPor = action.payload
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload
     },
     setCategorias: (state, action) => {
       state.categorias = action.payload
     },
-
     setCarrito: (state, action) => {
       state.carrito = action.payload
     },
@@ -71,6 +87,14 @@ const librosSlice = createSlice({
     },
     setPaginaAnterior: (state, { payload }) => {
       state.paginado.anterior = payload.anterior
+    setFormatos: (state, action) => {
+      state.formatos = action.payload
+    },
+    setPagina: (state, action) => {
+      state.pagina = action.payload
+    },
+    setLimit: (state, action) => {
+      state.limit = action.payload
     },
   },
   extraReducers: {
@@ -103,8 +127,8 @@ const librosSlice = createSlice({
     },
     [getAll.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.libros = payload.libros ?? []
-      state.count = payload.count
+      state.libros = payload?.libros ?? []
+      state.count = payload?.count
     },
     [getAll.rejected]: (state) => {
       state.cargando = true
@@ -127,6 +151,7 @@ const librosSlice = createSlice({
     [create.fulfilled]: (state, { payload }) => {
       state.cargando = false
       state.libros = [...state.libros, payload.libro]
+      state.totalLibros = [...state.totalLibros, payload.libro]
       state.total = state.total + 1
       state.msg = payload.msg
     },
@@ -167,12 +192,21 @@ const librosSlice = createSlice({
 
 export const {
   cambiarCargando,
-  setBusqueda,
+  setOrden,
+  setBuscarPor,
+  setSearch,
   setCategorias,
-  setTags,
   setCarrito,
+  setTags,
   setRangoPrecios,
   setReset,
+  setFormatos,
+  setPagina,
+  setLimit,
+  setPaginaActual,
+  setPaginasTotales,
+  setPaginaSiguiente,
+  setPaginaAnterior,
 } = librosSlice.actions
 
 export default librosSlice.reducer
