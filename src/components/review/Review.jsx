@@ -8,6 +8,7 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
       i < rate ? star = "hover:animate-spin text-yellow-500" : star = "text-gray-300"
       out.push(
         <svg
+          key={crypto.randomUUID()}
           xmlns="http://www.w3.org/2000/svg"
           className={"w-6 h-6 my-2 " + star}
           viewBox="0 0 20 20"
@@ -23,8 +24,7 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
   const [showModal, setShowModal] = React.useState(false);
 
   const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
-  let name = 'Anonimo';
-  name = usuarios.find((u) => u.id === author)?.name;
+  const name = usuarios.find((u) => u.id === author)?.name;
 
   return (
     <>

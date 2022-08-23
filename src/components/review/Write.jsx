@@ -4,6 +4,31 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function ReviewModal({ idLibro, idUsuario }) {
+  function Stars() {
+    const [rate, setRate] = useState(3);
+    let out = []; let star;
+    for (let i = 0; i < 5; i++) {
+      i < rate ? star = "text-yellow-500" : star = "text-gray-300"
+      out.push(
+        <label>
+          <input type="radio" name="rating" className="[display:none]"
+            value={form.rating} //onChange={(e) => handleChange(e)}
+            onClick={() => {
+              setRate(i + 1)
+              form.rating = (i + 1)
+            }} />
+          <svg className={"w-6 h-6 hover:animate-spin " + star}
+            key={crypto.randomUUID()}
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        </label>
+      )
+    }
+    return out
+  }
+  
   const [showModal, setShowModal] = React.useState(false);
   const dispatch = useDispatch()
 
@@ -11,7 +36,7 @@ export default function ReviewModal({ idLibro, idUsuario }) {
     titulo: "",
     comentario: "",
     rating: 3,
-    likes: parseInt(Math.random() * 100),
+    //likes: parseInt(Math.random() * 100),
     LibroId: idLibro,
     UsuarioId: idUsuario
   });
@@ -33,7 +58,7 @@ export default function ReviewModal({ idLibro, idUsuario }) {
         titulo: "",
         comentario: "",
         rating: 3,
-        likes: parseInt(Math.random() * 100),
+        //likes: parseInt(Math.random() * 100),
         LibroId: idLibro,
         UsuarioId: idUsuario
       })
@@ -42,31 +67,6 @@ export default function ReviewModal({ idLibro, idUsuario }) {
       setShowModal(true)
     }
   };
-
-  function Stars() {
-    const [rate, setRate] = useState(3);
-    let out = []; let star;
-    for (let i = 0; i < 5; i++) {
-      i < rate ? star = "text-yellow-500" : star = "text-gray-300"
-      out.push(
-        <label>
-          <input type="radio" name="rating" className="[display:none]"
-            value={form.rating} //onChange={(e) => handleChange(e)}
-            onClick={() => {
-              setRate(i + 1)
-              form.rating = (i + 1)
-            }} />
-          <svg className={"w-6 h-6 hover:animate-spin " + star}
-            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-        </label>
-      )
-    }
-
-    return out
-  }
 
   return (
     <>
