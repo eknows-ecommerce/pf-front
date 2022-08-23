@@ -8,6 +8,7 @@ import { setReset } from 'features/reducers/librosSlice'
 
 import Item from './Item'
 import SearchPanelAdmin from '../SearchPanelAdmin'
+
 import Paginacion2 from 'components/Paginacion/Paginacion2'
 
 function Libros() {
