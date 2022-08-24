@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react'
 //import { useMediaQuery } from 'react-responsive'
 import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getById as getBook } from '../../features/actions/libros'
-import { getByLibro } from '../../features/actions/review'
-import { isPedido as verificar } from '../../features/actions/pedidos'
+import { getById as getBook } from 'features/actions/libros'
+import { getByLibro } from 'features/actions/review'
 import { createByUser as giveFav, deleteByUser as quitFav } from 'features/actions/favoritos'
-import Button from '../../components/templates/Button'
-import ReviewCard from '../../components/review/Review.jsx'
-import ReviewModal from '../../components/review/Write.jsx'
+import Button from 'components/templates/Button'
+import ReviewCard from 'components/review/Review.jsx'
+import ReviewModal from 'components/review/Write.jsx'
 import Footer from 'components/footer/Footer'
 import Swal from 'sweetalert2'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -25,7 +24,6 @@ export default function Detalle() {
   const { libro } = useSelector(({ librosStore }) => librosStore)
   const { /*libro,*/ reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
-  const { isPedido } = useSelector(({ pedidosStore }) => pedidosStore)
   const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
 
   const { isAuthenticated, loginWithPopup } = useAuth0()
@@ -44,12 +42,6 @@ export default function Detalle() {
 
   useEffect(() => {
     dispatch(getBook(id))
-  }, [])
-
-  useEffect(() => {
-    if (usuario.id && id) {
-      dispatch(verificar(usuario.id + '/' + id))
-    }
   }, [])
 
   const getCategorias = () => {
@@ -237,7 +229,7 @@ export default function Detalle() {
                         Ve lo que otros lectores tiene que decir
                       </p>
                     </div>
-                    {isPedido && !isReview && <ReviewModal idLibro={id} idUsuario={usuario.id} />}
+                    {!isReview && <ReviewModal idLibro={id} idUsuario={usuario.id} />}
                     {reviews && reviews.length > revs && <button
                       className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
                       onClick={() => setRevs(revs + 3)}

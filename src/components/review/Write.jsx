@@ -1,9 +1,20 @@
 import { create } from "features/actions/review";
-import React from "react";
+import { isPedido as verificar } from 'features/actions/pedidos'
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ReviewModal({ idLibro, idUsuario }) {
+  const dispatch = useDispatch()
+  const { isPedido } = useSelector(({ pedidosStore }) => pedidosStore)
+  const [showModal, setShowModal] = React.useState(false);
+
+  useEffect(() => {
+    if (idUsuario && idLibro) {
+      dispatch(verificar(idUsuario + '/' + idLibro))
+    }
+  }, [])
+
   function Stars() {
     const [rate, setRate] = useState(3);
     let out = []; let star;
@@ -28,9 +39,6 @@ export default function ReviewModal({ idLibro, idUsuario }) {
     }
     return out
   }
-  
-  const [showModal, setShowModal] = React.useState(false);
-  const dispatch = useDispatch()
 
   const [form, setForm] = useState({
     titulo: "",
@@ -68,12 +76,13 @@ export default function ReviewModal({ idLibro, idUsuario }) {
 
   return (
     <>
-      <button
+      {isPedido && <button
         className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
         onClick={() => setShowModal(true)}
       >
         Escriba una review
-      </button>
+      </button>}
+
       {showModal ? (
         <>
           <form onSubmit={(e) => handleSubmit(e)}
