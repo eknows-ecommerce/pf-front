@@ -123,8 +123,8 @@ export default function Navbar() {
             <Link className="text-gray-900" to="home">
               Tienda
             </Link>
-            <Link to="masvendidos" className="text-gray-900">
-              Mas Vendidos
+            <Link to="mejoresvalorados" className="text-gray-900">
+              Mejores Valorados
             </Link>
 
             <Link to="contactanos" className="text-gray-900">
