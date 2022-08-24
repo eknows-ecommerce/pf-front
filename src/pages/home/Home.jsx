@@ -4,12 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { useAuth0 } from '@auth0/auth0-react'
 
-
-import Loading from '../../components/loading/Loading'
-
-import Swal from 'sweetalert2'
-
-import CardLibro from 'components/cards/CardLibro'
 import Paginacion from 'components/Paginacion/Paginacion'
 import Filtros from 'components/filtros/Filtros'
 
@@ -50,7 +44,9 @@ function Home() {
   }, [isAuthenticated])
 
   useEffect(() => {
-    if (usuario !== undefined) dispatch(getByUser(usuario.id))
+    if (isAuthenticated) {
+      if (usuario !== undefined) dispatch(getByUser(usuario.id))
+    }
   }, [usuario])
 
   useEffect(() => {

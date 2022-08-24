@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import useFavorite from 'hooks/useToggle'
 import { getById } from '../../features/actions/libros'
 import { getAll } from '../../features/actions/review'
 import Button from '../../components/templates/Button'
 import ReviewCard from '../../components/review/Review.jsx'
 import ReviewModal from '../../components/review/Write.jsx'
 import Footer from 'components/footer/Footer'
+import { useAuth0 } from '@auth0/auth0-react'
+import {
+  createByUser,
+  deleteByUser,
+  getByUser,
+} from 'features/actions/favoritos'
+import Swal from 'sweetalert2'
+import { getByNickname } from 'features/actions/usuarios'
 
 export default function Detalle() {
   const dispatch = useDispatch()
   const { id } = useParams()
-  const [listaCarrito, setListaCarrito] = useState(
-    JSON.parse(localStorage.getItem('carrito')) ?? []
-  )
+  const navigate = useNavigate()
+  const disptach = useDispatch()
+  const { user, isAuthenticated, loginWithPopup } = useAuth0()
+
   const [revs, setRevs] = useState(6)
   const { libros, libro } = useSelector(({ librosStore }) => librosStore)
   const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
   //const { pedido } = useSelector(({ pedidosStore }) => pedidosStore)
 
   let cats = []
@@ -45,39 +56,70 @@ export default function Detalle() {
     dispatch(getById(id))
   }, [])
 
-  function getReviews() {
-    let out = []
-    reviews.forEach((r) => {
-      out.push(
-        <ReviewCard
-          key={crypto.randomUUID()}
-          title={r.titulo}
-          text={r.comentario}
-          rate={r.rating}
-          likes={100}
-          author={r.UsuarioId}
-        />
-      )
-    })
-    return out.slice(0, revs)
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      disptach(getByNickname(user.nickname))
+    }
+  }, [isAuthenticated])
 
-  function handleCarrito(e) {
-    const existe =
-      listaCarrito.length > 0 &&
-      listaCarrito.find((item) => item.id === libro.id)
-    if (!existe) {
-      const elemento = [
-        ...listaCarrito,
-        { id: libro.id, cantidad: 1, precio: libro.precio },
-      ]
-      setListaCarrito(elemento)
-      localStorage.setItem('carrito', JSON.stringify(elemento))
+  useEffect(() => {
+    if (usuario?.id) {
+      dispatch(getByUser(usuario.id))
+    }
+  }, [usuario])
+
+  const handleFavorite = () => {
+    if (isAuthenticated) {
+      if (favoritos.some((fav) => fav.id === Number(id))) {
+        dispatch(deleteByUser({ usuarioId: usuario.id, libroId: Number(id) }))
+      } else {
+        dispatch(createByUser({ usuarioId: usuario.id, libroId: Number(id) }))
+      }
+    } else {
+      Swal.fire({
+        title: 'Log in',
+        text: 'Debe logearse para agregar a favoritos',
+        // icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#E11D48',
+        confirmButtonText: 'Si, ir a logearse',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          loginWithPopup()
+        }
+      })
     }
   }
-  /*function handleAdd(e) {
-    e.preventDefault()
-  }*/
+
+  function getReviews() {
+    // let out = []
+    // reviews.forEach((r) => {
+    //   out.push(
+    //     <ReviewCard
+    //       key={crypto.randomUUID()}
+    //       title={r.titulo}
+    //       text={r.comentario}
+    //       rate={r.rating}
+    //       likes={100}
+    //       author={r.UsuarioId}
+    //     />
+    //   )
+    // })
+    // return out.slice(0, revs)
+  }
+
+  const handleCarrito = (id, precio) => {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) ?? []
+    const existe = carrito.length > 0 && carrito.find((item) => item.id === id)
+    if (!existe) {
+      localStorage.setItem(
+        'carrito',
+        JSON.stringify([...carrito, { id, cantidad: 1, precio }])
+      )
+    }
+    navigate('/home/carrito', { replace: true })
+  }
 
   return (
     <>
@@ -98,7 +140,7 @@ export default function Detalle() {
             {/*extra imgs?*/}
           </div>
           <div className="lg:top-0 lg:sticky">
-            <form className="space-y-4 lg:pt-8">
+            <div className="space-y-4 lg:pt-8">
               {/** colores comentario abajo */}
               <fieldset>
                 <legend className="text-lg font-bold">Tipo</legend>
@@ -132,7 +174,7 @@ export default function Detalle() {
               <div className="p-4 bg-gray-100 border rounded">
                 <p className="text-sm">
                   <span className="block">Texto para posibles descuentos?</span>
-                  <a href="?" className="inline-block mt-1 underline">
+                  <a href="#" className="inline-block mt-1 underline">
                     Find out more
                   </a>
                 </p>
@@ -140,11 +182,15 @@ export default function Detalle() {
               <div>
                 <p className="text-xl  font-bold">${libro.precio}</p>
               </div>
-              <Link to="/home/carrito">
-                <Button onClick={handleCarrito}>Comprar</Button>
-              </Link>
-              <Button secondary>Agregar a favoritos</Button>
-            </form>
+              <Button onClick={() => handleCarrito(libro.id, libro.precio)}>
+                Comprar
+              </Button>
+              <Button onClick={handleFavorite} secondary>
+                {favoritos?.some((fav) => fav.id === Number(id))
+                  ? 'Eliminar de favoritos'
+                  : 'Agregar a favoritos'}
+              </Button>
+            </div>
           </div>
 
           <div className="lg:col-span-3 prose max-w-none ">
