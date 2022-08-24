@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
-import Landing from '../pages/Landing/Landing'
+import Landing from '../pages/landing/Landing'
 import Home from '../pages/home/Home'
 
-import NotFound from '../pages/NotFound/NotFound'
-import Navbar from '../components/NavBar/Navbar'
+import NotFound from '../pages/notFound/NotFound'
+import Navbar from '../components/navBar/Navbar'
 
 import Kpages from 'pages/kpages/Kpages'
 
@@ -23,9 +23,15 @@ import Tags from 'pages/admin/tags/Tags'
 
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 
-import Contactanos from 'components/NavBar/Contactanos'
+// import Contactanos from 'components/NavBar/Contactanos'
 
-import Carrito from 'components/Carrito/Carrito'
+// <<<<<<< HEAD
+import MejoresValarados from 'components/navBar/MejoresValorados'
+// import Ofertas from 'components/navBar/Ofertas'
+import Contactanos from 'components/navBar/Contactanos'
+// =======
+import Carrito from 'components/carrito/Carrito'
+// >>>>>>> 498ba21889f169e56cdf6bfea5c9b3a3bde99bbc
 
 import AcercaDe from 'components/footer/AcercaDe'
 import Terminos from 'components/footer/Terminos'
@@ -33,6 +39,7 @@ import Terminos from 'components/footer/Terminos'
 import LibroFormulario from 'pages/admin/libros/LibroFormulario'
 
 import Politicas from 'components/footer/Politicas'
+import Favoritos from 'pages/perfil/Favoritos'
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -53,6 +60,9 @@ function RoutesApp() {
       <Route path="menu" element={<Menu />}>
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="editar" element={<Editar />} />
+        <Route path="favoritos" element={<Favoritos />} />
+
+
       </Route>
 
       <Route path="/" element={<Navbar />}>
