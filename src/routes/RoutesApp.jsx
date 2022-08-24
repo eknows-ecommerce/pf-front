@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
-import Landing from '../pages/landing/Landing'
+import Landing from '../pages/Landing/Landing'
 import Home from '../pages/home/Home'
 
-import NotFound from '../pages/notFound/NotFound'
-import Navbar from '../components/navBar/Navbar'
+import NotFound from '../pages/NotFound/NotFound'
+import Navbar from '../components/NavBar/Navbar'
 
 import Kpages from 'pages/kpages/Kpages'
 
@@ -26,12 +26,12 @@ import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
 // import Contactanos from 'components/NavBar/Contactanos'
 
 // <<<<<<< HEAD
-import MejoresValarados from 'components/navBar/MejoresValorados'
+import MejoresValarados from 'components/NavBar/MejoresValorados'
 // import Ofertas from 'components/navBar/Ofertas'
-import Contactanos from 'components/navBar/Contactanos'
+import Contactanos from 'components/NavBar/Contactanos'
 // =======
-import Carrito from 'components/carrito/Carrito'
-// >>>>>>> 498ba21889f169e56cdf6bfea5c9b3a3bde99bbc
+import Carrito from 'components/Carrito/Carrito'
+
 
 import AcercaDe from 'components/footer/AcercaDe'
 import Terminos from 'components/footer/Terminos'

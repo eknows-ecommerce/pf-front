@@ -13,7 +13,7 @@ function Views() {
             Lleva las historias que te atrapan, a donde vayas
           </p>
           <div className="mt-4 md:mt-8">
-            <Link to="#">
+            <Link to="views">
               <Button>Ver</Button>
             </Link>
           </div>

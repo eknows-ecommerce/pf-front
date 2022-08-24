@@ -22,10 +22,10 @@ function Stories() {
                 K-stories
               </h2>
               <p className="mt-3x1 text-gray-600  font-bold font-comforta-300">
-                Para tí, en todas las formas
+                Para tí en formato papel, para tu biblioteca.
               </p>
               <br />
-              <Link to="#">
+              <Link to="stories">
                 <Button>Conócelos</Button>
               </Link>
             </div>
@@ -37,3 +37,4 @@ function Stories() {
 }
 
 export default Stories
+
