@@ -73,6 +73,7 @@ function RoutesApp() {
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />
         <Route path="terminos" element={<Terminos />} />
+        <Route path="politicas" element={<Politicas />} />
         <Route path="views" element={<Kpages />} />
         <Route path="stories" element={<Kpages />} />
         <Route path="detalle/:id" element={<Detalle />} />
