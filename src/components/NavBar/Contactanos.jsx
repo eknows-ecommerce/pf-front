@@ -1,5 +1,11 @@
+import { useEffect } from 'react'
 import logo from '../../assets/img/logo.png'
 export default function Contactanos() {
+  useEffect(() => {
+    if (window.scrollY) {
+      window.scroll(0, 0)
+    }
+  }, [])
   return (
     <>
       {/* Container for demo purpose */}

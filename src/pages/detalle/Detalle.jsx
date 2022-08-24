@@ -35,6 +35,9 @@ export default function Detalle() {
   //const libroComprado = true
 
   useEffect(() => {
+    if (window.scrollY) {
+      window.scroll(0, 0) // Restablece la posición de desplazamiento en la parte superior izquierda del documento
+    }
     dispatch(getAll('?LibroId=' + id))
   }, [])
 
