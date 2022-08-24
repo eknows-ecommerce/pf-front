@@ -22,14 +22,8 @@ import Categorias from 'pages/admin/categorias/Categorias'
 import Tags from 'pages/admin/tags/Tags'
 
 import PedidosAdmin from 'pages/admin/pedidos/PedidosAdmin'
-
-// import Contactanos from 'components/NavBar/Contactanos'
-
-// <<<<<<< HEAD
 import MejoresValarados from 'components/NavBar/MejoresValorados'
-// import Ofertas from 'components/navBar/Ofertas'
 import Contactanos from 'components/NavBar/Contactanos'
-// =======
 import Carrito from 'components/Carrito/Carrito'
 
 

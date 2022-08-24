@@ -34,6 +34,26 @@ export const getById = createAsyncThunk('reviews/@GETBYID', async (id) => {
   }
 })
 
+export const getByUser = createAsyncThunk('reviews/@GETBYUSER', async (id) => {
+  try {
+    const { data } = await axios.get(`${URL}/reviews/usuario/${id}`)
+    return data
+  } catch (error) {
+    const msg = error.response.data.msg
+    return msg
+  }
+})
+
+export const getByLibro = createAsyncThunk('reviews/@GETBYBOOK', async (id) => {
+  try {
+    const { data } = await axios.get(`${URL}/reviews/libro/${id}`)
+    return data
+  } catch (error) {
+    const msg = error.response.data.msg
+    return msg
+  }
+})
+
 export const update = createAsyncThunk('reviews/@UPDATE', async (review) => {
   try {
     const { data } = await axios.put(`${URL}/reviews/${review.id}`, review)
