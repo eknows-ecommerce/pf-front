@@ -67,6 +67,8 @@ function RoutesApp() {
 
       <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />
+        <Route path="mejoresvalorados" element={<MejoresValarados />} />
+        
         <Route path="home" element={<Home />} />
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />
