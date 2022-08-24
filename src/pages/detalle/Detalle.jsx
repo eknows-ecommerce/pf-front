@@ -11,8 +11,8 @@ import ReviewCard from '../../components/review/Review.jsx'
 import ReviewModal from '../../components/review/Write.jsx'
 import Footer from 'components/footer/Footer'
 import Swal from 'sweetalert2'
-import useFavorite from 'hooks/useToggle'
 import { useAuth0 } from '@auth0/auth0-react'
+import useFavorite from '../../hooks/useToggle'
 
 export default function Detalle() {
   const dispatch = useDispatch()
@@ -26,11 +26,11 @@ export default function Detalle() {
   const { /*libro,*/ reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const { isPedido } = useSelector(({ pedidosStore }) => pedidosStore)
+  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
 
   const { isAuthenticated, loginWithPopup } = useAuth0()
-  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
-  const { isFav, handleFav } = useFavorite(
-    favoritos.some((fav) => fav?.id === id)
+  const { toggle, handleToggle } = useFavorite(
+    favoritos.some((fav) => fav?.id === parseInt(id))
   )
 
   useEffect(() => {
@@ -134,7 +134,7 @@ export default function Detalle() {
 
   const handleFavorito = () => {
     if (isAuthenticated) {
-      if (isFav) {
+      if (toggle) {
         dispatch(quitFav({ usuarioId: usuario.id, libroId: id }))
         Swal.fire(
           'Eliminar de favoritos',
@@ -149,7 +149,7 @@ export default function Detalle() {
           'success'
         )
       }
-      handleFav()
+      handleToggle()
     } else {
       Swal.fire({
         title: 'Log in',
@@ -186,7 +186,7 @@ export default function Detalle() {
               />
             </div>
             <div className="lg:top-0 lg:sticky">
-              <form className="space-y-4 lg:pt-8">
+              <div className="space-y-4 lg:pt-8">
                 {getTipo()}
                 <div className="p-4 bg-gray-100 border rounded">
                   <p className="text-sm">
@@ -203,7 +203,7 @@ export default function Detalle() {
                   <Button onClick={handleCarrito}>Comprar</Button>
                 </Link>
                 <Button secondary onClick={handleFavorito}>Agregar a favoritos</Button>
-              </form>
+              </div>
             </div>
 
             <div className="lg:col-span-3 prose max-w-none ">
