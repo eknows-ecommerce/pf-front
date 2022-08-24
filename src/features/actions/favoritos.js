@@ -31,6 +31,9 @@ const createByUser = createAsyncThunk(
 const deleteByUser = createAsyncThunk(
   'FAVORITOS/@DeleteByUser',
   async ({ usuarioId, libroId }) => {
+    console.log(usuarioId)
+    console.log(libroId)
+
     try {
       const { data } = await axios.delete(`${URL}/favoritos`, {
         data: {

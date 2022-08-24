@@ -1,10 +1,20 @@
-import { useSelector } from 'react-redux'
+import { getByUser } from 'features/actions/favoritos'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import ItemFav from './ItemFav'
 
 function Favoritos() {
   const favoritos = useSelector(
     ({ favoritosStore }) => favoritosStore.favoritos
   )
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getByUser(usuario.id))
+  }, [])
+
   return (
     <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5">
       {/* <SearchPanelAdmin

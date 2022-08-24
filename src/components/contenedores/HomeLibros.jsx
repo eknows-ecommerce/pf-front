@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 function HomeLibros() {
   const { libros, cargando } = useSelector(({ librosStore }) => librosStore)
-
+  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
   return (
     <>
       {cargando ? (
@@ -20,6 +20,9 @@ function HomeLibros() {
                 titulo={libro.titulo}
                 descuento={libro.descuento}
                 precio={libro.precio}
+                isFavorito={
+                  favoritos?.some((fav) => fav.id === libro.id) || false
+                }
               />
             ))}
         </div>
