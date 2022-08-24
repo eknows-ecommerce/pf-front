@@ -5,7 +5,6 @@ import { Link, Outlet, useParams } from 'react-router-dom'
 import Logout from '../../components/sesion/Logout'
 import { getByNickname } from 'features/actions/usuarios'
 import { useAuth0 } from '@auth0/auth0-react'
-
 import Audio from 'components/audio/Audio'
 import { getById, getByUser } from 'features/actions/pedidos'
 import Barra from './Barra'
