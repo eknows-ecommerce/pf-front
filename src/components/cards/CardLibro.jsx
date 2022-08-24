@@ -9,7 +9,6 @@ import useFavorite from 'hooks/useToggle'
 import Button from '../templates/Button'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { useState } from 'react'
 
 function CardLibro({ id, portada, titulo, descuento = 15, precio }) {
   const dispatch = useDispatch()
@@ -19,9 +18,7 @@ function CardLibro({ id, portada, titulo, descuento = 15, precio }) {
   const { toggle, handleToggle } = useFavorite(
     favoritos.some((fav) => fav?.id === id)
   )
-  const [listaCarrito, setListaCarrito] = useState(
-    JSON.parse(localStorage.getItem('carrito')) ?? []
-  )
+  // const [listaCarrito, setListaCarrito] = useState([])
 
   const handleFavorite = () => {
     if (isAuthenticated) {
@@ -60,12 +57,13 @@ function CardLibro({ id, portada, titulo, descuento = 15, precio }) {
 
   const handleCarrito = (id, precio) => {
     Swal.fire('Agregar al carrito', 'Se ha agregado exitosamente', 'success')
-    const existe =
-      listaCarrito.length > 0 && listaCarrito.find((item) => item.id === id)
+    const carrito = JSON.parse(localStorage.getItem('carrito')) ?? []
+    const existe = carrito.length > 0 && carrito.find((item) => item.id === id)
     if (!existe) {
-      const elemento = [...listaCarrito, { id, cantidad: 1, precio }]
-      setListaCarrito(elemento)
-      localStorage.setItem('carrito', JSON.stringify(elemento))
+      localStorage.setItem(
+        'carrito',
+        JSON.stringify([...carrito, { id, cantidad: 1, precio }])
+      )
     }
   }
 
