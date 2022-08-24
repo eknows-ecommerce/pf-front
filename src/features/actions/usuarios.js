@@ -11,7 +11,6 @@ export const getAll = createAsyncThunk(
       const { data } = await axios.get(`${URL}/usuarios${query}`)
       return data
     } catch (error) {
-      console.log('actions', error)
       const msg = error.message.data.msg
       return msg
     }

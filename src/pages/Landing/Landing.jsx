@@ -6,9 +6,6 @@ import Views from 'components/section/Views'
 import Footer from 'components/footer/Footer'
 
 function Landing() {
-
-
-
   return (
     <div>
       <Bienvenida />

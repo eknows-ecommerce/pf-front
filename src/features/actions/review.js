@@ -6,9 +6,7 @@ const URL = process.env.REACT_APP_URL
 // <----------------- acciones que interactuan con la DB ----------------->
 export const getAll = createAsyncThunk('reviews/@GET/ALL', async (query) => {
   try {
-    console.log('query', query)
     const { data } = await axios.get(`${URL}/reviews${query}`)
-    console.log('entra', data)
     return data
   } catch (error) {
     const msg = error.response.data.msg

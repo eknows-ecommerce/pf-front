@@ -23,7 +23,6 @@ const createByUser = createAsyncThunk(
       })
       return data
     } catch (error) {
-      console.log(error)
       const msg = error.response.data.msg
       return msg
     }
@@ -41,7 +40,6 @@ const deleteByUser = createAsyncThunk(
       })
       return data
     } catch (error) {
-      console.log(error)
       const msg = error.response.data.msg
       return msg
     }

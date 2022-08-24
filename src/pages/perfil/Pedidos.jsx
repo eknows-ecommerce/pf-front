@@ -1,18 +1,16 @@
 import { getByUser } from 'features/actions/pedidos'
 import React, { useEffect, useState } from 'react'
-import {  useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import images from '../../assets/img/logo.png'
 
 export default function Pedidos() {
   // const dispatch= useDispatch()
   const { pedidosUsuario } = useSelector(({ pedidosStore }) => pedidosStore)
   //  const {usuario } = useSelector(({ usuariosStore})=> usuariosStore)
-  console.log(pedidosUsuario)
   const [show, setShow] = useState(null)
   return (
     <>
       <div className=" h-full sm:px-2">
-      
         <div className="bg-white shadow px-4 md:px-10 pt-4 md:pt-7 pb-5 overflow-y-auto">
           <table className="w-full whitespace-nowrap">
             <thead>
@@ -25,7 +23,7 @@ export default function Pedidos() {
             </thead>
             {pedidosUsuario &&
               pedidosUsuario?.map((e) => (
-                <tbody className="w-full">
+                <tbody key={crypto.randomUUID()} className="w-full">
                   <tr className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100">
                     <td className="pl-4 cursor-pointer">
                       <div className="flex items-center">
@@ -52,14 +50,13 @@ export default function Pedidos() {
                       <p className="font-medium">{e.estado}</p>
                     </td>
                     <td className="pl-20">
-                    <button className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
-                <p className="text-sm font-medium leading-none text-white">
-                  Ver detalles
-                </p>
-              </button>
+                      <button className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
+                        <p className="text-sm font-medium leading-none text-white">
+                          Ver detalles
+                        </p>
+                      </button>
                     </td>
-                    
-            </tr>
+                  </tr>
                 </tbody>
               ))}
           </table>
