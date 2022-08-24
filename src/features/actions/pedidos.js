@@ -66,3 +66,13 @@ export const getByUser = createAsyncThunk('pedido/@GETBYUSER', async (id) => {
     return msg
   }
 })
+
+export const isPedido = createAsyncThunk('pedido/@VERIFICAR', async (ids) => {
+  try {
+    const { data } = await axios.get(`${URL}/pedidos/verificar/${ids}`)
+    return data
+  } catch (error) {
+    const msg = error.response.data.msg
+    return msg
+  }
+})

@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getAll, create, getById, update, deleteById, getByUser } from '../actions/pedidos'
+import { getAll, create, getById, update, deleteById, getByUser, isPedido } from '../actions/pedidos'
 
 const initialState = {
   pedidos: [],
   pedido: {},
-  pedidosUsuario:[],
+  isPedido: false,
+  pedidosUsuario: [],
   cargando: null,
   msg: null,
 }
@@ -31,7 +32,7 @@ const pedidosSlice = createSlice({
       state.cargando = true
       state.msg = payload.msg
     },
-    
+
     // OBTENER PEDIDO POR ID
     [getById.pending]: (state) => {
       state.cargando = true
@@ -70,6 +71,19 @@ const pedidosSlice = createSlice({
       state.msg = payload.msg
     },
     [update.rejected]: (state, { payload }) => {
+      state.cargando = true
+      state.msg = payload.msg
+    },
+    // CHECKAR PEDIDO
+    [isPedido.pending]: (state) => {
+      state.cargando = true
+    },
+    [isPedido.fulfilled]: (state, { payload }) => {
+      state.isPedido = payload
+      state.cargando = false
+      state.msg = payload.msg
+    },
+    [isPedido.rejected]: (state, { payload }) => {
       state.cargando = true
       state.msg = payload.msg
     },

@@ -26,9 +26,6 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
 
   const [showModal, setShowModal] = React.useState(false)
 
-  const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
-  const name = usuarios.find((u) => u.id === author)?.name;
-
   return (
     <>
       <blockquote
@@ -51,7 +48,7 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
             </p>
           </div>
         </div>
-        <footer className="mt-8 text-gray-700 text-right">- {name}</footer>
+        <footer className="mt-8 text-gray-700 text-right">- {author}</footer>
       </blockquote>
       {showModal ? (
         <>
@@ -75,7 +72,7 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
                 {text}
               </body>
               <footer className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                - {name}
+                - {author}
               </footer>
             </div>
           </div>
