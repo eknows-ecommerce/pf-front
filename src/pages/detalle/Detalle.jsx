@@ -22,7 +22,7 @@ export default function Detalle() {
   let [isReview, checkReview] = useState(null)
   const [revs, setRevs] = useState(6)
   const { libro } = useSelector(({ librosStore }) => librosStore)
-  const { /*libro,*/ reviews } = useSelector(({ reviewsStore }) => reviewsStore)
+  const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
 
@@ -33,7 +33,7 @@ export default function Detalle() {
 
   useEffect(() => {
     dispatch(getByLibro(id))
-  }, [dispatch])
+  }, [])
 
   useEffect(() => {
     if (reviews && usuario)

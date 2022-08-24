@@ -68,9 +68,9 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
                   </button>
                 </div>
               </header>
-              <body className="relative m-5 p-1 text-slate-800 text-lg font-medium leading-relaxed outline-none w-full">
+              <div className="relative m-5 p-1 text-slate-800 text-lg font-medium leading-relaxed outline-none w-full">
                 {text}
-              </body>
+              </div>
               <footer className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                 - {author}
               </footer>

@@ -1,13 +1,23 @@
 import { create } from "features/actions/review";
 import { isPedido as verificar } from 'features/actions/pedidos'
+import { getByLibro } from 'features/actions/review'
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+import Swal from 'sweetalert2';
 
 export default function ReviewModal({ idLibro, idUsuario }) {
   const dispatch = useDispatch()
   const { isPedido } = useSelector(({ pedidosStore }) => pedidosStore)
-  const [showModal, setShowModal] = React.useState(false);
+  const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
+  const [showModal, setShowModal] = React.useState(false)
+  const { isAuthenticated, loginWithPopup } = useAuth0()
+  const [rate, setRate] = useState(3);
+
+  useEffect(() => {
+    dispatch(getByLibro(idLibro))
+  }, [showModal])
 
   useEffect(() => {
     if (idUsuario && idLibro) {
@@ -15,13 +25,41 @@ export default function ReviewModal({ idLibro, idUsuario }) {
     }
   }, [])
 
+  const handleWrite = (e) => {
+    e.preventDefault();
+    if (isAuthenticated) {
+      if (isPedido)
+        setShowModal(true)
+      else {
+        Swal.fire(
+          'Compra no realizada',
+          'Debe haber comprado el libro para escribir una review de este libro',
+          'info'
+        )
+      }
+    } else {
+      Swal.fire({
+        title: 'Log in',
+        text: 'Debe logearse para escribir una review',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#E11D48',
+        confirmButtonText: 'Si, ir a logearse',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          loginWithPopup()
+        }
+      })
+    }
+  }
+
   function Stars() {
-    const [rate, setRate] = useState(3);
     let out = []; let star;
     for (let i = 0; i < 5; i++) {
       i < rate ? star = "text-yellow-500" : star = "text-gray-300"
       out.push(
-        <label>
+        <label key={crypto.randomUUID()}>
           <input type="radio" name="rating" className="[display:none]"
             value={form.rating} //onChange={(e) => handleChange(e)}
             onClick={() => {
@@ -29,7 +67,6 @@ export default function ReviewModal({ idLibro, idUsuario }) {
               form.rating = (i + 1)
             }} />
           <svg className={"w-6 h-6 hover:animate-spin " + star}
-            key={crypto.randomUUID()}
             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
           >
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -76,12 +113,12 @@ export default function ReviewModal({ idLibro, idUsuario }) {
 
   return (
     <>
-      {isPedido && <button
+      <button
         className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
-        onClick={() => setShowModal(true)}
+        onClick={(e) => handleWrite(e)}
       >
         Escriba una review
-      </button>}
+      </button>
 
       {showModal ? (
         <>
