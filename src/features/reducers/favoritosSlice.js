@@ -41,8 +41,6 @@ const favoritosSlice = createSlice({
       state.cargando = true
     },
     [createByUser.fulfilled]: (state, { payload }) => {
-      console.log('patload', payload)
-
       state.cargando = false
       state.favoritos = [...state.favoritos, payload.favorito]
       state.count = state.count + 1
@@ -58,7 +56,6 @@ const favoritosSlice = createSlice({
     },
     [deleteByUser.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      console.log('patload', payload.favorito)
       state.favoritos = [
         ...state.favoritos.filter(
           (favorito) => favorito.id !== payload.favorito.id

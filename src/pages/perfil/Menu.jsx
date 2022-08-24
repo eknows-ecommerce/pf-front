@@ -9,56 +9,54 @@ import Audio from 'components/audio/Audio'
 import { getById, getByUser } from 'features/actions/pedidos'
 import Barra from './Barra'
 
-
 export default function Menu() {
   const dispatch = useDispatch()
   const { user } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
-  console.log(usuario.id)
 
   const [Speak, setSpeak] = useState(false)
   const [tags, setTags] = useState(document.getElementsByName('DIV'))
-  const synth = window.speechSynthesis;
+  const synth = window.speechSynthesis
 
   function speech(Speak) {
-
     tags.forEach((tag) => {
       tag.addEventListener('click', (e) => {
+        var voices = synth.getVoices()
+        let msg = ''
+        e.target.innerText
+          ? (msg = e.target.innerText)
+          : (msg = e.target.placeholder)
 
-        var voices = synth.getVoices();
-        let msg = '';
-        e.target.innerText ? msg = e.target.innerText : msg = e.target.placeholder
-
-        var utterThis = new SpeechSynthesisUtterance(msg);
-        utterThis.voice = voices[1];
-        utterThis.pitch = 1;
-        utterThis.rate = 1;
+        var utterThis = new SpeechSynthesisUtterance(msg)
+        utterThis.voice = voices[1]
+        utterThis.pitch = 1
+        utterThis.rate = 1
 
         if (synth.speaking) {
-          synth.cancel();
-          setTimeout(() => { localStorage.audio === 'on' && synth.speak(utterThis); }, 250);
+          synth.cancel()
+          setTimeout(() => {
+            localStorage.audio === 'on' && synth.speak(utterThis)
+          }, 250)
+        } else {
+          synth.speak(utterThis)
         }
-        else {
-          synth.speak(utterThis);
-        }
-
-      });
-    });
-
+      })
+    })
   }
 
   function hi(n) {
-    var voices = synth.getVoices();
-    var utterThis = new SpeechSynthesisUtterance('perfil actual\n' + n);
-    utterThis.voice = voices[1];
-    utterThis.pitch = 1;
-    utterThis.rate = 1;
+    var voices = synth.getVoices()
+    var utterThis = new SpeechSynthesisUtterance('perfil actual\n' + n)
+    utterThis.voice = voices[1]
+    utterThis.pitch = 1
+    utterThis.rate = 1
     if (synth.speaking) {
-      synth.cancel();
-      setTimeout(() => { (localStorage.audio === 'on') && synth.speak(utterThis); }, 250);
-    }
-    else {
-      synth.speak(utterThis);
+      synth.cancel()
+      setTimeout(() => {
+        localStorage.audio === 'on' && synth.speak(utterThis)
+      }, 250)
+    } else {
+      synth.speak(utterThis)
     }
   }
   useEffect(() => {
@@ -79,7 +77,7 @@ export default function Menu() {
           <Barra />
         </div>
         <div>
-          <Outlet />         
+          <Outlet />
         </div>
       </div>
     </section>

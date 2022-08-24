@@ -122,13 +122,7 @@ export default function Navegacion() {
             <FaTh className="h-5 w-5" />
             <p className="text-base leading-4 ">Dashboard</p>
           </Link>
-          <Link
-            to="usuarios"
-            className="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-neutral-100 focus:text-indigo-400   rounded hover:bg-neutral-800 px-4 py-3"
-          >
-            <FaUserFriends className="h-5 w-5" />
-            <p className="text-base leading-4 ">Usuarios</p>
-          </Link>
+
           <Link
             to="/"
             className="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-neutral-100 rounded hover:bg-neutral-800 px-4 py-3"
@@ -139,11 +133,11 @@ export default function Navegacion() {
         </div>
         <div id="menu1" className="flex flex-col w-full pt-5 space-y-1">
           <Link
-            to="ventas"
+            to="usuarios"
             className="flex justify-start items-center space-x-6 hover:text-white focus:bg-neutral-800 focus:text-white hover:bg-neutral-800 text-neutral-400 rounded px-3 py-3 w-full"
           >
-            <FaChartBar className="h-5 w-5" />
-            <p className="text-base leading-4">Ventas</p>
+            <FaUserFriends className="h-5 w-5" />
+            <p className="text-base leading-4">Usuarios</p>
           </Link>
           <Link
             to="pedidos"
