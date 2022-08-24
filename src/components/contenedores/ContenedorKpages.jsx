@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 
 export default function ContenedorKpages() {
     const { kpages: {libros} } = useSelector(({ librosStore }) => librosStore)
+    const librosFiltrados = libros.filter((l) => l.categoria )
   return (
     <div className=" py-6 lg:px-20 md:px-6 px-4">
     <hr className=" w-full bg-gray-200 my-6" />
