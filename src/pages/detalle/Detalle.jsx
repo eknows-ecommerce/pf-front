@@ -5,10 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getById as getBook } from '../../features/actions/libros'
 import { getByLibro } from '../../features/actions/review'
 import { isPedido as verificar } from '../../features/actions/pedidos'
+import { createByUser as giveFav, deleteByUser as quitFav } from 'features/actions/favoritos'
 import Button from '../../components/templates/Button'
 import ReviewCard from '../../components/review/Review.jsx'
 import ReviewModal from '../../components/review/Write.jsx'
 import Footer from 'components/footer/Footer'
+import Swal from 'sweetalert2'
+import useFavorite from 'hooks/useToggle'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function Detalle() {
   const dispatch = useDispatch()
@@ -23,6 +27,11 @@ export default function Detalle() {
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const { isPedido } = useSelector(({ pedidosStore }) => pedidosStore)
 
+  const { isAuthenticated, loginWithPopup } = useAuth0()
+  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
+  const { isFav, handleFav } = useFavorite(
+    favoritos.some((fav) => fav?.id === id)
+  )
 
   useEffect(() => {
     dispatch(getByLibro(id))
@@ -43,7 +52,7 @@ export default function Detalle() {
     }
   }, [])
 
-  function getCategorias() {
+  const getCategorias = () => {
     let cats = []
     libro.CategoriaLibro?.map((c) => cats.push(
       <li key={crypto.randomUUID()}
@@ -52,7 +61,7 @@ export default function Detalle() {
     return cats
   }
 
-  function getTags() {
+  const getTags = () => {
     let tags = []
     libro.TagLibro?.map((t) => tags.push(
       <li key={crypto.randomUUID()}
@@ -61,7 +70,7 @@ export default function Detalle() {
     return tags
   }
 
-  function getTipo() {
+  const getTipo = () => {
     let tipos = []
     libro.FormatoLibro?.map((t) => tipos.push(
       <label
@@ -91,7 +100,7 @@ export default function Detalle() {
     )
   }
 
-  function getReviews() {
+  const getReviews = () => {
     let out = []
     reviews?.forEach((r) => {
       console.log(r.UsuarioName)
@@ -109,7 +118,7 @@ export default function Detalle() {
     return out.slice(0, revs)
   }
 
-  function handleCarrito(e) {
+  const handleCarrito = (e) => {
     const existe =
       listaCarrito.length > 0 &&
       listaCarrito.find((item) => item.id === libro.id)
@@ -123,8 +132,39 @@ export default function Detalle() {
     }
   }
 
-  function handleFavorito(e) {
-    e.preventDefault()
+  const handleFavorito = () => {
+    if (isAuthenticated) {
+      if (isFav) {
+        dispatch(quitFav({ usuarioId: usuario.id, libroId: id }))
+        Swal.fire(
+          'Eliminar de favoritos',
+          'Se ha elimino exitosamente',
+          'success'
+        )
+      } else {
+        dispatch(giveFav({ usuarioId: usuario.id, libroId: id }))
+        Swal.fire(
+          'Agregar a favoritos',
+          'Se ha agregado exitosamente',
+          'success'
+        )
+      }
+      handleFav()
+    } else {
+      Swal.fire({
+        title: 'Log in',
+        text: 'Debe logearse para agregar a favoritos',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#E11D48',
+        confirmButtonText: 'Si, ir a logearse',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          loginWithPopup()
+        }
+      })
+    }
   }
 
   return (
