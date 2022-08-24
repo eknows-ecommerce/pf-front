@@ -16,6 +16,7 @@ export default function Detalle() {
   const [listaCarrito, setListaCarrito] = useState(
     JSON.parse(localStorage.getItem('carrito')) ?? []
   )
+  let [isReview, checkReview] = useState(null)
   const [revs, setRevs] = useState(6)
   const { libro } = useSelector(({ librosStore }) => librosStore)
   const { /*libro,*/ reviews } = useSelector(({ reviewsStore }) => reviewsStore)
@@ -25,7 +26,12 @@ export default function Detalle() {
 
   useEffect(() => {
     dispatch(getByLibro(id))
-  }, [])
+  }, [dispatch])
+
+  useEffect(() => {
+    if (reviews && usuario)
+      checkReview(reviews.find(r => r.Review?.UsuarioId === usuario.id))
+  }, [reviews, usuario])
 
   useEffect(() => {
     dispatch(getBook(id))
@@ -35,8 +41,7 @@ export default function Detalle() {
     if (usuario.id && id) {
       dispatch(verificar(usuario.id + '/' + id))
     }
-  }, [usuario])
-
+  }, [])
 
   function getCategorias() {
     let cats = []
@@ -46,6 +51,7 @@ export default function Detalle() {
       </li>))
     return cats
   }
+
   function getTags() {
     let tags = []
     libro.TagLibro?.map((t) => tags.push(
@@ -191,8 +197,8 @@ export default function Detalle() {
                         Ve lo que otros lectores tiene que decir
                       </p>
                     </div>
-                    {isPedido && reviews?.find(r => r.Review.UsuarioId === usuario.id) && <ReviewModal idLibro={id} idUsuario={usuario.id} />}
-                    {revs < reviews.length && <button
+                    {isPedido && !isReview && <ReviewModal idLibro={id} idUsuario={usuario.id} />}
+                    {reviews && reviews.length > revs && <button
                       className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
                       onClick={() => setRevs(revs + 3)}
                     >
@@ -200,7 +206,7 @@ export default function Detalle() {
                     </button>}
                   </>
                 </div>
-                {reviews.length > 0 ?
+                {reviews && reviews.length > 0 ?
                   <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3">
                     {getReviews()}
                   </div>

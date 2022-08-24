@@ -36,7 +36,6 @@ export default function ReviewModal({ idLibro, idUsuario }) {
     titulo: "",
     comentario: "",
     rating: 3,
-    //likes: parseInt(Math.random() * 100),
     LibroId: idLibro,
     UsuarioId: idUsuario
   });
@@ -58,7 +57,6 @@ export default function ReviewModal({ idLibro, idUsuario }) {
         titulo: "",
         comentario: "",
         rating: 3,
-        //likes: parseInt(Math.random() * 100),
         LibroId: idLibro,
         UsuarioId: idUsuario
       })

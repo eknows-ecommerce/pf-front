@@ -72,7 +72,7 @@ const reviewsSlice = createSlice({
     [getByLibro.fulfilled]: (state, { payload }) => {
       state.cargando = false
       state.libro = payload?.libro;
-      state.reviews = payload?.libro.ReviewLibro;
+      state.reviews = payload?.libro?.ReviewLibro;
       state.count = payload?.count
     },
     [getByLibro.rejected]: (state) => {
@@ -84,7 +84,7 @@ const reviewsSlice = createSlice({
     },
     [create.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.reviews = [...state.reviews, payload.review]
+      state.reviews = [...state.reviews, payload?.review]
       state.total = state.total + 1
     },
     [create.rejected]: (state) => {
