@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import Paginacion from 'components/paginacion/Paginacion'
+import Paginacion from 'components/Paginacion/Paginacion'
 import { getAll, update } from 'features/actions/usuarios'
 
 import usePaginacion from 'hooks/usePaginacion'
