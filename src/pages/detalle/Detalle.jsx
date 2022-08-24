@@ -135,14 +135,14 @@ export default function Detalle() {
   const handleFavorito = () => {
     if (isAuthenticated) {
       if (toggle) {
-        dispatch(quitFav({ usuarioId: usuario.id, libroId: id }))
+        dispatch(quitFav({ usuarioId: usuario.id, libroId: parseInt(id) }))
         Swal.fire(
           'Eliminar de favoritos',
           'Se ha elimino exitosamente',
           'success'
         )
       } else {
-        dispatch(giveFav({ usuarioId: usuario.id, libroId: id }))
+        dispatch(giveFav({ usuarioId: usuario.id, libroId: parseInt(id) }))
         Swal.fire(
           'Agregar a favoritos',
           'Se ha agregado exitosamente',
