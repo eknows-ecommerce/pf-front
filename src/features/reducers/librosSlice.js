@@ -8,7 +8,7 @@ import {
   deleteById,
   getListCar,
   getAllPredictivo,
-  getAllKpage
+  getAllKpage,
 } from 'features/actions/libros'
 
 const initialState = {
@@ -21,9 +21,7 @@ const initialState = {
   paginado: {
     paginaActual: 1,
     total: 0,
-    anterior: 0,
-    siguiente: 0,
-    limite: 10,
+    limite: 6,
   },
   msg: '',
   cargando: null,
@@ -82,8 +80,8 @@ const librosSlice = createSlice({
     setPaginaActual: (state, { payload }) => {
       state.paginado.paginaActual = payload
     },
-    setPaginasTotales: (state, { payload }) => {
-      state.paginado.total = Math.ceil(payload / state.paginado.limite)
+    setPaginasTotales: (state) => {
+      state.paginado.total = Math.ceil(state.count / state.paginado.limite)
     },
     setPaginaAnterior: (state) => {
       state.paginado.paginaActual =
@@ -98,7 +96,7 @@ const librosSlice = createSlice({
           : 1
     },
     setLimite: (state, { payload }) => {
-      state.paginado.limite = payload.limite
+      state.paginado.limite = payload
     },
     setFormatos: (state, action) => {
       state.formatos = action.payload

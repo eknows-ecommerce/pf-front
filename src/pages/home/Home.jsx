@@ -2,15 +2,15 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAuth0 } from '@auth0/auth0-react'
-import Paginacion from 'components/Paginacion/Paginacion'
 import Filtros from 'components/filtros/Filtros'
 import { getAll } from 'features/actions/libros'
 import { getByUser } from 'features/actions/favoritos'
 import { getByNickname } from 'features/actions/usuarios'
 
-import usePaginacion from 'hooks/usePaginacion'
 import Ordenamiento from 'components/filtros/Ordenamiento'
 import HomeLibros from 'components/contenedores/HomeLibros'
+import Paginacion2 from 'components/Paginacion/Paginacion2'
+import { setLimite } from 'features/reducers/librosSlice'
 
 function Home() {
   const { user, isAuthenticated } = useAuth0()
@@ -25,13 +25,17 @@ function Home() {
     rangoPrecios,
     orden,
     buscarPor,
-    limit,
+    paginado: { paginaActual, limite, total },
   } = useSelector(({ librosStore }) => librosStore)
 
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
-  const { paginado, handlePrevius, handleCurrent, handleNext, handleTotal } =
-    usePaginacion()
+  // const { paginado, handlePrevius, handleCurrent, handleNext, handleTotal } =
+  //   usePaginacion()
+
+  useEffect(() => {
+    dispatch(setLimite(6))
+  }, [])
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -45,9 +49,9 @@ function Home() {
     }
   }, [usuario])
 
-  useEffect(() => {
-    handleTotal(count)
-  }, [count])
+  // useEffect(() => {
+  //   handleTotal(count)
+  // }, [count])
 
   useEffect(() => {
     let query = ''
@@ -64,8 +68,8 @@ function Home() {
       query += `search=${search}&`
     }
 
-    query += `limite=${limit}&`
-    query += `pagina=${paginado.currentPage}`
+    query += `limite=${limite}&`
+    query += `pagina=${paginaActual}`
     dispatch(getAll(query))
   }, [
     search,
@@ -75,8 +79,8 @@ function Home() {
     formatos,
     orden,
     buscarPor,
-    limit,
-    paginado.currentPage,
+    limite,
+    paginaActual,
   ])
 
   return (
@@ -84,17 +88,16 @@ function Home() {
       <section>
         <div className="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
-            <Filtros handleCurrent={handleCurrent} />
+            <Filtros />
 
             <div className="lg:col-span-3 ">
               <div className="flex items-center justify-between bg-gray-100 px-2 z-20 rounded shadow-xl sticky lg:top-0 top-14">
                 <p className="text-sm font-medium px-2 py-3">
                   <span className="sm:inline">Vistos </span>
-                  {paginado.total &&
-                  paginado.totalPages !== paginado.currentPage ? (
+                  {count && total !== paginaActual ? (
                     <>
                       <span className="text-sm font-bold text-rosadito-500">
-                        {paginado.currentPage * limit}
+                        {paginaActual * limite}
                       </span>{' '}
                       de{' '}
                       <span className="text-sm font-bold text-rosadito-500">
@@ -102,12 +105,12 @@ function Home() {
                       </span>{' '}
                       Libros
                     </>
-                  ) : paginado.totalPages === paginado.currentPage ? (
+                  ) : total === paginaActual ? (
                     <>
                       <span className="text-sm font-bold text-rosadito-500">
                         {' '}
-                        {(paginado.currentPage - 1) * limit +
-                          (count === 6 ? count : count % limit)}
+                        {(paginaActual - 1) * limite +
+                          (count === 6 ? count : count % limite)}
                       </span>{' '}
                       de{' '}
                       <span className="text-sm font-bold text-rosadito-500">
@@ -129,19 +132,12 @@ function Home() {
                   )}
                 </p>
 
-                <Ordenamiento handleCurrent={handleCurrent} />
+                <Ordenamiento />
               </div>
 
               <HomeLibros />
 
-              {paginado && (
-                <Paginacion
-                  paginaAnterior={handlePrevius}
-                  paginaSiguiente={handleNext}
-                  paginaSeleccionada={handleCurrent}
-                  {...paginado}
-                />
-              )}
+              <Paginacion2 />
             </div>
           </div>
         </div>

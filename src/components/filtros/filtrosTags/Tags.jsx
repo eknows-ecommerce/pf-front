@@ -2,11 +2,11 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAll } from 'features/actions/tags'
-import { setTags } from 'features/reducers/librosSlice'
+import { setTags, setPaginaActual } from 'features/reducers/librosSlice'
 
 import Tag from './Tag'
 
-function Tags({ reset, setReset, handleCurrent }) {
+function Tags({ reset, setReset }) {
   // eslint-disable-next-line no-unused-vars
   const [tagSelect, setTagSelect] = useState([])
   const { tags } = useSelector(({ tagsStore }) => tagsStore)
@@ -39,7 +39,7 @@ function Tags({ reset, setReset, handleCurrent }) {
       }
     }
     dispatch(setTags(whereTags))
-    handleCurrent(1)
+    dispatch(setPaginaActual(1))
   }, [tagSelect])
 
   return (

@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { getAll } from '../../features/actions/libros'
 import { getAll as getAllCat } from 'features/actions/categorias'
 import Categoria from './Categoria'
-import { setCategorias } from 'features/reducers/librosSlice'
+import { setCategorias, setPaginaActual } from 'features/reducers/librosSlice'
 
-export default function Categorias({ reset, setReset, handleCurrent }) {
+export default function Categorias({ reset, setReset }) {
   const [selected, setSelected] = useState({})
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
 
@@ -37,7 +37,7 @@ export default function Categorias({ reset, setReset, handleCurrent }) {
       if (selected[key]) whereCategorias.push(Number(key.slice(3)))
     }
     dispatch(setCategorias(whereCategorias))
-    handleCurrent(1)
+    dispatch(setPaginaActual(1))
   }, [selected])
 
   return (

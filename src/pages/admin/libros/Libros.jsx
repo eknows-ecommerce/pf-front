@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { create, update, getAll as getAllLibros } from 'features/actions/libros'
+import { getAll as getAllLibros } from 'features/actions/libros'
 import useSearch from 'hooks/useSearch'
 import { Link } from 'react-router-dom'
 
-import { setReset } from 'features/reducers/librosSlice'
+import {
+  setLimite,
+  setPaginasTotales,
+  setPaginaActual,
+} from 'features/reducers/librosSlice'
 
 import Item from './Item'
 import SearchPanelAdmin from '../SearchPanelAdmin'
@@ -14,17 +18,43 @@ import Paginacion2 from 'components/Paginacion/Paginacion2'
 function Libros() {
   const [formulario, setFormulario] = useState('')
 
-  const [deshabilitarItemModal, setDeshabilitarItemModal] = useState(false)
+  const [setDeshabilitarItemModal] = useState(false)
   const { search, handleSearch } = useSearch()
 
-  const { libros, msg } = useSelector(({ librosStore }) => librosStore)
+  const {
+    libros,
+    msg,
+    paginado: { limite, paginaActual },
+    buscarPor,
+  } = useSelector(({ librosStore }) => librosStore)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAllLibros(`search=${search}`))
-    dispatch(setReset({ nombre: 'libro', valor: {} }))
-  }, [dispatch, search])
+    dispatch(setLimite(10))
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(setPaginasTotales())
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(setPaginaActual(1))
+  }, [dispatch])
+
+  useEffect(() => {
+    let query = ''
+
+    if (buscarPor) query += `buscarPor=${buscarPor}&`
+
+    if (search) {
+      query += `search=${search}&`
+    }
+
+    query += `limite=10&`
+    query += `pagina=${paginaActual}`
+    dispatch(getAllLibros(query))
+  }, [search, buscarPor, limite, paginaActual, dispatch])
 
   useEffect(() => {
     if (msg !== '') {

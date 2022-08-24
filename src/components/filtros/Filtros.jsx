@@ -4,7 +4,7 @@ import Tags from 'components/filtros/filtrosTags/Tags'
 import RangoPrecios from 'components/filtros/RangoPrecios'
 import Formatos from 'components/filtros/Formatos'
 
-function Filtros({ handleCurrent }) {
+function Filtros() {
   const [reset, setReset] = useState()
 
   return (
@@ -32,41 +32,25 @@ function Filtros({ handleCurrent }) {
             <summary className="px-5 py-3 text-sm text-blue-500 font-medium bg-gray-50 ">
               Categorias
             </summary>
-            <Categorias
-              reset={reset}
-              setReset={setReset}
-              handleCurrent={handleCurrent}
-            />
+            <Categorias reset={reset} setReset={setReset} />
           </details>
           <details close="true" className="overflow-hidden cursor-pointer">
             <summary className="px-5 py-3 text-sm text-blue-500 font-medium bg-gray-50 ">
               Tags
             </summary>
-            <Tags
-              reset={reset}
-              setReset={setReset}
-              handleCurrent={handleCurrent}
-            />
+            <Tags reset={reset} setReset={setReset} />
           </details>
           <details close="true" className="overflow-hidden cursor-pointer">
             <summary className="px-5 py-3  font-medium bg-gray-50 text-sm text-blue-500">
               Precios
             </summary>
-            <RangoPrecios
-              reset={reset}
-              setReset={setReset}
-              handleCurrent={handleCurrent}
-            />
+            <RangoPrecios reset={reset} setReset={setReset} />
           </details>
           <details close="true" className="overflow-hidden cursor-pointer">
             <summary className="px-5 py-3  font-medium bg-gray-50 text-sm text-blue-500">
               Formatos
             </summary>
-            <Formatos
-              reset={reset}
-              setReset={setReset}
-              handleCurrent={handleCurrent}
-            />
+            <Formatos reset={reset} setReset={setReset} />
           </details>
 
           <div className="flex justify-center px-5 py-3 border-t border-gray-200">

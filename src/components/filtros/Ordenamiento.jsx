@@ -2,6 +2,8 @@ import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { setOrden } from 'features/reducers/librosSlice'
 
+import { setPaginaActual } from 'features/reducers/librosSlice'
+
 function Ordenamiento({ handleCurrent }) {
   const dispatch = useDispatch()
   const [ordenar, setOrdenar] = useState('ordenar')
@@ -42,8 +44,8 @@ function Ordenamiento({ handleCurrent }) {
         })
       )
     }
-    handleCurrent(1)
-  }, [ordenar])
+    dispatch(setPaginaActual(1))
+  }, [ordenar, dispatch])
 
   return (
     <div className="ml-2 bg-gray-100">
