@@ -110,7 +110,6 @@ export default function LibroFormulario() {
       }
     } catch (error) {
       alert('Problemas al subir la imagen')
-      console.log(error)
     }
     const libroObj = {
       ...formulario,
@@ -193,7 +192,6 @@ export default function LibroFormulario() {
   const handleKeyUp = (e) => {
     e.preventDefault()
     validarInputText(e.key)
-    console.log(e.key)
   }
 
   return (

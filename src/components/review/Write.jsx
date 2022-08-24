@@ -82,16 +82,16 @@ export default function ReviewModal({ idLibro, idUsuario }) {
     comentario: "",
     rating: 3,
     LibroId: idLibro,
-    UsuarioId: idUsuario
-  });
+    UsuarioId: idUsuario,
+  })
 
   //verificar errores toDo
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -103,13 +103,13 @@ export default function ReviewModal({ idLibro, idUsuario }) {
         comentario: "",
         rating: 3,
         LibroId: idLibro,
-        UsuarioId: idUsuario
+        UsuarioId: idUsuario,
       })
     } else {
       setShowModal(false)
       setShowModal(true)
     }
-  };
+  }
 
   return (
     <>
@@ -122,15 +122,25 @@ export default function ReviewModal({ idLibro, idUsuario }) {
 
       {showModal ? (
         <>
-          <form onSubmit={(e) => handleSubmit(e)}
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none">
+          <form
+            onSubmit={(e) => handleSubmit(e)}
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none"
+          >
             <div className="rounded-lg max-w-5xl m-5 shadow-lg relative flex flex-col bg-white outline-none w-screen">
               {/*header*/}
               <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                <input className="text-3xl font-semibold"
-                  type="text" name="titulo" placeholder="Titulo" spellCheck={true}
-                  value={form.titulo} onChange={(e) => handleChange(e)} />
-                <div className="flex"><Stars /></div>
+                <input
+                  className="text-3xl font-semibold"
+                  type="text"
+                  name="titulo"
+                  placeholder="Titulo"
+                  spellCheck={true}
+                  value={form.titulo}
+                  onChange={(e) => handleChange(e)}
+                />
+                <div className="flex">
+                  <Stars />
+                </div>
               </div>
               {/*body*/}
               <div className="relative m-5 p-1 flex-auto items-center border-4 rounded-2xl">
@@ -140,18 +150,21 @@ export default function ReviewModal({ idLibro, idUsuario }) {
                   value={form.comentario} onChange={(e) => handleChange(e)}
                 >
                 </textarea >
+
               </div>
               {/*footer*/}
               <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                 <button
                   className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="button" onClick={() => setShowModal(false)}
+                  type="button"
+                  onClick={() => setShowModal(false)}
                 >
                   Cancelar
                 </button>
                 <button
                   className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  type="submit" name="submit"
+                  type="submit"
+                  name="submit"
                 >
                   Publicar
                 </button>

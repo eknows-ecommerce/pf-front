@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import Paginacion from 'components/Paginacion/Paginacion'
 import { getAll, update } from 'features/actions/usuarios'
 
-import Paginacion from 'components/Paginacion/Paginacion'
 import usePaginacion from 'hooks/usePaginacion'
 import useSearch from 'hooks/useSearch'
 

@@ -4,7 +4,7 @@ import { getListCar } from 'features/actions/libros'
 import useModal from 'hooks/useModal'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Checkout from './Checkout'
 
 import { useAuth0 } from '@auth0/auth0-react'
@@ -21,6 +21,7 @@ function Carrito() {
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   const { isAuthenticated, user, loginWithRedirect } = useAuth0()
+  const navigate = useNavigate()
 
   useEffect(() => {
     //transformar el objeto en string
@@ -133,7 +134,7 @@ function Carrito() {
               className="w-full md:pl-10 pl-4 pr-10 md:pr-4 md:py-12 py-8 bg-white overflow-y-auto overflow-x-hidden h-screen"
               id="scroll"
             >
-              <Link to={'/home'}>
+              <button onClick={() => navigate(-1)}>
                 <div className=" flex items-center text-gray-500 hover:text-gray-600 cursor-pointer sticky">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +153,7 @@ function Carrito() {
                   </svg>
                   <p className="text-sm pl-2 leading-none">Regresar</p>
                 </div>
-              </Link>
+              </button>
 
               <p className="text-5xl font-black leading-10 text-rosadito-500 pt-3 ">
                 Carrito

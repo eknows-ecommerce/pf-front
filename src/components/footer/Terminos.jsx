@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from 'react'
 
 function Terminos() {
+  useEffect(() => {
+    if (window.scrollY) {
+      window.scroll(0, 0)
+    }
+  }, [])
   return (
     <>
       <div className="bg-gray-50 ">
@@ -24,7 +29,7 @@ function Terminos() {
                 <p className="lg:text-4xl md:text-2xl text-2xl font-semibold leading-9 text-white">
                   Terminos y condiciones de eKnows
                 </p>
-              
+
                 <div className="flex gap-3 pt-4">
                   <svg
                     className="text-white hover:text-gray-300 cursor-pointer"
@@ -89,61 +94,64 @@ function Terminos() {
                     />
                   </svg>
                 </div>
-                
               </div>
             </div>
             <div>
-                <h1 className= "bg-white text-black text-center font-comforta text-bold">
-                El Usuario deberá respetar estos Términos y Condiciones de Uso del sitio web. Las infracciones por acción u omisión de los presentes Términos y Condiciones de Uso generarán el derecho a favor del Administrador de suspender al Usuario que las haya realizado.
+              <h1 className="bg-white text-black text-center font-comforta text-bold">
+                El Usuario deberá respetar estos Términos y Condiciones de Uso
+                del sitio web. Las infracciones por acción u omisión de los
+                presentes Términos y Condiciones de Uso generarán el derecho a
+                favor del Administrador de suspender al Usuario que las haya
+                realizado. El Usuario se obliga a usar los Servicios Digitales
+                de conformidad con estos Términos y Condiciones, en forma
+                correcta y lícita. En caso contrario, el Administrador podrá
+                suspender la cuenta del Usuario, por considerarlo: violatorio de
+                estos Términos y Condiciones y/o de la Política de Privacidad de
+                estos Servicios Digitales, ofensivo, ilegal, violatorio de
+                derechos de terceros, contrario a la moral y buenas costumbres y
+                amenaza la seguridad de otros Usuarios. Sin embargo, esta
+                posibilidad no implica necesariamente que el contenido de toda
+                la información disponible en los Servicios Digitales haya sido
+                revisado. El Usuario se compromete a: No acceder a datos
+                restringidos o a intentar violar las barreras de seguridad para
+                llegar a ellos. No realizar búsquedas de vulnerabilidades o
+                explotación de las mismas para cualquier fin. No divulgar
+                información acerca de la detección de vulnerabilidades
+                encontradas en los Servicios Digitales. Comunicar al
+                Administrador toda información a la que tenga acceso que pudiera
+                implicar un compromiso a la seguridad de la información o los
+                servicios digitales. La adecuada utilización de todos los
+                recursos de Internet es, sin excepción, de entera
+                responsabilidad del Usuario de los Servicios Digitales.
+              </h1>
 
-El Usuario se obliga a usar los Servicios Digitales de conformidad con estos Términos y Condiciones, en forma correcta y lícita. En caso contrario, el Administrador podrá suspender la cuenta del Usuario, por considerarlo: violatorio de estos Términos y Condiciones y/o de la Política de Privacidad de estos Servicios Digitales, ofensivo, ilegal, violatorio de derechos de terceros, contrario a la moral y buenas costumbres y amenaza la seguridad de otros Usuarios.
-
-Sin embargo, esta posibilidad no implica necesariamente que el contenido de toda la información disponible en los Servicios Digitales haya sido revisado.
-
-El Usuario se compromete a:
-
-No acceder a datos restringidos o a intentar violar las barreras de seguridad para llegar a ellos.
-
-No realizar búsquedas de vulnerabilidades o explotación de las mismas para cualquier fin.
-
-No divulgar información acerca de la detección de vulnerabilidades encontradas en los Servicios Digitales.
-
-Comunicar al Administrador toda información a la que tenga acceso que pudiera implicar un compromiso a la seguridad de la información o los servicios digitales.
-
-La adecuada utilización de todos los recursos de Internet es, sin excepción, de entera responsabilidad del Usuario de los Servicios Digitales.
-                </h1>
-                
-                <h1 className= "bg-white text-black text-center font-comforta text-bold">
-                Actividades prohibidas
-Las siguientes actividades se encuentran expresamente vedadas, sin perjuicio de las prohibiciones generales expuestas anteriormente:
-
-Hostigar, acosar, amenazar, acechar, realizar actos de vandalismo hacia otros Usuarios.
-
-Infringir los derechos a la intimidad de otros Usuarios.
-
-Solicitar información personal identificable de otros Usuarios con el propósito de hostigar, atacar, explotar, violar la intimidad de los mismos;
-
-Publicar de manera intencionada o con conocimiento injurias o calumnias;
-
-Publicar, con el intento de engañar, contenido que es falso o inexacto;
-
-Intentar usurpar la identidad de otro Usuario, representando de manera falsa su afiliación con cualquier individuo o entidad, o utilizar el nombre de otro Usuario con el propósito de engañar;
-
-Promover, defender o mostrar pornografía, obscenidad, vulgaridad, blasfemia, odio, fanatismo, racismo y/o violencia.
-
-Vulnerar los derechos establecidos en la Ley N° 25.326 de Protección de Datos Personales.
-                </h1>
-               </div>
+              <h1 className="bg-white text-black text-center font-comforta text-bold">
+                Actividades prohibidas Las siguientes actividades se encuentran
+                expresamente vedadas, sin perjuicio de las prohibiciones
+                generales expuestas anteriormente: Hostigar, acosar, amenazar,
+                acechar, realizar actos de vandalismo hacia otros Usuarios.
+                Infringir los derechos a la intimidad de otros Usuarios.
+                Solicitar información personal identificable de otros Usuarios
+                con el propósito de hostigar, atacar, explotar, violar la
+                intimidad de los mismos; Publicar de manera intencionada o con
+                conocimiento injurias o calumnias; Publicar, con el intento de
+                engañar, contenido que es falso o inexacto; Intentar usurpar la
+                identidad de otro Usuario, representando de manera falsa su
+                afiliación con cualquier individuo o entidad, o utilizar el
+                nombre de otro Usuario con el propósito de engañar; Promover,
+                defender o mostrar pornografía, obscenidad, vulgaridad,
+                blasfemia, odio, fanatismo, racismo y/o violencia. Vulnerar los
+                derechos establecidos en la Ley N° 25.326 de Protección de Datos
+                Personales.
+              </h1>
+            </div>
           </div>
         </div>
-       
       </div>
-      
-      <style>
-      
-      </style>
+
+      <style></style>
     </>
-  );
+  )
 }
 
-export default Terminos;
+export default Terminos

@@ -9,43 +9,33 @@ import useFavorite from 'hooks/useToggle'
 import Button from '../templates/Button'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { useState } from 'react'
 
-function CardLibro({ id, portada, titulo, descuento = 15, precio }) {
+function CardLibro({
+  id,
+  portada,
+  titulo,
+  descuento = 15,
+  precio,
+  isFavorito,
+}) {
   const dispatch = useDispatch()
   const { isAuthenticated, loginWithPopup } = useAuth0()
-  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
-  const { toggle, handleToggle } = useFavorite(
-    favoritos.some((fav) => fav?.id === id)
-  )
-  const [listaCarrito, setListaCarrito] = useState(
-    JSON.parse(localStorage.getItem('carrito')) ?? []
-  )
+  const { toggle, handleToggle } = useFavorite(isFavorito)
 
   const handleFavorite = () => {
     if (isAuthenticated) {
       if (toggle) {
         dispatch(deleteByUser({ usuarioId: usuario.id, libroId: id }))
-        Swal.fire(
-          'Eliminar de favoritos',
-          'Se ha elimino exitosamente',
-          'success'
-        )
       } else {
         dispatch(createByUser({ usuarioId: usuario.id, libroId: id }))
-        Swal.fire(
-          'Agregar a favoritos',
-          'Se ha agregado exitosamente',
-          'success'
-        )
       }
       handleToggle()
     } else {
       Swal.fire({
         title: 'Log in',
         text: 'Debe logearse para agregar a favoritos',
-        icon: 'info',
+        // icon: 'info',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#E11D48',
@@ -60,18 +50,19 @@ function CardLibro({ id, portada, titulo, descuento = 15, precio }) {
 
   const handleCarrito = (id, precio) => {
     Swal.fire('Agregar al carrito', 'Se ha agregado exitosamente', 'success')
-    const existe =
-      listaCarrito.length > 0 && listaCarrito.find((item) => item.id === id)
+    const carrito = JSON.parse(localStorage.getItem('carrito')) ?? []
+    const existe = carrito.length > 0 && carrito.find((item) => item.id === id)
     if (!existe) {
-      const elemento = [...listaCarrito, { id, cantidad: 1, precio }]
-      setListaCarrito(elemento)
-      localStorage.setItem('carrito', JSON.stringify(elemento))
+      localStorage.setItem(
+        'carrito',
+        JSON.stringify([...carrito, { id, cantidad: 1, precio }])
+      )
     }
   }
 
   return (
     <div className="relative flex flex-col justify-between items-center content-center m-2 shadow-lg shadow-current p-3">
-      {favoritos.length > 0 && toggle ? (
+      {toggle ? (
         <button
           className="absolute p-2 text-rosadito bg-black rounded-full right-2 top-4 z-10"
           type="button"

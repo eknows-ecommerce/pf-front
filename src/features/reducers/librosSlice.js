@@ -8,6 +8,7 @@ import {
   deleteById,
   getListCar,
   getAllPredictivo,
+  getAllKpage
 } from 'features/actions/libros'
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   libro: {},
   carrito: [],
   totalLibros: [],
+  kpages: { count: 0, libros: [] },
   paginado: {
     paginaActual: 1,
     total: 0,
@@ -118,6 +120,18 @@ const librosSlice = createSlice({
       state.totalLibros = payload.libros ?? []
     },
     [getAllPredictivo.rejected]: (state) => {
+      state.cargando = true
+    },
+    //getAllKpage
+    [getAllKpage.pending]: (state) => {
+      state.cargando = true
+    },
+    [getAllKpage.fulfilled]: (state, { payload }) => {
+      state.cargando = false
+      state.kpages.count = payload.count ?? 0
+      state.kpages.libros = payload.libros ?? []
+    },
+    [getAllKpage.rejected]: (state) => {
       state.cargando = true
     },
     //getListCar

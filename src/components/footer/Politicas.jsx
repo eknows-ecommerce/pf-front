@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function Politicas() {
+  useEffect(() => {
+    if (window.scrollY) {
+      window.scroll(0, 0)
+    }
+  }, [])
   return (
     <>
       <div className="bg-gray-50 ">
@@ -105,9 +110,9 @@ function Politicas() {
                   de Privacidad”) se aplica a la utilización de los datos
                   personales del Usuario, conforme se describe a continuación,
                   del Sitio Web publicado en la
-                  URL:https://e-knows.herokuapp.com/ (en adelante, el
-                  “Sitio”), provista por e-Knows (en adelante, “e-Knows”), cuya
-                  función principal consiste en ofrecer al Usuario información
+                  URL:https://e-knows.herokuapp.com/ (en adelante, el “Sitio”),
+                  provista por e-Knows (en adelante, “e-Knows”), cuya función
+                  principal consiste en ofrecer al Usuario información
                   relacionada a las capacitaciones que e-Knows provee bajo una
                   metodología innovadora basada en la práctica a través de
                   determinados programas, tales como pero sin limitar,
@@ -132,8 +137,8 @@ function Politicas() {
                   reservas del Usuario de los Términos y Condiciones de
                   Utilización del Servicio (en adelante, los “Términos y
                   Condiciones”) publicados por e-Knows en
-                  https://e-knows.herokuapp.com/politicas, que
-                  se complementan con la Política de Privacidad.
+                  https://e-knows.herokuapp.com/politicas, que se complementan
+                  con la Política de Privacidad.
                 </p>
                 <span>1.5.</span>{' '}
                 <p>
@@ -347,11 +352,11 @@ function Politicas() {
                   Personal a ningún tercero para fines comerciales. Cualquier
                   persona que hubiera provisto información de contacto personal
                   a través del Sitio de e-Knows, podrá enviar un correo
-                  electrónico a contacto@eknows.com a fin de actualizar,
-                  borrar y/o corregir su información personal de contacto.
-                  e-Knows responderá dicho requerimiento dentro de las 48
-                  (cuarenta y ocho) horas siguientes a la recepción del mismo
-                  vía correo electrónico.
+                  electrónico a contacto@eknows.com a fin de actualizar, borrar
+                  y/o corregir su información personal de contacto. e-Knows
+                  responderá dicho requerimiento dentro de las 48 (cuarenta y
+                  ocho) horas siguientes a la recepción del mismo vía correo
+                  electrónico.
                 </p>
                 <span>5.7.</span>{' '}
                 <p>
@@ -514,9 +519,9 @@ function Politicas() {
                 <p>
                   a) A dichos efectos, el Usuario deberá enviar su Solicitud
                   mediante el envío de un correo electrónico con el asunto
-                  “Acceso a Datos Personales” a contacto@eknows.com
-                  e-Knows podrá requerir a dicho Usuario que se identifique, lo
-                  que podrá ser verificado por e-Knows, así como que precise los
+                  “Acceso a Datos Personales” a contacto@eknows.com e-Knows
+                  podrá requerir a dicho Usuario que se identifique, lo que
+                  podrá ser verificado por e-Knows, así como que precise los
                   Datos Personales a los cuales se desea acceder, rectificar o
                   remover.
                 </p>
@@ -681,9 +686,8 @@ function Politicas() {
                   e-Knows podrá modificar la Política de Privacidad en cualquier
                   momento. Las nuevas versiones de la Política de Privacidad
                   serán notificadas mediante publicación de dicha nueva versión
-                  en https://e-knows.herokuapp.com/politicas y
-                  notificada por las vías de contacto que el Usuario declare en
-                  su caso.
+                  en https://e-knows.herokuapp.com/politicas y notificada por
+                  las vías de contacto que el Usuario declare en su caso.
                 </p>
                 <span>13.2.</span>{' '}
                 <p>

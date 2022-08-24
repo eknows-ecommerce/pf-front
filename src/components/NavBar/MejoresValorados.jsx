@@ -19,12 +19,10 @@ const MasVendidos = () => {
     }
   })
   libros.sort((a, b) => b[1] - a[1])
-  console.log(libros) //libros ordenados por rating
   let cantidadParaMostrar = 16
   const data = libros
     .slice(0, cantidadParaMostrar)
     .map((e) => totalLibros.find((p) => p.id === e[0]))
-  console.log(data)
 
   useEffect(() => {
     dispatch(getAll())

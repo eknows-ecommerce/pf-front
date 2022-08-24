@@ -36,7 +36,6 @@ const reviewsSlice = createSlice({
       state.cargando = true
     },
     [getAll.fulfilled]: (state, { payload }) => {
-      console.log('payload', payload)
       state.cargando = false
       state.reviews = payload.reviews ?? []
     },
@@ -121,9 +120,6 @@ const reviewsSlice = createSlice({
   },
 })
 
-export const {
-  cambiarCargando,
-  setBusqueda,
-} = reviewsSlice.actions
+export const { cambiarCargando, setBusqueda } = reviewsSlice.actions
 
 export default reviewsSlice.reducer

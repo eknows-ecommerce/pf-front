@@ -1,39 +1,53 @@
 import React, { useEffect, useState } from 'react'
-//import { useMediaQuery } from 'react-responsive'
-import { useParams, Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import { getById as getBook } from 'features/actions/libros'
 import { getByLibro } from 'features/actions/review'
-import { createByUser as giveFav, deleteByUser as quitFav } from 'features/actions/favoritos'
 import Button from 'components/templates/Button'
 import ReviewCard from 'components/review/Review.jsx'
 import ReviewModal from 'components/review/Write.jsx'
 import Footer from 'components/footer/Footer'
-import Swal from 'sweetalert2'
 import { useAuth0 } from '@auth0/auth0-react'
-import useFavorite from '../../hooks/useToggle'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import useFavorite from 'hooks/useToggle'
+import Loading from 'components/loading/Loading'
+import {
+  createByUser,
+  deleteByUser,
+  getByUser,
+} from 'features/actions/favoritos'
+import Swal from 'sweetalert2'
+import { getByNickname } from 'features/actions/usuarios'
 
 export default function Detalle() {
   const dispatch = useDispatch()
   const { id } = useParams()
-  const [listaCarrito, setListaCarrito] = useState(
-    JSON.parse(localStorage.getItem('carrito')) ?? []
-  )
   let [isReview, checkReview] = useState(null)
   const [revs, setRevs] = useState(6)
-  const { libro } = useSelector(({ librosStore }) => librosStore)
+  const navigate = useNavigate()
+  const disptach = useDispatch()
+  const { user, isAuthenticated, loginWithPopup } = useAuth0()
+  const { libro, cargando, cambiarCargando } = useSelector(
+    ({ librosStore }) => librosStore
+  )
   const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
 
-  const { isAuthenticated, loginWithPopup } = useAuth0()
-  const { toggle, handleToggle } = useFavorite(
-    favoritos.some((fav) => fav?.id === parseInt(id))
-  )
-
   useEffect(() => {
     dispatch(getByLibro(id))
   }, [])
+
+useEffect(() => {
+  if (isAuthenticated) {
+    disptach(getByNickname(user.nickname))
+  }
+}, [isAuthenticated])
+
+useEffect(() => {
+  if (usuario?.id) {
+    dispatch(getByUser(usuario.id))
+  }
+}, [usuario])
 
   useEffect(() => {
     if (reviews && usuario)
@@ -110,43 +124,18 @@ export default function Detalle() {
     return out.slice(0, revs)
   }
 
-  const handleCarrito = (e) => {
-    const existe =
-      listaCarrito.length > 0 &&
-      listaCarrito.find((item) => item.id === libro.id)
-    if (!existe) {
-      const elemento = [
-        ...listaCarrito,
-        { id: libro.id, cantidad: 1, precio: libro.precio },
-      ]
-      setListaCarrito(elemento)
-      localStorage.setItem('carrito', JSON.stringify(elemento))
-    }
-  }
-
-  const handleFavorito = () => {
+  const handleFavorite = () => {
     if (isAuthenticated) {
-      if (toggle) {
-        dispatch(quitFav({ usuarioId: usuario.id, libroId: parseInt(id) }))
-        Swal.fire(
-          'Eliminar de favoritos',
-          'Se ha elimino exitosamente',
-          'success'
-        )
+      if (favoritos.some((fav) => fav.id === Number(id))) {
+        dispatch(deleteByUser({ usuarioId: usuario.id, libroId: Number(id) }))
       } else {
-        dispatch(giveFav({ usuarioId: usuario.id, libroId: parseInt(id) }))
-        Swal.fire(
-          'Agregar a favoritos',
-          'Se ha agregado exitosamente',
-          'success'
-        )
+        dispatch(createByUser({ usuarioId: usuario.id, libroId: Number(id) }))
       }
-      handleToggle()
     } else {
       Swal.fire({
         title: 'Log in',
         text: 'Debe logearse para agregar a favoritos',
-        icon: 'info',
+        // icon: 'info',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#E11D48',
@@ -159,9 +148,25 @@ export default function Detalle() {
     }
   }
 
+  
+  const handleCarrito = (id, precio) => {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) ?? []
+    const existe = carrito.length > 0 && carrito.find((item) => item.id === id)
+    if (!existe) {
+      localStorage.setItem(
+        'carrito',
+        JSON.stringify([...carrito, { id, cantidad: 1, precio }])
+      )
+    }
+    navigate('/home/carrito', { replace: true })
+  }
+
+
   return (
     <>
-      {libro &&
+      {cargando === true ? (
+        <Loading cambiarCargando={cambiarCargando} />
+      ) : (
         <div className="relative max-w-screen-2xl px-4 py-8 mx-auto">
           <div>
             <h1 className="text-3xl font-bold lg:text-5xl font-comforta">
@@ -169,6 +174,7 @@ export default function Detalle() {
             </h1>
             <p className="mt-1 text-sm text-gray-500 ">{libro.autor}</p>
           </div>
+
           <div className="grid gap-8 lg:items-start lg:grid-cols-4">
             <div className="lg:col-span-3">
               <img
@@ -191,10 +197,14 @@ export default function Detalle() {
                 <div>
                   <p className="text-xl  font-bold">${libro.precio}</p>
                 </div>
-                <Link to="/home/carrito">
-                  <Button onClick={handleCarrito}>Comprar</Button>
-                </Link>
-                <Button secondary onClick={handleFavorito}>Agregar a favoritos</Button>
+                <Button onClick={() => handleCarrito(libro.id, libro.precio)}>
+                    Comprar
+                  </Button>
+                  <Button onClick={handleFavorite} secondary>
+                    {favoritos?.some((fav) => fav.id === Number(id))
+                      ? 'Eliminar de favoritos'
+                      : 'Agregar a favoritos'}
+                  </Button>
               </div>
             </div>
 
@@ -245,12 +255,12 @@ export default function Detalle() {
                   :
                   <div className='text-center font-comforta font-bold'>No hay reviews</div>
                 }
+
               </div>
             </div>
           </div>
         </div>
-      }
-      <Footer />
+      )}
     </>
   )
 }
