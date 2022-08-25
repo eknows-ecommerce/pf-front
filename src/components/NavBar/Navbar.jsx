@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { FaShoppingCart } from 'react-icons/fa'
 import images from '../../assets/img/logo.png'
 import Search from '../search/Search'
@@ -21,6 +21,7 @@ export default function Navbar() {
 
   const { search, totalLibros } = useSelector(({ librosStore }) => librosStore)
 
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getByNickname(user))
@@ -44,7 +45,12 @@ export default function Navbar() {
   const handleClick = () => {
     show.current.classList.toggle('hidden')
   }
+  const handleFavorite = () => {
+    user? navigate('/menu#favoritos')
+    : alert('Necesitas estar logeado para ir a Favoritos')
 
+
+  }
   return (
     <>
       <header className="shadow-sm ">
@@ -136,13 +142,46 @@ export default function Navbar() {
               </Link>
             )}
           </nav>
-          <div className="items-center space-x-4 lg:flex">
-            <Link
-              to="/home/carrito"
-              className="flex items-center content-center justify-center w-10 h-10 border border-gray-700 rounded-full"
-            >
-              <FaShoppingCart />
-            </Link>
+          {/* <div style={{position: 'fixed', top: '0%', right: 0}}> */}
+          <div className='w-10 h-10 z-10 ' >
+
+            <div className="float-right fixed  ">
+              <Link
+                to="/home/carrito"
+                className="flex items-center content-center justify-center w-10 h-10 border border-gray-700 rounded-full"
+              >
+                <FaShoppingCart />
+
+
+              </Link>
+            </div>
+            
+            <div  className='w-4 h-10 z-10 ' >
+            <div className="float-right fixed w-3 m-8 ">             
+
+                <button
+                  className="absolute p-2 text-rosadito bg-black rounded-full right-2 top-4 z-10"
+                  type="button"
+                  onClick={handleFavorite}
+                >
+                  <svg
+                    className="w-4 h-4 hover:scale-125 transition-all duration-700 ease-in-out"
+                    fill="currentColor"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    ></path>
+                  </svg>
+                </button>
+                </div>
+            </div>
+
           </div>
         </div>
         <div className="border-t border-gray-100 lg:hidden">
@@ -170,8 +209,9 @@ export default function Navbar() {
           </nav>
         </div>
       </header>
-
-      <Outlet />
+      <div className='relative z-0'>
+        <Outlet />
+      </div>
       {/* <Footer /> */}
     </>
   )

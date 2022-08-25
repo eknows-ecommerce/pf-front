@@ -17,11 +17,12 @@ export default function Menu() {
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   console.log(usuario.id)
 
-  const [Speak, setSpeak] = useState(false)
-  const [tags, setTags] = useState(document.getElementsByName('DIV'))
+ 
+  const [Speak, setSpeak] = useState(true)
+  const [tags, setTags] = useState(document.getElementsByName('Speech'))
   const synth = window.speechSynthesis;
 
-  function speech(Speak) {
+  function speech() {
 
     tags.forEach((tag) => {
       tag.addEventListener('click', (e) => {
@@ -37,7 +38,7 @@ export default function Menu() {
 
         if (synth.speaking) {
           synth.cancel();
-          setTimeout(() => { localStorage.audio === 'on' && synth.speak(utterThis); }, 250);
+          setTimeout(() => { localStorage.audio === 'on' && synth.speak(utterThis); }, 1000);
         }
         else {
           synth.speak(utterThis);
@@ -48,22 +49,52 @@ export default function Menu() {
 
   }
 
-  function hi(n) {
+  function hi() {
     var voices = synth.getVoices();
-    var utterThis = new SpeechSynthesisUtterance('perfil actual\n' + n);
+    var utterThis = new SpeechSynthesisUtterance('perfil actual\n' +localStorage.user);
     utterThis.voice = voices[1];
     utterThis.pitch = 1;
     utterThis.rate = 1;
     if (synth.speaking) {
       synth.cancel();
-      setTimeout(() => { (localStorage.audio === 'on') && synth.speak(utterThis); }, 250);
+      setTimeout(() => { (localStorage.audio === 'on' && Speak===true) && synth.speak(utterThis); }, 1000);
     }
     else {
       synth.speak(utterThis);
     }
   }
+
+
+
+  
+  useEffect(() => {    
+    let temp 
+    function hi() {
+      var voices = synth.getVoices();
+      var utterThis = new SpeechSynthesisUtterance('perfil actual\n' +localStorage.user );
+      utterThis.voice = voices[1];
+      utterThis.pitch = 1;
+      utterThis.rate = 1;
+      if (synth.speaking) {
+        synth.cancel();
+        temp = setTimeout(() => { (localStorage.audio === 'on' && Speak===true) && synth.speak(utterThis); }, 1000);
+      }
+      else {
+        synth.speak(utterThis);
+      }
+    }
+  
+    hi()
+    localStorage.audio === 'on' && speech(Speak)  
+    return ()=> clearTimeout(temp)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  
+
   useEffect(() => {
-    localStorage.audio === 'on' && speech(Speak)
+    
+ 
     dispatch(getByNickname(user))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,10 +103,15 @@ export default function Menu() {
     if (usuario) {
       dispatch(getByUser(usuario.id))
     }
+    localStorage.setItem('user', usuario.name)
+    
   }, [usuario])
   return (
     <section>
       <div>
+        <div class="fixed top-5 right-5 py-2.5">
+          <Audio /> 
+        </div>
         <div>
           <Barra />
         </div>
