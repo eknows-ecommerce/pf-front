@@ -39,17 +39,15 @@ export default function Navbar() {
     dispatch(setSearch(e.target.value))
   }
 
-
   const show = useRef(null)
 
   const handleClick = () => {
     show.current.classList.toggle('hidden')
   }
   const handleFavorite = () => {
-    user? navigate('/menu#favoritos')
-    : alert('Necesitas estar logeado para ir a Favoritos')
-
-
+    user
+      ? navigate('/menu#favoritos')
+      : alert('Necesitas estar logeado para ir a Favoritos')
   }
   return (
     <>
@@ -84,13 +82,11 @@ export default function Navbar() {
             </Link>
             {location.pathname === '/home' ? (
               <form className="hidden mb-0 lg:flex w-96">
-
                 <Search
                   search={search}
                   handleSearch={handleSearch}
                   totalLibros={totalLibros}
                 />
-
               </form>
             ) : (
               ''
@@ -98,13 +94,11 @@ export default function Navbar() {
           </div>
           <div className="flex justify-end flex-1 w-0 lg:hidden">
             <div ref={show} className="hidden">
-
               <Search
                 busqueda={search}
                 handleSearch={handleSearch}
                 totalLibros={totalLibros}
               />
-
             </div>
             <button
               className="p-2 text-gray-500 bg-gray-100 rounded-full"
@@ -143,22 +137,18 @@ export default function Navbar() {
             )}
           </nav>
           {/* <div style={{position: 'fixed', top: '0%', right: 0}}> */}
-          <div className='w-10 h-10 z-10 ' >
-
+          <div className="w-10 h-10 z-10 ">
             <div className="float-right fixed  ">
               <Link
                 to="/home/carrito"
                 className="flex items-center content-center justify-center w-10 h-10 border border-gray-700 rounded-full"
               >
                 <FaShoppingCart />
-
-
               </Link>
             </div>
-            
-            <div  className='w-4 h-10 z-10 ' >
-            <div className="float-right fixed w-3 m-8 ">             
 
+            <div className="w-4 h-10 z-10 ">
+              <div className="float-right fixed w-3 m-8 ">
                 <button
                   className="absolute p-2 text-rosadito bg-black rounded-full right-2 top-4 z-10"
                   type="button"
@@ -179,9 +169,8 @@ export default function Navbar() {
                     ></path>
                   </svg>
                 </button>
-                </div>
+              </div>
             </div>
-
           </div>
         </div>
         <div className="border-t border-gray-100 lg:hidden">
@@ -189,11 +178,11 @@ export default function Navbar() {
             <Link className="flex-shrink-0 pl-6 text-gray-900" to="home">
               Tienda
             </Link>
-            <Link to="masVendidos" className="flex-shrink-0 pl-4 text-gray-900">
-              Mas Vendidos
-            </Link>
-            <Link to="ofertas" className="flex-shrink-0 pl-4 text-gray-900">
-              Ofertas
+            <Link
+              to="mejoresvalorados"
+              className="flex-shrink-0 pl-4 text-gray-900"
+            >
+              Mejores Valorados
             </Link>
             <Link to="contactanos" className="flex-shrink-0 pl-4 text-gray-900">
               Contactanos
@@ -209,7 +198,7 @@ export default function Navbar() {
           </nav>
         </div>
       </header>
-      <div className='relative z-0'>
+      <div className="relative z-0">
         <Outlet />
       </div>
       {/* <Footer /> */}

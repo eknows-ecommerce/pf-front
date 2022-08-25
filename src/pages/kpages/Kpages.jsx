@@ -15,16 +15,17 @@ const mensaje2 =
 
 export default function Kpages() {
   const { categorias } = useSelector(({ categoriasStore }) => categoriasStore)
-
+const location = useLocation()
   const [mensaje, setMensaje] = useState('')
 
   const dispatch = useDispatch()
 
   useEffect(() => {
+  
     dispatch(getAllCategorias())
   }, [dispatch])
 
-  /*   useEffect(() => {
+     useEffect(() => {
     if (window.scrollY) {
       window.scroll(0, 0) // Restablece la posición de desplazamiento en la parte superior izquierda del documento
     }
@@ -33,19 +34,16 @@ export default function Kpages() {
       ? dispatch(getAllKpage('formatos=[2,3]'))
       : dispatch(getAllKpage('formatos=[1]'))
     location.pathname === '/views' ? setMensaje(mensaje1) : setMensaje(mensaje2)
-  }, [dispatch, location.pathname]) */
+  }, [dispatch, location.pathname]) 
 
   return (
-    <div className=" 2xl:container 2xl:mx-auto">
-      <p className=" w-10/12 mx-auto md:w-full font-style: italic   lg:text-4xl text-3xl lg:leading-9 md:leading-7 leading-9 text-center text-gray-800">
+    <div className=" 2xl:container 2xl:mx-auto bg-gray-100">
+      <h3 className=" px-80 py-4 w-10/12 mx- md:w-full font-style: italic   lg:text-4xl text-3xl lg:leading-9 md:leading-7 leading-9 text-center text-gray-800">
         {mensaje}
-      </p>
-      <p className=" w-10/12 mx-auto md:w-full  font-semibold lg:text-2xl text-1xl lg:leading-7 md:leading-5 leading-3 text-center text-gray-800">
-        Otro mensaje
-      </p>
+      </h3>
 
-      <Search />
-      {/*   <ContenedorKpages /> */}
+
+   
       {categorias.length > 0 &&
         categorias.map((c) => <Carousel key ={crypto.randomUUID()} categoria={c} />)}
 
