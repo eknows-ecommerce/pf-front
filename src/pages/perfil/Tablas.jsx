@@ -1,25 +1,18 @@
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import Vista from './Vista'
 
 import { FaEnvelopeSquare, FaUser } from 'react-icons/fa'
-import { getByUser as getReviewsByUser } from 'features/actions/review'
-import { getByUser as getFavsByUser } from 'features/actions/favoritos'
 
 export default function Tablas({ setShowModal }) {
   const [vista, setVista] = useState('pedidos')
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
-  const { pedidosUsuario } = useSelector(({ pedidosStore }) => pedidosStore)
-  const { review } = useSelector(({ reviewsStore }) => reviewsStore)
-  const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    // dispatch(getReviewsByUser(usuario.id))
-    dispatch(getFavsByUser(usuario.id))
-  }, [])
+  const { count: pedidoCount } = useSelector(({ pedidosStore }) => pedidosStore)
+  const { count: favCount } = useSelector(
+    ({ favoritosStore }) => favoritosStore
+  )
+  const { reviewsByUser } = useSelector(({ reviewsStore }) => reviewsStore)
 
   return (
     <>
@@ -94,7 +87,7 @@ export default function Tablas({ setShowModal }) {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          {pedidosUsuario.length}
+                          {pedidoCount}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Pedido/s
@@ -102,7 +95,7 @@ export default function Tablas({ setShowModal }) {
                       </div>
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          {favoritos.length}
+                          {favCount}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Favoritos
@@ -110,8 +103,7 @@ export default function Tablas({ setShowModal }) {
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          {/* {Object.keys(review).length > 0 ? review.cantidad : 0} */}
-                          0
+                          {reviewsByUser?.count}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Reseñas

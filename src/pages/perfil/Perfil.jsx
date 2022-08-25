@@ -4,6 +4,8 @@ import { Outlet } from 'react-router-dom'
 import { getByNickname } from 'features/actions/usuarios'
 import { useAuth0 } from '@auth0/auth0-react'
 import { getByUser } from 'features/actions/pedidos'
+import { getByUser as getFavsByUser } from 'features/actions/favoritos'
+import { getByUser as getReviewByUser } from 'features/actions/review'
 
 export default function Perfil() {
   const dispatch = useDispatch()
@@ -64,9 +66,9 @@ export default function Perfil() {
   }, [getByNickname, user])
 
   useEffect(() => {
-    if (usuario) {
-      dispatch(getByUser(usuario.id))
-    }
+    dispatch(getByUser(usuario.id))
+    dispatch(getFavsByUser(usuario.id))
+    dispatch(getReviewByUser(usuario.id))
   }, [usuario])
 
   return (

@@ -51,14 +51,10 @@ function RoutesApp() {
         <Route path="tags" element={<Tags />} />
       </Route>
 
-      <Route path="perfil" element={<Perfil />}>
-        <Route index element={<Info />} />
-        {/* <Route path="pedidos" element={<Pedidos />} />
-        <Route path="editar" element={<Editar />} />
-        <Route path="favoritos" element={<Favoritos />} /> */}
-      </Route>
-
       <Route path="/" element={<Navbar />}>
+        <Route path="perfil" element={<Perfil />}>
+          <Route index element={<Info />} />
+        </Route>
         <Route index element={<Landing />} />
         <Route path="mejoresvalorados" element={<MejoresValarados />} />
 

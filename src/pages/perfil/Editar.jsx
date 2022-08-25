@@ -19,7 +19,7 @@ export default function Editar({ setShowModal }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    dispatch(update({ id: usuario.id, datos: usuario }))
+    dispatch(update({ id: usuario.id, datos: formulario }))
     setFormulario(false)
   }
 

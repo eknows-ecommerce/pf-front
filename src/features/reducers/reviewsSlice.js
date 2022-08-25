@@ -17,6 +17,10 @@ const initialState = {
   review: {},
   cargando: null,
   busqueda: '',
+  reviewsByUser: {
+    reviews: [],
+    count: 0,
+  },
 }
 
 const reviewsSlice = createSlice({
@@ -60,6 +64,8 @@ const reviewsSlice = createSlice({
     [getByUser.fulfilled]: (state, { payload }) => {
       state.cargando = false
       state.review = payload.review
+      state.reviewsByUser.reviews = payload.reviews
+      state.reviewsByUser.count = payload.count
     },
     [getByUser.rejected]: (state) => {
       state.cargando = true
@@ -70,8 +76,8 @@ const reviewsSlice = createSlice({
     },
     [getByLibro.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.libro = payload?.libro;
-      state.reviews = payload?.libro?.ReviewLibro;
+      state.libro = payload?.libro
+      state.reviews = payload?.libro?.ReviewLibro
       state.count = payload?.count
     },
     [getByLibro.rejected]: (state) => {

@@ -1,19 +1,10 @@
-import { getByUser } from 'features/actions/favoritos'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import ItemFav from './ItemFav'
 
 function Favoritos() {
   const favoritos = useSelector(
     ({ favoritosStore }) => favoritosStore.favoritos
   )
-  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getByUser(usuario.id))
-  }, [])
 
   return (
     <div className=" h-full sm:px-2">
