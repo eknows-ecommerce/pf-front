@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import logo from "../../assets/img/logo.png"
 export default function AcercaDe() {
   useEffect(() => {
     if (window.scrollY) {
@@ -25,22 +26,22 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                      src="https://cdn.tuk.dev/assets/photo-1564061170517-d3907caa96ea.jfif"
-                      alt
+                      src={logo}
+                      alt="LOGO"
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
                 </div>
                 <div className="px-6 mt-16">
                   <div className="font-bold text-3xl text-center pb-1">
-                    Alberto Zalazar
+                    Alberto 
                   </div>
                   {/* <p className="text-gray-800 text-sm text-center">Chief Executive Officer</p> */}
                   <p className="text-center text-gray-600 text-base pt-3 font-normal">
                     FullStack Developer
                   </p>
                   <div className="w-full flex justify-center pt-5 pb-5">
-                    <a href="javascript:void(0)" className="mx-5">
+                    <a href="https://github.com/alberto012" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -58,25 +59,8 @@ export default function AcercaDe() {
                         </svg>
                       </div>
                     </a>
-                    <a href="javascript:void(0)" className="mx-5">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="#718096"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="feather feather-twitter"
-                        >
-                          <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-                        </svg>
-                      </div>
-                    </a>
-                    <a href="javascript:void(0)" className="mx-5">
+                    
+                    <a href="https://www.instagram.com/zalaz.ar/" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -112,8 +96,8 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                      src="https://cdn.tuk.dev/assets/photo-1530577197743-7adf14294584.jfif"
-                      alt
+                      src={logo}
+                      alt="logo"
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
@@ -124,10 +108,10 @@ export default function AcercaDe() {
                   </div>
                   {/* <p className="text-gray-800 text-sm text-center">Product Design Head</p> */}
                   <p className="text-center text-gray-600 text-base pt-3 font-normal">
-                    ullStack Developer
+                    FullStack Developer
                   </p>
                   <div className="w-full flex justify-center pt-5 pb-5">
-                    <a href="javascript:void(0)" className="mx-5">
+                    <a href="https://github.com/alexTRDev" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -145,25 +129,8 @@ export default function AcercaDe() {
                         </svg>
                       </div>
                     </a>
-                    <a href="javascript:void(0)" className="mx-5">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="#718096"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="feather feather-twitter"
-                        >
-                          <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-                        </svg>
-                      </div>
-                    </a>
-                    <a href="javascript:void(0)" className="mx-5">
+                   
+                    <a href="jhttps://www.instagram.com/" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -199,8 +166,8 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                      src="https://cdn.tuk.dev/assets/photo-1566753323558-f4e0952af115.jfif"
-                      alt
+                      src={logo}
+                      alt="logo"
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
@@ -211,10 +178,10 @@ export default function AcercaDe() {
                   </div>
                   {/* <p className="text-gray-800 text-sm text-center">Manager Development</p> */}
                   <p className="text-center text-gray-600 text-base pt-3 font-normal">
-                    ullStack Developer
+                    FullStack Developer
                   </p>
                   <div className="w-full flex justify-center pt-5 pb-5">
-                    <a href="javascript:void(0)" className="mx-5">
+                    <a href="https://github.com/nnicolasg" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -232,25 +199,8 @@ export default function AcercaDe() {
                         </svg>
                       </div>
                     </a>
-                    <a href="javascript:void(0)" className="mx-5">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="#718096"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="feather feather-twitter"
-                        >
-                          <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-                        </svg>
-                      </div>
-                    </a>
-                    <a href="javascript:void(0)" className="mx-5">
+                  
+                    <a href="https://www.instagram.com/" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -286,8 +236,8 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                      src="https://cdn.tuk.dev/assets/boy-smiling_23-2148155640.jpg"
-                      alt
+                    src={logo}
+                    alt="logo"
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
@@ -298,10 +248,10 @@ export default function AcercaDe() {
                   </div>
                   {/* <p className="text-gray-800 text-sm text-center">Principal Software Engineer</p> */}
                   <p className="text-center text-gray-600 text-base pt-3 font-normal">
-                    ullStack Developer.
+                    FullStack Developer.
                   </p>
                   <div className="w-full flex justify-center pt-5 pb-5">
-                    <a href="javascript:void(0)" className="mx-5">
+                    <a href="https://github.com/RichyMalicia" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -319,25 +269,8 @@ export default function AcercaDe() {
                         </svg>
                       </div>
                     </a>
-                    <a href="javascript:void(0)" className="mx-5">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="#718096"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="feather feather-twitter"
-                        >
-                          <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-                        </svg>
-                      </div>
-                    </a>
-                    <a href="javascript:void(0)" className="mx-5">
+                   
+                    <a href="https://www.instagram.com/richy_malicia/" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -373,8 +306,8 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                      src="https://cdn.tuk.dev/assets/blond-man-happy-expression_1194-2873.jpg"
-                      alt
+                     src={logo}
+                     alt="logo"
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
@@ -385,10 +318,10 @@ export default function AcercaDe() {
                   </div>
                   {/* <p className="text-gray-800 text-sm text-center">Product Design Head</p> */}
                   <p className="text-center text-gray-600 text-base pt-3 font-normal">
-                    ullStack Developer
+                    FullStack Developer
                   </p>
                   <div className="w-full flex justify-center pt-5 pb-5">
-                    <a href="javascript:void(0)" className="mx-5">
+                    <a href="https://github.com/Jt2572" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -406,25 +339,8 @@ export default function AcercaDe() {
                         </svg>
                       </div>
                     </a>
-                    <a href="javascript:void(0)" className="mx-5">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="#718096"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="feather feather-twitter"
-                        >
-                          <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-                        </svg>
-                      </div>
-                    </a>
-                    <a href="javascript:void(0)" className="mx-5">
+                  
+                    <a href="https://www.instagram.com/" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -460,8 +376,8 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                      src="https://cdn.tuk.dev/assets/photo-1570211776045-af3a51026f4a.jfif"
-                      alt
+                    src={logo}
+                    alt="logo"
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
@@ -472,10 +388,10 @@ export default function AcercaDe() {
                   </div>
                   {/* <p className="text-gray-800 text-sm text-center">UX Designer</p> */}
                   <p className="text-center text-gray-600 text-base pt-3 font-normal">
-                    ullStack Developer
+                    FullStack Developer
                   </p>
                   <div className="w-full flex justify-center pt-5 pb-5">
-                    <a href="javascript:void(0)" className="mx-5">
+                    <a href="https://github.com/MatiasCardullo" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -493,25 +409,8 @@ export default function AcercaDe() {
                         </svg>
                       </div>
                     </a>
-                    <a href="javascript:void(0)" className="mx-5">
-                      <div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={24}
-                          height={24}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="#718096"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="feather feather-twitter"
-                        >
-                          <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-                        </svg>
-                      </div>
-                    </a>
-                    <a href="javascript:void(0)" className="mx-5">
+                   
+                    <a href="https://www.instagram.com/" className="mx-5">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
