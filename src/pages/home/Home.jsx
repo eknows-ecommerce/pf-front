@@ -10,7 +10,7 @@ import { getByNickname } from 'features/actions/usuarios'
 import Ordenamiento from 'components/filtros/Ordenamiento'
 import HomeLibros from 'components/contenedores/HomeLibros'
 import Paginacion2 from 'components/Paginacion/Paginacion2'
-import { setLimite } from 'features/reducers/librosSlice'
+import { setPaginasTotales, setReset } from 'features/reducers/librosSlice'
 
 function Home() {
   const { user, isAuthenticated } = useAuth0()
@@ -25,7 +25,9 @@ function Home() {
     rangoPrecios,
     orden,
     buscarPor,
-    paginado: { paginaActual, limite, total },
+    paginaActual,
+    limite,
+    total,
   } = useSelector(({ librosStore }) => librosStore)
 
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
@@ -34,8 +36,8 @@ function Home() {
   //   usePaginacion()
 
   useEffect(() => {
-    dispatch(setLimite(6))
-  }, [])
+    dispatch(setPaginasTotales({ count, limite: 6 }))
+  }, [count])
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -50,8 +52,14 @@ function Home() {
   }, [usuario])
 
   // useEffect(() => {
-  //   handleTotal(count)
-  // }, [count])
+  //   let query = ''
+  //   if (orden) query += `orden=${JSON.stringify(orden)}&`
+
+  //   query += `limite=6&`
+  //   query += `pagina=1`
+
+  //   dispatch(getAll(query))
+  // }, [paginaActual === 1])
 
   useEffect(() => {
     let query = ''
@@ -68,8 +76,9 @@ function Home() {
       query += `search=${search}&`
     }
 
-    query += `limite=${limite}&`
+    query += `limite=6&`
     query += `pagina=${paginaActual}`
+
     dispatch(getAll(query))
   }, [
     search,
@@ -81,6 +90,7 @@ function Home() {
     buscarPor,
     limite,
     paginaActual,
+    count,
   ])
 
   return (

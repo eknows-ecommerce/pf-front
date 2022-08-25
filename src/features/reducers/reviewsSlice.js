@@ -41,7 +41,7 @@ const reviewsSlice = createSlice({
     },
     [getAll.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.reviews = payload.reviews ?? []
+      state.reviews = payload?.reviews
     },
     [getAll.rejected]: (state) => {
       state.cargando = true
@@ -52,7 +52,7 @@ const reviewsSlice = createSlice({
     },
     [getById.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.review = payload.review
+      state.review = payload?.review
     },
     [getById.rejected]: (state) => {
       state.cargando = true
@@ -63,9 +63,9 @@ const reviewsSlice = createSlice({
     },
     [getByUser.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.review = payload.review
-      state.reviewsByUser.reviews = payload.reviews
-      state.reviewsByUser.count = payload.count
+      state.review = payload?.review
+      state.reviewsByUser.reviews = payload?.reviews
+      state.reviewsByUser.count = payload?.count
     },
     [getByUser.rejected]: (state) => {
       state.cargando = true
@@ -101,9 +101,9 @@ const reviewsSlice = createSlice({
     },
     [update.fulfilled]: (state, { payload }) => {
       const index = state.reviews.findIndex(
-        (review) => review.id === payload.review.id
+        (review) => review.id === payload?.review.id
       )
-      state.reviews[index] = payload.review
+      state.reviews[index] = payload?.review
       state.cargando = false
     },
     [update.rejected]: (state) => {

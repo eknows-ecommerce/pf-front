@@ -1,11 +1,11 @@
-import { create } from "features/actions/review";
+import { create } from 'features/actions/review'
 import { isPedido as verificar } from 'features/actions/pedidos'
 import { getByLibro } from 'features/actions/review'
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useAuth0 } from "@auth0/auth0-react";
-import Swal from 'sweetalert2';
+import React, { useEffect } from 'react'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useAuth0 } from '@auth0/auth0-react'
+import Swal from 'sweetalert2'
 
 export default function ReviewModal({ idLibro, idUsuario }) {
   const dispatch = useDispatch()
@@ -13,7 +13,7 @@ export default function ReviewModal({ idLibro, idUsuario }) {
   const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const [showModal, setShowModal] = React.useState(false)
   const { isAuthenticated, loginWithPopup } = useAuth0()
-  const [rate, setRate] = useState(3);
+  const [rate, setRate] = useState(3)
 
   useEffect(() => {
     dispatch(getByLibro(idLibro))
@@ -23,14 +23,15 @@ export default function ReviewModal({ idLibro, idUsuario }) {
     if (idUsuario && idLibro) {
       dispatch(verificar(idUsuario + '/' + idLibro))
     }
-  }, [])
+  }, [idLibro, idUsuario])
 
   const handleWrite = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (isAuthenticated) {
-      if (isPedido)
+      if (isPedido) {
+        console.log(isPedido)
         setShowModal(true)
-      else {
+      } else {
         Swal.fire(
           'Compra no realizada',
           'Debe haber comprado el libro para escribir una review de este libro',
@@ -55,19 +56,27 @@ export default function ReviewModal({ idLibro, idUsuario }) {
   }
 
   function Stars() {
-    let out = []; let star;
+    let out = []
+    let star
     for (let i = 0; i < 5; i++) {
-      i < rate ? star = "text-yellow-500" : star = "text-gray-300"
+      i < rate ? (star = 'text-yellow-500') : (star = 'text-gray-300')
       out.push(
         <label key={crypto.randomUUID()}>
-          <input type="radio" name="rating" className="[display:none]"
+          <input
+            type="radio"
+            name="rating"
+            className="[display:none]"
             value={form.rating} //onChange={(e) => handleChange(e)}
             onClick={() => {
               setRate(i + 1)
-              form.rating = (i + 1)
-            }} />
-          <svg className={"w-6 h-6 hover:animate-spin " + star}
-            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+              form.rating = i + 1
+            }}
+          />
+          <svg
+            className={'w-6 h-6 hover:animate-spin ' + star}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
           >
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
           </svg>
@@ -78,8 +87,8 @@ export default function ReviewModal({ idLibro, idUsuario }) {
   }
 
   const [form, setForm] = useState({
-    titulo: "",
-    comentario: "",
+    titulo: '',
+    comentario: '',
     rating: 3,
     LibroId: idLibro,
     UsuarioId: idUsuario,
@@ -94,13 +103,13 @@ export default function ReviewModal({ idLibro, idUsuario }) {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (form.titulo && form.comentario) {
-      dispatch(create(form));
+      dispatch(create(form))
       setShowModal(false)
       setForm({
-        titulo: "",
-        comentario: "",
+        titulo: '',
+        comentario: '',
         rating: 3,
         LibroId: idLibro,
         UsuarioId: idUsuario,
@@ -144,13 +153,16 @@ export default function ReviewModal({ idLibro, idUsuario }) {
               </div>
               {/*body*/}
               <div className="relative m-5 p-1 flex-auto items-center border-4 rounded-2xl">
-                <textarea className="text-slate-800 text-lg leading-relaxed outline-none w-full"
-                  maxLength={1024} spellCheck={true}
-                  type='text' placeholder='Escriba su review' name="comentario"
-                  value={form.comentario} onChange={(e) => handleChange(e)}
-                >
-                </textarea >
-
+                <textarea
+                  className="text-slate-800 text-lg leading-relaxed outline-none w-full"
+                  maxLength={1024}
+                  spellCheck={true}
+                  type="text"
+                  placeholder="Escriba su review"
+                  name="comentario"
+                  value={form.comentario}
+                  onChange={(e) => handleChange(e)}
+                ></textarea>
               </div>
               {/*footer*/}
               <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

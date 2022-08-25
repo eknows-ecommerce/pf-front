@@ -5,13 +5,16 @@ import {
   setPaginaSiguiente,
   setPaginaAnterior,
 } from 'features/reducers/librosSlice'
+import { useEffect } from 'react'
 
 export default function Paginacion2() {
-  const {
-    paginado: { paginaActual, total },
-  } = useSelector(({ librosStore }) => librosStore)
+  const { paginaActual, total } = useSelector(({ librosStore }) => librosStore)
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setPaginaActual(paginaActual))
+  }, [])
 
   const handleAnterior = () => {
     dispatch(setPaginaAnterior())
@@ -28,9 +31,8 @@ export default function Paginacion2() {
   return (
     <ol className="flex justify-center space-x-1 text-xs font-medium py-5">
       <li>
-        <a
+        <button
           onClick={handleAnterior}
-          href={'#'}
           className="inline-flex items-center justify-center w-8 h-8 border border-gray-100 rounded-full"
         >
           <svg
@@ -45,30 +47,31 @@ export default function Paginacion2() {
               clipRule="evenodd"
             />
           </svg>
-        </a>
+        </button>
       </li>
-      {Array.from({ length: total }, (x, i) => i + 1).map((pagina) =>
-        pagina === paginaActual ? (
-          <li className="block w-8 h-8 leading-8 text-center text-white bg-blue-600 border-blue-600 rounded-full">
-            {pagina}
+      {Array.from({ length: total }, (x, i) => i + 1).map((pg) =>
+        pg === paginaActual ? (
+          <li
+            key={crypto.randomUUID()}
+            className="block w-8 h-8 leading-8 text-center text-white bg-blue-600 border-blue-600 rounded-full"
+          >
+            {pg}
           </li>
         ) : (
-          <li>
-            <a
-              href={'#'}
-              onClick={() => handleActual(pagina)}
+          <li key={crypto.randomUUID()}>
+            <button
+              onClick={() => handleActual(pg)}
               className="block w-8 h-8 leading-8 text-center border border-gray-100 rounded-full"
             >
               {' '}
-              {pagina}{' '}
-            </a>
+              {pg}{' '}
+            </button>
           </li>
         )
       )}
       <li>
-        <a
+        <button
           onClick={handleSiguiente}
-          href={'#'}
           className="inline-flex items-center justify-center w-8 h-8 border border-gray-100 rounded-full"
         >
           <svg
@@ -83,7 +86,7 @@ export default function Paginacion2() {
               clipRule="evenodd"
             />
           </svg>
-        </a>
+        </button>
       </li>
     </ol>
   )

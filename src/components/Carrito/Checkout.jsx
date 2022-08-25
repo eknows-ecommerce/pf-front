@@ -67,6 +67,7 @@ function CheckoutForm({ detalleCompra, setCarritoLS }) {
 
       setBill(false)
       setSuccess({ msg: data.detalle, status: true })
+
       localStorage.setItem('carrito', JSON.stringify([]))
       setCarritoLS(JSON.parse(localStorage.getItem('carrito')) || [])
     }

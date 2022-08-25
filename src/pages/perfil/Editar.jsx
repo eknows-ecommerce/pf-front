@@ -63,6 +63,7 @@ export default function Editar({ setShowModal }) {
                       defaultValue={formulario.name}
                       onChange={handleChange}
                       className="w-full p-3 mt-2 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
 
@@ -77,6 +78,7 @@ export default function Editar({ setShowModal }) {
                       type="number"
                       onChange={handleChange}
                       className="w-full p-3 mt-2 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
 
@@ -91,6 +93,7 @@ export default function Editar({ setShowModal }) {
                       defaultValue={formulario.pais}
                       onChange={handleChange}
                       className="w-full p-3 mt-2 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
                   <div className="flex flex-col">
@@ -104,6 +107,7 @@ export default function Editar({ setShowModal }) {
                       defaultValue={formulario.ciudad}
                       onChange={handleChange}
                       className="w-full p-3 mt-2 border border-gray-300 rounded outline-none focus:bg-gray-50"
+                      required
                     />
                   </div>
                   {/* <div className="flex flex-col">

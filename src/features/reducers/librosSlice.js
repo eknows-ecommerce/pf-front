@@ -18,11 +18,9 @@ const initialState = {
   carrito: [],
   totalLibros: [],
   kpages: { count: 0, libros: [] },
-  paginado: {
-    paginaActual: 1,
-    total: 0,
-    limite: 6,
-  },
+  paginaActual: 1,
+  total: 0,
+  limite: 6,
   msg: '',
   cargando: null,
   search: '',
@@ -38,8 +36,6 @@ const initialState = {
     dir: 'asc',
   },
   buscarPor: 'titulo',
-  pagina: 1,
-  limit: 6,
 }
 
 const librosSlice = createSlice({
@@ -78,25 +74,21 @@ const librosSlice = createSlice({
       }
     },
     setPaginaActual: (state, { payload }) => {
-      state.paginado.paginaActual = payload
+      state.paginaActual = payload
     },
-    setPaginasTotales: (state) => {
-      state.paginado.total = Math.ceil(state.count / state.paginado.limite)
+    setPaginasTotales: (state, { payload }) => {
+      state.total = Math.ceil(payload.count / payload.limite)
     },
     setPaginaAnterior: (state) => {
-      state.paginado.paginaActual =
-        state.paginado.paginaActual - 1 < 1
-          ? state.paginado.total
-          : state.paginado.paginaActual - 1
+      state.paginaActual =
+        state.paginaActual - 1 < 1 ? state.total : state.paginaActual - 1
     },
     setPaginaSiguiente: (state) => {
-      state.paginado.paginaActual =
-        state.paginado.paginaActual + 1 <= state.paginado.total
-          ? state.paginado.paginaActual + 1
-          : 1
+      state.paginaActual =
+        state.paginaActual + 1 <= state.total ? state.paginaActual + 1 : 1
     },
     setLimite: (state, { payload }) => {
-      state.paginado.limite = payload
+      state.limite = payload
     },
     setFormatos: (state, action) => {
       state.formatos = action.payload
@@ -151,7 +143,6 @@ const librosSlice = createSlice({
       state.cargando = false
       state.libros = payload?.libros ?? []
       state.count = payload?.count
-      state.paginado.total = Math.ceil(payload?.count / state.paginado.limite)
     },
     [getAll.rejected]: (state) => {
       state.cargando = true
