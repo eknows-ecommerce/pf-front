@@ -55,7 +55,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16  px-4 mx-auto">
           <div className="">
             {isAuthenticated ? (
-              <Link to="menu">
+              <Link to="perfil">
                 <button
                   className="mx-5 text-rosadito-600 bg-gray-100 rounded-full"
                   type="button"

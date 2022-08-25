@@ -1,8 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getAll, create, getById, update, deleteById, getByUser, isPedido } from '../actions/pedidos'
+import {
+  getAll,
+  create,
+  getById,
+  update,
+  deleteById,
+  getByUser,
+  isPedido,
+} from '../actions/pedidos'
 
 const initialState = {
+  count: 0,
   pedidos: [],
   pedido: {},
   isPedido: false,
@@ -108,6 +117,7 @@ const pedidosSlice = createSlice({
     [getByUser.fulfilled]: (state, { payload }) => {
       state.cargando = false
       state.pedidosUsuario = payload.pedidos
+      state.count = payload.count
     },
     [getByUser.rejected]: (state, { payload }) => {
       state.cargando = true

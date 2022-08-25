@@ -2,12 +2,45 @@ import { getByUser } from 'features/actions/pedidos'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import images from '../../assets/img/logo.png'
+import useModal from 'hooks/useModal'
+import ModalComponent from 'components/modals/Modalcomponent'
 
 export default function Pedidos() {
-  // const dispatch= useDispatch()
   const { pedidosUsuario } = useSelector(({ pedidosStore }) => pedidosStore)
-  //  const {usuario } = useSelector(({ usuariosStore})=> usuariosStore)
-  const [show, setShow] = useState(null)
+  const [voucher, setVoucher] = useState([])
+  const [totalPrecio, setTotalPrecio] = useState(0)
+
+  const { modals, openClose } = useModal()
+
+  const handleVoucher = (id) => {
+    const pedido = pedidosUsuario.find((p) => p.id === id)
+    let total = 0
+
+    setVoucher(
+      pedido.DetalleLibro.map((i) => (
+        <div className="mb-5" key={crypto.randomUUID()}>
+          <p className="text-blue-500">
+            <span className="text-black">Titulo: </span>
+            {i.titulo}
+          </p>
+          <p className="text-blue-500">
+            <span className="text-black">Precio: </span>${i.precio}
+          </p>
+          <p className="text-blue-500">
+            <span className="text-black">Cantidad: </span>
+            {i.Detalle.cantidad}
+          </p>
+          <p className="text-blue-500 font-bold">
+            <span className="text-black">Total: </span>$
+            {i.precio * i.Detalle.cantidad}
+          </p>
+          <p className="hidden">{(total += i.precio * i.Detalle.cantidad)}</p>
+        </div>
+      ))
+    )
+    setTotalPrecio(total)
+  }
+
   return (
     <>
       <div className=" h-full sm:px-2">
@@ -15,10 +48,10 @@ export default function Pedidos() {
           <table className="w-full whitespace-nowrap">
             <thead>
               <tr className="h-16 w-full text-sm leading-none text-gray-800">
-                <th className="font-normal text-left pl-4">Compra N°</th>
-                <th className="font-normal text-left pl-12">Direccion</th>
-                <th className="font-normal text-left pl-12">Estado</th>
-                <th className="font-normal text-left pl-20">detalle</th>
+                <th className="font-normal text-center">Compra N°</th>
+                <th className="font-normal text-center">Direccion</th>
+                <th className="font-normal text-center">Estado</th>
+                <th className="font-normal text-center">Detalle</th>
               </tr>
             </thead>
             {pedidosUsuario &&
@@ -42,15 +75,18 @@ export default function Pedidos() {
                       <p className="text-sm font-medium leading-none text-gray-800">
                         {e.direccionEnvio}
                       </p>
-                      <div className="w-24 h-3 bg-gray-100 rounded-full mt-2">
-                        <div className="w-20 h-3 bg-green-progress rounded-full" />
-                      </div>
                     </td>
                     <td className="pl-12">
                       <p className="font-medium">{e.estado}</p>
                     </td>
                     <td className="pl-20">
-                      <button className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded">
+                      <button
+                        onClick={() => {
+                          handleVoucher(e.id)
+                          openClose('detalle')
+                        }}
+                        className="inline-flex sm:ml-3 mt-4 sm:mt-0 items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
+                      >
                         <p className="text-sm font-medium leading-none text-white">
                           Ver detalles
                         </p>
@@ -60,6 +96,19 @@ export default function Pedidos() {
                 </tbody>
               ))}
           </table>
+          <ModalComponent
+            modal={modals['detalle']}
+            closeModal={() => openClose('detalle')}
+            titulo="Voucher"
+          >
+            <div className="bg-gray-100 p-5 rounded-xl">
+              {voucher}
+
+              <h1 className="font-bold text-xl">
+                Total: <span>${totalPrecio}</span>
+              </h1>
+            </div>
+          </ModalComponent>
         </div>
       </div>
     </>
