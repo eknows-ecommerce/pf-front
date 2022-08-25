@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { update } from '../../features/actions/usuarios'
+import { updatePerfil } from '../../features/actions/usuarios'
 import useUploadImage from 'hooks/useUploadImage'
 
 export default function Editar({ setShowModal }) {
@@ -19,8 +19,9 @@ export default function Editar({ setShowModal }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    dispatch(update({ id: usuario.id, datos: formulario }))
+    dispatch(updatePerfil({ id: usuario.id, datos: formulario }))
     setFormulario(false)
+    setShowModal(false)
   }
 
   const handleChange = (e) => {
@@ -66,7 +67,9 @@ export default function Editar({ setShowModal }) {
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="font-bold">Teléfono</label>
+                    <label name="voz" className="font-bold">
+                      Teléfono
+                    </label>
                     <input
                       placeholder="Teléfono"
                       name="telefono"
@@ -78,7 +81,9 @@ export default function Editar({ setShowModal }) {
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="font-bold">Pais</label>
+                    <label name="voz" className="font-bold">
+                      Pais
+                    </label>
                     <input
                       placeholder="Pais"
                       name="pais"
@@ -89,7 +94,9 @@ export default function Editar({ setShowModal }) {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="font-bold">Ciudad</label>
+                    <label name="voz" className="font-bold">
+                      Ciudad
+                    </label>
                     <input
                       placeholder="Ciudad"
                       name="ciudad"

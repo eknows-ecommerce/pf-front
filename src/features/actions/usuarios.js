@@ -85,6 +85,22 @@ export const update = createAsyncThunk('USUARIOS/@UPDATE', async (usuario) => {
   }
 })
 
+export const updatePerfil = createAsyncThunk(
+  'USUARIOS/@UPDATE',
+  async (usuario) => {
+    try {
+      const { data } = await axios.put(
+        `${URL}/usuarios/${usuario.id}`,
+        usuario.datos
+      )
+      return data
+    } catch (error) {
+      const msg = error.response.data.msg
+      return msg
+    }
+  }
+)
+
 export const deleteById = createAsyncThunk(
   'USUARIOS/@DELETEBYID',
   async (id) => {

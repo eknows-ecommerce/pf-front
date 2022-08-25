@@ -7,6 +7,7 @@ import {
   update,
   deleteById,
   getByNickname,
+  updatePerfil,
 } from 'features/actions/usuarios'
 
 const initialState = {
@@ -79,10 +80,23 @@ const usuariosSlice = createSlice({
       const index = state.usuarios.findIndex(
         (usuario) => usuario.id === payload.usuario.id
       )
+
       state.usuarios[index] = payload.usuario
+
       state.cargando = false
     },
     [update.rejected]: (state) => {
+      state.cargando = true
+    },
+    //update perfil
+    [updatePerfil.pending]: (state) => {
+      state.cargando = true
+    },
+    [updatePerfil.fulfilled]: (state, { payload }) => {
+      state.usuario = payload.usuario
+      state.cargando = false
+    },
+    [updatePerfil.rejected]: (state) => {
       state.cargando = true
     },
     //deleteById

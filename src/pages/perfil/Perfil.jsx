@@ -6,6 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { getByUser } from 'features/actions/pedidos'
 import { getByUser as getFavsByUser } from 'features/actions/favoritos'
 import { getByUser as getReviewByUser } from 'features/actions/review'
+import Audio from 'components/audio/Audio'
 
 export default function Perfil() {
   const dispatch = useDispatch()
@@ -13,11 +14,11 @@ export default function Perfil() {
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
   const [Speak, setSpeak] = useState(false)
-  const [tags, setTags] = useState(document.getElementsByName('DIV'))
+  const [tags, setTags] = useState(document.getElementsByName('telefono'))
   const synth = window.speechSynthesis
 
   function speech(Speak) {
-    tags.forEach((tag) => {
+    tags?.forEach((tag) => {
       tag.addEventListener('click', (e) => {
         var voices = synth.getVoices()
         let msg = ''
@@ -69,11 +70,12 @@ export default function Perfil() {
     dispatch(getByUser(usuario.id))
     dispatch(getFavsByUser(usuario.id))
     dispatch(getReviewByUser(usuario.id))
-  }, [usuario])
+  }, [dispatch, usuario])
 
   return (
     <>
       <section>
+        <Audio />
         <div>
           <div>
             <Outlet />
