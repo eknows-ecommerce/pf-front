@@ -100,7 +100,7 @@ function CheckoutForm({ detalleCompra, setCarritoLS }) {
       localStorage.setItem('carrito', JSON.stringify([]))
       setCarritoLS(JSON.parse(localStorage.getItem('carrito')) || [])
       
-      if (detalleCompra.description.estado === "Entregado") {
+      if (success.status) {
         let emailJson = {}
         emailJson['to_name'] = usuario.name;
         emailJson['to_email'] = detalleCompra.email;
