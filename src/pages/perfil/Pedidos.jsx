@@ -15,10 +15,10 @@ export default function Pedidos() {
           <table className="w-full whitespace-nowrap">
             <thead>
               <tr className="h-16 w-full text-sm leading-none text-gray-800">
-                <th className="font-normal text-left pl-4">Compra N°</th>
-                <th className="font-normal text-left pl-12">Direccion</th>
-                <th className="font-normal text-left pl-12">Estado</th>
-                <th className="font-normal text-left pl-20">detalle</th>
+                <th className="font-normal text-center">Compra N°</th>
+                <th className="font-normal text-center">Direccion</th>
+                <th className="font-normal text-center">Estado</th>
+                <th className="font-normal text-center">Detalle</th>
               </tr>
             </thead>
             {pedidosUsuario &&
@@ -42,9 +42,6 @@ export default function Pedidos() {
                       <p className="text-sm font-medium leading-none text-gray-800">
                         {e.direccionEnvio}
                       </p>
-                      <div className="w-24 h-3 bg-gray-100 rounded-full mt-2">
-                        <div className="w-20 h-3 bg-green-progress rounded-full" />
-                      </div>
                     </td>
                     <td className="pl-12">
                       <p className="font-medium">{e.estado}</p>

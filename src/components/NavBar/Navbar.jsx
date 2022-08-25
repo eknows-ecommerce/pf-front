@@ -21,7 +21,6 @@ export default function Navbar() {
 
   const { search, totalLibros } = useSelector(({ librosStore }) => librosStore)
 
-
   useEffect(() => {
     dispatch(getByNickname(user))
   }, [dispatch, user])
@@ -38,7 +37,6 @@ export default function Navbar() {
     dispatch(setSearch(e.target.value))
   }
 
-
   const show = useRef(null)
 
   const handleClick = () => {
@@ -51,7 +49,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16  px-4 mx-auto">
           <div className="">
             {isAuthenticated ? (
-              <Link to="menu">
+              <Link to="perfil">
                 <button
                   className="mx-5 text-rosadito-600 bg-gray-100 rounded-full"
                   type="button"
@@ -78,13 +76,11 @@ export default function Navbar() {
             </Link>
             {location.pathname === '/home' ? (
               <form className="hidden mb-0 lg:flex w-96">
-
                 <Search
                   search={search}
                   handleSearch={handleSearch}
                   totalLibros={totalLibros}
                 />
-
               </form>
             ) : (
               ''
@@ -92,13 +88,11 @@ export default function Navbar() {
           </div>
           <div className="flex justify-end flex-1 w-0 lg:hidden">
             <div ref={show} className="hidden">
-
               <Search
                 busqueda={search}
                 handleSearch={handleSearch}
                 totalLibros={totalLibros}
               />
-
             </div>
             <button
               className="p-2 text-gray-500 bg-gray-100 rounded-full"

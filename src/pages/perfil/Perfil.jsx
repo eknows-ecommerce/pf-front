@@ -1,72 +1,83 @@
-// import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import Button from '../../components/templates/Button'
-// import { getById } from '../../features/actions/usuarios'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Outlet } from 'react-router-dom'
+import { getByNickname } from 'features/actions/usuarios'
+import { useAuth0 } from '@auth0/auth0-react'
+import { getByUser } from 'features/actions/pedidos'
 
 export default function Perfil() {
-  // const dispatch = useDispatch()
-  // const { usuarios, usuario } = useSelector(
-  //   ({ usuariosStore }) => usuariosStore
-  // )
-  // const idProf = usuarios[0][0].id
+  const dispatch = useDispatch()
+  const { user } = useAuth0()
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
-  // useEffect(() => {
-  //   dispatch(getById(idProf))
-  // }, [idProf, dispatch])
-  // console.log('USUARIOS', usuarios)
-  // console.log('USUARIO', usuario)
+  const [Speak, setSpeak] = useState(false)
+  const [tags, setTags] = useState(document.getElementsByName('DIV'))
+  const synth = window.speechSynthesis
+
+  function speech(Speak) {
+    tags.forEach((tag) => {
+      tag.addEventListener('click', (e) => {
+        var voices = synth.getVoices()
+        let msg = ''
+        e.target.innerText
+          ? (msg = e.target.innerText)
+          : (msg = e.target.placeholder)
+
+        var utterThis = new SpeechSynthesisUtterance(msg)
+        utterThis.voice = voices[1]
+        utterThis.pitch = 1
+        utterThis.rate = 1
+
+        if (synth.speaking) {
+          synth.cancel()
+          setTimeout(() => {
+            localStorage.audio === 'on' && synth.speak(utterThis)
+          }, 250)
+        } else {
+          synth.speak(utterThis)
+        }
+      })
+    })
+  }
+
+  function hi(n) {
+    var voices = synth.getVoices()
+    var utterThis = new SpeechSynthesisUtterance('perfil actual\n' + n)
+    utterThis.voice = voices[1]
+    utterThis.pitch = 1
+    utterThis.rate = 1
+    if (synth.speaking) {
+      synth.cancel()
+      setTimeout(() => {
+        localStorage.audio === 'on' && synth.speak(utterThis)
+      }, 250)
+    } else {
+      synth.speak(utterThis)
+    }
+  }
+
+  useEffect(() => {
+    localStorage.audio === 'on' && speech(Speak)
+    dispatch(getByNickname(user))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getByNickname, user])
+
+  useEffect(() => {
+    if (usuario) {
+      dispatch(getByUser(usuario.id))
+    }
+  }, [usuario])
 
   return (
-    <div>
-      <article className="p-4 bg-gray-00 border border-gray-200 rounded-xl">
-        <div className="flex items-center">
-          <img
-            // src={usuario.picture}
-            // alt={usuario.name}
-            className="w-20 h-20 rounded-full"
-            alt="perfil"
-          />
-          <div className="ml-3">
-            <h5 className="text-lg font-medium text-violetapaleta">
-              {/* {usuario.name} */}
-            </h5>
-            <div className="flow-root">
-              <ul className="flex flex-wrap -m-1"></ul>
-            </div>
+    <>
+      <section>
+        <div>
+          <div>
+            <Outlet />
           </div>
         </div>
-        <ul className="mt-4 space-y-2">
-          <li>
-            <a
-              rel="noreferrer"
-              href="https://github.com/andrewmcodes/hyperui"
-              target="_blank"
-              className="block h-full p-4 border border-white rounded-lg hover:border-gray-500"
-            >
-              <h5 className="font-medium  text-violetapaleta">Pais</h5>
-              <p className="mt-1 text-xs font-medium text-black-300">
-                {/* {usuario.ciudad} */}
-              </p>
-            </a>
-          </li>
-          <li>
-            <a
-              rel="noreferrer"
-              href="https://github.com/markmead/hyperjs"
-              target="_blank"
-              className="block h-full p-4 border border-white rounded-lg hover:border-gray-500"
-            >
-              <h5 className="font-medium text-violetapaleta">e-mail</h5>
-              <p className="mt-1 text-xs font-medium text-black">
-                {/* {usuario.email} */}
-              </p>
-            </a>
-          </li>
-        </ul>
-        <Link to="editar">
-          <Button>Editar</Button>{' '}
-        </Link>
-      </article>
-    </div>
+      </section>
+    </>
   )
 }

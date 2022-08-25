@@ -9,7 +9,7 @@ import Kpages from 'pages/kpages/Kpages'
 
 import Detalle from '../pages/detalle/Detalle'
 import Pedidos from '../pages/perfil/Pedidos'
-import Menu from '../pages/perfil/Menu'
+import Perfil from '../pages/perfil/Perfil'
 import Editar from '../pages/perfil/Editar'
 
 import Admin from 'pages/admin/Admin'
@@ -26,7 +26,6 @@ import MejoresValarados from 'components/NavBar/MejoresValorados'
 import Contactanos from 'components/NavBar/Contactanos'
 import Carrito from 'components/Carrito/Carrito'
 
-
 import AcercaDe from 'components/footer/AcercaDe'
 import Terminos from 'components/footer/Terminos'
 
@@ -34,6 +33,7 @@ import LibroFormulario from 'pages/admin/libros/LibroFormulario'
 
 import Politicas from 'components/footer/Politicas'
 import Favoritos from 'pages/perfil/Favoritos'
+import Info from 'pages/perfil/Info'
 
 //Aqui iran todas las rutas
 function RoutesApp() {
@@ -51,18 +51,17 @@ function RoutesApp() {
         <Route path="tags" element={<Tags />} />
       </Route>
 
-      <Route path="menu" element={<Menu />}>
-        <Route path="pedidos" element={<Pedidos />} />
+      <Route path="perfil" element={<Perfil />}>
+        <Route index element={<Info />} />
+        {/* <Route path="pedidos" element={<Pedidos />} />
         <Route path="editar" element={<Editar />} />
-        <Route path="favoritos" element={<Favoritos />} />
-
-
+        <Route path="favoritos" element={<Favoritos />} /> */}
       </Route>
 
       <Route path="/" element={<Navbar />}>
         <Route index element={<Landing />} />
         <Route path="mejoresvalorados" element={<MejoresValarados />} />
-        
+
         <Route path="home" element={<Home />} />
         <Route path="contactanos" element={<Contactanos />} />
         <Route path="acercade" element={<AcercaDe />} />
