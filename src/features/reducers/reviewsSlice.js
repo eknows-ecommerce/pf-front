@@ -82,9 +82,13 @@ const reviewsSlice = createSlice({
       state.cargando = true
     },
     [create.fulfilled]: (state, { payload }) => {
+      console.log('state',state)
+      console.log('payload',payload)
       state.cargando = false
-      state.reviews = [...state.reviews, payload?.review]
-      state.total = state.total + 1
+      console.log(state.reviews)
+      state.reviews
+      ?state.reviews = [...state.reviews, payload.review]
+      :state.reviews = [payload.review]
     },
     [create.rejected]: (state) => {
       state.cargando = true

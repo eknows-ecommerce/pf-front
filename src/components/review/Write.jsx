@@ -1,6 +1,5 @@
 import { create } from "features/actions/review";
 import { isPedido as verificar } from 'features/actions/pedidos'
-import { getByLibro } from 'features/actions/review'
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,14 +9,9 @@ import Swal from 'sweetalert2';
 export default function ReviewModal({ idLibro, idUsuario }) {
   const dispatch = useDispatch()
   const { isPedido } = useSelector(({ pedidosStore }) => pedidosStore)
-  const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const [showModal, setShowModal] = React.useState(false)
   const { isAuthenticated, loginWithPopup } = useAuth0()
   const [rate, setRate] = useState(3);
-
-  useEffect(() => {
-    dispatch(getByLibro(idLibro))
-  }, [showModal])
 
   useEffect(() => {
     if (idUsuario && idLibro) {
@@ -107,6 +101,11 @@ export default function ReviewModal({ idLibro, idUsuario }) {
       })
     } else {
       setShowModal(false)
+      Swal.fire(
+        'Review incompleta',
+        'Escriba un titulo y algunas palabras sobre el libro',
+        'error'
+      )
       setShowModal(true)
     }
   }
@@ -114,7 +113,7 @@ export default function ReviewModal({ idLibro, idUsuario }) {
   return (
     <>
       <button
-        className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
+        className="inline-flex items-center flex-shrink-0 px-3 py-2 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white  justify-center"
         onClick={(e) => handleWrite(e)}
       >
         Escriba una review
@@ -127,13 +126,12 @@ export default function ReviewModal({ idLibro, idUsuario }) {
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none"
           >
             <div className="rounded-lg max-w-5xl m-5 shadow-lg relative flex flex-col bg-white outline-none w-screen">
-              {/*header*/}
               <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                 <input
                   className="text-3xl font-semibold"
                   type="text"
                   name="titulo"
-                  placeholder="Titulo"
+                  placeholder="Escriba un titulo"
                   spellCheck={true}
                   value={form.titulo}
                   onChange={(e) => handleChange(e)}
@@ -142,7 +140,6 @@ export default function ReviewModal({ idLibro, idUsuario }) {
                   <Stars />
                 </div>
               </div>
-              {/*body*/}
               <div className="relative m-5 p-1 flex-auto items-center border-4 rounded-2xl">
                 <textarea className="text-slate-800 text-lg leading-relaxed outline-none w-full"
                   maxLength={1024} spellCheck={true}
@@ -150,9 +147,7 @@ export default function ReviewModal({ idLibro, idUsuario }) {
                   value={form.comentario} onChange={(e) => handleChange(e)}
                 >
                 </textarea >
-
               </div>
-              {/*footer*/}
               <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                 <button
                   className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 ease-linear transition-all duration-150"

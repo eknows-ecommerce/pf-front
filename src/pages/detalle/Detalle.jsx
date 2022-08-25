@@ -4,11 +4,9 @@ import { getByLibro } from 'features/actions/review'
 import Button from 'components/templates/Button'
 import ReviewCard from 'components/review/Review.jsx'
 import ReviewModal from 'components/review/Write.jsx'
-import Footer from 'components/footer/Footer'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import useFavorite from 'hooks/useToggle'
 import Loading from 'components/loading/Loading'
 import {
   createByUser,
@@ -21,7 +19,8 @@ import { getByNickname } from 'features/actions/usuarios'
 export default function Detalle() {
   const dispatch = useDispatch()
   const { id } = useParams()
-  let [isReview, checkReview] = useState(null)
+  let [isReview, checkReview] = useState(true)
+  let [lastCount, setCount] = useState(0)
   const [revs, setRevs] = useState(6)
   const navigate = useNavigate()
   const disptach = useDispatch()
@@ -29,29 +28,31 @@ export default function Detalle() {
   const { libro, cargando, cambiarCargando } = useSelector(
     ({ librosStore }) => librosStore
   )
-  const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
+  const { count, reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
 
   useEffect(() => {
-    dispatch(getByLibro(id))
-  }, [])
-
-useEffect(() => {
-  if (isAuthenticated) {
-    disptach(getByNickname(user.nickname))
-  }
-}, [isAuthenticated])
-
-useEffect(() => {
-  if (usuario?.id) {
-    dispatch(getByUser(usuario.id))
-  }
-}, [usuario])
+    if (count && count !== lastCount){
+      dispatch(getByLibro(id))
+      setCount(count)
+    }
+  }, [dispatch, count])
 
   useEffect(() => {
-    if (reviews && usuario)
-      checkReview(reviews.find(r => r.Review?.UsuarioId === usuario.id))
+    if (isAuthenticated) {
+      disptach(getByNickname(user.nickname))
+    }
+  }, [isAuthenticated])
+
+  useEffect(() => {
+    if (usuario?.id) {
+      dispatch(getByUser(usuario.id))
+    }
+  }, [usuario])
+
+  useEffect(() => {
+    checkReview(reviews?.find(r => r.Review?.UsuarioId === usuario?.id))
   }, [reviews, usuario])
 
   useEffect(() => {
@@ -98,7 +99,7 @@ useEffect(() => {
 
     return (
       <fieldset>
-        <legend className="text-lg font-bold">TIPO</legend>
+        <legend className="text-lg text-comforta font-bold">FORMATO</legend>
         <div className="flex mt-2 space-x-1">
           {tipos}
         </div>
@@ -110,16 +111,20 @@ useEffect(() => {
     let out = []
     reviews?.forEach((r) => {
       console.log(r.UsuarioName)
-      out.push(
-        <ReviewCard
-          key={crypto.randomUUID()}
-          title={r.Review.titulo}
-          text={r.Review.comentario}
-          rate={r.Review.rating}
-          //likes={r.Review.likes}
-          author={r.UsuarioName}
-        />
-      )
+      try {
+        out.push(
+          <ReviewCard
+            key={crypto.randomUUID()}
+            title={r.Review.titulo}
+            text={r.Review.comentario}
+            rate={r.Review.rating}
+            //likes={r.Review.likes}
+            author={r.UsuarioName}
+          />
+        )
+      } catch (e) {
+        console.error('error: ', e)
+      }
     })
     return out.slice(0, revs)
   }
@@ -148,7 +153,7 @@ useEffect(() => {
     }
   }
 
-  
+
   const handleCarrito = (id, precio) => {
     const carrito = JSON.parse(localStorage.getItem('carrito')) ?? []
     const existe = carrito.length > 0 && carrito.find((item) => item.id === id)
@@ -198,13 +203,13 @@ useEffect(() => {
                   <p className="text-xl  font-bold">${libro.precio}</p>
                 </div>
                 <Button onClick={() => handleCarrito(libro.id, libro.precio)}>
-                    Comprar
-                  </Button>
-                  <Button onClick={handleFavorite} secondary>
-                    {favoritos?.some((fav) => fav.id === Number(id))
-                      ? 'Eliminar de favoritos'
-                      : 'Agregar a favoritos'}
-                  </Button>
+                  Comprar
+                </Button>
+                <Button onClick={handleFavorite} secondary>
+                  {favoritos?.some((fav) => fav.id === Number(id))
+                    ? 'Eliminar de favoritos'
+                    : 'Agregar a favoritos'}
+                </Button>
               </div>
             </div>
 
@@ -214,14 +219,14 @@ useEffect(() => {
                 <p className="font-comforta font-bold text-justify mr-2 ml-2">{libro.resumen}</p>
                 <br />
                 <div className="flex justify-evenly">
-                  <div>
-                    <h3 className="text-2xl font-comforta-300 font-bold ">Categorias</h3>
+                  <div className='max-w-xl self-center'>
+                    <h3 className="text-2xl font-comforta-300 font-bold text-center">Categorias</h3>
                     <ul>
                       {getCategorias()}
                     </ul>
                   </div>
-                  <div>
-                    <h3 className="text-2xl font-comforta-300 font-bold ">Tags</h3>
+                  <div className='max-w-xl self-center'>
+                    <h3 className="text-2xl font-comforta-300 font-bold text-center">Tags</h3>
                     <ul>
                       {getTags()}
                     </ul>
@@ -229,22 +234,22 @@ useEffect(() => {
                 </div>
               </div>
               <div className="m-2 p-8 mx-auto max-w-screen-2xl sm:px-6 lg:px-8 shadow-2xl rounded-2xl bg-orange-50">
-                <div className="items-end justify-between sm:flex">
+                <div className="items-end justify-center grid md:flex md:justify-between">
                   <>
-                    <div className="max-w-xl">
-                      <h2 className="text-3xl font-bold font-comforta-300 tracking-tight sm:text-3xl">
+                    <div className="max-w-xl self-center">
+                      <h2 className="text-3xl font-bold font-comforta-300 tracking-tight sm:text-3xl text-center md:text-left">
                         Reseñas
                       </h2>
-                      <p className="font-comforta font-bold max-w-lg">
+                      <p className="font-comforta font-bold max-w-lg text-center md:text-left">
                         Ve lo que otros lectores tiene que decir
                       </p>
                     </div>
                     {!isReview && <ReviewModal idLibro={id} idUsuario={usuario.id} />}
                     {reviews && reviews.length > revs && <button
-                      className="inline-flex items-center flex-shrink-0 px-5 py-3 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white"
+                      className="inline-flex items-center flex-shrink-0 px-3 py-2 m-1 font-medium text-pink-600 border border-pink-600 rounded-full sm:mt-0 lg:mt-8 hover:bg-pink-600 hover:text-white justify-center"
                       onClick={() => setRevs(revs + 3)}
                     >
-                      Lea todas las reviews
+                      Lea más reviews
                     </button>}
                   </>
                 </div>
@@ -253,7 +258,7 @@ useEffect(() => {
                     {getReviews()}
                   </div>
                   :
-                  <div className='text-center font-comforta font-bold'>No hay reviews</div>
+                  <div className='text-center font-comforta font-bold pt-5 text-gray-700'>No hay reviews</div>
                 }
 
               </div>

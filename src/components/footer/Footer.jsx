@@ -1,8 +1,3 @@
-// <<<<<<< HEAD
-// import logo from '../../assets/img/logos.png'
-// =======
-// import logo from '../../assets/img/logos.png'
-// >>>>>>> 0915c5fba1b5e09586554b455bc4076bf23e24b2
 import React from "react";
 import { Link } from 'react-router-dom';
 
