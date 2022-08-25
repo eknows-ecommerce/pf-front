@@ -6,7 +6,7 @@ import Vista from './Vista'
 import { FaEnvelopeSquare, FaUser } from 'react-icons/fa'
 
 export default function Tablas({ setShowModal }) {
-  const [vista, setVista] = useState('pedidos')
+  const [vista, setVista] = useState('favoritos')
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const { count: pedidoCount } = useSelector(({ pedidosStore }) => pedidosStore)
   const { count: favCount } = useSelector(

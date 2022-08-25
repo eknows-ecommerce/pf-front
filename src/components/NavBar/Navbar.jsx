@@ -46,7 +46,7 @@ export default function Navbar() {
   }
   const handleFavorite = () => {
     user
-      ? navigate('/menu#favoritos')
+      ? navigate('/perfil')
       : alert('Necesitas estar logeado para ir a Favoritos')
   }
   return (

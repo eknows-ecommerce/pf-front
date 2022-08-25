@@ -99,7 +99,7 @@ export default function Editar({ setShowModal }) {
                       className="w-full p-3 mt-2 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
                   </div>
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <label className="font-bold">Imagen</label>
                     <input
                       name="image"
@@ -109,8 +109,8 @@ export default function Editar({ setShowModal }) {
                       required={false}
                       className="w-full p-3 mt-2 border border-gray-300 rounded outline-none focus:bg-gray-50"
                     />
-                  </div>
-                  <div className="flex items-center justify-end space-x-5 mt-9">
+                  </div> */}
+                  <div className="col-span-2 flex items-center justify-center space-x-5 mt-9">
                     <button
                       onClick={() => setShowModal(false)}
                       className="px-6 py-3 bg-gray-400 hover:bg-gray-500 shadow rounded text-sm text-white"
