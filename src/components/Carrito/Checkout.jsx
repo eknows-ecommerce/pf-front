@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
 import { useAuth0 } from '@auth0/auth0-react'
+import emailjs from '@emailjs/browser';
 
 import {
   Elements,
@@ -13,8 +14,13 @@ import {
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-const REACT_APP_URL_BASE_API = process.env.REACT_APP_URL_BASE_API
-const REACT_APP_STRIPE_CHECKOUT_PK = process.env.REACT_APP_STRIPE_CHECKOUT_PK
+const {
+  REACT_APP_URL_BASE_API,
+  REACT_APP_STRIPE_CHECKOUT_PK,
+  EMAILJS_SERVICE,
+  EMAILJS_TEMPLATE,
+  EMAILJS_APIKEY,
+} = process.env
 
 const inputStyle = {
   iconColor: '#c4f0ff',
@@ -51,6 +57,7 @@ function CheckoutForm({ detalleCompra, setCarritoLS }) {
   const [success, setSuccess] = useState({})
   const [Bill, setBill] = useState(false)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+  const { totalLibros } = useSelector(({ librosStore }) => librosStore)
   const { logout } = useAuth0()
 
   useEffect(() => {
@@ -92,6 +99,29 @@ function CheckoutForm({ detalleCompra, setCarritoLS }) {
 
       localStorage.setItem('carrito', JSON.stringify([]))
       setCarritoLS(JSON.parse(localStorage.getItem('carrito')) || [])
+      
+      if (detalleCompra.description.estado === "Entregado") {
+        let emailJson = {}
+        emailJson['to_name'] = usuario.name;
+        emailJson['to_email'] = detalleCompra.email;
+        let comprado = [...detalleCompra.description.libros];
+        comprado.map((lCarrito) => lCarrito['titulo'] = totalLibros.find((lStore) => lCarrito.id === lStore.id).titulo)
+        //emailJson['user_libros'] = JSON.stringify(comprado);
+        let libros = ""; let total = 0;
+        comprado.forEach(e => {
+          libros = e.titulo + ' cantidad:' + e.cantidad + ' precio: $' + e.libros * e.cantidad+'\n'
+          total += e.libros * e.cantidad
+        })
+        libros="Total: $"+total
+        emailJson['user_libros'] = libros;
+        //console.log(emailJson)
+        emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, emailJson, EMAILJS_APIKEY)
+          .then(function (response) {
+            console.log('SUCCESS!', response.status, response.text);
+          }, function (error) {
+            console.log('FAILED...', error);
+          });
+      }
     }
   }
 

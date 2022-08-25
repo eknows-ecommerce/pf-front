@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^1.10.2",
+    "@emailjs/browser": "^3.6.2",
     "@react-icons/all-files": "^4.1.0",
     "@reduxjs/toolkit": "^1.8.3",
     "@stripe/react-stripe-js": "^1.10.0",
