@@ -74,6 +74,7 @@ const MasVendidos = () => {
               </div>
             ))}
         </div>
+
       </div>
     </div>
   )
