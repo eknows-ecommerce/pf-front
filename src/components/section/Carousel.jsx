@@ -80,8 +80,10 @@ export default function Carousel({ categoria }) {
               </svg>
             </ButtonBack>
             <div className="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden w-full">
+              <h2 className="text-2xl font-bold  font-comforta-300 text-gray-900 md:text-2xl">
               {categoria.nombre}
-              <Slider className="border-2 w-full h">
+              </h2>
+              <Slider className="border-gray-100 w-full shadow-black shadow-2xl">
                 <div
                   id="slider"
                   className="h-xl w-full flex lg:gap-8 md:gap-6 gap-14 items-center justify-start transition ease-out duration-700"

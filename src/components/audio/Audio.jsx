@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react'
 
+const initialState = { audio: 'on', usuario: 'j' }
 function Audio() {
-  const [Audio, setAudio] = useState(localStorage.audio)
+  const [Speak, setSpeak] = useState('on')
+  const [tags, setTags] = useState(document.getElementsByName('Speech'))
+  const synth = window.speechSynthesis
+
+  const [Audio, setAudio] = useState('')
+
   useEffect(() => {
+    localStorage.setItem('audio', Speak)
     setAudio(localStorage.audio)
-  }, [localStorage.audio])
-
-  const audioOff = () => {
-    localStorage.setItem('audio', 'off')
-    setAudio(localStorage.audio)
-  }
-
-  const audioOn = () => {
-    localStorage.setItem('audio', 'on')
-    setAudio(localStorage.audio)
-  }
+  }, [Speak])
 
   return (
     <div
@@ -22,16 +19,25 @@ function Audio() {
       title="Desactivar ScreenReader"
     >
       {' '}
-      {Audio === 'on' ? (
+      {Speak === 'on' ? (
         <div
-          onClick={audioOff}
+          onClick={() => {
+            setSpeak('off')
+            localStorage.setItem('audio', 'off')
+          }}
           className="text-white bg-neutral-300 rounded-md px-1"
         >
           SR: {Audio}
         </div>
       ) : (
         // <div onClick={audioOn} className='text-indigo-400 rounded-md bg-blue-100'>
-        <div onClick={audioOn} title="Activar ScreenReader">
+        <div
+          onClick={() => {
+            setSpeak('on')
+            localStorage.setItem('audio', 'off')
+          }}
+          title="Activar ScreenReader"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4 mx-3"

@@ -6,7 +6,7 @@ import ReviewCard from 'components/review/Review.jsx'
 import ReviewModal from 'components/review/Write.jsx'
 import Footer from 'components/footer/Footer'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import useFavorite from 'hooks/useToggle'
 import Loading from 'components/loading/Loading'
@@ -19,6 +19,7 @@ import Swal from 'sweetalert2'
 import { getByNickname } from 'features/actions/usuarios'
 
 export default function Detalle() {
+  const location = useLocation()
   const dispatch = useDispatch()
   const { id } = useParams()
   let [isReview, checkReview] = useState(null)
@@ -32,8 +33,11 @@ export default function Detalle() {
   const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
-
+console.log("REVIEWS", reviews);
   useEffect(() => {
+    if (window.scrollY) {
+      window.scroll(0, 0) // Restablece la posición de desplazamiento en la parte superior izquierda del documento
+    }
     dispatch(getByLibro(id))
   }, [])
 
@@ -113,11 +117,11 @@ useEffect(() => {
       out.push(
         <ReviewCard
           key={crypto.randomUUID()}
-          title={r.Review.titulo}
-          text={r.Review.comentario}
-          rate={r.Review.rating}
+          title={r?.Review?.titulo}
+          text={r?.Review?.comentario}
+          rate={r?.Review?.rating}
           //likes={r.Review.likes}
-          author={r.UsuarioName}
+          author={r?.UsuarioName}
         />
       )
     })

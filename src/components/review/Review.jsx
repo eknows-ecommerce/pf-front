@@ -42,8 +42,8 @@ export default function ReviewCard({ title, text, author, rate, likes }) {
               {title}
             </h5>
             <p className="mt-4 text-gray-800 text-justify">
-              {text.length > 170
-                ? text.slice(0, text.indexOf(' ', 170)) + ' ...'
+              {text?.length > 170
+                ? text?.slice(0, text?.indexOf(' ', 170)) + ' ...'
                 : text}
             </p>
           </div>

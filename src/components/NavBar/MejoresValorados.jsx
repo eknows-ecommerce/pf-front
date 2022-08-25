@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getAll } from 'features/actions/libros'
+import { getAllPredictivo } from 'features/actions/libros'
 import { getAll as print } from 'features/actions/review'
 
 const MasVendidos = () => {
@@ -13,19 +13,22 @@ const MasVendidos = () => {
     if (e.rating > 2) {
       //3 estrellas o mas
       let index = libros.findIndex((l) => l[0] === e.LibroId)
+      console.log("ID", e.LibroId);
       index === -1
-        ? libros.push([e.LibroId, e.rating]) //agregando el id y el rating si no esta
-        : (libros[index][1] += e.rating) //sumando estrellas si ya esta
+      ? libros.push([e.LibroId, e.rating]) //agregando el id y el rating si no esta
+      : (libros[index][1] += e.rating) //sumando estrellas si ya esta
     }
   })
+  
   libros.sort((a, b) => b[1] - a[1])
   let cantidadParaMostrar = 16
   const data = libros
     .slice(0, cantidadParaMostrar)
     .map((e) => totalLibros.find((p) => p.id === e[0]))
+    console.log("DATA", data);
 
   useEffect(() => {
-    dispatch(getAll())
+    dispatch(getAllPredictivo())
     dispatch(print(''))
   }, [dispatch])
 
@@ -42,7 +45,7 @@ const MasVendidos = () => {
         <div className=" grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-y-12 lg:gap-x-8 sm:gap-y-10 sm:gap-x-6 gap-y-6 lg:mt-12 mt-10">
           {data &&
             data.map((e) => (
-              <div className=" relative ">
+              <div key={crypto.randomUUID()} className=" relative ">
                 <div className=" relative group">
                   <div className=" flex justify-center items-center opacity-0 bg-gradient-to-t from-gray-800 via-gray-800 to-opacity-30 group-hover:opacity-50 absolute top-0 left-0 h-full w-full"></div>
                   <img
@@ -51,8 +54,8 @@ const MasVendidos = () => {
                     alt="A girl Posing Img"
                   />
                   <div className=" absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100">
-                    <Link to={`/detalle/${e.LibroId}`}>
-                      <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
+                  <Link className=" block flex-col justify-between" to={`/detalle/${e.id}`}>
+        <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
                         Ver Detalles
                       </button>
                     </Link>

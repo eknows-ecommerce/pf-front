@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Checkout from './Checkout'
 
 import { useAuth0 } from '@auth0/auth0-react'
+import Swal from 'sweetalert2'
 
 function Carrito() {
   const [detalleCompra, setDetalleCompra] = useState({})
@@ -20,7 +21,7 @@ function Carrito() {
   const { carrito } = useSelector(({ librosStore }) => librosStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
-  const { isAuthenticated, user, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, user, loginWithPopup } = useAuth0()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -110,8 +111,18 @@ function Carrito() {
       })
       openClose('compra')
     } else {
-      loginWithRedirect({
-        redirectUri: 'http://localhost:3000/home/carrito',
+      Swal.fire({
+        title: 'Log in',
+        text: 'Debe logearse para agregar poder hacer una compra',
+        // icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#E11D48',
+        confirmButtonText: 'Si, ir a logearse',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          loginWithPopup()
+        }
       })
     }
   }
