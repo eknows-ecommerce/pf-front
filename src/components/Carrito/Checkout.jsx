@@ -170,7 +170,7 @@ function CheckoutForm({ detalleCompra, setCarritoLS }) {
               <h4 className="m-2 text-lg font-medium text-gray-800">
                 Transacción Exitosa!
               </h4>
-              <p className=" m-2 text-[15px]  text-gray-500">
+              <p className=" m-2 text-[16px]  text-gray-800">
                 Total: ${detalleCompra.amount}
               </p>
             </div>
