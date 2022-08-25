@@ -129,14 +129,6 @@ export default function Tablas({ setShowModal }) {
                     <FaEnvelopeSquare className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400 h-4 w-4" />
                     {usuario.email}
                   </div>
-                  <div className="text-sm leading-normal mt-0 mb-2 flex justify-center items-center text-blueGray-400 font-bold uppercase">
-                    <FaMapMarkerAlt className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400 h-4 w-4" />
-                    {usuario.pais}
-                  </div>
-                  <div className="text-sm leading-normal mt-0 mb-2 flex justify-center items-center text-blueGray-400 font-bold uppercase">
-                    <FaMapMarkedAlt className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400 h-4 w-4" />
-                    {usuario.ciudad}
-                  </div>
                   <div className="flex w-full justify-center my-5 text-sm font-medium border-b border-gray-100">
                     <div
                       onClick={() => setVista('pedidos')}

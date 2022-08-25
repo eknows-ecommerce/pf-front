@@ -13,19 +13,19 @@ const MasVendidos = () => {
     if (e.rating > 2) {
       //3 estrellas o mas
       let index = libros.findIndex((l) => l[0] === e.LibroId)
-      console.log("ID", e.LibroId);
+      console.log('ID', e.LibroId)
       index === -1
-      ? libros.push([e.LibroId, e.rating]) //agregando el id y el rating si no esta
-      : (libros[index][1] += e.rating) //sumando estrellas si ya esta
+        ? libros.push([e.LibroId, e.rating]) //agregando el id y el rating si no esta
+        : (libros[index][1] += e.rating) //sumando estrellas si ya esta
     }
   })
-  
+
   libros.sort((a, b) => b[1] - a[1])
   let cantidadParaMostrar = 16
   const data = libros
     .slice(0, cantidadParaMostrar)
     .map((e) => totalLibros.find((p) => p.id === e[0]))
-    console.log("DATA", data);
+  console.log('DATA', data)
 
   useEffect(() => {
     dispatch(getAllPredictivo())
@@ -54,8 +54,11 @@ const MasVendidos = () => {
                     alt="A girl Posing Img"
                   />
                   <div className=" absolute bottom-0 p-8 w-full opacity-0 group-hover:opacity-100">
-                  <Link className=" block flex-col justify-between" to={`/detalle/${e.id}`}>
-        <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
+                    <Link
+                      className=" block flex-col justify-between"
+                      to={`/detalle/${e.id}`}
+                    >
+                      <button className=" bg-transparent font-medium text-base leading-4 border-2 border-white py-3 w-full mt-2 text-white">
                         Ver Detalles
                       </button>
                     </Link>
@@ -70,12 +73,6 @@ const MasVendidos = () => {
                 {/* <p className=" font-normal text-base leading-4 text-gray-600 mt-4">2 colours</p> */}
               </div>
             ))}
-        </div>
-
-        <div className=" flex justify-center items-center">
-          <button className=" hover:bg-gray-700 focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 bg-gray-800 py-5 md:px-16 md:w-auto w-full lg:mt-28 md:mt-12 mt-10 text-white font-medium text-base leading-4">
-            Load More
-          </button>
         </div>
       </div>
     </div>
