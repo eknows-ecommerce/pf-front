@@ -4,6 +4,19 @@ const URL = process.env.REACT_APP_URL
 
 // <----------------- acciones que conectan a la base de datos ----------------->
 
+export const verificarUsuario = createAsyncThunk(
+  'USUARIOS/@VERIFICARUSUARIO',
+  async (query = '') => {
+    try {
+      const { data } = await axios.get(`${URL}/usuarios?${query}`)
+      return data
+    } catch (error) {
+      const msg = error.message.data.msg
+      return msg
+    }
+  }
+)
+
 export const getAll = createAsyncThunk(
   'USUARIOS/@GETALL',
   async (query = '') => {
@@ -33,7 +46,7 @@ export const getByNickname = createAsyncThunk(
 )
 
 export const getAllByName = createAsyncThunk(
-  'USUARIOS/@GETALL',
+  'USUARIOS/@GETALLBYNAME',
   async ({ payload }) => {
     try {
       const { data } = await axios.get(`${URL}/usuarios`, {
@@ -74,10 +87,8 @@ export const create = createAsyncThunk('USUARIOS/@CREATE', async (body) => {
 
 export const update = createAsyncThunk('USUARIOS/@UPDATE', async (usuario) => {
   try {
-    const { data } = await axios.put(
-      `${URL}/usuarios/${usuario.id}`,
-      usuario.datos
-    )
+    const { data } = await axios.put(`${URL}/usuarios/${usuario.id}`, usuario)
+    console.log(data)
     return data
   } catch (error) {
     const msg = error.response.data.msg
@@ -86,7 +97,7 @@ export const update = createAsyncThunk('USUARIOS/@UPDATE', async (usuario) => {
 })
 
 export const updatePerfil = createAsyncThunk(
-  'USUARIOS/@UPDATE',
+  'USUARIOS/@UPDATEPERFIL',
   async (usuario) => {
     try {
       const { data } = await axios.put(

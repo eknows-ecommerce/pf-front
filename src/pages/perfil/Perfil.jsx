@@ -75,7 +75,7 @@ export default function Perfil() {
   return (
     <>
       <section>
-        <Audio />
+        {/* <Audio /> */}
         <div>
           <div>
             <Outlet />

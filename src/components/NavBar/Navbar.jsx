@@ -11,6 +11,8 @@ import { getAllPredictivo } from 'features/actions/libros'
 import { useLocation } from 'react-router-dom'
 import { setSearch } from 'features/reducers/librosSlice'
 
+import { setPaginaActual } from 'features/reducers/librosSlice'
+
 import { useEffect, useRef } from 'react'
 
 export default function Navbar() {
@@ -37,6 +39,7 @@ export default function Navbar() {
 
   const handleSearch = (e) => {
     dispatch(setSearch(e.target.value))
+    dispatch(setPaginaActual(1))
   }
 
   const show = useRef(null)

@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 
-import { update } from 'features/actions/usuarios'
+import { getAll, update } from 'features/actions/usuarios'
 
 export default function EditarModal({
   setShowEditarModal,

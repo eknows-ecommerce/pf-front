@@ -8,12 +8,16 @@ import {
   deleteById,
   getByNickname,
   updatePerfil,
+  verificarUsuario,
 } from 'features/actions/usuarios'
 
 const initialState = {
   usuarios: [],
   usuario: {},
+  baneado: null,
   cargando: null,
+  count: 0,
+  msg: '',
 }
 
 const usuariosSlice = createSlice({
@@ -25,6 +29,17 @@ const usuariosSlice = createSlice({
     },
   },
   extraReducers: {
+    //verificarUsuario
+    [verificarUsuario.pending]: (state) => {
+      state.cargando = true
+    },
+    [verificarUsuario.fulfilled]: (state, { payload }) => {
+      state.cargando = false
+      state.baneado = payload.baneado
+    },
+    [verificarUsuario.rejected]: (state) => {
+      state.cargando = true
+    },
     //getAll
     [getAll.pending]: (state) => {
       state.cargando = true
@@ -77,11 +92,12 @@ const usuariosSlice = createSlice({
       state.cargando = true
     },
     [update.fulfilled]: (state, { payload }) => {
-      const index = state.usuarios.findIndex(
-        (usuario) => usuario.id === payload.usuario.id
-      )
+      console.log(payload)
 
-      state.usuarios[index] = payload.usuario
+      state.usuarios = [
+        ...state.usuarios.filter((i) => i.id !== payload.usuario.id),
+        payload.usuario,
+      ]
 
       state.cargando = false
     },

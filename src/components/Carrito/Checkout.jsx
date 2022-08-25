@@ -1,5 +1,8 @@
 import { loadStripe } from '@stripe/stripe-js'
 import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
+import Swal from 'sweetalert2'
+import { useAuth0 } from '@auth0/auth0-react'
 
 import {
   Elements,
@@ -9,7 +12,7 @@ import {
 } from '@stripe/react-stripe-js'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 const REACT_APP_URL_BASE_API = process.env.REACT_APP_URL_BASE_API
 const REACT_APP_STRIPE_CHECKOUT_PK = process.env.REACT_APP_STRIPE_CHECKOUT_PK
 
@@ -47,6 +50,25 @@ function CheckoutForm({ detalleCompra, setCarritoLS }) {
   const elements = useElements()
   const [success, setSuccess] = useState({})
   const [Bill, setBill] = useState(false)
+  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+  const { logout } = useAuth0()
+
+  useEffect(() => {
+    if (usuario.isBan === true) {
+      Swal.fire({
+        title: 'Log in',
+        text: 'Tu cuenta ha sido temporalmente deshabilitada',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Entendido',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          logout()
+        } else {
+          logout()
+        }
+      })
+    }
+  }, [usuario])
 
   const handleCheckout = async (e) => {
     e.preventDefault()

@@ -8,6 +8,7 @@ import {
   setLimite,
   setPaginasTotales,
   setPaginaActual,
+  count,
 } from 'features/reducers/librosSlice'
 
 import Item from './Item'
@@ -21,12 +22,9 @@ function Libros() {
   const [setDeshabilitarItemModal] = useState(false)
   const { search, handleSearch } = useSearch()
 
-  const {
-    libros,
-    msg,
-    paginado: { limite, paginaActual },
-    buscarPor,
-  } = useSelector(({ librosStore }) => librosStore)
+  const { libros, msg, limite, paginaActual, buscarPor } = useSelector(
+    ({ librosStore }) => librosStore
+  )
 
   const dispatch = useDispatch()
 
@@ -35,7 +33,7 @@ function Libros() {
   }, [dispatch])
 
   useEffect(() => {
-    dispatch(setPaginasTotales())
+    dispatch(setPaginasTotales({ count, limite }))
   }, [dispatch])
 
   useEffect(() => {

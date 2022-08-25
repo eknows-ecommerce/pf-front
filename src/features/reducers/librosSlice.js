@@ -222,6 +222,7 @@ export const {
   setPaginaSiguiente,
   setPaginaAnterior,
   setLimite,
+  count,
 } = librosSlice.actions
 
 export default librosSlice.reducer

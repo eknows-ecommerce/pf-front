@@ -11,7 +11,6 @@ import {
 import 'pure-react-carousel/dist/react-carousel.es.css'
 import Item from './Item'
 
-
 import { getAllKpage } from 'features/actions/categorias'
 import { useEffect, useState } from 'react'
 import SliderCarousel from './SliderCarousel'
@@ -81,7 +80,7 @@ export default function Carousel({ categoria }) {
             </ButtonBack>
             <div className="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden w-full">
               <h2 className="text-2xl font-bold  font-comforta-300 text-gray-900 md:text-2xl">
-              {categoria.nombre}
+                {categoria.nombre}
               </h2>
               <Slider className="border-gray-100 w-full shadow-black shadow-2xl">
                 <div
@@ -92,16 +91,15 @@ export default function Carousel({ categoria }) {
                     books.map((l, i) => (
                       <Slide key={crypto.randomUUID()} index={i}>
                         <Link to={`/detalle/${l.id}`}>
-                        <div className="block box-border h-full m-0 list-none focus:outline-none float-left">
-                          <img
+                          <div className="block box-border h-full m-0 list-none focus:outline-none float-left">
+                            <img
                               src={l.portada}
                               alt={l.titulo}
                               className="object-cover object-center w-full"
-                          />
+                            />
                           </div>
                         </Link>
-                      </Slide>                 
-                        
+                      </Slide>
                     ))}
                 </div>
               </Slider>

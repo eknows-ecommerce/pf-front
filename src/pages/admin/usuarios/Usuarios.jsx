@@ -11,6 +11,8 @@ import Item from './Item'
 import SearchPanelAdmin from '../SearchPanelAdmin'
 import EditarModal from './EditarModal'
 
+import { getAll as getAllUsuarios } from 'features/actions/usuarios'
+
 const initialState = {
   id: null,
   name: '',
@@ -24,19 +26,12 @@ function Usuarios() {
 
   const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
   const { search, handleSearch } = useSearch()
-  // const { paginas, paginaAnterior, paginaSiguiente, handleTotal } =
-  //   usePaginacion()
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getAll(`?nickname=${search}`))
   }, [dispatch, search])
-
-  // useEffect(() => {
-  //   handleTotal(usuarios.length)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [paginas.totalPages])
 
   const handleEditarUsuario = (id, name, rol, isBan) => {
     setUsuario({ id, name, rol, isBan })

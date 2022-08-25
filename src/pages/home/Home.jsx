@@ -11,9 +11,10 @@ import Ordenamiento from 'components/filtros/Ordenamiento'
 import HomeLibros from 'components/contenedores/HomeLibros'
 import Paginacion2 from 'components/Paginacion/Paginacion2'
 import { setPaginasTotales, setReset } from 'features/reducers/librosSlice'
+import Swal from 'sweetalert2'
 
 function Home() {
-  const { user, isAuthenticated } = useAuth0()
+  const { user, isAuthenticated, logout } = useAuth0()
   const dispatch = useDispatch()
 
   const {
@@ -32,8 +33,22 @@ function Home() {
 
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
-  // const { paginado, handlePrevius, handleCurrent, handleNext, handleTotal } =
-  //   usePaginacion()
+  useEffect(() => {
+    if (usuario.isBan === true) {
+      Swal.fire({
+        title: 'Log in',
+        text: 'Tu cuenta ha sido temporalmente deshabilitada',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Entendido',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          logout()
+        } else {
+          logout()
+        }
+      })
+    }
+  }, [usuario])
 
   useEffect(() => {
     dispatch(setPaginasTotales({ count, limite: 6 }))

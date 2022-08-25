@@ -49,7 +49,15 @@ function CardLibro({
   }
 
   const handleCarrito = (id, precio) => {
-    Swal.fire('Agregar al carrito', 'Se ha agregado exitosamente', 'success')
+    Swal.fire({
+      title: 'Agregar al carrito',
+      text: 'Se ha agregado exitosamente',
+      icon: 'success',
+      timer: 1000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    })
+    // Swal.fire('Agregar al carrito', 'Se ha agregado exitosamente', 'success')
     const carrito = JSON.parse(localStorage.getItem('carrito')) ?? []
     const existe = carrito.length > 0 && carrito.find((item) => item.id === id)
     if (!existe) {

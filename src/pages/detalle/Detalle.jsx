@@ -26,7 +26,7 @@ export default function Detalle() {
   const [revs, setRevs] = useState(6)
   const navigate = useNavigate()
   const disptach = useDispatch()
-  const { user, isAuthenticated, loginWithPopup } = useAuth0()
+  const { user, isAuthenticated, loginWithPopup, logout } = useAuth0()
 
   const { libro, cargando, cambiarCargando } = useSelector(
     ({ librosStore }) => librosStore
@@ -34,6 +34,23 @@ export default function Detalle() {
   const { reviews } = useSelector(({ reviewsStore }) => reviewsStore)
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const { favoritos } = useSelector(({ favoritosStore }) => favoritosStore)
+
+  useEffect(() => {
+    if (usuario.isBan === true) {
+      Swal.fire({
+        title: 'Log in',
+        text: 'Tu cuenta ha sido temporalmente deshabilitada',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Entendido',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          logout()
+        } else {
+          logout()
+        }
+      })
+    }
+  }, [usuario])
 
   useEffect(() => {
     if (window.scrollY) {

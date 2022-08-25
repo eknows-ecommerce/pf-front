@@ -3,6 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 import Navegacion from './Navegacion'
 import {
+  getAll,
   getAll as getAllUsuarios,
   getByNickname,
 } from 'features/actions/usuarios'
@@ -17,6 +18,10 @@ export default function Admin() {
   const { user } = useAuth0()
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAll())
+  }, [usuario])
 
   useEffect(() => {
     dispatch(getByNickname(user))

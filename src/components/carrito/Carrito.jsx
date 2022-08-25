@@ -9,6 +9,7 @@ import Checkout from './Checkout'
 
 import { useAuth0 } from '@auth0/auth0-react'
 import Swal from 'sweetalert2'
+import { getByNickname, create } from 'features/actions/usuarios'
 
 function Carrito() {
   const [detalleCompra, setDetalleCompra] = useState({})
@@ -19,7 +20,9 @@ function Carrito() {
   )
   const [totalCompra, setTotalCompra] = useState(0)
   const { carrito } = useSelector(({ librosStore }) => librosStore)
-  const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
+  const { usuario, usuarios } = useSelector(
+    ({ usuariosStore }) => usuariosStore
+  )
 
   const { isAuthenticated, user, loginWithPopup } = useAuth0()
   const navigate = useNavigate()
@@ -115,13 +118,12 @@ function Carrito() {
         title: 'Log in',
         text: 'Debe logearse para agregar poder hacer una compra',
         // icon: 'info',
-        showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#E11D48',
         confirmButtonText: 'Si, ir a logearse',
       }).then((result) => {
         if (result.isConfirmed) {
-          loginWithPopup()
+          navigate('/')
         }
       })
     }
