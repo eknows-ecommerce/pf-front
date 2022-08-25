@@ -87,7 +87,7 @@ export default function Tablas({ setShowModal }) {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          {pedidoCount}
+                          {pedidoCount || 0}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Pedido/s
@@ -95,7 +95,7 @@ export default function Tablas({ setShowModal }) {
                       </div>
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          {favCount}
+                          {favCount || 0}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Favoritos
@@ -103,7 +103,7 @@ export default function Tablas({ setShowModal }) {
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          {reviewsByUser?.count}
+                          {reviewsByUser?.count || 0}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Reseñas
