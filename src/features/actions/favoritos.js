@@ -23,7 +23,6 @@ const createByUser = createAsyncThunk(
       })
       return data
     } catch (error) {
-      console.log(error)
       const msg = error.response.data.msg
       return msg
     }
@@ -32,6 +31,9 @@ const createByUser = createAsyncThunk(
 const deleteByUser = createAsyncThunk(
   'FAVORITOS/@DeleteByUser',
   async ({ usuarioId, libroId }) => {
+    console.log(usuarioId)
+    console.log(libroId)
+
     try {
       const { data } = await axios.delete(`${URL}/favoritos`, {
         data: {
@@ -41,7 +43,6 @@ const deleteByUser = createAsyncThunk(
       })
       return data
     } catch (error) {
-      console.log(error)
       const msg = error.response.data.msg
       return msg
     }

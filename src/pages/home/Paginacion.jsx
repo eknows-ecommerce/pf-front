@@ -4,14 +4,36 @@ import {
   setPaginaActual,
   setPaginaSiguiente,
   setPaginaAnterior,
+  setPaginasTotales,
+  setLimite,
 } from 'features/reducers/librosSlice'
+import { useEffect } from 'react'
+import { getAll } from 'features/actions/libros'
 
-export default function Paginacion2() {
+export default function Paginacion() {
   const {
-    paginado: { paginaActual, total },
+    paginado: { paginaActual, total, limite },
+    count,
   } = useSelector(({ librosStore }) => librosStore)
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setLimite(6))
+  }, [])
+
+  useEffect(() => {
+    dispatch(setPaginasTotales(count))
+  }, [])
+
+  useEffect(() => {
+    dispatch(getAll(`limite=${limite}&pagina=1`))
+    dispatch(setPaginaActual(1))
+  }, [])
+
+  useEffect(() => {
+    dispatch(getAll(`limite=6&pagina=${paginaActual}`))
+  }, [paginaActual])
 
   const handleAnterior = () => {
     dispatch(setPaginaAnterior())
@@ -49,11 +71,14 @@ export default function Paginacion2() {
       </li>
       {Array.from({ length: total }, (x, i) => i + 1).map((pagina) =>
         pagina === paginaActual ? (
-          <li className="block w-8 h-8 leading-8 text-center text-white bg-blue-600 border-blue-600 rounded-full">
+          <li
+            key={crypto.randomUUID()}
+            className="block w-8 h-8 leading-8 text-center text-white bg-blue-600 border-blue-600 rounded-full"
+          >
             {pagina}
           </li>
         ) : (
-          <li>
+          <li key={crypto.randomUUID()}>
             <a
               href={'#'}
               onClick={() => handleActual(pagina)}

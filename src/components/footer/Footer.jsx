@@ -21,8 +21,10 @@ const Footer = () => {
                 <div className="flex flex-wrap sm:gap-10 gap-8 items-center justify-center mt-8">
                     <Link to="/acercade"><p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Acerca de e-Knows</p></Link>
                     <Link to="/contactanos"><p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Contáctanos</p></Link>
-                    <Link to="terminos"> <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Términos de servicio</p></Link>
-                    <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Política de privacidad</p>
+
+                   <Link to="terminos"> <p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Términos de servicio</p></Link>
+                   <Link to="politicas"><p className="hover:text-gray-500 text-base cursor-pointer leading-4 text-gray-800">Política de privacidad</p></Link>
+
                 </div>
 
                 <div className="flex items-center gap-x-8 mt-6">

@@ -1,131 +1,55 @@
-import Button from "components/templates/Button";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
-export default function Barra(){
+import Button from 'components/templates/Button'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import imagen from '../../assets/img/logo.png'
+export default function Barra() {
   const { usuario } = useSelector(({ usuariosStore }) => usuariosStore)
 
-    return(
-        <div className="max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-      <Link to="/home">
+  return (
+    <section className="relative bg-white">
+      <img
+        className="absolute inset-0 object-[75%] sm:object-[25%] object-cover w-full h-full opacity-25 sm:opacity-100"
+        src={usuario.picture ? usuario.picture : imagen}
+        alt="Couple on a bed with a dog"
+      />
+      <div className="hidden sm:block sm:inset-0 sm:absolute sm:bg-gradient-to-r sm:from-white sm:to-transparent" />
+      <div className=" relative px-4 py-2   lg:flex">
+        <Link to="/home">
           <Button>Volver</Button>
-          </Link>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-8 lg:gap-x-16 lg:items-center">
-          <div className="max-w-lg mx-auto text-center lg:text-left lg:mx-0">
-          <img
-                 className="flex mt-10 rounded-full object-left w-40 h-40"
-                 src={usuario?.picture}
-                 alt="Man using a computer"
-               />
-            <h2 className="text-3xl font-bold sm:text-4xl">
-              Bienvenido {usuario?.name}
-            </h2>
-            
-            <p className="mt-4 text-gray-600">Este es tu perfil</p>
-
-            <p className="mt-4 text-gray-600">Correo: {usuario?.email}</p>
-            <p className="mt-4 text-gray-600"> Membresia:{usuario?.rol}</p>
-
-            <a
-              className="inline-flex items-center px-8 py-3 mt-8 text-white bg-indigo-600 border border-indigo-600 rounded hover:bg-transparent hover:text-indigo-600 active:text-indigo-500 focus:outline-none focus:ring"
-              href="/get-started"
-            >
-              <span className="text-sm font-medium"> Salir </span>
-              <svg
-                className="w-5 h-5 ml-3"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </a>
-
-
-          </div>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+        </Link>
+      </div>
+      <div className="relative max-w-screen-xl px-4 py-32 mx-auto lg:h-screen lg:items-center lg:flex">
+        <div className="max-w-xl text-center sm:text-left">
+          <h1 className="text-3xl font-extrabold sm:text-5xl">
+            Bienvenidx {usuario.name}
+          </h1>
+          <p className="max-w-lg mt-4 sm:leading-relaxed sm:text-xl">
+            En esta seccion encontrarás toda la informacion sobre tí
+          </p>
+          <div className="flex flex-wrap gap-4 mt-8 text-center">
             <Link
-              className="block p-4 border border-gray-100 shadow-sm rounded-xl focus:outline-none focus:ring hover:border-gray-200 hover:ring-1 hover:ring-gray-200"
               to="editar"
+              className="block w-full px-6 py-3 text-sm font-medium bg-rose-200 rounded shadow text-black sm:w-auto hover:text-rose-700 active:text-rose-500 focus:outline-none focus:ring"
             >
-              <span className="inline-block p-3 rounded-lg bg-gray-50">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                  />
-                </svg>
-              </span>
-              <h6 className="mt-2 font-bold">Editar Perfil</h6>
+              Edita tu perfil
             </Link>
             <Link
-              className="block p-4 border border-gray-100 shadow-sm rounded-xl focus:outline-none focus:ring hover:border-gray-200 hover:ring-1 hover:ring-gray-200"
-             to="pedidos"
+              to="pedidos"
+              className="block w-full px-6 py-3 text-sm font-medium bg-rose-200  rounded shadow text-black sm:w-auto hover:text-rose-700 active:text-rose-500 focus:outline-none focus:ring"
             >
-              <span className="inline-block p-3 rounded-lg bg-gray-50">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                  />
-                </svg>
-              </span>
-              <h6 className="mt-2 font-bold">Compras</h6>
-             
+              Revisa tus pedidos
             </Link>
+
             <Link
-              className="block p-4 border border-gray-100 shadow-sm rounded-xl focus:outline-none focus:ring hover:border-gray-200 hover:ring-1 hover:ring-gray-200"
-              to="#favoritos"
+              to="favoritos"
+              className="block w-full px-6 py-3 text-sm font-medium bg-rose-200 rounded shadow text-black sm:w-auto hover:text-rose-700 active:text-rose-500 focus:outline-none focus:ring"
+              href="/about"
             >
-              <span className="inline-block p-3 rounded-lg bg-gray-50">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 14l9-5-9-5-9 5 9 5z" />
-                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                  />
-                </svg>
-              </span>
-              <h6 className="mt-2 font-bold">Favoritos</h6>
+              Tus Favoritos
             </Link>
+          </div>
+        </div>
       </div>
-      </div>
-          
-      </div>
-    )
+    </section>
+  )
 }

@@ -4,11 +4,15 @@ import {
   getAll,
   create,
   getById,
+  getByLibro,
+  getByUser,
   update,
   /*deleteById,*/
 } from 'features/actions/review'
 
 const initialState = {
+  count: 0,
+  libro: {},
   reviews: [],
   review: {},
   cargando: null,
@@ -32,7 +36,6 @@ const reviewsSlice = createSlice({
       state.cargando = true
     },
     [getAll.fulfilled]: (state, { payload }) => {
-      console.log('payload', payload)
       state.cargando = false
       state.reviews = payload.reviews ?? []
     },
@@ -50,13 +53,37 @@ const reviewsSlice = createSlice({
     [getById.rejected]: (state) => {
       state.cargando = true
     },
+    //getByUser
+    [getByUser.pending]: (state) => {
+      state.cargando = true
+    },
+    [getByUser.fulfilled]: (state, { payload }) => {
+      state.cargando = false
+      state.review = payload.review
+    },
+    [getByUser.rejected]: (state) => {
+      state.cargando = true
+    },
+    //getByLibro
+    [getByLibro.pending]: (state) => {
+      state.cargando = true
+    },
+    [getByLibro.fulfilled]: (state, { payload }) => {
+      state.cargando = false
+      state.libro = payload?.libro;
+      state.reviews = payload?.libro?.ReviewLibro;
+      state.count = payload?.count
+    },
+    [getByLibro.rejected]: (state) => {
+      state.cargando = true
+    },
     //create
     [create.pending]: (state) => {
       state.cargando = true
     },
     [create.fulfilled]: (state, { payload }) => {
       state.cargando = false
-      state.reviews = [...state.reviews, payload.review]
+      state.reviews = [...state.reviews, payload?.review]
       state.total = state.total + 1
     },
     [create.rejected]: (state) => {
@@ -93,9 +120,6 @@ const reviewsSlice = createSlice({
   },
 })
 
-export const {
-  cambiarCargando,
-  setBusqueda,
-} = reviewsSlice.actions
+export const { cambiarCargando, setBusqueda } = reviewsSlice.actions
 
 export default reviewsSlice.reducer

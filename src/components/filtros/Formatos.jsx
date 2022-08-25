@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { setFormatos } from 'features/reducers/librosSlice'
+import { setFormatos, setPaginaActual } from 'features/reducers/librosSlice'
 
-function RangoPrecios({ reset, setReset, handleCurrent }) {
+function RangoPrecios({ reset, setReset }) {
   const dispatch = useDispatch()
   const [selected, setSelected] = useState({})
   const items = [
@@ -44,7 +44,7 @@ function RangoPrecios({ reset, setReset, handleCurrent }) {
       }
     })
     dispatch(setFormatos(whereFormatos))
-    handleCurrent(1)
+    dispatch(setPaginaActual(1))
   }, [selected])
 
   return (

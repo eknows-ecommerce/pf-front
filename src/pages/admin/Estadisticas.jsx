@@ -1,123 +1,76 @@
+import { useSelector, useDispatch } from 'react-redux'
+import { getAll as getAllUsuarios } from 'features/actions/usuarios'
+import { getAll as getAllLibros } from 'features/actions/libros'
+import { getAll as getAllPedidos } from 'features/actions/pedidos'
+import { useEffect, useState } from 'react'
+
 function Estadisticas() {
+  const [ganancias, setGanancias] = useState(0)
+  const { usuarios } = useSelector(({ usuariosStore }) => usuariosStore)
+  const { libros } = useSelector(({ librosStore }) => librosStore)
+  const { pedidos } = useSelector(({ pedidosStore }) => pedidosStore)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    let cuenta = 0
+    pedidos.forEach((pedido) => {
+      pedido.DetalleLibro.forEach((libro) => {
+        cuenta += libro.precio * libro.Detalle.cantidad
+      })
+    })
+    setGanancias(cuenta)
+  }, [pedidos])
+
+  useEffect(() => {
+    dispatch(getAllUsuarios())
+    dispatch(getAllLibros())
+    dispatch(getAllPedidos())
+  }, [])
+
   return (
-    <div className="w-full flex items-center justify-center">
-      <div className="py-4 sm:py-6 md:py-8 bg-white shadow rounded-lg">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-6 xl:px-10 gap-y-8 gap-x-12 2xl:gap-x-28">
+    <div className="w-full flex items-center justify-center my-5">
+      <div className="py-4 sm:py-6 md:py-8 bg-white shadow rounded-lg w-full">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-8 px-12 gap-x-12 2xl:gap-x-28 w-full">
           <div className="w-full">
             <p className="text-xs md:text-sm font-medium leading-none text-gray-500 uppercase">
-              Sales
+              Libros
             </p>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-3 text-gray-800 mt-3 md:mt-5">
-              89.5%
+            <p className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-3 text-[#3b82f6] mt-3 md:mt-5">
+              {libros.length}
             </p>
-            <div className="flex flex-col md:w-64">
-              <div className="w-full flex justify-end">
-                <div className="flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={16}
-                    height={16}
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M8 3.33334V12.6667"
-                      stroke="#16A34A"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M12 7.33334L8 3.33334"
-                      stroke="#16A34A"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M4 7.33334L8 3.33334"
-                      stroke="#16A34A"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <p className="text-xs leading-none text-green-600">4.3%</p>
-                </div>
-              </div>
-              <div className="mt-2.5">
-                <div className="w-full h-1 bg-gray-200 rounded-full">
-                  <div className="w-1/2 h-1 bg-blue-500 rounded-full" />
-                </div>
-              </div>
-            </div>
-            <p className="mt-1.5 text-xs leading-3 text-gray-400">
-              Yearly target
-            </p>
+            <p className="mt-1.5 text-xs leading-3 text-gray-400">Totales</p>
           </div>
+
           <div className="w-full">
             <p className="text-xs md:text-sm font-medium leading-none text-gray-500 uppercase">
-              revenue
+              Pedidos
             </p>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-3 text-gray-800 mt-3 md:mt-5">
-              $75,000
+            <p className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-3 text-[#d2439c] mt-3 md:mt-5">
+              {pedidos.length}
             </p>
-            <div className="flex flex-col">
-              <div className="h-4" />
-              <div className="md:w-64 mt-2.5">
-                <div className="w-full h-1 bg-gray-200 rounded-full">
-                  <div className="w-40 h-1 bg-lime-500 rounded-full" />
-                </div>
-              </div>
-            </div>
-            <p className="mt-1.5 text-xs leading-3 text-gray-400">
-              Yearly target
-            </p>
+            <p className="mt-1.5 text-xs leading-3 text-gray-400">Totales</p>
           </div>
+
           <div className="w-full">
             <p className="text-xs md:text-sm font-medium leading-none text-gray-500 uppercase">
-              customers
+              Ganancias
             </p>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-3 text-gray-800 mt-3 md:mt-5">
-              3922
+            <p className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-3 text-[#84cc16] mt-3 md:mt-5">
+              ${ganancias.toFixed(2)}
             </p>
-            <div className="flex flex-col md:w-64">
-              <div className="w-full flex justify-end">
-                <div className="flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={16}
-                    height={16}
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M8 3.33334V12.6667"
-                      stroke="#16A34A"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M12 7.33334L8 3.33334"
-                      stroke="#16A34A"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M4 7.33334L8 3.33334"
-                      stroke="#16A34A"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <p className="text-xs leading-none text-green-600">9.1%</p>
-                </div>
-              </div>
-              <div className="mt-2.5">
-                <div className="w-full h-1 bg-gray-200 rounded-full">
-                  <div className="w-44 h-1 bg-yellow-500 rounded-full" />
-                </div>
-              </div>
-            </div>
+            <p className="mt-1.5 text-xs leading-3 text-gray-400">Meta Anual</p>
+          </div>
+
+          <div className="w-full">
+            <p className="text-xs md:text-sm font-medium leading-none text-gray-500 uppercase">
+              Usuarios
+            </p>
+            <p className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-3 text-[#eab308] mt-3 md:mt-5">
+              {usuarios.length}
+            </p>
             <p className="mt-1.5 text-xs leading-3 text-gray-400">
-              Yearly target
+              Registrados
             </p>
           </div>
         </div>
