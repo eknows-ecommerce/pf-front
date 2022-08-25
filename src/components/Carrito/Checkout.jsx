@@ -17,9 +17,9 @@ import { useState, useEffect } from 'react'
 const {
   REACT_APP_URL_BASE_API,
   REACT_APP_STRIPE_CHECKOUT_PK,
-  EMAILJS_SERVICE,
-  EMAILJS_TEMPLATE,
-  EMAILJS_APIKEY,
+  REACT_APP_EMAILJS_SERVICE,
+  REACT_APP_EMAILJS_TEMPLATE,
+  REACT_APP_EMAILJS_APIKEY,
 } = process.env
 
 const inputStyle = {
@@ -99,29 +99,26 @@ function CheckoutForm({ detalleCompra, setCarritoLS }) {
 
       localStorage.setItem('carrito', JSON.stringify([]))
       setCarritoLS(JSON.parse(localStorage.getItem('carrito')) || [])
-      
-      if (success.status) {
-        let emailJson = {}
-        emailJson['to_name'] = usuario.name;
-        emailJson['to_email'] = detalleCompra.email;
-        let comprado = [...detalleCompra.description.libros];
-        comprado.map((lCarrito) => lCarrito['titulo'] = totalLibros.find((lStore) => lCarrito.id === lStore.id).titulo)
-        //emailJson['user_libros'] = JSON.stringify(comprado);
-        let libros = ""; let total = 0;
-        comprado.forEach(e => {
-          libros = e.titulo + ' cantidad:' + e.cantidad + ' precio: $' + e.libros * e.cantidad+'\n'
-          total += e.libros * e.cantidad
-        })
-        libros="Total: $"+total
-        emailJson['user_libros'] = libros;
-        //console.log(emailJson)
-        emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, emailJson, EMAILJS_APIKEY)
-          .then(function (response) {
-            console.log('SUCCESS!', response.status, response.text);
-          }, function (error) {
-            console.log('FAILED...', error);
-          });
-      }
+
+      let emailJson = {}
+      emailJson['to_name'] = usuario.name;
+      emailJson['to_email'] = detalleCompra.email;
+      let comprado = [...detalleCompra.description.libros];
+      comprado.map((lCarrito) => lCarrito['titulo'] = totalLibros.find((lStore) => lCarrito.id === lStore.id).titulo)
+      let libros = ""; let total = 0;
+      comprado.forEach(e => {
+        libros += e.titulo + ' cantidad:' + e.cantidad + ' precio: $' + e.precio * e.cantidad + '\n'
+        total += e.precio * e.cantidad
+      })
+      libros += "Total: $" + total
+      emailJson['user_libros'] = libros;
+      console.log(emailJson)
+      emailjs.send(REACT_APP_EMAILJS_SERVICE, REACT_APP_EMAILJS_TEMPLATE, emailJson, REACT_APP_EMAILJS_APIKEY)
+        .then(function (response) {
+          console.log('SUCCESS!', response.status, response.text);
+        }, function (error) {
+          console.log('FAILED...', error);
+        });
     }
   }
 
