@@ -26,8 +26,8 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                      src={logo}
-                      alt="LOGO"
+                      src="https://avatars.githubusercontent.com/u/94318456"
+                      alt=""
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
@@ -96,15 +96,15 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                      src={logo}
-                      alt="logo"
+                      src="https://avatars.githubusercontent.com/u/104025084"
+                      alt=""
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
                 </div>
                 <div className="px-6 mt-16">
                   <div className="font-bold text-3xl text-center pb-1">
-                    Alex
+                    Alex Terrones
                   </div>
                   {/* <p className="text-gray-800 text-sm text-center">Product Design Head</p> */}
                   <p className="text-center text-gray-600 text-base pt-3 font-normal">
@@ -166,8 +166,8 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                      src={logo}
-                      alt="logo"
+                      src="https://avatars.githubusercontent.com/u/104043118"
+                      alt=""
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
@@ -236,8 +236,8 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                    src={logo}
-                    alt="logo"
+                    src="https://avatars.githubusercontent.com/u/97110478"
+                    alt=""
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
@@ -248,7 +248,7 @@ export default function AcercaDe() {
                   </div>
                   {/* <p className="text-gray-800 text-sm text-center">Principal Software Engineer</p> */}
                   <p className="text-center text-gray-600 text-base pt-3 font-normal">
-                    FullStack Developer.
+                    FullStack Developer
                   </p>
                   <div className="w-full flex justify-center pt-5 pb-5">
                     <a href="https://github.com/RichyMalicia" className="mx-5">
@@ -269,7 +269,6 @@ export default function AcercaDe() {
                         </svg>
                       </div>
                     </a>
-                   
                     <a href="https://www.instagram.com/richy_malicia/" className="mx-5">
                       <div>
                         <svg
@@ -306,8 +305,8 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                     src={logo}
-                     alt="logo"
+                     src="https://avatars.githubusercontent.com/u/95650277"
+                     alt=""
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
@@ -376,15 +375,15 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                    src={logo}
-                    alt="logo"
+                    src="https://avatars.githubusercontent.com/u/36178170"
+                    alt=""
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
                   </div>
                 </div>
                 <div className="px-6 mt-16">
                   <div className="font-bold text-3xl text-center pb-1">
-                    Matias
+                    Matias Cardullo
                   </div>
                   {/* <p className="text-gray-800 text-sm text-center">UX Designer</p> */}
                   <p className="text-center text-gray-600 text-base pt-3 font-normal">
