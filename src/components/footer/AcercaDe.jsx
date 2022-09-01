@@ -375,7 +375,7 @@ export default function AcercaDe() {
                 <div className="absolute -mt-20 w-full flex justify-center">
                   <div className="h-32 w-32">
                     <img
-                    src="https://i.ibb.co/6rb7hWS/Whats-App-Image-2020-12-16-at-15-28-12.jpg"
+                    src="https://avatars.githubusercontent.com/u/36178170"
                     alt=""
                       className="rounded-full object-cover h-full w-full shadow-md"
                     />
